@@ -14,10 +14,9 @@ Making changes to repository:
     * Write summary and comments; commit (bottom left)
     * Push (top right)
 
-//TODO: Changing Branches, Merge Requests
-
 Changing Branches:
     * Current Branch dropdown (top center) -> select branch
 
-Merge Request:
-    * 
+Merging into Main:
+    * Current Branch dropdown -> main -> choose branch to merge into main (bottom)
+    * Select branch you were working on
