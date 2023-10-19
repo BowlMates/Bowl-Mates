@@ -13,3 +13,11 @@ Making changes to repository:
     * Select "Changes" below "Current repository"
     * Write summary and comments; commit (bottom left)
     * Push (top right)
+
+//TODO: Changing Branches, Merge Requests
+
+Changing Branches:
+    * Current Branch dropdown (top center) -> select branch
+
+Merge Request:
+    * 
