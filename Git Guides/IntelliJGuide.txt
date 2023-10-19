@@ -19,3 +19,5 @@ Linking GitHub Account:
 Making changes:
     * Pull (blue down-left arrow at top right)
     * Commit (green checkmark at top right)
+    * Select changes on left and write summary
+    * Commit and Push
