@@ -2,7 +2,7 @@ This guide assumes you are signed in to your GitHub account!
 
 Making Changes:
     * git pull
-    * git add (affected files)
+    * git add (affected files) (IntelliJ will add new files automatically)
     * git commit
     * git push
 
