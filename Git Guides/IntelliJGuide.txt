@@ -1,3 +1,8 @@
 This Guide assumes you have IntelliJ downloaded and installed!
 
 //TODO: Linking GitHub Account, Posting Changes
+
+Linking GitHub Account:
+    If project is open (not at IntelliJ menu screen):
+        * File -> Close Project (This will bring you to the IntelliJ menu screen
+    *
