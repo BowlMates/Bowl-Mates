@@ -6,15 +6,17 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="bowl-mates-backend-api" />
+        <module name="bowl-mates-backend" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="bowl-mates-backend" target="19" />
       <module name="bowl-mates-backend-api" target="19" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="bowl-mates-backend" options="-parameters" />
       <module name="bowl-mates-backend-api" options="-parameters" />
     </option>
   </component>

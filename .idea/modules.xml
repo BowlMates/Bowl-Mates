@@ -3,7 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/Bowl-Mates.iml" filepath="$PROJECT_DIR$/.idea/Bowl-Mates.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Bowl-Mates-Backend/bowl-mates-backend-api.iml" filepath="$PROJECT_DIR$/Bowl-Mates-Backend/bowl-mates-backend-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bowl-mates-backend/bowl-mates-backend.iml" filepath="$PROJECT_DIR$/bowl-mates-backend/bowl-mates-backend.iml" />
       <module fileurl="file://$PROJECT_DIR$/bowl-mates-frontend.iml" filepath="$PROJECT_DIR$/bowl-mates-frontend.iml" />
     </modules>
   </component>
