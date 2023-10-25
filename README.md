@@ -14,5 +14,5 @@ Standardization:
   * JDK 21
     * Springboot 3.1.5
   * Microsoft SQL Server
-  * NodeJS 16.18.59
-  * ReactJS 18.2.0
+  * NodeJS 20.8.9
+  * ReactJS 18.2.32
