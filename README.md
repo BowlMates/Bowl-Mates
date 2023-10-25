@@ -11,7 +11,8 @@ Collaborators:
 
 Standardization:
 
-  * JDK
+  * JDK 21
+    * Springboot 3.1.5
   * Microsoft SQL Server
-  * NodeJS
-  * ReactJS
+  * NodeJS 16.18.59
+  * ReactJS 18.2.0
