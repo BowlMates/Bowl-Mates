@@ -8,3 +8,10 @@ Collaborators:
 * Cade Dillon
 * Geoffrey Aldrich
 * Jasper Balinas
+
+Standardization:
+
+  * JDK
+  * Microsoft SQL Server
+  * NodeJS
+  * ReactJS
