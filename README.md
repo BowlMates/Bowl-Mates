@@ -9,7 +9,7 @@ Collaborators:
 * Geoffrey Aldrich
 * Jasper Balinas
 
-Standardization:
+Version Info:
 
   * JDK 21.0.1
     * Springboot 3.1.5
