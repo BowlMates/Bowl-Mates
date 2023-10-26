@@ -1,6 +1,6 @@
-This Guide assumes you have IntelliJ downloaded and installed!
+#This Guide assumes you have IntelliJ downloaded and installed!
 
-Linking GitHub Account:
+#Linking GitHub Account:
     If project is open (not at IntelliJ menu screen):
         * File -> Close Project (This will bring you to the IntelliJ menu screen
     * Projects -> Get from VCS (top right)
@@ -16,12 +16,12 @@ Linking GitHub Account:
         * Paste in IntelliJ
         * Log in
 
-Making Changes:
+#Making Changes:
     * Pull (blue down-left arrow at top right)
     * Commit (green checkmark at top right)
     * Select changes on left and write summary
     * Commit and Push -> Push
 
-Changing Branch:
+#Changing Branch:
     * Git (top of screen) -> Branches
     * Select branch
