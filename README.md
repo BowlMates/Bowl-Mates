@@ -8,3 +8,11 @@ Collaborators:
 * Cade Dillon
 * Geoffrey Aldrich
 * Jasper Balinas
+
+Version Info:
+
+  * JDK 21.0.1
+    * Springboot 3.1.5
+  * Microsoft SQL Server
+  * NodeJS 20.8.9
+  * ReactJS 18.2.32
