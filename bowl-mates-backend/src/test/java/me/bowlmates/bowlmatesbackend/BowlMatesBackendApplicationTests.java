@@ -8,6 +8,7 @@ class BowlMatesBackendApplicationTests {
 
     @Test
     void contextLoads() {
+
     }
 
 }
