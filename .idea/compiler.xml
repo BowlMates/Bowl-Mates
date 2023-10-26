@@ -7,7 +7,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="bowl-mates-backend" options="-parameters" />
+      <module name="bowl-mates-backend" options="-parameters --add-modules java.sql" />
       <module name="bowl-mates-backend-api" options="-parameters" />
     </option>
   </component>
