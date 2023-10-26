@@ -1,6 +1,9 @@
 # Bowl-Mates
 
-Collaborators:
+##Repository Layout:
+* ###
+
+##Collaborators:
 
 * Daniel Johnson
 * Stephen Cushing
@@ -9,7 +12,7 @@ Collaborators:
 * Geoffrey Aldrich
 * Jasper Balinas
 
-Version Info:
+##Version Info:
 
   * JDK 21.0.1
     * Springboot 3.1.5
