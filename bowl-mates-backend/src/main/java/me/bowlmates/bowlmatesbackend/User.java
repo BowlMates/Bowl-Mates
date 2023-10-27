@@ -40,6 +40,10 @@ public class User {
         approved = new ArrayList<>();
     }
 
+    /**
+     *
+     * @return username
+     */
     public String getUsername() {
         return this.username;
     }

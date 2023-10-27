@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"me.bowlmates.bowlmatesbackend","l":"BowlMatesBackendApplication"},{"p":"me.bowlmates.bowlmatesbackend","l":"MatchingQueue"},{"p":"me.bowlmates.bowlmatesbackend","l":"User"}];updateSearchResults();
