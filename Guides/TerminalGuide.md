@@ -1,22 +1,22 @@
-#This guide assumes you are signed in to your GitHub account!
+# This guide assumes you are signed in to your GitHub account!
 
-#Making Changes:
+## Making Changes:
     * git pull
     * git add (affected files) (IntelliJ will add new files automatically)
     * git commit
     * git push
 
-#Changing Branches:
+## Changing Branches:
     * git checkout <branch name>
 
-#Merging Branch to Main:
+## Merging Branch to Main:
     * git checkout main
     * git merge <branch name>
     
-#Running the JavaScript Standard Linter:
+## Running the JavaScript Standard Linter:
     * (Navigate to frontend src directory)
     * npx standard <filename> (may prompt you for install)
 
-#Testing the frontend:
+## Testing the frontend:
     * (navigate to frontend directory)
     * npm start (should open browser window)
