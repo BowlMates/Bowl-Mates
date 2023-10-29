@@ -32,7 +32,7 @@ jobs:
         
     - name: Grant execute permission for gradlew + build
       run: | 
-        cd bowl-mates-backend
+        cd bowl-mates-backend/target
         chmod +x gradlew
         ./gradlew build
-      working-directory: bowl-mates-backend
+      working-directory: bowl-mates-backend/target
