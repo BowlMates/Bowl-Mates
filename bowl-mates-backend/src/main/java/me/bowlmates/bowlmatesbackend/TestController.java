@@ -21,6 +21,10 @@ public class TestController {
         // @ResponseBody means the returned String is the response, not a view name
         // @RequestParam means it is a parameter from the GET or POST request
 
+        if (userRepository.findByEmail(email) != null) {
+            return "Email already exists"; // You can return an error message or handle it as you prefer
+        }
+
         TestUser n = new TestUser();
         n.setName(name);
         n.setEmail(email);

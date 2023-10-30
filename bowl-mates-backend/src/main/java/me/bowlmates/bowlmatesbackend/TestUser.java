@@ -4,16 +4,18 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Table;
+import jakarta.persistence.Column;
 
 @Entity // This tells Hibernate to make a table out of this class
 @Table(name = "TestTable")
 public class TestUser {
     @jakarta.persistence.Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer id;
 
     private String name;
 
+    @Column(unique = true) // Make the 'email' field unique
     private String email;
 //    private String userName;
 //    private String password;
