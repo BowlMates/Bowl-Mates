@@ -17,8 +17,9 @@ public class TestUser {
 
     @Column(unique = true) // Make the 'email' field unique
     private String email;
-//    private String userName;
-//    private String password;
+    @Column(unique = true) // Make the 'username' field unique
+    private String username;
+    private String password;
 
     public Integer getId() {
         return id;
@@ -44,19 +45,19 @@ public class TestUser {
         this.email = email;
     }
 
-//    public String getUsername() {
-//        return this.userName;
-//    }
-//
-//    public void setUserName(String userName) {
-//        this.userName = userName;
-//    }
-//
-//    public String getPassword() {
-//        return this.password;
-//    }
-//
-//    public void setPassword(String password) {
-//        this.password = password;
-//    }
+    public String getUsername() {
+        return this.username;
+    }
+
+    public void setUsername(String userName) {
+        this.username = userName;
+    }
+
+    public String getPassword() {
+        return this.password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }
