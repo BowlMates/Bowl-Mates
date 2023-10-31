@@ -1,4 +1,4 @@
-# Bowl-Mates
+# Bowl-Mates 
 
 ## Repository Layout:
 * ### bowl-mates-backend
