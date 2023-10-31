@@ -3,13 +3,21 @@
 ## Repository Layout:
 * ### bowl-mates-backend
   * Gradle files
-  * Spring Server program
-  * Backend Java Classes
-  * Backend Java Class Tests
+  * Documentation (as web pages from JavaDocs)
+  * src
+    * Spring Server program
+    * Backend Java Classes
+    * Backend Java Class Tests
+  * target
+    * Spring Classes
   * Docker files
 * ### bowl-mates-frontend
   * Node modules
-  * JS App files
+  * public
+    * Webpage assets
+  * src
+    * JS App files
+    * Webpage assets
   * Docker files
 * ### Guides
   * Guides for Git, Node, etc.
@@ -30,6 +38,6 @@
   * JDK 21.0.1
   * Springboot 3.1.5
   * MySQL 8.0.35
-  * TypeScript 3.2.1
+  * TypeScript 4.9.5
   * NodeJS 20.8.9
   * ReactJS 18.2.32
