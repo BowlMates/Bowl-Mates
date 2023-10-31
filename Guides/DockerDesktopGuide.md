@@ -4,7 +4,7 @@
 
 ## 2. Navigate to backend project folder using intellij
 
-## 3. Use Gradle clean, build, jar commands (in this order)
+## 3. Use Gradle (under build) clean, build, jar commands (in this order)
 
 ## 4. Go to the docker-compose.yml and click the double arrow
 - This will build images for the frontend and backend
