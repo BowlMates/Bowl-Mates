@@ -1,10 +1,12 @@
 package me.bowlmates.bowlmatesbackend;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Table;
-import jakarta.persistence.Column;
+import jakarta.annotation.Nullable;
+import jakarta.persistence.*;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity // This tells Hibernate to make a table out of this class
 @Table(name = "TestTable")
@@ -20,6 +22,13 @@ public class TestUser {
     @Column(unique = true) // Make the 'username' field unique
     private String username;
     private String password;
+
+    @ManyToMany
+    @JoinTable(name = "user_favorite_restaurants",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "restaurant_id"))
+    private Set<Restaurant> favoriteRestaurants = new HashSet<>();
+
 
     public Integer getId() {
         return id;
@@ -59,5 +68,13 @@ public class TestUser {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Set<Restaurant> getFavoriteRestaurants() {
+        return this.favoriteRestaurants;
+    }
+
+    public void setFavoriteRestaurants(Set<Restaurant> favoriteRestaurants) {
+        this.favoriteRestaurants = favoriteRestaurants;
     }
 }

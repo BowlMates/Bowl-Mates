@@ -41,7 +41,7 @@ import java.util.Set;
 public class TestUserDetailService implements UserDetailsService {
 
     @Autowired
-    private UserRepo userRepository; // You need to create UserRepository that interacts with your MySQL database.
+    private UserRepo userRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

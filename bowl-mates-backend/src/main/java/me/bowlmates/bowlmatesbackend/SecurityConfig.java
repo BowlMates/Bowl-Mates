@@ -19,18 +19,15 @@ public class SecurityConfig {
         this.customUserDetailsService = customUserDetailsService;
     }
 
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .logout(logout -> logout
-                        .logoutUrl("/custom-logout")
-//                        .addLogoutHandler()
-                        .logoutSuccessUrl("/login?logout")
-                        .invalidateHttpSession(true)
-                        .deleteCookies("JSESSIONID"))
                 .csrf(Customizer.withDefaults())
                 .authorizeHttpRequests(authorize -> authorize
+
                         .requestMatchers("/register").permitAll()
+//                        .requestMatchers("/login").permitAll()
                         .anyRequest().authenticated()
 
                 )
