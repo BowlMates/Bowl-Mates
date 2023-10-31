@@ -17,6 +17,11 @@
     * (Navigate to frontend src directory)
     * npx standard <filename> (may prompt you for install)
 
+## Running the TypeScript Standard Linter:
+    * (Navigate to frontend src directory)
+    * (install with) npm install ts-standard
+    * npx ts-standard ./src/<filename>
+
 ## Testing the frontend:
     * (navigate to frontend directory)
     * npm start (should open browser window)
