@@ -28,7 +28,8 @@
 ## Version Info:
 
   * JDK 21.0.1
-    * Springboot 3.1.5
+  * Springboot 3.1.5
   * MySQL 8.0.35
+  * TypeScript 3.2.1
   * NodeJS 20.8.9
   * ReactJS 18.2.32
