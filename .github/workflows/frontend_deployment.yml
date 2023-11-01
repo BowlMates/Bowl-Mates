@@ -1,4 +1,4 @@
-name: Build and deploy Docker app to Lightsail
+name: CD for frontend
 on:
   push:
     branches: [ "deployment-testing" ]
