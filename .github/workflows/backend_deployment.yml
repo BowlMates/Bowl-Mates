@@ -47,6 +47,7 @@ jobs:
           pwd
           chmod +x gradlew
           ./gradlew jar
+          cd ..
       #Need to build a gradle image before building docker image
       - name: Build Docker Image
         working-directory: './bowl-mates-backend'
