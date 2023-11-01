@@ -1,7 +1,7 @@
 {
   "containers": {
     "frontend": {
-      "image": "",
+      "image": "docker.io/library/bowlmates-container-service:release",
       "environment": {
         "APP_ENV": "release",
         "NODE_ENV": "production"
