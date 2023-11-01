@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Registration and Login System</title>
+    <title>Restaurant Registration</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
           rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
@@ -11,7 +11,7 @@
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" th:href="@{/index}">Registration and Login System</a>
+        <a class="navbar-brand" th:href="@{/index}">Restaurant Registration System</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -30,74 +30,74 @@
     <div class="row col-md-8 offset-md-2">
         <div class="card">
             <div class="card-header">
-                <h2 class="text-center">Registration</h2>
+                <h2 class="text-center">Restaurant Registration</h2>
             </div>
             <div th:if="${param.success}">
                 <div class="alert alert-info">
-                    You have successfully registered for BowlMates!
+                    You have successfully registered your restaurant on BowlMates!
                 </div>
             </div>
             <div class="card-body">
                 <form
                         method="post"
                         role="form"
-                        th:action="@{/register/save}"
-                        th:object="${user}"
+                        th:action="@{/restaurant/save}"
+                        th:object="${rest}"
                 >
                     <div class="form-group mb-3">
-                        <label class="form-label">Name</label>
+                        <label class="form-label">Restaurant Name</label>
                         <input
                                 class="form-control"
-                                id="name"
-                                name="name"
-                                placeholder="Enter name"
-                                th:field="*{name}"
+                                id="restaurant_name"
+                                name="restaurant_name"
+                                placeholder="Enter restaurant name"
+                                th:field="*{restaurant_name}"
                                 type="text"
                         />
-                        <p th:errors="*{name}" class="text-danger"
-                           th:if="${#fields.hasErrors('name')}"></p>
+                        <p th:errors="*{restaurant_name}" class="text-danger"
+                           th:if="${#fields.hasErrors('restaurant_name')}"></p>
                     </div>
 
                     <div class="form-group mb-3">
-                        <label class="form-label">Username</label>
+                        <label class="form-label">Address</label>
                         <input
                                 class="form-control"
-                                id="username"
-                                name="username"
-                                placeholder="Enter username"
-                                th:field="*{username}"
+                                id="address"
+                                name="address"
+                                placeholder="Enter address"
+                                th:field="*{address}"
                                 type="text"
                         />
-                        <p th:errors="*{username}" class="text-danger"
-                           th:if="${#fields.hasErrors('username')}"></p>
+                        <p th:errors="*{address}" class="text-danger"
+                           th:if="${#fields.hasErrors('address')}"></p>
                     </div>
 
                     <div class="form-group mb-3">
-                        <label class="form-label">Email</label>
+                        <label class="form-label">Cuisine Type</label>
                         <input
                                 class="form-control"
-                                id="email"
-                                name="email"
-                                placeholder="Enter email address"
-                                th:field="*{email}"
-                                type="email"
+                                id="cuisine"
+                                name="cuisine"
+                                placeholder="Enter cuisine type"
+                                th:field="*{cuisine}"
+                                type="cuisine"
                         />
-                        <p th:errors="*{email}" class="text-danger"
-                           th:if="${#fields.hasErrors('email')}"></p>
+                        <p th:errors="*{cuisine}" class="text-danger"
+                           th:if="${#fields.hasErrors('cuisine')}"></p>
                     </div>
 
                     <div class="form-group mb-3">
-                        <label class="form-label">Password</label>
+                        <label class="form-label">Rating</label>
                         <input
                                 class="form-control"
-                                id="password"
-                                name="password"
-                                placeholder="Enter password"
-                                th:field="*{password}"
-                                type="password"
+                                id="rating"
+                                name="rating"
+                                placeholder="Enter rating"
+                                th:field="*{rating}"
+                                type="rating"
                         />
-                        <p th:errors="*{password}" class="text-danger"
-                           th:if="${#fields.hasErrors('password')}"></p>
+                        <p th:errors="*{rating}" class="text-danger"
+                           th:if="${#fields.hasErrors('rating')}"></p>
                     </div>
                     <div class="form-group">
                         <button class="btn btn-primary" type="submit">Register</button>

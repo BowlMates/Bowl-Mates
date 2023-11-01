@@ -13,7 +13,7 @@ public class UserPreferences {
 
     @ManyToOne
     @JoinColumn(name = "restaurant_id")
-    private Restaurant restaurant;
+    private TestRestaurant testRestaurant;
 
     public Integer getId() {
         return id;

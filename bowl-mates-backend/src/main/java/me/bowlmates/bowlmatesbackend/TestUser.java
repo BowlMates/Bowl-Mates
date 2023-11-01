@@ -9,25 +9,27 @@ import java.util.List;
 import java.util.Set;
 
 @Entity // This tells Hibernate to make a table out of this class
-@Table(name = "TestTable")
+@Table(name = "test_user")
 public class TestUser {
     @jakarta.persistence.Id
     @GeneratedValue(strategy=GenerationType.AUTO)
+    @Column(unique = true)
     private Integer id;
-
+    @Column
     private String name;
 
     @Column(unique = true) // Make the 'email' field unique
     private String email;
     @Column(unique = true) // Make the 'username' field unique
     private String username;
+    @Column
     private String password;
 
     @ManyToMany
     @JoinTable(name = "user_favorite_restaurants",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "restaurant_id"))
-    private Set<Restaurant> favoriteRestaurants = new HashSet<>();
+    private Set<TestRestaurant> favoriteRestaurants = new HashSet<>();
 
 
     public Integer getId() {
@@ -70,11 +72,11 @@ public class TestUser {
         this.password = password;
     }
 
-    public Set<Restaurant> getFavoriteRestaurants() {
-        return this.favoriteRestaurants;
-    }
-
-    public void setFavoriteRestaurants(Set<Restaurant> favoriteRestaurants) {
-        this.favoriteRestaurants = favoriteRestaurants;
-    }
+//    public Set<Restaurant> getFavoriteRestaurants() {
+//        return this.favoriteRestaurants;
+//    }
+//
+//    public void setFavoriteRestaurants(Set<Restaurant> favoriteRestaurants) {
+//        this.favoriteRestaurants = favoriteRestaurants;
+//    }
 }
