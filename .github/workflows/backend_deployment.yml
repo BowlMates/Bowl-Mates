@@ -43,7 +43,7 @@ jobs:
       - name: Grant execute permission for gradlew + jar
         run: |
           pwd
-          cd ..
+          cd bowl-mates-backend
           pwd
           chmod +x gradlew
           ./gradlew jar
