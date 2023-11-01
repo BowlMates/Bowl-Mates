@@ -13,12 +13,12 @@
   },
   "publicEndpoint": {
     "containerName": "backend",
-    "containerPort": 3000,
+    "containerPort": 8080,
     "healthCheck": {
-      "healthyThreshold": 10,
-      "unhealthyThreshold": 10,
-      "timeoutSeconds": 60,
-      "intervalSeconds": 300,
+      "healthyThreshold": 2,
+      "unhealthyThreshold": 2,
+      "timeoutSeconds": 5,
+      "intervalSeconds": 10,
       "path": "/",
       "successCodes": "200-499"
     }
