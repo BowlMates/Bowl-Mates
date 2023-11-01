@@ -1,11 +1,13 @@
 name: Build and deploy Docker app to Lightsail
 on:
   push:
-    branches:
-      [ "main" ]
+    branches: [ "deployment-testing" ]
+  pull_request:
+    branches: [ "deployment-testing" ]
 env:
   AWS_REGION: us-east-1
   AWS_LIGHTSAIL_SERVICE_NAME: bowlmates-container-service
+  AWS_IMAGE_NAME: backend
 jobs:
   deploy:
     name: Build and deploy
@@ -32,17 +34,27 @@ jobs:
           aws-region: ${{ env.AWS_REGION }}
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      #Need to build a gradle image before building docker image
+      - name: Grant execute permission for gradlew + jar
+        run: |
+          pwd
+          cd ..
+          pwd
+          chmod +x gradlew
+          ./gradlew jar
+      #Need to build a gradle image before building docker image
       - name: Build Docker Image
-        working-directory: './bowl-mates-frontend'
+        working-directory: './bowl-mates-backend'
         run: docker build -t ${{ env.AWS_LIGHTSAIL_SERVICE_NAME }}:release .
       - name: Push and Deploy
         run: |
           service_name=${{ env.AWS_LIGHTSAIL_SERVICE_NAME }}
+          image_name=${{ env.AWS_IMAGE_NAME }}
           aws lightsail push-container-image \
             --region ${{ env.AWS_REGION }} \
             --service-name ${service_name} \
             --label ${service_name} \
             --image ${service_name}:release
           aws lightsail get-container-images --service-name ${service_name} | jq --raw-output ".containerImages[0].image" > image.txt
-          jq --arg image $(cat image.txt) '.containers.app.image = $image' container.template.json > container.json
+          jq --arg image $(cat image.txt) '.containers.app.image = $image' backend.container.template.json > container.json
           aws lightsail create-container-service-deployment --service-name ${service_name} --cli-input-json file://$(pwd)/container.json

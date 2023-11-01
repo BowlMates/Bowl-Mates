@@ -1,6 +1,6 @@
 {
   "containers": {
-    "app": {
+    "frontend": {
       "image": "docker.io/library/bowlmates-container-service:release",
       "environment": {
         "APP_ENV": "release",
@@ -12,13 +12,13 @@
     }
   },
   "publicEndpoint": {
-    "containerName": "app",
+    "containerName": "frontend",
     "containerPort": 3000,
     "healthCheck": {
-      "healthyThreshold": 2,
-      "unhealthyThreshold": 2,
-      "timeoutSeconds": 5,
-      "intervalSeconds": 10,
+      "healthyThreshold": 10,
+      "unhealthyThreshold": 10,
+      "timeoutSeconds": 60,
+      "intervalSeconds": 300,
       "path": "/",
       "successCodes": "200-499"
     }
