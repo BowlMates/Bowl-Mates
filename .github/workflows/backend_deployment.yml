@@ -52,7 +52,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       - name: Build Docker Image
         working-directory: './bowl-mates-backend'
-        run: docker build -t ${{ env.AWS_LIGHTSAIL_SERVICE_NAME }}:release .
+        run: docker build -t ${{ env.AWS_IMAGE_NAME }}:release .
       - name: Push and Deploy
         run: |
           pwd
