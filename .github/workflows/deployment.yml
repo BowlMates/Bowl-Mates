@@ -4,8 +4,8 @@ on:
     branches:
       - master
 env:
-  AWS_REGION: ap-northeast-1
-  AWS_LIGHTSAIL_SERVICE_NAME: amazon-lightsail-containers-test
+  AWS_REGION: us-east-1
+  AWS_LIGHTSAIL_SERVICE_NAME: bowlmates-container-service
 jobs:
   deploy:
     name: Build and deploy
@@ -33,7 +33,7 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       - name: Build Docker Image
-        run: docker build -t ${{ env.AWS_LIGHTSAIL_SERVICE_NAME }}:release .
+        run: docker . build -t ${{ env.AWS_LIGHTSAIL_SERVICE_NAME }}:release -f bowl-mates-fronted/Dockerfile
       - name: Push and Deploy
         run: |
           service_name=${{ env.AWS_LIGHTSAIL_SERVICE_NAME }}
