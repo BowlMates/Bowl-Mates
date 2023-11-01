@@ -39,6 +39,7 @@ jobs:
         run: docker build -t ${{ env.AWS_IMAGE_NAME }}:release .
       - name: Push and Deploy
         run: |
+          pwd
           service_name=${{ env.AWS_LIGHTSAIL_SERVICE_NAME }}
           image_name=${{ env.AWS_IMAGE_NAME }}
           aws lightsail push-container-image \
