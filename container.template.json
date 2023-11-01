@@ -12,7 +12,7 @@
     }
   },
   "publicEndpoint": {
-    "containerName": "frontend",
+    "containerName": "app",
     "containerPort": 3000,
     "healthCheck": {
       "healthyThreshold": 2,
