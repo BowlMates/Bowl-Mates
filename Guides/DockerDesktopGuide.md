@@ -13,3 +13,4 @@
 ## 5. Behold the beautiful fullstack application that is running on your local machine
  - Navigate to http://localhost:3000 for the frontend 
  - Navigate to http://localhost:8080 for the backend
+ - 
