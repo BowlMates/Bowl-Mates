@@ -13,7 +13,7 @@
   },
   "publicEndpoint": {
     "containerName": "backend",
-    "containerPort": 8080,
+    "containerPort": 4000,
     "healthCheck": {
       "healthyThreshold": 2,
       "unhealthyThreshold": 2,

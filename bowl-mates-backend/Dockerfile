@@ -7,6 +7,6 @@ ARG JAR_FILE=build/libs/*.jar
 
 COPY ./build/libs/bowl-mates-backend-0.0.1-SNAPSHOT-plain.jar app.jar
 
-EXPOSE 8080
+EXPOSE 4000
 
 ENTRYPOINT ["java", "-jar", "/backend/app.jar"]
