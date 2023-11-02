@@ -31,7 +31,7 @@ jobs:
           cd bowl-mates-backend
           pwd
           chmod +x gradlew
-          ./gradlew jar
+          ./gradlew build
           cd ..
           pwd
       #Need to build a gradle image before building docker image

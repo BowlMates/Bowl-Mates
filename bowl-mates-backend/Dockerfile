@@ -5,8 +5,6 @@ WORKDIR /backend
 
 ARG JAR_FILE=build/libs/*.jar
 
-COPY ./build/libs/bowl-mates-backend-0.0.1-SNAPSHOT-plain.jar app.jar
-
-EXPOSE 4000
+COPY ./build/libs/bowl-mates-backend-0.0.1-SNAPSHOT.jar app.jar
 
 ENTRYPOINT ["java", "-jar", "/backend/app.jar"]
