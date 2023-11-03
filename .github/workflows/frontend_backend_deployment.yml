@@ -64,7 +64,7 @@ jobs:
             --label ${service_name} \
             --image ${backend_image_name}:release
       - name: Build Frontend Docker Image
-        working-directory: '../bowl-mates-frontend'
+        working-directory: './bowl-mates-frontend'
         run: docker build -t ${{ env.AWS_FRONTEND_IMAGE_NAME }}:release .
       - name: Push Frontend Image
         run: |
@@ -78,7 +78,7 @@ jobs:
       - name: Deploy Frontend and Backend Containers
         run: |
           aws lightsail get-container-images --service-name ${service_name} | jq --raw-output ".containerImages[0].image" > image.txt
-          jq --arg image $(cat image.txt) '.containers.frontend.image = $image' frontend.container.template.json > container.json
+          jq --arg image $(cat image.txt) '.containers.frontend.image = $image' container.template.json > container.json
           aws lightsail get-container-images --service-name ${service_name} | jq --raw-output ".containerImages[1].image" > image.txt
           jq --arg image $(cat image.txt) '.containers.backend.image = $image' container.json > container.json
           aws lightsail create-container-service-deployment --service-name ${service_name} --cli-input-json file://$(pwd)/container.json
