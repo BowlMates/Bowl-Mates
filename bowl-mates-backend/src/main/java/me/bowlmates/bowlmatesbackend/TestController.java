@@ -74,9 +74,15 @@ public class TestController {
         return "redirect:/restaurant?success";
     }
 
-    @RequestMapping(path = "/test", produces="application/json")
-    public String testApi() {
-        return "This is an api test.";
+    @CrossOrigin
+    @GetMapping(path = "/test", produces="Application/json")
+    public @ResponseBody TestUser testApi() {
+
+        TestUser u1 = new TestUser();
+        u1.setName("u1");
+        u1.setId(1);
+        u1.setEmail("u1@mail.com");
+        return u1;
     }
 
     @GetMapping(path="/all")
