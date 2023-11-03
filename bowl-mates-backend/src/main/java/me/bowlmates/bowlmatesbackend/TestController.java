@@ -3,15 +3,10 @@ package me.bowlmates.bowlmatesbackend;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
 
 import org.springframework.validation.BindingResult;
-
-import org.springframework.web.bind.annotation.ModelAttribute;
-
 
 
 @Controller // This means that this class is a Controller
@@ -77,6 +72,11 @@ public class TestController {
 
         restaurantRepository.save(restData);
         return "redirect:/restaurant?success";
+    }
+
+    @RequestMapping(path = "/test", produces="application/json")
+    public String testApi() {
+        return "This is an api test.";
     }
 
     @GetMapping(path="/all")
