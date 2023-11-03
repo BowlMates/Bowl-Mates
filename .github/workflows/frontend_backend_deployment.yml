@@ -1,0 +1,84 @@
+name: CD for backend
+on:
+  push:
+    branches: [ "deployment-testing" ]
+  pull_request:
+    branches: [ "deployment-testing" ]
+env:
+  AWS_REGION: us-east-1
+  AWS_LIGHTSAIL_SERVICE_NAME: bowlmates-container-service
+  AWS_BACKEND_IMAGE_NAME: backend
+  AWS_FRONTEND_IMAGE_NAME: frontend
+jobs:
+  deploy:
+    name: Build and deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Install Utilities
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y jq unzip
+      #Need to build a gradle image before building docker image
+      - name: Set up JDK 21
+        uses: actions/setup-java@v3
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+      - name: Grant execute permission for gradlew + jar
+        run: |
+          pwd
+          cd bowl-mates-backend
+          pwd
+          chmod +x gradlew
+          ./gradlew build
+          cd ..
+          pwd
+      #Need to build a gradle image before building docker image
+      - name: Install AWS Client
+        run: |
+          curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+          unzip awscliv2.zip
+          sudo ./aws/install || true
+          aws --version
+          curl "https://s3.us-west-2.amazonaws.com/lightsailctl/latest/linux-amd64/lightsailctl" -o "lightsailctl"
+          sudo mv "lightsailctl" "/usr/local/bin/lightsailctl"
+          sudo chmod +x /usr/local/bin/lightsailctl
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-region: ${{ env.AWS_REGION }}
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      - name: Build Backend Docker Image
+        working-directory: './bowl-mates-backend'
+        run: docker build -t ${{ env.AWS_IMAGE_NAME }}:release .
+      - name: Push Backend Image
+        run: |
+          service_name=${{ env.AWS_LIGHTSAIL_SERVICE_NAME }}
+          backend_image_name=${{ env.AWS_BACKEND_IMAGE_NAME }}
+          aws lightsail push-container-image \
+            --region ${{ env.AWS_REGION }} \
+            --service-name ${service_name} \
+            --label ${service_name} \
+            --image ${backend_image_name}:release
+      - name: Build Frontend Docker Image
+        working-directory: '../bowl-mates-frontend'
+        run: docker build -t ${{ env.AWS_IMAGE_NAME }}:release .
+      - name: Push Frontend Image
+        run: |
+          service_name=${{ env.AWS_LIGHTSAIL_SERVICE_NAME }}
+          frontend_image_name=${{ env.AWS_FRONTEND_IMAGE_NAME }}
+          aws lightsail push-container-image \
+            --region ${{ env.AWS_REGION }} \
+            --service-name ${service_name} \
+            --label ${service_name} \
+            --image ${frontend_image_name}:release
+      - name: Deploy Frontend and Backend Containers
+        run: |
+          aws lightsail get-container-images --service-name ${service_name} | jq --raw-output ".containerImages[0].image" > image.txt
+          jq --arg image $(cat image.txt) '.containers.frontend.image = $image' frontend.container.template.json > container.json
+          aws lightsail get-container-images --service-name ${service_name} | jq --raw-output ".containerImages[1].image" > image.txt
+          jq --arg image $(cat image.txt) '.containers.backend.image = $image' container.json > container.json
+          aws lightsail create-container-service-deployment --service-name ${service_name} --cli-input-json file://$(pwd)/container.json
