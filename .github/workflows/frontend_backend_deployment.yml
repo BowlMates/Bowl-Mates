@@ -53,7 +53,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       - name: Build Backend Docker Image
         working-directory: './bowl-mates-backend'
-        run: docker build -t ${{ env.AWS_IMAGE_NAME }}:release .
+        run: docker build -t ${{ env.AWS_BACKEND_IMAGE_NAME }}:release .
       - name: Push Backend Image
         run: |
           service_name=${{ env.AWS_LIGHTSAIL_SERVICE_NAME }}
@@ -65,7 +65,7 @@ jobs:
             --image ${backend_image_name}:release
       - name: Build Frontend Docker Image
         working-directory: '../bowl-mates-frontend'
-        run: docker build -t ${{ env.AWS_IMAGE_NAME }}:release .
+        run: docker build -t ${{ env.AWS_FRONTEND_IMAGE_NAME }}:release .
       - name: Push Frontend Image
         run: |
           service_name=${{ env.AWS_LIGHTSAIL_SERVICE_NAME }}
