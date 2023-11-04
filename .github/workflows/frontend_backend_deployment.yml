@@ -1,4 +1,4 @@
-name: CD for backend
+name: CD for Frontend and Backend
 on:
   push:
     branches: [ "deployment-testing" ]
@@ -61,7 +61,7 @@ jobs:
           aws lightsail push-container-image \
             --region ${{ env.AWS_REGION }} \
             --service-name ${service_name} \
-            --label ${service_name} \
+            --label ${backend_image_name} \
             --image ${backend_image_name}:release
       - name: Build Frontend Docker Image
         working-directory: './bowl-mates-frontend'
@@ -73,7 +73,7 @@ jobs:
           aws lightsail push-container-image \
             --region ${{ env.AWS_REGION }} \
             --service-name ${service_name} \
-            --label ${service_name} \
+            --label ${frontend_image_name} \
             --image ${frontend_image_name}:release
       - name: Deploy Frontend and Backend Containers
         run: |
