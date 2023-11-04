@@ -7,14 +7,12 @@ function App () {
     let reg = testReg().then();
     let log = testLogin().then();
     let str = testString().then();
-    let all = testAll().then();
+    let cookie = "";
+    // let all = testAll().then();
   return (
     <div className='App'>
       <header className='App-header'>
-          {reg.toString()}
-          {log.toString()}
           {str.toString()}
-          {all.toString()}
           <div>
 
           </div>

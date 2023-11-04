@@ -1,6 +1,8 @@
 package me.bowlmates.bowlmatesbackend;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -75,7 +77,7 @@ public class TestController {
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
-    @PostMapping(path = "/testRegister")
+    @PostMapping(path = "/testRegister", produces="Application/json")
     public @ResponseBody TestUser testRegister(@RequestParam("username") String username, @ModelAttribute("user") TestUser testUser) {
 
         testUser.setName(username);
