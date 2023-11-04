@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 @Configuration
 @EnableWebSecurity
@@ -21,15 +22,18 @@ public class SecurityConfig {
 
 
     @Bean
+    @CrossOrigin(origins = "localhost:3000")
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(Customizer.withDefaults())
+                //.csrf(Customizer.withDefaults())
+                .csrf().disable()
                 .authorizeHttpRequests(authorize -> authorize
 
                         .requestMatchers("/register").permitAll()
-//                        .requestMatchers("/login").permitAll()
-//                        .anyRequest().authenticated()
-                        .anyRequest().permitAll()
+                        .requestMatchers("/test").permitAll()
+                        .requestMatchers("/login").permitAll()
+                        .anyRequest().authenticated()
+//                        .anyRequest().permitAll()
 
                 )
                 .httpBasic(Customizer.withDefaults())

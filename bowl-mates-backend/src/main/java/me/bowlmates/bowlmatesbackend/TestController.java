@@ -75,6 +75,27 @@ public class TestController {
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
+    @PostMapping(path = "/testRegister")
+    public @ResponseBody TestUser testRegister(@RequestParam("username") String username, @ModelAttribute("user") TestUser testUser) {
+
+        testUser.setName(username);
+        testUser.setEmail(username + "@mail.com");
+        testUser.setUsername(username);
+        testUser.setPassword("pass");
+
+        TestUser existingUser = userRepository.findByEmail(testUser.getEmail());
+
+        if(existingUser != null && existingUser.getEmail() != null && !existingUser.getEmail().isEmpty()){
+            System.out.println("Dup user");
+            return testUser;
+        }
+
+        userRepository.save(testUser);
+        System.out.println("User added");
+        return testUser;
+    }
+
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping(path = "/test", produces="Application/json")
     public @ResponseBody TestUser testApi() {
 
@@ -85,7 +106,8 @@ public class TestController {
         return u1;
     }
 
-    @GetMapping(path="/all")
+    @CrossOrigin(origins = "http://localhost:3000")
+    @GetMapping(path="/all", produces="Application/json")
     public @ResponseBody Iterable<TestUser> getAllUsers() {
         // This returns a JSON or XML with the users
         return userRepository.findAll();

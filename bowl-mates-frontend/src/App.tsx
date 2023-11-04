@@ -4,11 +4,17 @@ import './App.css'
 import SignIn from "./SignIn";
 
 function App () {
-    let str = getString().then();
+    let reg = testReg().then();
+    let log = testLogin().then();
+    let str = testString().then();
+    let all = testAll().then();
   return (
     <div className='App'>
       <header className='App-header'>
+          {reg.toString()}
+          {log.toString()}
           {str.toString()}
+          {all.toString()}
           <div>
 
           </div>
@@ -18,7 +24,7 @@ function App () {
   )
 }
 
-async function getString() {
+async function testString() {
     let str;
     // https://catfact.ninja/fact
     await fetch('http://localhost:8080/test').then(response => {
@@ -28,6 +34,38 @@ async function getString() {
         str = data;
     }).catch(error =>
     {
+        console.log("error code: " + error.toString());
+        str = "bad";
+    });
+    return str;
+}
+
+async function testReg() {
+    let req = new XMLHttpRequest();
+    req.addEventListener("load", () => {
+        console.log(req.responseText);
+    });
+    req.open('POST', 'http://localhost:8080/testRegister?username=Geoff');
+    req.send();
+}
+
+async function testLogin() {
+    let req = new XMLHttpRequest();
+    req.addEventListener('load', () => {
+        console.log(req.responseText);
+    });
+    req.open('POST', 'http://localhost:8080/login');
+    req.send(JSON.stringify({username: 'GeoffGeoff', password: 'pass'}))
+}
+
+async function testAll() {
+    let str;
+    await fetch('http://localhost:8080/all').then(response => {
+        return response.json();
+    }).then(data => {
+        console.log(data);
+        str = data;
+    }).catch(error => {
         console.log("error code: " + error.toString());
         str = "bad";
     });
