@@ -1,6 +1,8 @@
 package me.bowlmates.bowlmatesbackend;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +25,9 @@ public class TestController {
     @Autowired
     private RestRepo restaurantRepository;
 
+
+
+
     @GetMapping("/register")
     public String showRegistrationForm(Model model){
         // create model object to store form data
@@ -37,6 +42,19 @@ public class TestController {
         TestRestaurant rest = new TestRestaurant();
         model.addAttribute("rest", rest);
         return "restaurant";
+    }
+
+    @GetMapping("/")
+    public String showLanding(Model model){
+        String username = "";
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if(auth != null && auth.isAuthenticated()){
+            username = auth.getName();
+        }
+        TestUser user = userRepository.findByUsername(username);
+        model.addAttribute("user", user);
+
+        return "/landing";
     }
 
     @PostMapping("/register/save")
@@ -85,10 +103,6 @@ public class TestController {
         return userRepository.findAll();
     }
 
-    @GetMapping(path="/")
-    public @ResponseBody Iterable<TestUser> getAllUSers() {
-        return userRepository.findAll();
-    }
 
     SecurityContextLogoutHandler logoutHandler = new SecurityContextLogoutHandler();
 
