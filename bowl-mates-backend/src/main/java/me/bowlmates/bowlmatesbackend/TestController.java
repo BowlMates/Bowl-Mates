@@ -1,6 +1,7 @@
 package me.bowlmates.bowlmatesbackend;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.jaas.SecurityContextLoginModule;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
@@ -21,13 +22,12 @@ public class TestController {
     private RestRepo restaurantRepository;
 
 
-
-
     @GetMapping("/register")
     public String showRegistrationForm(Model model){
         // create model object to store form data
         TestUser user = new TestUser();
         model.addAttribute("user", user);
+        System.out.println("Register made it this far!");
         return "register";
     }
 
@@ -39,7 +39,8 @@ public class TestController {
         return "restaurant";
     }
 
-    @GetMapping("/")
+    @CrossOrigin("http://localhost:3000")
+    @GetMapping(value = "/")
     public String showLanding(Model model){
         String username = "";
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -56,19 +57,23 @@ public class TestController {
     public String registration( @ModelAttribute("user") TestUser userDto,
                                 BindingResult result,
                                 Model model){
+        System.out.println("Register save");
         TestUser existingUser = userRepository.findByEmail(userDto.getEmail());
 
         if(existingUser != null && existingUser.getEmail() != null && !existingUser.getEmail().isEmpty()){
+            System.out.println("error 1");
             result.rejectValue("email", null,
                     "There is already an account registered with the same email");
         }
 
         if(result.hasErrors()){
+            System.out.println("error 2");
             model.addAttribute("user", userDto);
             return "/register";
         }
 
         userRepository.save(userDto);
+        System.out.println("Register success!");
         return "redirect:/register?success";
     }
 
@@ -99,7 +104,7 @@ public class TestController {
         testUser.setName(username);
         testUser.setEmail(username + "@mail.com");
         testUser.setUsername(username);
-        testUser.setPassword("pass");
+        testUser.setPassword("Geoff");
 
         TestUser existingUser = userRepository.findByEmail(testUser.getEmail());
 
@@ -130,7 +135,6 @@ public class TestController {
         // This returns a JSON or XML with the users
         return userRepository.findAll();
     }
-
 
     SecurityContextLogoutHandler logoutHandler = new SecurityContextLogoutHandler();
 

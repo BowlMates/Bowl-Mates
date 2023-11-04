@@ -4,15 +4,17 @@ import './App.css'
 import SignIn from "./SignIn";
 
 function App () {
-    let reg = testReg().then();
-    let log = testLogin().then();
-    let str = testString().then();
+    let reg;
+    reg = testReg().then();
+    if (reg != null) {
+        let log = testLogin().then();
+    }
+    // let str = testString().then();
     let cookie = "";
-    // let all = testAll().then();
+    let all = testAll().then();
   return (
     <div className='App'>
       <header className='App-header'>
-          {str.toString()}
           <div>
 
           </div>
@@ -44,7 +46,7 @@ async function testReg() {
         console.log(req.responseText);
     });
     req.open('POST', 'http://localhost:8080/testRegister?username=Geoff');
-    req.send();
+    req.send(JSON.stringify({username: 'Geoff', password: 'Geoff'}));
 }
 
 async function testLogin() {
@@ -52,8 +54,8 @@ async function testLogin() {
     req.addEventListener('load', () => {
         console.log(req.responseText);
     });
-    req.open('POST', 'http://localhost:8080/login');
-    req.send(JSON.stringify({username: 'GeoffGeoff', password: 'pass'}))
+    req.open('POST', 'http://localhost:8080/customlogin?username=GeoffGeoff&password=Geoff');
+    req.send(JSON.stringify({username: 'Geoff', password: 'Geoff'}));
 }
 
 async function testAll() {
