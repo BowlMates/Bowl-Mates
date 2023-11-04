@@ -28,8 +28,8 @@ public class SecurityConfig {
                 //.csrf(Customizer.withDefaults())
                 .csrf().disable()
                 .authorizeHttpRequests(authorize -> authorize
-
                         .requestMatchers("/register").permitAll()
+<<<<<<< HEAD
                         .requestMatchers("/testRegister").permitAll()
                         .requestMatchers("/").permitAll()
                         .requestMatchers("/test").permitAll()
@@ -37,6 +37,9 @@ public class SecurityConfig {
                         .anyRequest().authenticated()
 //                        .anyRequest().permitAll()
 
+=======
+                        .anyRequest().authenticated()
+>>>>>>> origin/User-Class
                 )
                 .httpBasic(Customizer.withDefaults())
                 .formLogin(Customizer.withDefaults())
