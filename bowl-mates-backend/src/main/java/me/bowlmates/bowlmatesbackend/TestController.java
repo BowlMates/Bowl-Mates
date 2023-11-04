@@ -74,7 +74,7 @@ public class TestController {
         return "redirect:/restaurant?success";
     }
 
-    @CrossOrigin
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping(path = "/test", produces="Application/json")
     public @ResponseBody TestUser testApi() {
 
