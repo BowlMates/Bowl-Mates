@@ -5,6 +5,9 @@ import Header from "./app-components/Header";
 import {useState} from "react";
 import {useToggle} from "../hooks/useToggle";
 import Typography from "@mui/material/Typography";
+import CssBaseline from "@mui/material/CssBaseline";
+import * as React from "react";
+import {DrawerHeader} from "./app-components/shared-app-components";
 
 function App() {
 
@@ -25,18 +28,20 @@ function App() {
     });
 
     return (
-        <Box className='App'>
+        <>
             <ThemeProvider theme={appTheme}>
+                {/*<SideBarHeader/>*/}
                 <Box sx={{ display: 'flex' }}>
-                    <Header drawerWidth={drawerWidth} drawerOpen={drawerOpen} toggleDrawerOpen={toggleDrawerOpen}/>
-                    <Sidebar drawerWidth={drawerWidth} drawerOpen={drawerOpen} toggleDrawerOpen={toggleDrawerOpen}/>
+                    <CssBaseline/>
+                    <Header drawerOpen={drawerOpen} toggleDrawerOpen={toggleDrawerOpen}/>
+                    <Sidebar drawerOpen={drawerOpen} toggleDrawerOpen={toggleDrawerOpen}/>
                     <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-                        {/*<DrawerHeader />*/}
-                        <Typography>Hello there</Typography>
+                        <DrawerHeader />
+                        {/*React Router Dom Stuff goes here so we can make pages*/}
                     </Box>
                 </Box>
             </ThemeProvider>
-        </Box>
+        </>
     )
 }
 
