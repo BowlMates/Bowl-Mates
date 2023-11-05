@@ -1,27 +1,15 @@
-import Typography from "@mui/material/Typography";
+// MUI Imports
 import Box from "@mui/material/Box";
-import {DrawerHeader} from "./shared-app-components";
 import {styled} from "@mui/material/styles";
 
-function BodyContainer () {
-
-    const DrawerHeader = styled('div')(({ theme }) => ({
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'flex-end',
-        padding: theme.spacing(0, 1),
-        // necessary for content to be below app bar
-        ...theme.mixins.toolbar,
+    const BodyContainer = styled(Box)(({ theme }) => ({
+        flexGrow: 1,
+        marginTop: "64px",
+        padding: "20px",
+        backgroundColor: theme.palette.primary.main,
+        height: "calc(100% - 64px)",
+        width: "auto",
+        position: "relative"
     }));
-
-    return (
-        <>
-            <DrawerHeader/>
-            <Box component="main" sx={{flexGrow: 1, p: 3}}>
-                <Typography>Hello there</Typography>
-            </Box>
-        </>
-    )
-}
 
 export default BodyContainer;

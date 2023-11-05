@@ -1,12 +1,23 @@
-import {CSSObject, styled, Theme, useTheme} from "@mui/material/styles";
+// React Imports
+import * as React from "react";
+
+// Custom Imports
+import Logo from "../../images/BOWLMATES-LOGO.png"
+import {DRAWER_WIDTH} from "./shared-app-components";
+
+// MUI Imports
+import {styled} from "@mui/material/styles";
 import {AppBarProps as MuiAppBarProps} from "@mui/material/AppBar/AppBar";
 import MuiAppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
+import Box from "@mui/material/Box";
+
+
+// MUI ICONS
+import SettingsIcon from '@mui/icons-material/Settings';
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
-import Typography from "@mui/material/Typography";
-import * as React from "react";
-import {DRAWER_WIDTH} from "./shared-app-components";
+import {useNavigate} from "react-router-dom";
 
 interface AppBarProps extends MuiAppBarProps {
     open?: boolean;
@@ -14,7 +25,8 @@ interface AppBarProps extends MuiAppBarProps {
 
 const AppBar = styled(MuiAppBar, {
     shouldForwardProp: (prop) => prop !== 'open',
-})<AppBarProps>(({ theme, open}) => ({
+})<AppBarProps>(({theme, open}) => ({
+    backgroundColor: theme.palette.secondary.main,
     zIndex: theme.zIndex.drawer + 1,
     transition: theme.transitions.create(['width', 'margin'], {
         easing: theme.transitions.easing.sharp,
@@ -32,11 +44,14 @@ const AppBar = styled(MuiAppBar, {
 
 
 interface Props {
-    drawerOpen : boolean,
-    toggleDrawerOpen : () => void
+    drawerOpen: boolean,
+    toggleDrawerOpen: () => void
 }
 
-function Header (props : Props) {
+function Header(props: Props) {
+
+    const navigate = useNavigate();
+
     return (
         <AppBar position="fixed">
             <Toolbar>
@@ -49,12 +64,27 @@ function Header (props : Props) {
                         marginRight: 5,
                     }}
                 >
-                    <MenuIcon />
+                    <MenuIcon/>
                 </IconButton>
-                <Typography variant="h6" noWrap component="div">
-                    BowlMates
-                </Typography>
-                {/*<a href={"./images/BOWLMATES-LOGO.png"}/>*/}
+                <Box flexGrow={2} sx={{display: "flex", justifyContent: "center"}}>
+                    <Box
+                        component={"img"}
+                        sx={{height: 50}}
+                        alt={"BowlMates Logo"}
+                        src={Logo}
+                        onClick={()=>{navigate("/")}}
+                    />
+                </Box>
+                <Box>
+                    <IconButton
+                        color="inherit"
+                        aria-label="open drawer"
+                        onClick={()=>{navigate("/settings")}}
+                        edge="start"
+                    >
+                        <SettingsIcon/>
+                    </IconButton>
+                </Box>
             </Toolbar>
         </AppBar>
     )

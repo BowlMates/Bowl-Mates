@@ -1,18 +1,30 @@
+// React Imports
 import * as React from 'react';
+import {useNavigate} from "react-router-dom";
+
+// Custom Imports
+import {DrawerHeader, DRAWER_WIDTH} from "./shared-app-components";
+
+// MUI Imports
 import { styled, useTheme, Theme, CSSObject } from '@mui/material/styles';
 import MuiDrawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
 import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
-import {DrawerHeader, DRAWER_WIDTH} from "./shared-app-components";
+
+//MUI ICONS
+import FlightLandIcon from '@mui/icons-material/FlightLand';
+import LoginIcon from '@mui/icons-material/Login';
+import SensorOccupiedIcon from '@mui/icons-material/SensorOccupied';
+import HomeIcon from '@mui/icons-material/Home';
+import RestaurantMenuIcon from '@mui/icons-material/RestaurantMenu';
+import EventAvailableIcon from '@mui/icons-material/EventAvailable';
+import Diversity3Icon from '@mui/icons-material/Diversity3';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import InfoIcon from '@mui/icons-material/Info';
 
 const openedMixin = (theme: Theme): CSSObject => ({
     width: DRAWER_WIDTH,
@@ -37,6 +49,7 @@ const closedMixin = (theme: Theme): CSSObject => ({
 
 const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
     ({ theme, open }) => ({
+        backgroundColor: theme.palette.primary.main,
         width: DRAWER_WIDTH,
         flexShrink: 0,
         whiteSpace: 'nowrap',
@@ -59,18 +72,30 @@ interface Props {
 
 function Sidebar(props : Props) {
     const theme = useTheme();
+    const navigate = useNavigate();
+
+    const sidebarRoutes : {name : string, icon : any, route : ()=>void}[] = [
+        // This item exists for testing until security is updated
+        {name: "Landing", icon : <FlightLandIcon/>, route : ()=>{navigate("../")}},
+        // This item exists for testing until security is updated
+        {name: "Login", icon : <LoginIcon/>, route : ()=>{navigate("/login")}},
+        // This item exists for testing until security is updated
+        {name: "Sign Up", icon : <SensorOccupiedIcon/>, route : ()=>{navigate("/sign-up")}},
+        {name: "Home", icon : <HomeIcon/>, route : ()=>{navigate("/user-home")}},
+        {name: "Favorite Restaurants", icon : <RestaurantMenuIcon/>, route : ()=>{navigate("/favorite-restaurants")}},
+        {name: "Availability", icon : <EventAvailableIcon/>, route : ()=>{navigate("/availability")}},
+        {name: "Matching", icon : <Diversity3Icon/>, route : ()=>{navigate("/matching")}},
+        {name: "Successful Matches", icon : <CheckCircleIcon/>, route : ()=>{navigate("/successful-matches")}},
+        {name: "FAQ", icon : <InfoIcon/>, route : ()=>{navigate("/faq")}},
+    ];
 
     return (
         <Drawer variant="permanent" open={props.drawerOpen}>
-            <DrawerHeader>
-                <IconButton onClick={props.toggleDrawerOpen}>
-                    {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
-                </IconButton>
-            </DrawerHeader>
+            <DrawerHeader/>
             <Divider />
             <List>
-                {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-                    <ListItem key={text} disablePadding sx={{ display: 'block' }}>
+                {sidebarRoutes.map((item, index) => (
+                    <ListItem key={item.name} disablePadding sx={{ display: 'block' }} onClick={item.route}>
                         <ListItemButton
                             sx={{
                                 minHeight: 48,
@@ -85,38 +110,14 @@ function Sidebar(props : Props) {
                                     justifyContent: 'center',
                                 }}
                             >
-                                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                                {item.icon}
                             </ListItemIcon>
-                            <ListItemText primary={text} sx={{ opacity: props.drawerOpen ? 1 : 0 }} />
+                            <ListItemText primary={item.name} sx={{ opacity: props.drawerOpen ? 1 : 0 }} />
                         </ListItemButton>
                     </ListItem>
                 ))}
             </List>
             <Divider />
-            <List>
-                {['All mail', 'Trash', 'Spam'].map((text, index) => (
-                    <ListItem key={text} disablePadding sx={{ display: 'block' }}>
-                        <ListItemButton
-                            sx={{
-                                minHeight: 48,
-                                justifyContent: props.drawerOpen ? 'initial' : 'center',
-                                px: 2.5,
-                            }}
-                        >
-                            <ListItemIcon
-                                sx={{
-                                    minWidth: 0,
-                                    mr: props.drawerOpen ? 3 : 'auto',
-                                    justifyContent: 'center',
-                                }}
-                            >
-                                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                            </ListItemIcon>
-                            <ListItemText primary={text} sx={{ opacity: props.drawerOpen ? 1 : 0 }} />
-                        </ListItemButton>
-                    </ListItem>
-                ))}
-            </List>
         </Drawer>
     );
 }
