@@ -1,17 +1,37 @@
 //import React from 'react'
 //import logo from './logo.svg'
 import './App.css'
+import useLocalStorage from "./hooks/useLocalStorage";
 import SignIn from "./SignIn";
+import {useState} from "react";
 
-function App () {
-    let reg;
-    reg = testReg().then();
-    if (reg != null) {
-        let log = testLogin().then();
+const App = () => {
+    const [username, setUsername] = useState("");
+    const [password, setPasswod] = useState("");
+    const [jwt, setJwt] = useLocalStorage("", "jwt");
+    async function testLogin1() {
+        const reqBody = {
+            username: "GeoffGeoff",
+            password: "Geoff"
+        };
+
+        fetch("http://localhost:8080/login", {
+            headers: {
+                "Content-Type": "application/json",
+            },
+            method: "post",
+            body: JSON.stringify(reqBody),
+        })
+            .then((response) => Promise.all([response.json(), response.headers]))
+            .then(([body, headers]) => {
+                setJwt(headers.get("authorization"))
+            });
     }
+
+    testReg().then();
+    testLogin1().then();
     // let str = testString().then();
-    let cookie = "";
-    let all = testAll().then();
+    //testAll().then();
   return (
     <div className='App'>
       <header className='App-header'>
