@@ -2,7 +2,7 @@
 import {styled, useTheme} from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import {makeStyles} from "@mui/material/styles";
+import {makeStyles} from "@mui/material";
 
 //Pre-Styling
 //----------------------------------------------------------------------------
@@ -19,14 +19,6 @@ const ExampleStyledComponent = styled(Box)(({ theme }) => ({
     width: "auto"
 }));
 
-const useStyles = makeStyles(() => ({
-    container: {
-        position: 'absolute',
-        top: '50%',
-        left: '0',
-        transform: 'translateY(-50%)'
-    }
-}));
 
 function Availability () {
 
@@ -40,11 +32,8 @@ function Availability () {
     //      while also allowing us to change theming easier and possibly implement
     //      dark theme functionality
 
-    // @ts-ignore
-    const classes = useStyles();
-
     return (
-        <Box className={classes.container}>
+        <Box>
             <Box>
 
             <Typography variant="h2"
