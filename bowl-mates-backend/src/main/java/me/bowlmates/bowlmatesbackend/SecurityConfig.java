@@ -25,11 +25,8 @@ public class SecurityConfig {
         http
                 .csrf(Customizer.withDefaults())
                 .authorizeHttpRequests(authorize -> authorize
-
                         .requestMatchers("/register").permitAll()
-//                        .requestMatchers("/login").permitAll()
                         .anyRequest().authenticated()
-
                 )
                 .httpBasic(Customizer.withDefaults())
                 .formLogin(Customizer.withDefaults())
