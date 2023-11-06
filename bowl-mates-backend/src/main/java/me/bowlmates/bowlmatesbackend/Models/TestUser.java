@@ -31,7 +31,7 @@ public class TestUser implements UserDetails {
     @Column
     private String password;
 
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "user_favorite_restaurants",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "restaurant_id"))
