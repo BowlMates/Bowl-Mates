@@ -2,7 +2,7 @@
 import {styled, useTheme} from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import {makeStyles} from "@mui/material";
+import {makeStyles} from "@mui/material/styles";
 
 //Pre-Styling
 //----------------------------------------------------------------------------
