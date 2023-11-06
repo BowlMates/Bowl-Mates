@@ -63,6 +63,7 @@ public class SecurityConfig {
                     auth.requestMatchers("/user/**").hasAnyRole("ADMIN", "USER");
                     auth.anyRequest().authenticated();
                 });
+<<<<<<< HEAD
         http.oauth2ResourceServer()
                 .jwt()
                 .jwtAuthenticationConverter(jwtAuthenticationConverter());
@@ -72,6 +73,18 @@ public class SecurityConfig {
 //                                .jwkSetUri("find something to put here!")
 //                        )
 //                );
+=======
+//        http.oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt);
+//                .jwt()
+//                .jwtAuthenticationConverter(jwtAuthenticationConverter());
+        http
+                .oauth2ResourceServer(oauth2 -> oauth2
+                        .jwt(jwt -> jwt
+                                .jwtAuthenticationConverter(jwtAuthenticationConverter())
+                                .decoder(jwtDecoder())
+                        )
+                );
+>>>>>>> 3a859cb36a8125a50ac7dc19780ada350e519b46
         http.sessionManagement(
                 session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         );
