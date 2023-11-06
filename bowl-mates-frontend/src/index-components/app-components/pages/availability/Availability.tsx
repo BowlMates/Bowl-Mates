@@ -34,7 +34,7 @@ function Availability () {
 
     return (
         <Box>
-            <Box>
+            <Box marginTop="50vh">
 
             <Typography variant="h2"
                         style={
@@ -45,6 +45,7 @@ function Availability () {
                             lineHeight: '1.2'}}
                         align="left"
                         color="000000">
+
                 when are you
         </Typography></Box>
             <Box>
