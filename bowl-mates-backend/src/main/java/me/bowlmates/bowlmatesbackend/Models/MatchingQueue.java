@@ -1,4 +1,4 @@
-package me.bowlmates.bowlmatesbackend;
+package me.bowlmates.bowlmatesbackend.Models;
 
 public class MatchingQueue {
     private String userId;

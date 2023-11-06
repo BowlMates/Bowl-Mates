@@ -1,5 +1,8 @@
-package me.bowlmates.bowlmatesbackend;
+package me.bowlmates.bowlmatesbackend.Models;
 import jakarta.persistence.*;
+import me.bowlmates.bowlmatesbackend.Models.TestRestaurant;
+import me.bowlmates.bowlmatesbackend.Models.TestUser;
+
 @Entity
 @Table(name = "UserPreference")
 public class UserPreferences {

@@ -1,4 +1,4 @@
-package me.bowlmates.bowlmatesbackend;
+package me.bowlmates.bowlmatesbackend.Controllers;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -51,43 +51,43 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class LoginController {
 
-    private final AuthenticationManager authenticationManager;
-    private final HttpSessionSecurityContextRepository securityContextRepository;
-
-    public LoginController(AuthenticationManager authenticationManager, SecurityContextRepository securityContextRepository) {
-        this.authenticationManager = authenticationManager;
-        this.securityContextRepository = (HttpSessionSecurityContextRepository) securityContextRepository;
-    }
-
-    @CrossOrigin("http://localhost:3000")
-    @PostMapping("/customlogin")
-    public ResponseEntity<Void> customlogin(@RequestParam("username") String username, @RequestParam("password") String password, HttpServletRequest request, HttpServletResponse response) {
-        Authentication authenticationRequest =
-                new UsernamePasswordAuthenticationToken(username, password);
-
-        try {
-            Authentication authenticationResponse = this.authenticationManager.authenticate(authenticationRequest);
-
-            // Save the authenticated user in the session
-            SecurityContext securityContext = new SecurityContextImpl();
-            securityContext.setAuthentication(authenticationResponse);
-            this.securityContextRepository.saveContext(securityContext, request, response);
-
-            String un = "";
-            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-            if(auth != null && auth.isAuthenticated()){
-                un = auth.getName();
-            }
-            System.out.println(un);
-            // Return a success response or redirect as needed
-            return ResponseEntity.ok().build();
-        } catch (AuthenticationException e) {
-            // Authentication failed, return an error response
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        }
-    }
-
-    public record LoginRequest(String username, String password) {
-    }
+//    private final AuthenticationManager authenticationManager;
+//    private final HttpSessionSecurityContextRepository securityContextRepository;
+//
+//    public LoginController(AuthenticationManager authenticationManager, SecurityContextRepository securityContextRepository) {
+//        this.authenticationManager = authenticationManager;
+//        this.securityContextRepository = (HttpSessionSecurityContextRepository) securityContextRepository;
+//    }
+//
+//    @CrossOrigin("http://localhost:3000")
+//    @PostMapping("/customlogin")
+//    public ResponseEntity<Void> customlogin(@RequestParam("username") String username, @RequestParam("password") String password, HttpServletRequest request, HttpServletResponse response) {
+//        Authentication authenticationRequest =
+//                new UsernamePasswordAuthenticationToken(username, password);
+//
+//        try {
+//            Authentication authenticationResponse = this.authenticationManager.authenticate(authenticationRequest);
+//
+//            // Save the authenticated user in the session
+//            SecurityContext securityContext = new SecurityContextImpl();
+//            securityContext.setAuthentication(authenticationResponse);
+//            this.securityContextRepository.saveContext(securityContext, request, response);
+//
+//            String un = "";
+//            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//            if(auth != null && auth.isAuthenticated()){
+//                un = auth.getName();
+//            }
+//            System.out.println(un);
+//            // Return a success response or redirect as needed
+//            return ResponseEntity.ok().build();
+//        } catch (AuthenticationException e) {
+//            // Authentication failed, return an error response
+//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+//        }
+//    }
+//
+//    public record LoginRequest(String username, String password) {
+//    }
 }
 
