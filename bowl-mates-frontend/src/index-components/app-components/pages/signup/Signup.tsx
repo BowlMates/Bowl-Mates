@@ -22,6 +22,31 @@ const Rectangle = styled(Box)({
     cursor: 'pointer'
 });
 
+async function sendDataToApi (email: string, password: string, confirmPassword: string) {
+    try {
+        const response = await fetch('http://localhost:8080/auth/signup', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                email,
+                password,
+                confirmPassword
+            })
+        });
+
+        if (response.ok) {
+            const responseData = await response.json();
+            console.log('API Response:', responseData);
+        } else {
+            console.error('Error occurred while sending data to API');
+        }
+    } catch (error) {
+        console.error('Error occurred:', error);
+    }
+}
+
 function Signup() {
 
     //Notes about some MUI component types you will probably use the most
@@ -40,21 +65,19 @@ function Signup() {
 
     // Retrieves input values from email, pw, confirm pw
     // fix the null issue later
-    const handleSubmission = () => {
+    function handleSubmission() {
         // @ts-ignore
         const email = emailRef.current.textContent;
         // @ts-ignore
         const password = passwordRef.current.textContent;
         // @ts-ignore
         const confirmPassword = confirmPasswordRef.current.textContent;
+
+        // Perform input validation logic here
+
+        sendDataToApi(email, password, confirmPassword)
+
     }
-
-    // Perform validation and submission logic here
-    // Sending input data to API endpoint?
-
-    // Log input vals (for demo purposes ig)
-
-
 
     return (
 
