@@ -9,16 +9,18 @@ import Typography from "@mui/material/Typography";
 // Place the component type you want styled as an argument (in this case - Box)
 // and then style the inside as if it were in-line styling or styling in a css
 // file
-const ExampleStyledComponent = styled(Box)(({ theme }) => ({
-    flexGrow: 1,
-    marginTop: "64px",
-    p: 3, //padding
-    backgroundColor: theme.palette.primary.main,
-    height: "calc(100% - 64px)",
-    width: "auto"
-}));
 
-function Signup () {
+const Rectangle = styled(Box)({
+    width: '120%',
+    height: '100px',
+    marginBottom: '10px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: '4px'
+});
+
+function Signup() {
 
     //Notes about some MUI component types you will probably use the most
     //----------------------------------------------------------------------------
@@ -31,9 +33,88 @@ function Signup () {
     //      dark theme functionality
 
     return (
-        <Typography variant={"h1"}>
-            This is the signup page!
-        </Typography>
+
+        <Box
+            display="flex"
+            flexDirection="row"
+            justifyContent="space-around"
+            alignItems="center"
+            height="75vh"
+        >
+
+            {/*SIGNUP TEXT*/}
+            <Typography variant={"h1"}
+                        style={
+                            {
+                                fontFamily: 'Inter, sans-serif',
+                                fontWeight: 300,
+                                fontSize: '25vw',
+                                //lineHeight: '1.2px'
+                                paddingTop: '10vh'
+                            }
+                        }
+                        align="left"
+                        color="000000"
+            >
+                sign <br/>
+                up
+            </Typography>
+
+            {/*RECTANGLES*/}
+            <Box
+                display="flex"
+                flexDirection="column"
+                alignItems="center"
+                marginLeft="50px"
+                marginTop="175px"
+            >
+                <Rectangle bgcolor="#FDF5F5">
+                    <Typography
+                        variant="body1"
+                        style = {{
+                            fontSize: '40px',
+                            fontFamily: 'Inter, sans-serif',
+                            color:'#54804D'
+                        }}
+                    > e-mail
+                    </Typography>
+                </Rectangle>
+                <Rectangle bgcolor="#FDF5F5">
+                    <Typography
+                        variant="body1"
+                        style = {{
+                            fontSize: '35px',
+                            fontFamily: 'Inter, sans-serif',
+                            color:'#54804D'
+                        }}
+                    > password
+                    </Typography>
+                </Rectangle>
+                <Rectangle bgcolor="#FDF5F5">
+                    <Typography
+                        variant="body1"
+                        style = {{
+                            fontSize: '30px',
+                            fontFamily: 'Inter, sans-serif',
+                            color:'#54804D'
+                        }}
+                    >confirm password</Typography>
+                </Rectangle>
+                <Rectangle bgcolor="#54804D">
+                    <Typography
+                        variant="body1"
+                        style = {{
+                            fontSize:'40px',
+                            fontFamily: 'Inter, sans-serif',
+                            color:'#FDF5F5'
+                        }}
+                        >
+                            submit
+                    </Typography>
+                </Rectangle>
+            </Box>
+        </Box>
+
     )
 }
 
