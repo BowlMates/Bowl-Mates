@@ -31,9 +31,33 @@ function Availability () {
     //      dark theme functionality
 
     return (
-        <Typography variant="h2" align="left" color="000000">
-            When are you free?
-        </Typography>
+        <Box>
+            <Box>
+
+            <Typography variant="h2"
+                        style={
+                            {
+                            fontFamily: 'Inter, sans-serif',
+                            fontWeight: 300,
+                            fontSize: '48px',
+                            lineHeight: '1.2'}}
+                        align="left"
+                        color="000000">
+                when are you
+        </Typography></Box>
+            <Box>
+        <Typography variant="h2"
+                    style={
+                        {
+                            fontFamily: 'Inter, sans-serif',
+                            fontWeight: 100,
+                            fontSize: '128px',
+                            lineHeight: '1.2'}}
+                    align="left"
+                    color="000000">
+            free?
+        </Typography></Box>
+        </Box>
     )
 }
 
