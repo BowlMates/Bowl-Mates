@@ -2,6 +2,7 @@
 import {styled, useTheme} from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
+import {useRef} from "react";
 
 //Pre-Styling
 //----------------------------------------------------------------------------
@@ -17,7 +18,8 @@ const Rectangle = styled(Box)({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: '4px'
+    borderRadius: '4px',
+    cursor: 'pointer'
 });
 
 function Signup() {
@@ -31,6 +33,28 @@ function Signup() {
     //      this family of components since they will be most cohesive together
     //      while also allowing us to change theming easier and possibly implement
     //      dark theme functionality
+
+    const emailRef = useRef(null);
+    const passwordRef = useRef(null);
+    const confirmPasswordRef = useRef(null);
+
+    // Retrieves input values from email, pw, confirm pw
+    // fix the null issue later
+    const handleSubmission = () => {
+        // @ts-ignore
+        const email = emailRef.current.textContent;
+        // @ts-ignore
+        const password = passwordRef.current.textContent;
+        // @ts-ignore
+        const confirmPassword = confirmPasswordRef.current.textContent;
+    }
+
+    // Perform validation and submission logic here
+    // Sending input data to API endpoint?
+
+    // Log input vals (for demo purposes ig)
+
+
 
     return (
 
@@ -68,7 +92,12 @@ function Signup() {
                 marginLeft="50px"
                 marginTop="175px"
             >
-                <Rectangle bgcolor="#FDF5F5">
+                <Rectangle
+                    bgcolor="#FDF5F5"
+                    ref={emailRef}
+                    contentEditable="true"
+                    suppressContentEditableWarning={true}
+                >
                     <Typography
                         variant="body1"
                         style = {{
@@ -79,7 +108,12 @@ function Signup() {
                     > e-mail
                     </Typography>
                 </Rectangle>
-                <Rectangle bgcolor="#FDF5F5">
+                <Rectangle
+                    bgcolor="#FDF5F5"
+                    ref={passwordRef}
+                    contentEditable="true"
+                    suppressContentEditableWarning={true}
+                >
                     <Typography
                         variant="body1"
                         style = {{
@@ -90,7 +124,12 @@ function Signup() {
                     > password
                     </Typography>
                 </Rectangle>
-                <Rectangle bgcolor="#FDF5F5">
+                <Rectangle
+                    bgcolor="#FDF5F5"
+                    ref={confirmPasswordRef}
+                    contentEditable="true"
+                    suppressContentEditableWarning={true}
+                >
                     <Typography
                         variant="body1"
                         style = {{
