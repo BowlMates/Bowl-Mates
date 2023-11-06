@@ -83,46 +83,6 @@ public class UserController {
         return "redirect:/register?success";
     }
 
-
-//    @CrossOrigin(origins = "http://localhost:3000")
-//    @PostMapping(path = "/testRegister", produces="Application/json")
-//    public @ResponseBody TestUser testRegister(@RequestParam("username") String username, @ModelAttribute("user") TestUser testUser) {
-//
-//        testUser.setName(username);
-//        testUser.setEmail(username + "@mail.com");
-//        testUser.setUsername(username);
-//        testUser.setPassword("Geoff");
-//
-//        TestUser existingUser = userRepository.findByEmail(testUser.getEmail());
-//
-//        if(existingUser != null && existingUser.getEmail() != null && !existingUser.getEmail().isEmpty()){
-//            System.out.println("Dup user");
-//            return testUser;
-//        }
-//
-//        userRepository.save(testUser);
-//        System.out.println("User added");
-//        return testUser;
-//    }
-//
-//    @CrossOrigin(origins = "http://localhost:3000")
-//    @GetMapping(path = "/test", produces="Application/json")
-//    public @ResponseBody TestUser testApi() {
-//
-//        TestUser u1 = new TestUser();
-//        u1.setName("u1");
-//        u1.setId(1);
-//        u1.setEmail("u1@mail.com");
-//        return u1;
-//    }
-//
-//    @CrossOrigin(origins = "http://localhost:3000")
-//    @GetMapping(path="/all", produces="Application/json")
-//    public @ResponseBody Iterable<TestUser> getAllUsers() {
-//        // This returns a JSON or XML with the users
-//        return userRepository.findAll();
-//    }
-
     SecurityContextLogoutHandler logoutHandler = new SecurityContextLogoutHandler();
 
 }
