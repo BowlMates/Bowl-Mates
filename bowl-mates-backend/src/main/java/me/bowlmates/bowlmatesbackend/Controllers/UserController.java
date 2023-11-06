@@ -5,6 +5,8 @@ import me.bowlmates.bowlmatesbackend.Repositories.RestRepo;
 import me.bowlmates.bowlmatesbackend.Models.TestUser;
 import me.bowlmates.bowlmatesbackend.Repositories.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
@@ -42,13 +44,13 @@ public class UserController {
 //        return "/landing";
 //    }
 
-    @PostMapping(value = "/userinfo", produces = "application/json")
-    public TestUser sendUserInfo(@RequestBody UserRequestDTO body) {
-        TestUser user = userRepository.findByUsername(body.getUsername());
-        String token = body.getToken();
-        // TODO : Figure out what to do with authentication here
-        return user;
-    }
+//    @GetMapping(value = "/userinfo", produces = "application/json")
+//    public ResponseEntity<?> sendUserInfo(@RequestParam String token, @AuthenticationPrincipal TestUser user) {
+//        TestUser user = userRepository.findByUsername(body.getUsername());
+//        String token = body.getToken();
+//        // TODO : Figure out what to do with authentication here
+//        return user;
+//    }
 
     @GetMapping("/register")
     public String showRegistrationForm(Model model){

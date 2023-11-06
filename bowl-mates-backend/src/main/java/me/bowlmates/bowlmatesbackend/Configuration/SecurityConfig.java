@@ -63,9 +63,15 @@ public class SecurityConfig {
                     auth.requestMatchers("/user/**").hasAnyRole("ADMIN", "USER");
                     auth.anyRequest().authenticated();
                 });
-        http.oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt);
+//        http.oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt);
 //                .jwt()
 //                .jwtAuthenticationConverter(jwtAuthenticationConverter());
+        http
+                .oauth2ResourceServer(oauth2 -> oauth2
+                        .jwt(jwt -> jwt
+                                .jwkSetUri("find something to put here!")
+                        )
+                );
         http.sessionManagement(
                 session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         );
