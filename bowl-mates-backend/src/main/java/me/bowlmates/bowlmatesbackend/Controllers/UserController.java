@@ -1,5 +1,6 @@
 package me.bowlmates.bowlmatesbackend.Controllers;
 
+import me.bowlmates.bowlmatesbackend.Models.UserRequestDTO;
 import me.bowlmates.bowlmatesbackend.Repositories.RestRepo;
 import me.bowlmates.bowlmatesbackend.Models.TestUser;
 import me.bowlmates.bowlmatesbackend.Repositories.UserRepo;
@@ -40,6 +41,14 @@ public class UserController {
 //
 //        return "/landing";
 //    }
+
+    @PostMapping(value = "/userinfo", produces = "application/json")
+    public TestUser sendUserInfo(@RequestBody UserRequestDTO body) {
+        TestUser user = userRepository.findByUsername(body.getUsername());
+        String token = body.getToken();
+        // TODO : Figure out what to do with authentication here
+        return user;
+    }
 
     @GetMapping("/register")
     public String showRegistrationForm(Model model){
