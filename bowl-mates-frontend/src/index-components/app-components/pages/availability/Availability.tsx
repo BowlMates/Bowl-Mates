@@ -31,8 +31,8 @@ function Availability () {
     //      dark theme functionality
 
     return (
-        <Typography variant={"h1"}>
-            This is the availability page!
+        <Typography variant="h2" align="left" color="000000">
+            When are you free?
         </Typography>
     )
 }
