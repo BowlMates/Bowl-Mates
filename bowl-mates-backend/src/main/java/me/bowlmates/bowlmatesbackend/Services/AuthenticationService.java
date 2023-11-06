@@ -3,6 +3,7 @@ package me.bowlmates.bowlmatesbackend.Services;
 import java.util.HashSet;
 import java.util.Set;
 
+import me.bowlmates.bowlmatesbackend.Models.LoginResponseDTO;
 import me.bowlmates.bowlmatesbackend.Models.TestRestaurant;
 import me.bowlmates.bowlmatesbackend.Models.TestUser;
 import me.bowlmates.bowlmatesbackend.Models.Role;
@@ -34,10 +35,10 @@ public class AuthenticationService {
     @Autowired
     private AuthenticationManager authenticationManager;
 
-//    @Autowired
-//    private TokenService tokenService;
+    @Autowired
+    private TokenService tokenService;
 
-    public TestUser registerUser(String name, String username, String password, String email){
+    public TestUser registerUser(String name, String username, String password, String email) {
 
         String encodedPassword = passwordEncoder.encode(password);
         Role userRole = roleRepository.findByAuthority("USER").get();
@@ -50,18 +51,19 @@ public class AuthenticationService {
                 email, authorities, new HashSet<>()));
     }
 
-//    public LoginResponseDTO loginUser(String username, String password){
-//
-//        try{
-//            Authentication auth = authenticationManager.authenticate(
-//                    new UsernamePasswordAuthenticationToken(username, password)
-//            );
-//
-//            String token = tokenService.generateJwt(auth);
-//
-//            return new LoginResponseDTO(userRepository.findByUsername(username).get(), token);
-//
-//        } catch(AuthenticationException e){
-//            return new LoginResponseDTO(null, "");
-//        }
+    public LoginResponseDTO loginUser(String username, String password) {
+
+        try {
+            Authentication auth = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(username, password)
+            );
+
+            String token = tokenService.generateJwt(auth);
+
+            return new LoginResponseDTO(userRepository.findByUsername(username), token);
+
+        } catch (AuthenticationException e) {
+            return new LoginResponseDTO(null, "");
+        }
     }
+}
