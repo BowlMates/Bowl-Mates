@@ -69,7 +69,8 @@ public class SecurityConfig {
         http
                 .oauth2ResourceServer(oauth2 -> oauth2
                         .jwt(jwt -> jwt
-                                .jwkSetUri("find something to put here!")
+                                .jwtAuthenticationConverter(jwtAuthenticationConverter())
+                                .decoder(jwtDecoder())
                         )
                 );
         http.sessionManagement(
@@ -91,13 +92,13 @@ public class SecurityConfig {
         return new NimbusJwtEncoder(jwks);
     }
 
-//    @Bean
-//    public JwtAuthenticationConverter jwtAuthenticationConverter() {
-//        JwtGrantedAuthoritiesConverter jwtGrantedAuthoritiesConverter = new JwtGrantedAuthoritiesConverter();
-//        jwtGrantedAuthoritiesConverter.setAuthoritiesClaimName("roles");
-//        jwtGrantedAuthoritiesConverter.setAuthorityPrefix("ROLE_");
-//        JwtAuthenticationConverter jwtConverter = new JwtAuthenticationConverter();
-//        jwtConverter.setJwtGrantedAuthoritiesConverter(jwtGrantedAuthoritiesConverter);
-//        return jwtConverter;
-//    }
+    @Bean
+    public JwtAuthenticationConverter jwtAuthenticationConverter() {
+        JwtGrantedAuthoritiesConverter jwtGrantedAuthoritiesConverter = new JwtGrantedAuthoritiesConverter();
+        jwtGrantedAuthoritiesConverter.setAuthoritiesClaimName("roles");
+        jwtGrantedAuthoritiesConverter.setAuthorityPrefix("ROLE_");
+        JwtAuthenticationConverter jwtConverter = new JwtAuthenticationConverter();
+        jwtConverter.setJwtGrantedAuthoritiesConverter(jwtGrantedAuthoritiesConverter);
+        return jwtConverter;
+    }
 }

@@ -44,13 +44,19 @@ public class UserController {
 //        return "/landing";
 //    }
 
-//    @GetMapping(value = "/userinfo", produces = "application/json")
-//    public ResponseEntity<?> sendUserInfo(@RequestParam String token, @AuthenticationPrincipal TestUser user) {
-//        TestUser user = userRepository.findByUsername(body.getUsername());
-//        String token = body.getToken();
-//        // TODO : Figure out what to do with authentication here
-//        return user;
-//    }
+    @GetMapping(value = "/test", produces = "application/json")
+    public String test() {
+        return "Test succeeded!";
+    }
+
+    @GetMapping(value = "/userinfo", produces = "application/json")
+    public TestUser sendUserInfo(@AuthenticationPrincipal String token) {
+
+        // TODO : Figure out what to do with authentication here
+        TestUser user = new TestUser();
+        user.setName("Geoff");
+        return user;
+    }
 
     @GetMapping("/register")
     public String showRegistrationForm(Model model){
