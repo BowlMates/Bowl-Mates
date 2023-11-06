@@ -10,7 +10,7 @@ public class TestRestaurant {
     @Column(unique = true)
     private Integer id; // Change to Integer type as it's typically used for IDs
     @Column
-    private String restaurant_name;
+    private String name;
     @Column(unique = true)
     private String address;
     @Column
@@ -28,11 +28,11 @@ public class TestRestaurant {
     }
 
     public String getRestaurant_name() {
-        return restaurant_name;
+        return name;
     }
 
     public void setRestaurant_name(String restaurant_name) {
-        this.restaurant_name = restaurant_name;
+        this.name = restaurant_name;
     }
 
     public String getAddress() {

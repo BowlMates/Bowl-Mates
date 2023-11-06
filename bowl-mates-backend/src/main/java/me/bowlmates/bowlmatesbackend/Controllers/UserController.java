@@ -1,8 +1,9 @@
 package me.bowlmates.bowlmatesbackend.Controllers;
 
+import me.bowlmates.bowlmatesbackend.Models.RestaurantDTO;
 import me.bowlmates.bowlmatesbackend.Repositories.RestRepo;
 import me.bowlmates.bowlmatesbackend.Models.TestUser;
-// import me.bowlmates.bowlmatesbackend.Services.RestarauntService;
+import me.bowlmates.bowlmatesbackend.Services.RestaurantService;
 import me.bowlmates.bowlmatesbackend.Repositories.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -22,6 +23,8 @@ public class UserController {
     private UserRepo userRepository;
     @Autowired
     private RestRepo restaurantRepository;
+    @Autowired
+    private RestaurantService restaurantService;
 
 
     @GetMapping("/")
@@ -29,10 +32,10 @@ public class UserController {
         return "User level";
     }
 
-//    @PostMapping("/pref")
-//    public void addRestPreference(@RequestBody RestarauntDTO body) {
-//        RestarauntService.addPreference();
-//    }
+    @PostMapping("/pref")
+    public void addRestPreference(@RequestBody RestaurantDTO body) {
+        restaurantService.addPreference(body.getName());
+    }
 
 //    @CrossOrigin("http://localhost:3000")
 //    @GetMapping(value = "/")
