@@ -1,17 +1,7 @@
 {
   "containers": {
-    "frontend": {
-      "image": "docker.io/library/frontend:release",
-      "environment": {
-        "APP_ENV": "release",
-        "NODE_ENV": "production"
-      },
-      "ports": {
-        "3000": "HTTP"
-      }
-    },
     "backend": {
-      "image": "docker.io/library/backend:release",
+      "image": "docker.io/library/bowlmates-container-service:release",
       "environment": {
         "APP_ENV": "release",
         "NODE_ENV": "production"
@@ -22,8 +12,8 @@
     }
   },
   "publicEndpoint": {
-    "containerName": "frontend",
-    "containerPort": 3000,
+    "containerName": "backend",
+    "containerPort": 8080,
     "healthCheck": {
       "healthyThreshold": 2,
       "unhealthyThreshold": 2,

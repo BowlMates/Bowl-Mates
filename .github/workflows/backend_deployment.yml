@@ -1,14 +1,11 @@
-name: CD for Frontend and Backend
+name: CD for backend
 on:
   push:
     branches: [ "deployment-testing" ]
-  pull_request:
-    branches: [ "deployment-testing" ]
 env:
   AWS_REGION: us-east-1
-  AWS_LIGHTSAIL_SERVICE_NAME: bowlmates-container-service
-  AWS_BACKEND_IMAGE_NAME: backend
-  AWS_FRONTEND_IMAGE_NAME: frontend
+  AWS_LIGHTSAIL_SERVICE_NAME: bowlmates-container-service-backend
+  AWS_IMAGE_NAME: backend
 jobs:
   deploy:
     name: Build and deploy
@@ -51,32 +48,19 @@ jobs:
           aws-region: ${{ env.AWS_REGION }}
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      - name: Build Backend Docker Image
+      - name: Build Docker Image
         working-directory: './bowl-mates-backend'
-        run: docker build -t ${{ env.AWS_BACKEND_IMAGE_NAME }}:release .
-      - name: Push Backend Image
+        run: docker build -t ${{ env.AWS_IMAGE_NAME }}:release .
+      - name: Push and Deploy
         run: |
+          pwd
           service_name=${{ env.AWS_LIGHTSAIL_SERVICE_NAME }}
-          backend_image_name=${{ env.AWS_BACKEND_IMAGE_NAME }}
+          image_name=${{ env.AWS_IMAGE_NAME }}
           aws lightsail push-container-image \
             --region ${{ env.AWS_REGION }} \
             --service-name ${service_name} \
-            --label ${backend_image_name} \
-            --image ${backend_image_name}:release
-      - name: Build Frontend Docker Image
-        working-directory: './bowl-mates-frontend'
-        run: docker build -t ${{ env.AWS_FRONTEND_IMAGE_NAME }}:release .
-      - name: Push Frontend Image
-        run: |
-          service_name=${{ env.AWS_LIGHTSAIL_SERVICE_NAME }}
-          frontend_image_name=${{ env.AWS_FRONTEND_IMAGE_NAME }}
-          aws lightsail push-container-image \
-            --region ${{ env.AWS_REGION }} \
-            --service-name ${service_name} \
-            --label ${frontend_image_name} \
-            --image ${frontend_image_name}:release
-      - name: Deploy Frontend and Backend Containers
-        run: |
+            --label ${image_name} \
+            --image ${image_name}:release
           aws lightsail get-container-images --service-name ${service_name} | jq --raw-output ".containerImages[0].image" > image.txt
-          jq --arg image $(cat image.txt) '.containers.frontend.image = $image' container.template.json > container.json
+          jq --arg image $(cat image.txt) '.containers.backend.image = $image' backend.container.template.json > container.json
           aws lightsail create-container-service-deployment --service-name ${service_name} --cli-input-json file://$(pwd)/container.json
