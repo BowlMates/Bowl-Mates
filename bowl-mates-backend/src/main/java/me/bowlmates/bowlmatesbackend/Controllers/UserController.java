@@ -2,13 +2,15 @@ package me.bowlmates.bowlmatesbackend.Controllers;
 
 import me.bowlmates.bowlmatesbackend.Repositories.RestRepo;
 import me.bowlmates.bowlmatesbackend.Models.TestUser;
+// import me.bowlmates.bowlmatesbackend.Services.RestarauntService;
 import me.bowlmates.bowlmatesbackend.Repositories.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.ui.Model;
 
-import org.springframework.validation.BindingResult;
+
 
 
 @RestController // This means that this class is a Controller
@@ -27,6 +29,11 @@ public class UserController {
         return "User level";
     }
 
+//    @PostMapping("/pref")
+//    public void addRestPreference(@RequestBody RestarauntDTO body) {
+//        RestarauntService.addPreference();
+//    }
+
 //    @CrossOrigin("http://localhost:3000")
 //    @GetMapping(value = "/")
 //    public String showLanding(Model model){
@@ -40,39 +47,6 @@ public class UserController {
 //
 //        return "/landing";
 //    }
-
-    @GetMapping("/register")
-    public String showRegistrationForm(Model model){
-        // create model object to store form data
-        TestUser user = new TestUser();
-        model.addAttribute("user", user);
-        System.out.println("Register made it this far!");
-        return "register";
-    }
-
-    @PostMapping("/register/save")
-    public String registration( @ModelAttribute("user") TestUser userDto,
-                                BindingResult result,
-                                Model model){
-        System.out.println("Register save");
-        TestUser existingUser = userRepository.findByEmail(userDto.getEmail());
-
-        if(existingUser != null && existingUser.getEmail() != null && !existingUser.getEmail().isEmpty()){
-            System.out.println("error 1");
-            result.rejectValue("email", null,
-                    "There is already an account registered with the same email");
-        }
-
-        if(result.hasErrors()){
-            System.out.println("error 2");
-            model.addAttribute("user", userDto);
-            return "/register";
-        }
-
-        userRepository.save(userDto);
-        System.out.println("Register success!");
-        return "redirect:/register?success";
-    }
 
 
 //    @CrossOrigin(origins = "http://localhost:3000")
