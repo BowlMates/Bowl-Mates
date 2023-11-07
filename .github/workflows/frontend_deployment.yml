@@ -1,7 +1,7 @@
 name: CD for frontend
 on:
   push:
-    branches: [ "deployment-testing" ]
+    branches: [ "production" ]
 env:
   AWS_REGION: us-east-1
   AWS_LIGHTSAIL_SERVICE_NAME: bowlmates-container-service
