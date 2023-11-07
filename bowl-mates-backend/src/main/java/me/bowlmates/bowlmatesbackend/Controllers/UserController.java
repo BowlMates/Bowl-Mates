@@ -1,6 +1,7 @@
 package me.bowlmates.bowlmatesbackend.Controllers;
 
 import me.bowlmates.bowlmatesbackend.Models.RestaurantDTO;
+import me.bowlmates.bowlmatesbackend.Models.TestRestaurant;
 import me.bowlmates.bowlmatesbackend.Repositories.RestRepo;
 import me.bowlmates.bowlmatesbackend.Models.TestUser;
 import me.bowlmates.bowlmatesbackend.Services.RestaurantService;
@@ -10,7 +11,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.web.bind.annotation.*;
-
+import java.util.HashSet;
+import java.util.Set;
 
 
 
@@ -35,6 +37,22 @@ public class UserController {
     @PostMapping("/pref")
     public void addRestPreference(@RequestBody RestaurantDTO body) {
         restaurantService.addPreference(body.getName());
+    }
+
+    @GetMapping(value = "/displaypref", produces = "application/json")
+    public Set<RestaurantDTO> displayRestPreference() {
+        String username = "";
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if(auth != null && auth.isAuthenticated()){
+            username = auth.getName();
+        }
+        TestUser user = userRepository.findByUsername(username);
+        Set<RestaurantDTO> names = new HashSet<>();
+        Set<TestRestaurant> rests = user.getFavoriteRestaurants();
+        for (TestRestaurant rest : rests) {
+            names.add(new RestaurantDTO(rest));
+        }
+        return names;
     }
 
 //    @CrossOrigin("http://localhost:3000")
