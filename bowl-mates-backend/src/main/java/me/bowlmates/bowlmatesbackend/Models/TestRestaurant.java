@@ -1,4 +1,4 @@
-package me.bowlmates.bowlmatesbackend;
+package me.bowlmates.bowlmatesbackend.Models;
 
 import jakarta.persistence.*;
 
