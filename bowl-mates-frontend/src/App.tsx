@@ -24,8 +24,16 @@ function App () {
             })
                 .then((response) => Promise.all([response.json(), response.headers]))
                 .then(([body, headers]) => {
-                    setJwt(body.jwt);
-                    console.log(jwt);
+                    let jwt: string = body.jwt;
+                    // signIn({
+                    //     auth: {token: jwt},
+                    //     userState: undefined,
+                    //     token: token,
+                    //     expiresIn: 3600,
+                    //     tokenType: "Bearer",
+                    //     authState: {username: body.user}
+                    // });
+                    console.log(headers);
                 });
         }, []);
     }
@@ -49,7 +57,7 @@ function App () {
         useEffect(() => {
             fetch("http://localhost:8080/user/test", {
                 headers: {
-                    "Authorization": 'Bearer ${jwt}',
+                    "Authorization": 'Bearer ' + jwt,
                     "Content-Type": "application/json",
                 },
                 method: "get",
@@ -74,7 +82,6 @@ function App () {
         <p>
             {username}
             {password}
-            {jwt}
         </p>
     </div>
   )
