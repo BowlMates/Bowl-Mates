@@ -1,24 +1,10 @@
 // MUI Imports
-import {styled, useTheme} from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
+import {useNavigate} from "react-router-dom";
 
-//Pre-Styling
-//----------------------------------------------------------------------------
-// You can pre-style components using the styled method/function
-// Place the component type you want styled as an argument (in this case - Box)
-// and then style the inside as if it were in-line styling or styling in a css
-// file
-const ExampleStyledComponent = styled(Box)(({ theme }) => ({
-    flexGrow: 1,
-    marginTop: "64px",
-    p: 3, //padding
-    backgroundColor: theme.palette.primary.main,
-    height: "calc(100% - 64px)",
-    width: "auto"
-}));
-
-function Landing () {
+function Landing() {
 
     //Notes about some MUI component types you will probably use the most
     //----------------------------------------------------------------------------
@@ -30,10 +16,84 @@ function Landing () {
     //      while also allowing us to change theming easier and possibly implement
     //      dark theme functionality
 
+    const navigate = useNavigate();
+    const logo = ""; // put path to our logo here
+    const handleLogin = () => {
+        navigate('www.bowlmates.me/login') // replace with our login route
+    };
+    const handleSignUp = () => {
+        navigate('www.bowlmates.me/signup') // replace with our signup route
+    };
+
     return (
-        <Typography variant={"h1"}>
-            This is the landing page!
-        </Typography>
+        <Box
+            display="flex"
+            flexDirection="column"
+            alignItems="center"
+            justifyContent="center"
+            height="100vh"
+            p={3}
+            bgcolor="#FFD9DF"
+            color="text.primary"
+        >
+            <Box
+                component="img"
+                src={logo}
+                alt="Logo"
+                sx={{width: 120, height: 'auto', marginBottom: 2}}
+            >
+            </Box>
+            <Typography
+                variant="h2"
+                component="h1"
+                sx={{fontStyle: 'italic', color: 'green', marginBottom: 2}}
+            >
+                connection through cuisine
+            </Typography>
+            <Button
+                variant="contained"
+                onClick={handleLogin}
+                sx={{
+                    //size stuff
+                    //borderRadius:50,
+                    padding: '10px 20px',
+                    fontSize: '2rem',
+                    minWidth: '150px',
+                    height: '55px',
+                    backgroundColor: '#54804D',
+                    color:'#FDF5F5',
+                    '&:hover': {
+                        backgroundColor:'#FDF5F5',
+                        color:'#54804D'
+                    },
+                    borderRadius: 50, // adjust for ellipsis shape
+                    marginBottom: 1
+                }}
+            >
+                login
+            </Button>
+            <Button
+                variant="contained"
+                onClick={handleSignUp}
+                sx={{
+                    padding: '10px 20px',
+                    fontSize: '2rem',
+                    minWidth: '150px',
+                    height: '55px',
+                    backgroundColor:'#FDF5F5',
+                    color:'#54804D',
+                    '&:hover': {
+                        backgroundColor:'#54804D',
+                        color:'#FDF5F5',
+                    },
+                    borderRadius: 50, // adjust for ellipsis shape
+                    marginBottom: 1
+                }}
+            >
+                sign up
+            </Button>
+        </Box>
+
     )
 }
 
