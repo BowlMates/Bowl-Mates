@@ -50,11 +50,10 @@ public class UserController {
     }
 
     @GetMapping(value = "/userinfo", produces = "application/json")
-    public TestUser sendUserInfo(@AuthenticationPrincipal String token) {
-
-        // TODO : Figure out what to do with authentication here
+    public TestUser sendUserInfo() {
         TestUser user = new TestUser();
         user.setName("Geoff");
+        user.setEmail("Geoff@mail.com");
         return user;
     }
 
