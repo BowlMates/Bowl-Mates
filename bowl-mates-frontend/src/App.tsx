@@ -3,11 +3,14 @@
 import './App.css'
 import useLocalStorage from "./hooks/useLocalStorage";
 import {useEffect, useState} from "react";
+import useSignIn from "react-auth-kit/hooks/useSignIn";
 
 const App = () => {
     const [username, setUsername] = useState("");
     const [password, setPasswod] = useState("");
-    const [jwt, setJwt] = useLocalStorage("", "jwt");
+    const [token, setToken] = useState("");
+    const signIn = useSignIn();
+    //const [jwt, setJwt] = useLocalStorage("", "jwt");
 
     async function TestLogin() {
         useEffect(() => {
@@ -24,8 +27,16 @@ const App = () => {
             })
                 .then((response) => Promise.all([response.json(), response.headers]))
                 .then(([body, headers]) => {
-                    setJwt(body.jwt);
-                    console.log(jwt);
+                    let jwt: string = body.jwt;
+                    signIn({
+                        auth: {token: jwt},
+                        userState: undefined,
+                        token: token,
+                        expiresIn: 3600,
+                        tokenType: "Bearer",
+                        authState: {username: body.user}
+                    });
+                    console.log(headers);
                 });
         }, [])
     }
@@ -34,9 +45,6 @@ const App = () => {
         useEffect(() => {
 
             fetch("http://localhost:8080/user/test", {
-                headers: {
-                    "Authorization": " Bearer " + jwt,
-                },
                 method: "get",
             })
                 .then((response) => Promise.all([response.json(), response.headers]))
@@ -57,7 +65,6 @@ const App = () => {
         <p>
             {username}
             {password}
-            {jwt}
         </p>
     </div>
   )
