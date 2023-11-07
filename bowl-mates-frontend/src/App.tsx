@@ -1,4 +1,4 @@
-import './App.css';
+//import './App.css';
 import { useEffect, useState } from 'react';
 
 const App = () => {
@@ -9,12 +9,12 @@ const App = () => {
         // Function to log in and obtain JWT
         async function loginAndGetJWT() {
             const loginData = {
-                username: 'timdillon',
-                password: 'pass',
+                username: 'GeoffGeoff',
+                password: 'Geoff',
             };
 
             try {
-                const loginResponse = await fetch('http://localhost:8080/auth/login', {
+                const loginResponse = await fetch('http://backend.bowlmates.me/auth/login', {
                     method: 'post',
                     headers: {
                         'Content-Type': 'application/json',
@@ -35,7 +35,7 @@ const App = () => {
                 const requestHeaders = {
                     'Authorization': `Bearer ${jwt}`,
                 };
-                    const testResponse = await fetch('http://localhost:8080/user/test', {
+                    const testResponse = await fetch('http://backend.bowlmates.me/user/test', {
                         method: 'get',
                         headers: requestHeaders,
                     });
@@ -49,7 +49,7 @@ const App = () => {
                     console.log('Test Response:', testResult.message);
 
 
-                const adminTestResponse = await fetch('http://localhost:8080/admin/test', {
+                const adminTestResponse = await fetch('http://backend.bowlmates.me/admin/test', {
                     method: 'get',
                     headers: requestHeaders,
                 });
