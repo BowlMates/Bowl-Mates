@@ -25,7 +25,6 @@ function Landing() {
         navigate('www.bowlmates.me/signup') // replace with our signup route
     };
 
-
     return (
         <Box
             display="flex"

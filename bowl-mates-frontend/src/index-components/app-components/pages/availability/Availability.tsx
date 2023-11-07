@@ -38,7 +38,6 @@ const daysOfWeek = [
     'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'
 ]
 
-
 function Availability() {
 
     // Initialize a matrix for availability

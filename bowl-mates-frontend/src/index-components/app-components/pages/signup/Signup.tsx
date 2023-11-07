@@ -78,7 +78,6 @@ function Signup() {
         sendDataToApi(email, password, confirmPassword)
 
     }
-
     return (
 
         <Box
