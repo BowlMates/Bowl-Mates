@@ -1,7 +1,13 @@
 // MUI Imports
 import {styled, useTheme} from "@mui/material/styles";
-import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
+import Container from  "@mui/material/Container";
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import Box from '@mui/material/Box';
+
 
 //Pre-Styling
 //----------------------------------------------------------------------------
@@ -31,9 +37,54 @@ function FAQ () {
     //      dark theme functionality
 
     return (
-        <Typography variant={"h1"}>
-            This is the FAQ page!
-        </Typography>
+        <Container maxWidth={"sm"}>
+            <Typography variant={"h1"}>
+                FAQ
+            </Typography>
+                <Accordion>
+                    <AccordionSummary
+                        expandIcon={<ExpandMoreIcon />}
+                        aria-controls="panel1a-content"
+                        id="panel1a-header"
+                    >
+                        <Typography>What is Bowlmates?</Typography>
+                    </AccordionSummary>
+                    <AccordionDetails>
+                        <Typography>
+                            It is Geoffgeoff's favorite new app on the block hehe
+                        </Typography>
+                    </AccordionDetails>
+                </Accordion>
+                <Accordion>
+                    <AccordionSummary
+                        expandIcon={<ExpandMoreIcon />}
+                        aria-controls="panel2a-content"
+                        id="panel2a-header"
+                    >
+                        <Typography>Why is Geoffgeoff so hot?</Typography>
+                    </AccordionSummary>
+                    <AccordionDetails>
+                        <Typography>
+                            Some things are just laws of nature that you can't really question.
+                        </Typography>
+                    </AccordionDetails>
+                </Accordion>
+            <Accordion>
+                <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="panel2a-content"
+                    id="panel2a-header"
+                >
+                    <Typography>Who is the Bowlmates team?</Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                    <Typography>
+                        Geoffgeoff, Jasper Balinas, Cade and Tim Dillon,
+                        Dan Johnson, and Stephen Cushbear
+                    </Typography>
+                </AccordionDetails>
+            </Accordion>
+        </Container>
     )
 }
 
