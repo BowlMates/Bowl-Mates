@@ -1,4 +1,4 @@
-package me.bowlmates.bowlmatesbackend;
+package me.bowlmates.bowlmatesbackend.Services;
 //
 //import org.springframework.stereotype.Service;
 //import org.springframework.beans.factory.annotation.Autowired;
@@ -26,15 +26,15 @@ package me.bowlmates.bowlmatesbackend;
 //        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), new ArrayList<>());
 //    }
 //}
+import me.bowlmates.bowlmatesbackend.Models.Role;
+import me.bowlmates.bowlmatesbackend.Models.TestUser;
+import me.bowlmates.bowlmatesbackend.Repositories.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
 import java.util.Set;
 
 @Service
@@ -49,10 +49,7 @@ public class TestUserDetailService implements UserDetailsService {
         if (user == null) {
             throw new UsernameNotFoundException("User not found with username: " + username);
         }
-        Set<GrantedAuthority> authorities = new HashSet<>();
-        authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
-
-        return new TestUserDetail(user.getUsername(), user.getPassword(), authorities);
+        return user;
     }
 }
 
