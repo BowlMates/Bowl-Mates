@@ -4,16 +4,16 @@ import './App.css'
 import useLocalStorage from "./hooks/useLocalStorage";
 import {useEffect, useState} from "react";
 
-const App = () => {
-    const [username, setUsername] = useState("");
-    const [password, setPasswod] = useState("");
+function App () {
+    const [username, setUsername] = useState("timdillon");
+    const [password, setPasswod] = useState("pass");
     const [jwt, setJwt] = useLocalStorage("", "jwt");
 
     async function TestLogin() {
         useEffect(() => {
             const reqBody = {
-                username: "GeoffGeoff",
-                password: "Geoff"
+                username: username,
+                password: password
             };
             fetch("http://localhost:8080/auth/login", {
                 headers: {
@@ -27,28 +27,45 @@ const App = () => {
                     setJwt(body.jwt);
                     console.log(jwt);
                 });
-        }, [])
+        }, []);
     }
 
-    async function TestAll() {
+    async function TestUserinfo() {
         useEffect(() => {
-
-            fetch("http://localhost:8080/user/test", {
+            fetch("http://localhost:8080/user/userinfo", {
                 headers: {
-                    "Authorization": " Bearer " + jwt,
+                    "Authorization": 'Bearer ' + jwt,
                 },
                 method: "get",
             })
                 .then((response) => Promise.all([response.json(), response.headers]))
                 .then(([body, headers]) => {
-                    console.log(body);
+                    console.log(body.email);
                 })
-        },[])
-
+        }, [])
     }
 
-    TestLogin().then();
-    TestAll().then();
+    async function TestTest() {
+        useEffect(() => {
+            fetch("http://localhost:8080/user/test", {
+                headers: {
+                    "Authorization": 'Bearer ${jwt}',
+                    "Content-Type": "application/json",
+                },
+                method: "get",
+            })
+                .then((response) => Promise.all([response.ok, response.headers]))
+                .then(([ok, headers]) => {
+                    console.log(ok);
+                })
+        }, [])
+    }
+
+
+    // TestLogin().then();
+    // TestUserinfo().then();
+    console.log(jwt);
+    TestTest().then();
   return (
     <div className='App'>
       <header className='App-header'>
