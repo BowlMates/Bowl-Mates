@@ -64,4 +64,12 @@ public class TestRestaurant {
     public void setRating(Integer rating) {
         this.rating = rating;
     }
+
+    public Set<TestUser> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<TestUser> users) {
+        this.users = users;
+    }
 }

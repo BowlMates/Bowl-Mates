@@ -135,6 +135,7 @@ public class TestUser implements UserDetails {
     }
 
     public void addFavorite(TestRestaurant rest) {
-        
+        this.favoriteRestaurants.add(rest);
+        rest.getUsers().add(this);
     }
 }
