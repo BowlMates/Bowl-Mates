@@ -12,6 +12,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.web.bind.annotation.*;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 
@@ -53,6 +54,18 @@ public class UserController {
             names.add(new RestaurantDTO(rest));
         }
         return names;
+    }
+
+    @GetMapping(value = "/displayrests", produces = "application/json")
+    public Set<RestaurantDTO> displayAllRestaurants(){
+        List<TestRestaurant> allRests = restaurantRepository.findAll();
+        Set<RestaurantDTO> setRests = new HashSet<>();
+        for(TestRestaurant restaurant : allRests){
+            setRests.add(new RestaurantDTO(restaurant));
+        }
+
+        return setRests;
+
     }
 
 //    @CrossOrigin("http://localhost:3000")
