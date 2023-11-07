@@ -2,6 +2,7 @@ package me.bowlmates.bowlmatesbackend.Models;
 
 import jakarta.persistence.*;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -20,8 +21,8 @@ public class TestRestaurant {
     @Column
     private Integer rating;
 
-    @ManyToMany(mappedBy = favoriteRestaurants)
-    private Set<TestUser> users;
+    @ManyToMany(mappedBy = "favoriteRestaurants")
+    private Set<TestUser> users = new HashSet<>();
 
 
     public Integer getId() {
