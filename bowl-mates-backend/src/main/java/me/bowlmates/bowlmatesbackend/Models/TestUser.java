@@ -32,10 +32,10 @@ public class TestUser implements UserDetails {
     private String password;
 
     @ManyToMany
-    @JoinTable(name = "user_favorite_restaurants",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "restaurant_id"))
-    private Set<TestRestaurant> favoriteRestaurants = new HashSet<>();
+//    @JoinTable(name = "user_favorite_restaurants",
+//            joinColumns = {@JoinColumn(name = "user_id")},
+//            inverseJoinColumns = {@JoinColumn(name = "restaurant_id")})
+    private Set<TestRestaurant> favoriteRestaurants;
 
     public TestUser() {
         super();

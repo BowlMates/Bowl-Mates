@@ -22,7 +22,7 @@ public class TestRestaurant {
     private Integer rating;
 
     @ManyToMany(mappedBy = "favoriteRestaurants")
-    private Set<TestUser> users = new HashSet<>();
+    private Set<TestUser> users;
 
 
     public Integer getId() {

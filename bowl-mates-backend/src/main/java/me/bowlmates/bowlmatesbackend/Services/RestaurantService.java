@@ -30,7 +30,6 @@ public class RestaurantService {
         }
         TestUser user = userRepository.findByUsername(username);
         TestRestaurant rest = restRepository.findByName(restName);
-
         user.addFavorite(rest);
         
     }
