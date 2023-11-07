@@ -2,6 +2,8 @@ package me.bowlmates.bowlmatesbackend.Models;
 
 import jakarta.persistence.*;
 
+import java.util.Set;
+
 @Entity
 @Table(name = "test_restaurant")
 public class TestRestaurant {
@@ -17,6 +19,9 @@ public class TestRestaurant {
     private String cuisine;
     @Column
     private Integer rating;
+
+    @ManyToMany(mappedBy = favoriteRestaurants)
+    private Set<TestUser> users;
 
 
     public Integer getId() {
