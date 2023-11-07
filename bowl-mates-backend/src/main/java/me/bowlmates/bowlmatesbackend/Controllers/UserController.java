@@ -13,6 +13,9 @@ import org.springframework.ui.Model;
 
 import org.springframework.validation.BindingResult;
 
+import java.util.HashMap;
+import java.util.Map;
+
 
 @RestController // This means that this class is a Controller
 @RequestMapping(path="/user") // This means URL's start with /demo (after Application path)
@@ -45,8 +48,10 @@ public class UserController {
 //    }
 
     @GetMapping(value = "/test", produces = "application/json")
-    public String test() {
-        return "Test succeeded!";
+    public Map<String, String> test() {
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "Test succeeded!");
+        return response;
     }
 
     @GetMapping(value = "/userinfo", produces = "application/json")

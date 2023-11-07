@@ -4,9 +4,14 @@ import me.bowlmates.bowlmatesbackend.Repositories.RestRepo;
 import me.bowlmates.bowlmatesbackend.Models.TestRestaurant;
 import me.bowlmates.bowlmatesbackend.Repositories.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController // This means that this class is a Controller
 @RequestMapping(path="/admin")
@@ -19,9 +24,19 @@ public class AdminController {
     @Autowired
     private RestRepo restaurantRepository;
 
-    @GetMapping("/")
-    public String test() {
-        return "admin level";
+//    @GetMapping("/")
+//    public String test() {
+//        return "admin level";
+//    }
+
+    @GetMapping(value = "/test", produces = "application/json")
+    public Map<String, String> test() {
+        Map<String, String> response = new HashMap<>();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalName = authentication.getName();
+//        response.put("message", "Admin Test succeeded!");
+        response.put("message", currentPrincipalName);
+        return response;
     }
 
     @GetMapping("/restaurant")
