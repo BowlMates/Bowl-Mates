@@ -37,7 +37,7 @@ function App() {
        palette: {
            mode: "light",
            primary: {
-               main: "#ffe0fc",
+               main: "#ffd9df",
            },
            secondary: {
                main: "#54804D"
@@ -48,27 +48,36 @@ function App() {
     return (
         <>
             <ThemeProvider theme={appTheme}>
-                <Box sx={{ display: 'flex', height: "100%", width: "100%" }}>
+                <Box sx={{ display: 'flex', height: "100%", width: "100%"}}>
                     <CssBaseline/>
                     <Header drawerOpen={drawerOpen} toggleDrawerOpen={toggleDrawerOpen}/>
                     <Sidebar drawerOpen={drawerOpen} toggleDrawerOpen={toggleDrawerOpen}/>
-                    <BodyContainer>
-                        <Routes>
-                            {/* This route exists for testing until security is updated*/}
-                            <Route path={"/"} element={<Landing />}/>
-                            {/* This route exists for testing until security is updated*/}
-                            <Route path={"/login"} element={<Login />}/>
-                            {/* This route exists for testing until security is updated*/}
-                            <Route path={"/sign-up"} element={<Signup />}/>
-                            <Route path={"/user-home"} element={<Home />}/>
-                            <Route path={"/favorite-restaurants"} element={<FavoriteRestaurants />}/>
-                            <Route path={"/availability"} element={<Availability />}/>
-                            <Route path={"/matching"} element={<Matching />}/>
-                            <Route path={"/successful-matches"} element={<SuccessfulMatches />}/>
-                            <Route path={"/settings"} element={<Settings />}/>
-                            <Route path={"/faq"} element={<FAQ />}/>
-                        </Routes>
-                    </BodyContainer>
+                    <Box sx={{
+                        display: 'flex',
+                        flexDirection : "column",
+                        flexGrow : 1,
+                        overflow : "auto",
+                        backgroundColor : appTheme.palette.primary.main
+                    }}>
+                        <Box sx={{width : "100%", height : "64px"}}/>
+                        <BodyContainer className={"BodyContainer"}>
+                            <Routes>
+                                {/* This route exists for testing until security is updated*/}
+                                <Route path={"/"} element={<Landing />}/>
+                                {/* This route exists for testing until security is updated*/}
+                                <Route path={"/login"} element={<Login />}/>
+                                {/* This route exists for testing until security is updated*/}
+                                <Route path={"/sign-up"} element={<Signup />}/>
+                                <Route path={"/user-home"} element={<Home />}/>
+                                <Route path={"/favorite-restaurants"} element={<FavoriteRestaurants />}/>
+                                <Route path={"/availability"} element={<Availability />}/>
+                                <Route path={"/matching"} element={<Matching />}/>
+                                <Route path={"/successful-matches"} element={<SuccessfulMatches />}/>
+                                <Route path={"/settings"} element={<Settings />}/>
+                                <Route path={"/faq"} element={<FAQ />}/>
+                            </Routes>
+                        </BodyContainer>
+                    </Box>
                 </Box>
             </ThemeProvider>
         </>

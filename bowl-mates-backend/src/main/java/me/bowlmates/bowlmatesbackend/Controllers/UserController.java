@@ -4,6 +4,7 @@ import me.bowlmates.bowlmatesbackend.Models.UserRequestDTO;
 import me.bowlmates.bowlmatesbackend.Repositories.RestRepo;
 import me.bowlmates.bowlmatesbackend.Models.TestUser;
 import me.bowlmates.bowlmatesbackend.Repositories.UserRepo;
+import me.bowlmates.bowlmatesbackend.Services.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -12,6 +13,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
 
 import org.springframework.validation.BindingResult;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 @RestController // This means that this class is a Controller
@@ -23,6 +27,8 @@ public class UserController {
     private UserRepo userRepository;
     @Autowired
     private RestRepo restaurantRepository;
+    @Autowired
+    private TokenService tokenService;
 
 
     @GetMapping("/")
@@ -45,8 +51,10 @@ public class UserController {
 //    }
 
     @GetMapping(value = "/test", produces = "application/json")
-    public String test() {
-        return "Test succeeded!";
+    public Map<String, String> test() {
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "Test succeeded!");
+        return response;
     }
 
     @GetMapping(value = "/userinfo", produces = "application/json")
@@ -57,8 +65,13 @@ public class UserController {
         return user;
     }
 
+    @GetMapping("/token")
+    public String tokenTest(@AuthenticationPrincipal String token) {
+        return tokenService.getUsernameFromToken(token);
+    }
+
     @GetMapping("/register")
-    public String showRegistrationForm(Model model){
+    public String showRegistrationForm(Model model) {
         // create model object to store form data
         TestUser user = new TestUser();
         model.addAttribute("user", user);
@@ -67,7 +80,7 @@ public class UserController {
     }
 
     @PostMapping("/register/save")
-    public String registration( @ModelAttribute("user") TestUser userDto,
+    public String registration(@ModelAttribute("user") TestUser userDto,
                                 BindingResult result,
                                 Model model){
         System.out.println("Register save");

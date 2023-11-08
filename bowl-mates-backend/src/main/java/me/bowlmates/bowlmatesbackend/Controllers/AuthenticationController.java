@@ -1,11 +1,9 @@
 package me.bowlmates.bowlmatesbackend.Controllers;
 
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import me.bowlmates.bowlmatesbackend.Services.*;
 import me.bowlmates.bowlmatesbackend.Models.*;
@@ -26,6 +24,15 @@ public class AuthenticationController {
 
     @PostMapping("/login")
     public LoginResponseDTO loginUser(@RequestBody RegistrationDTO body){
-        return authenticationService.loginUser(body.getUsername(), body.getPassword());
+        LoginResponseDTO response = authenticationService.loginUser(body.getUsername(), body.getPassword());
+        if (response.getUser() == null) {
+            throw new IllegalArgumentException();
+        }
+        return response;
+    }
+
+    @GetMapping("/servertest")
+    public String serverTest() {
+        return "Server is up!";
     }
 }
