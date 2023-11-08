@@ -81,28 +81,28 @@ public class UserController {
         return setRests;
     }
 
-    @GetMapping(value = "/availability", produces = "application/json")
-    public boolean[] getAvailability() {
-        String username = "";
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth != null && auth.isAuthenticated()) {
-            username = auth.getName();
-        }
-        TestUser user = userRepository.findByUsername(username);
-        return user.getAvailability();
-    }
-
-    @PostMapping("/availability/save")
-    public Boolean setAvailability(@RequestBody boolean[] avail) {
-        String username = "";
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth != null && auth.isAuthenticated()) {
-            username = auth.getName();
-        }
-        TestUser user = userRepository.findByUsername(username);
-        user.setAvailability(avail);
-        return true;
-    }
+//    @GetMapping(value = "/availability", produces = "application/json")
+//    public boolean[] getAvailability() {
+//        String username = "";
+//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//        if (auth != null && auth.isAuthenticated()) {
+//            username = auth.getName();
+//        }
+//        TestUser user = userRepository.findByUsername(username);
+//        return user.getAvailability();
+//    }
+//
+//    @PostMapping("/availability/save")
+//    public Boolean setAvailability(@RequestBody boolean[] avail) {
+//        String username = "";
+//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//        if (auth != null && auth.isAuthenticated()) {
+//            username = auth.getName();
+//        }
+//        TestUser user = userRepository.findByUsername(username);
+//        user.setAvailability(avail);
+//        return true;
+//    }
 
     @GetMapping(value = "/userinfo", produces = "application/json")
     public TestUser sendUserInfo() {
