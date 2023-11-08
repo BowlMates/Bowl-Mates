@@ -1,95 +1,81 @@
-//import React from 'react'
-//import logo from './logo.svg'
-import './App.css'
-import useLocalStorage from "./hooks/useLocalStorage";
-import SignIn from "./SignIn";
-import {useState} from "react";
+import './App.css';
+import { useEffect, useState } from 'react';
 
 const App = () => {
-    const [username, setUsername] = useState("");
-    const [password, setPasswod] = useState("");
-    const [jwt, setJwt] = useLocalStorage("", "jwt");
-    async function testLogin1() {
-        const reqBody = {
-            username: "GeoffGeoff",
-            password: "Geoff"
-        };
+    const [jwt, setJwt] = useState('');
+    const [testResponse, setTestResponse] = useState('');
 
-        fetch("http://localhost:8080/login", {
-            headers: {
-                "Content-Type": "application/json",
-            },
-            method: "post",
-            body: JSON.stringify(reqBody),
-        })
-            .then((response) => Promise.all([response.json(), response.headers]))
-            .then(([body, headers]) => {
-                setJwt(headers.get("authorization"))
-            });
-    }
+    useEffect(() => {
+        // Function to log in and obtain JWT
+        async function loginAndGetJWT() {
+            const loginData = {
+                username: 'timdillon',
+                password: 'pass',
+            };
 
-    testReg().then();
-    testLogin1().then();
-    // let str = testString().then();
-    //testAll().then();
-  return (
-    <div className='App'>
-      <header className='App-header'>
-          <div>
+            try {
+                const loginResponse = await fetch('http://localhost:8080/auth/login', {
+                    method: 'post',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(loginData),
+                });
 
-          </div>
-          Header goes here
-      </header>
-    </div>
-  )
-}
+                if (!loginResponse.ok) {
+                    throw new Error('Login failed');
+                }
 
-async function testString() {
-    let str;
-    // https://catfact.ninja/fact
-    await fetch('http://localhost:8080/test').then(response => {
-        return response.json();
-    }).then(data => {
-        console.log(data);
-        str = data;
-    }).catch(error =>
-    {
-        console.log("error code: " + error.toString());
-        str = "bad";
-    });
-    return str;
-}
+                const { jwt } = await loginResponse.json();
 
-async function testReg() {
-    let req = new XMLHttpRequest();
-    req.addEventListener("load", () => {
-        console.log(req.responseText);
-    });
-    req.open('POST', 'http://localhost:8080/testRegister?username=Geoff');
-    req.send(JSON.stringify({username: 'Geoff', password: 'Geoff'}));
-}
+                setJwt(jwt);
+                console.log('JWT Token:', jwt);
 
-async function testLogin() {
-    let req = new XMLHttpRequest();
-    req.addEventListener('load', () => {
-        console.log(req.responseText);
-    });
-    req.open('POST', 'http://localhost:8080/customlogin?username=GeoffGeoff&password=Geoff');
-    req.send(JSON.stringify({username: 'Geoff', password: 'Geoff'}));
-}
+// Request /user/test with JWT as Bearer token
+                const requestHeaders = {
+                    'Authorization': `Bearer ${jwt}`,
+                };
+                const testResponse = await fetch('http://localhost:8080/user/test', {
+                    method: 'get',
+                    headers: requestHeaders,
+                });
 
-async function testAll() {
-    let str;
-    await fetch('http://localhost:8080/all').then(response => {
-        return response.json();
-    }).then(data => {
-        console.log(data);
-        str = data;
-    }).catch(error => {
-        console.log("error code: " + error.toString());
-        str = "bad";
-    });
-    return str;
-}
+                if (!testResponse.ok) {
+                    throw new Error('Test request failed');
+                }
 
-export default App
+                const testResult = await testResponse.json();
+                setTestResponse(testResult.message); // Assuming "message" is the key in the JSON response
+                console.log('Test Response:', testResult.message);
+
+
+                const adminTestResponse = await fetch('http://localhost:8080/admin/test', {
+                    method: 'get',
+                    headers: requestHeaders,
+                });
+
+                if (!testResponse.ok) {
+                    throw new Error('Test request failed');
+                }
+
+                const adminTestResult = await adminTestResponse.json();
+                setTestResponse(adminTestResult.message); // Assuming "message" is the key in the JSON response
+                console.log('Test Response:', adminTestResult.message);
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+
+        loginAndGetJWT();
+    }, []);
+
+    return (
+        <div className='App'>
+            <header className='App-header'>Header goes here</header>
+            <p>JWT: {jwt}</p>
+            <p>Test Response: {testResponse}</p>
+        </div>
+    );
+};
+
+export default App;
