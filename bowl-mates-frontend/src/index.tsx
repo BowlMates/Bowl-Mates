@@ -5,7 +5,7 @@ import { BrowserRouter } from 'react-router-dom';
 
 // Custom Imports
 import './index.css'
-import App from './App'
+import FrontendTest from './Tests/FrontendTest'
 
 
 const root = ReactDOM.createRoot(
@@ -14,7 +14,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
       <BrowserRouter>
-          <App/>
+          <FrontendTest/>
       </BrowserRouter>
   </React.StrictMode>
 )

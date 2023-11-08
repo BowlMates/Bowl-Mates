@@ -1,7 +1,7 @@
-//import './App.css';
+//import './FrontendTest.css';
 import { useEffect, useState } from 'react';
 
-const App = () => {
+const FrontendTest = () => {
     const [jwt, setJwt] = useState('');
     const [testResponse, setTestResponse] = useState('');
 
@@ -78,4 +78,4 @@ const App = () => {
     );
 };
 
-export default App;
+export default FrontendTest;
