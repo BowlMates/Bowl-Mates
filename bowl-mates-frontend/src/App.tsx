@@ -35,6 +35,21 @@ const App = () => {
                 const requestHeaders = {
                     'Authorization': `Bearer ${jwt}`,
                 };
+
+
+                const userResponse = await fetch('http://localhost:8080/user/', {
+                    method: 'get',
+                    headers: requestHeaders,
+                });
+
+                if (!userResponse.ok) {
+                    throw new Error('Test request failed');
+                }
+
+                const userResult = await userResponse.json();
+                setTestResponse(userResult.message); // Assuming "message" is the key in the JSON response
+                console.log('Test Response:', userResult.message);
+
                 const testResponse = await fetch('http://localhost:8080/user/test', {
                     method: 'get',
                     headers: requestHeaders,
@@ -47,7 +62,6 @@ const App = () => {
                 const testResult = await testResponse.json();
                 setTestResponse(testResult.message); // Assuming "message" is the key in the JSON response
                 console.log('Test Response:', testResult.message);
-
 
                 const adminTestResponse = await fetch('http://localhost:8080/admin/test', {
                     method: 'get',

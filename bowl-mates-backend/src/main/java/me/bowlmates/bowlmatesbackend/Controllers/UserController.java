@@ -11,10 +11,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.web.bind.annotation.*;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
+import java.util.*;
 
 
 @RestController // This means that this class is a Controller
@@ -30,9 +28,18 @@ public class UserController {
     private RestaurantService restaurantService;
 
 
-    @GetMapping("/")
-    public String testUser() {
-        return "User level";
+    @GetMapping(value = "/", produces = "application/json")
+    public Map<String, String> user() {
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "user level");
+        return response;
+    }
+
+    @GetMapping(value = "/test", produces = "application/json")
+    public Map<String, String> test() {
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "Test succeeded!");
+        return response;
     }
 
     @PostMapping("/pref")

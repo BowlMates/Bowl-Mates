@@ -8,6 +8,9 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @RestController // This means that this class is a Controller
 @RequestMapping(path="/admin")
 @CrossOrigin("*")
@@ -19,9 +22,18 @@ public class AdminController {
     @Autowired
     private RestRepo restaurantRepository;
 
-    @GetMapping("/")
-    public String test() {
-        return "admin level";
+    @GetMapping(value = "/", produces = "application/json")
+    public Map<String, String> admin() {
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "admin level");
+        return response;
+    }
+
+    @GetMapping(value = "/test", produces = "application/json")
+    public Map<String, String> test() {
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "Test succeeded!");
+        return response;
     }
 
     @GetMapping("/restaurant")
