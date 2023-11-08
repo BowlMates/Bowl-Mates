@@ -4,6 +4,8 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import {useNavigate} from "react-router-dom";
 
+import bm from "../../../../images/BOWLMATES-LOGO.png";
+
 function Landing() {
 
     //Notes about some MUI component types you will probably use the most
@@ -38,9 +40,9 @@ function Landing() {
         >
             <Box
                 component="img"
-                src={logo}
+                src={bm}
                 alt="Logo"
-                sx={{width: 120, height: 'auto', marginBottom: 2}}
+                sx={{width: 300, height: 'auto', marginBottom: 2}}
             >
             </Box>
             <Typography

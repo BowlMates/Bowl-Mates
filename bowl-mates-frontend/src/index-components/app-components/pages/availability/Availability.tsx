@@ -2,7 +2,9 @@
 import {styled, useTheme} from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import {useState} from "react";
+import React, {useState} from "react";
+import Button from "@mui/material/Button";
+
 
 
 //Pre-Styling
@@ -236,8 +238,13 @@ function Availability() {
                         </Box>
                     ))}
                 </Box>
+
             </Box>
+            <Button type="submit" color="success" variant="contained">
+                submit
+            </Button>
         </Box>
+
 
     )
 }
