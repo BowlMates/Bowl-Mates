@@ -30,6 +30,9 @@ public class TestUser implements UserDetails {
     private String username;
     @Column
     private String password;
+    @Column
+    private boolean[] availability;
+
 
     @ManyToMany
 //    @JoinTable(name = "user_favorite_restaurants",
@@ -43,7 +46,7 @@ public class TestUser implements UserDetails {
     }
 
     public TestUser(Integer userId, String name, String username, String password,
-                           String email, Set<Role> authorities, Set<TestRestaurant> rests) {
+                           String email, boolean[] availability, Set<Role> authorities, Set<TestRestaurant> rests) {
         super();
         this.id = userId;
         this.name = name;
@@ -52,6 +55,7 @@ public class TestUser implements UserDetails {
         this.email = email;
         this.authorities = authorities;
         this.favoriteRestaurants = rests;
+        this.availability = availability;
     }
 
 
@@ -137,5 +141,13 @@ public class TestUser implements UserDetails {
     public void addFavorite(TestRestaurant rest) {
         this.favoriteRestaurants.add(rest);
         rest.getUsers().add(this);
+    }
+
+    public boolean[] getAvailability() {
+        return availability;
+    }
+
+    public void setAvailability(boolean[] availability) {
+        this.availability = availability;
     }
 }
