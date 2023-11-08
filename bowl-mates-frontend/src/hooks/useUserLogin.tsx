@@ -1,4 +1,10 @@
+// React Auth Kit Imports
+
+import { useSignIn } from "react-auth-kit";
+
 export const useUserLogin = () => {
+
+    const signIn = useSignIn();
 
     const loginReturns : {success : boolean, message : string}[] = [
         {success : true, message : "Login Successful"},
@@ -12,25 +18,39 @@ export const useUserLogin = () => {
     //let productionLink : string = "https://backend.bowlmates.me/auth/login";
     let testingLink : string = "http://localhost:8080/auth/login";
 
-    const userLogin = (username : string, password : string) => {
+    const userLogin = async (username : string, password : string) : Promise<{ success: boolean, message: string }> => {
 
         let returnVal = loginReturns[1];
 
-        fetch(testingLink, {
-            headers : headers,
-            method : "post",
-            body : JSON.stringify({
-                username : username,
+        return await fetch(testingLink, {
+            headers: headers,
+            method: "post",
+            body: JSON.stringify({
+                username: username,
                 password: password
             })
-        }).then((response) => {
-            return response.json();
+        }).then((res) => {
+            if (res.ok) {
+                return res.json();
+            } else {
+                return null;
+            }
         }).then((body) => {
-            localStorage.setItem("bowlmates-token", body.jwt);
-            returnVal = loginReturns[0];
-        })
-
-        return returnVal;
+            if (body == null) {
+                console.log("Login failed");
+                return returnVal;
+            }
+            if (signIn({
+                token: body.jwt,
+                expiresIn: 3600,
+                tokenType: "Bearer",
+                authState: {name: username},
+            })) {
+                console.log(body.jwt);
+                returnVal = loginReturns[0];
+            }
+            return returnVal;
+        });
     }
 
     return {userLogin};

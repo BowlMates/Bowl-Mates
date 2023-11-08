@@ -79,7 +79,7 @@ function Header(props: Props) {
                     <IconButton
                         color="inherit"
                         aria-label="open drawer"
-                        onClick={()=>{navigate("/settings")}}
+                        onClick={()=>{navigate("/app/settings")}}
                         edge="start"
                     >
                         <SettingsIcon/>
