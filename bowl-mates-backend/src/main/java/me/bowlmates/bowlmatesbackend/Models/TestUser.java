@@ -31,7 +31,8 @@ public class TestUser implements UserDetails {
     @Column
     private String password;
 
-
+//    @Column
+//    private boolean[] availability;
 
     @ManyToMany
 //    @JoinTable(name = "user_favorite_restaurants",
@@ -54,7 +55,7 @@ public class TestUser implements UserDetails {
         this.email = email;
         this.authorities = authorities;
         this.favoriteRestaurants = rests;
-
+//        this.availability = availability;
     }
 
 
