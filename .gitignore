@@ -4,3 +4,4 @@ bowl-mates-backend/.gradle/8.3/dependencies-accessors/dependencies-accessors.loc
 bowl-mates-backend/.gradle/8.3/executionHistory/executionHistory.lock
 bowl-mates-backend/.gradle/8.3/fileHashes/fileHashes.lock
 bowl-mates-backend/.gradle/buildOutputCleanup/buildOutputCleanup.lock
+*.lock

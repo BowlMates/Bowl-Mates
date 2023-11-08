@@ -2,38 +2,131 @@
 import {styled, useTheme} from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
+import {restaurant} from "../../../../data-types/restaurants";
+import {ToggleButton} from "@mui/material";
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import Button from "@mui/material/Button";
 
-//Pre-Styling
-//----------------------------------------------------------------------------
-// You can pre-style components using the styled method/function
-// Place the component type you want styled as an argument (in this case - Box)
-// and then style the inside as if it were in-line styling or styling in a css
-// file
-const ExampleStyledComponent = styled(Box)(({ theme }) => ({
-    flexGrow: 1,
-    marginTop: "64px",
-    p: 3, //padding
-    backgroundColor: theme.palette.primary.main,
-    height: "calc(100% - 64px)",
-    width: "auto"
-}));
+// Custom Imports
+import {useGetRestaurants} from "../../../../hooks/useGetRestaurants";
+import {useEffect, useState} from "react";
+
+let restaurants : restaurant[] = [
+    {
+        id: 5,
+        name: "Cactus",
+        address: "535 Bellevue Square, Bellevue, WA 98004",
+        cuisine: "Mexican",
+        rating: 3
+    },
+    {
+        id: 4,
+        name: "Canlis",
+        address: "2576 Aurora Ave N, Seattle, WA 98109",
+        cuisine: "Fine Dining",
+        rating: 5
+    },
+    {
+        id: 3,
+        name: "The Pink Door",
+        address: "1919 Post Alley, Seattle, WA 98101",
+        cuisine: "Italian",
+        rating: 5
+    },
+    {
+        id: 1,
+        name: "Kamonegi",
+        address: "1054 N 39th St, Seattle, WA 98103",
+        cuisine: "Japanese",
+        rating: 5
+    },
+    {
+        id: 2,
+        name: "Homer",
+        address: "3013 Beacon Ave S, Seattle, WA 98144",
+        cuisine: "Mediterranean",
+        rating: 5
+    }
+]
 
 function FavoriteRestaurants () {
 
-    //Notes about some MUI component types you will probably use the most
-    //----------------------------------------------------------------------------
-    //Note: Box is a better div (pls don't use divs)
-    //Note: Typography is a better version of html text tags (h1, p, etc...).
-    //      you can set the type of typography using variant={"h1"} within the tag
-    //Note: There is usually an MUI replacement for everything so try to stick with
-    //      this family of components since they will be most cohesive together
-    //      while also allowing us to change theming easier and possibly implement
-    //      dark theme functionality
+    const {favRes, setFavRes, postRestaurants, getRestaurants} = useGetRestaurants();
+    const theme = useTheme();
+
+    const [boolFavs, setBoolFavs] = useState([false, false, false, false, false, false]);
+
+    useEffect(()=>{
+        getRestaurants();
+    },[]);
+
+    useEffect(()=>{
+        let favs = [false, false, false, false, false, false];
+        for (let i = 0; i < favRes.length; i++) {
+            // @ts-ignore
+            favs[favRes[i].id] = true;
+        }
+        setBoolFavs(favs);
+    },[favRes]);
+
+    function hasRestaurant (id : number) {
+        for (let i = 0; i < favRes.length; i++) {
+            // @ts-ignore
+            if (id === favRes[i].id) {
+                return i;
+            }
+        }
+        return -1;
+    }
 
     return (
-        <Typography variant={"h1"}>
-            This is the favorite restaurants page!
-        </Typography>
+        <Box display={"flex"} sx={{flexDirection : "column", alignItems : "center", justifyContent : "center"}}>
+            <Box display={"flex"} sx={{paddingBottom: "20px"}}>
+                {restaurants.map((item,index)=>{
+                    return(
+                        <Box
+                            display={"flex"}
+                            sx={{flexDirection : "column", alignItems : "center", justifyContent : "center"}}
+                            key={item.id}
+                        >
+                            <Typography variant={"h4"}>
+                                {item.name}
+                            </Typography>
+                            <Typography variant={"h6"}>
+                                Cuisine: {item.cuisine}
+                            </Typography>
+                            <Typography variant={"h6"}>
+                                Address: {item.address}
+                            </Typography>
+                            <Typography variant={"h6"}>
+                                Rating: {item.rating}
+                            </Typography>
+                            <ToggleButton value={boolFavs[item.id]} selected={boolFavs[item.id]}
+                            onClick={()=>{
+                                let index = hasRestaurant(item.id);
+                                if (index >= 0) {
+                                    let resArrayCopy = [...favRes];
+                                    resArrayCopy.splice(index, 1);
+                                    setFavRes(resArrayCopy);
+                                } else {
+                                    let resArrayCopy = [...favRes, item];
+                                    // @ts-ignore
+                                    setFavRes(resArrayCopy);
+                                }
+                            }}>
+                                <FavoriteIcon/>
+                            </ToggleButton>
+                        </Box>
+                    )
+                })}
+            </Box>
+            <Button sx={{backgroundColor: theme.palette.secondary.main}} onClick={()=>{
+                console.log(JSON.stringify(favRes));
+                postRestaurants();
+            }}>
+                Update Favorites
+            </Button>
+        </Box>
     )
 }
 
