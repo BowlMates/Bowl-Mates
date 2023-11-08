@@ -22,6 +22,9 @@ import {useNavigate} from "react-router-dom";
 
 // React Auth Kit Imports
 import { useSignOut } from 'react-auth-kit'
+import {useAuthUser} from 'react-auth-kit'
+
+import Typography from "@mui/material/Typography";
 
 interface AppBarProps extends MuiAppBarProps {
     open?: boolean;
@@ -56,7 +59,9 @@ function Header(props: Props) {
 
     const navigate = useNavigate();
 
-    const signOut = useSignOut()
+    const signOut = useSignOut();
+
+    const auth = useAuthUser()
 
     return (
         <AppBar position="fixed">

@@ -21,6 +21,8 @@ export const useGetRestaurants = () => {
     let postFavRestaurantsProductionLink : string = "https://backend.bowlmates.me/user/pref";
     //let postFavRestaurantsTestingLink : string = "http://localhost:8080/user/pref";
 
+
+
     const getRestaurants = () => {
 
         fetch(getFavRestaurantsProductionLink, {
