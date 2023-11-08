@@ -42,7 +42,6 @@ public class UserController {
         return "User level";
     }
 
-
     @GetMapping(value = "/", produces = "application/json")
     public Map<String, String> user() {
         Map<String, String> response = new HashMap<>();
@@ -82,22 +81,8 @@ public class UserController {
         return setRests;
     }
 
-//    @CrossOrigin("http://localhost:3000")
-//    @GetMapping(value = "/")
-//    public String showLanding(Model model){
-//        String username = "";
-//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//        if(auth != null && auth.isAuthenticated()){
-//            username = auth.getName();
-//        }
-//        TestUser user = userRepository.findByUsername(username);
-//        model.addAttribute("user", user);
-//
-//        return "/landing";
-//    }
-
     @GetMapping(value = "/availability", produces = "application/json")
-    public Boolean[][] getAvailability() {
+    public boolean[] getAvailability() {
         String username = "";
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth != null && auth.isAuthenticated()) {
@@ -108,7 +93,7 @@ public class UserController {
     }
 
     @PostMapping("/availability/save")
-    public Boolean setAvailability(@RequestBody Boolean[][] avail) {
+    public Boolean setAvailability(@RequestBody boolean[] avail) {
         String username = "";
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth != null && auth.isAuthenticated()) {
@@ -130,14 +115,14 @@ public class UserController {
         return user;
     }
 
-    @GetMapping("/token")
-    public String tokenTest(@RequestHeader HttpServletRequest request) {
-        String authenticationHeader = request.getHeader("Authorization");
-        if (authenticationHeader == null || !authenticationHeader.startsWith("Bearer ")) {
-            throw new IllegalArgumentException();
-        }
-        return tokenService.getUsernameFromToken(authenticationHeader);
-    }
+//    @GetMapping("/token")
+//    public String tokenTest(@RequestHeader HttpServletRequest request) {
+//        String authenticationHeader = request.getHeader("Authorization");
+//        if (authenticationHeader == null || !authenticationHeader.startsWith("Bearer ")) {
+//            throw new IllegalArgumentException();
+//        }
+//        return tokenService.getUsernameFromToken(authenticationHeader);
+//    }
 
     @GetMapping(value = "/test", produces = "application/json")
     public Map<String, String> test() {
