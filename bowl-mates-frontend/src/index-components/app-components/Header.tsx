@@ -17,7 +17,11 @@ import Box from "@mui/material/Box";
 import SettingsIcon from '@mui/icons-material/Settings';
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
+import LogoutIcon from '@mui/icons-material/Logout';
 import {useNavigate} from "react-router-dom";
+
+// React Auth Kit Imports
+import { useSignOut } from 'react-auth-kit'
 
 interface AppBarProps extends MuiAppBarProps {
     open?: boolean;
@@ -52,6 +56,8 @@ function Header(props: Props) {
 
     const navigate = useNavigate();
 
+    const signOut = useSignOut()
+
     return (
         <AppBar position="fixed">
             <Toolbar>
@@ -74,6 +80,19 @@ function Header(props: Props) {
                         src={Logo}
                         onClick={()=>{navigate("/")}}
                     />
+                </Box>
+                <Box>
+                    <IconButton
+                        color="inherit"
+                        aria-label="open drawer"
+                        onClick={()=>{
+                            navigate("/")
+                            signOut();
+                        }}
+                        edge="start"
+                    >
+                        <LogoutIcon/>
+                    </IconButton>
                 </Box>
                 <Box>
                     <IconButton
