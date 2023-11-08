@@ -1,6 +1,9 @@
 package me.bowlmates.bowlmatesbackend.Services;
 
 import java.time.Instant;
+import java.util.Base64;
+import java.util.NoSuchElementException;
+import java.util.Scanner;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,12 +40,17 @@ public class TokenService {
     }
 
     public String getUsernameFromToken(String token) {
-        Jwt jwt = jwtDecoder.decode(token);
-        Object o = jwt.getClaims().get("username");
-        if (!(o instanceof String)) {
-            throw new IllegalStateException("Username not stored as string");
+        if (token == null) {
+            throw new NoSuchElementException();
         }
-        return (String) o;
+        String[] chunks = token.split("\\.");
+        Base64.Decoder decoder = Base64.getUrlDecoder();
+        String body = new String(decoder.decode(chunks[1]));
+        Scanner scn = new Scanner(body);
+        scn.findAll("\"username\":");
+        scn.useDelimiter("\"");
+        String username = scn.next();
+        return username;
     }
 
 }
