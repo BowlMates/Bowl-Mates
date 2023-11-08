@@ -3,6 +3,8 @@ import {styled, useTheme} from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import {useRef, useState} from "react";
+import {useRegister} from "../../../../hooks/useRegister";
+import {useNavigate} from "react-router-dom";
 
 //Pre-Styling
 //----------------------------------------------------------------------------
@@ -22,30 +24,30 @@ const Rectangle = styled(Box)({
     cursor: 'pointer'
 });
 
-async function sendDataToApi (email: string, password: string, confirmPassword: string) {
-    try {
-        const response = await fetch('http://localhost:8080/auth/signup', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                email,
-                password,
-                confirmPassword
-            })
-        });
-
-        if (response.ok) {
-            const responseData = await response.json();
-            console.log('API Response:', responseData);
-        } else {
-            console.error('Error occurred while sending data to API');
-        }
-    } catch (error) {
-        console.error('Error occurred:', error);
-    }
-}
+// async function sendDataToApi (email: string, password: string, confirmPassword: string) {
+//     try {
+//         const response = await fetch('http://localhost:8080/auth/signup', {
+//             method: 'POST',
+//             headers: {
+//                 'Content-Type': 'application/json',
+//             },
+//             body: JSON.stringify({
+//                 email,
+//                 password,
+//                 confirmPassword
+//             })
+//         });
+//
+//         if (response.ok) {
+//             const responseData = await response.json();
+//             console.log('API Response:', responseData);
+//         } else {
+//             console.error('Error occurred while sending data to API');
+//         }
+//     } catch (error) {
+//         console.error('Error occurred:', error);
+//     }
+// }
 
 function Signup() {
 
@@ -59,28 +61,39 @@ function Signup() {
     //      while also allowing us to change theming easier and possibly implement
     //      dark theme functionality
 
-    const emailRef = useRef(null);
-    const passwordRef = useRef(null);
-    const confirmPasswordRef = useRef(null);
+    // const emailRef = useRef(null);
+    // const passwordRef = useRef(null);
+    // const confirmPasswordRef = useRef(null);
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
 
+    const {userRegistration} = useRegister();
+    const navigate = useNavigate();
 
     // Retrieves input values from email, pw, confirm pw
     // fix the null issue later
     function handleSubmission() {
-        // @ts-ignore
-        const email = emailRef.current.textContent;
-        // @ts-ignore
-        const password = passwordRef.current.textContent;
-        // @ts-ignore
-        const confirmPassword = confirmPasswordRef.current.textContent;
+        // // @ts-ignore
+        // const email = emailRef.current.textContent;
+        // // @ts-ignore
+        // const password = passwordRef.current.textContent;
+        // // @ts-ignore
+        // const confirmPassword = confirmPasswordRef.current.textContent;
 
         // Perform input validation logic here
 
-        sendDataToApi(email, password, confirmPassword)
+        userRegistration(email, password, email).then((res)=>{
+            if(res.success){
+                console.log(res.message);
+                navigate("/login");
+            } else {
+                console.log(res.message);
+            }
+        });
+
+        // sendDataToApi(email, password, confirmPassword)
 
     }
     return (
@@ -185,7 +198,19 @@ function Signup() {
                     />
 
                 </Rectangle>
-                <Rectangle bgcolor="#54804D">
+                <Rectangle bgcolor="#54804D"
+                   onClick={async () => {
+                       let result : {success : boolean, message : string} = await userRegistration(email, password, email).then((res) => {
+                           return res
+                       });
+                       if(result.success) {
+                           console.log(result.message);
+                           navigate("/login");
+                       } else {
+                           console.log(result.message);
+                       }
+                   }}
+                >
                     <Typography
                         variant="body1"
                         style = {{
