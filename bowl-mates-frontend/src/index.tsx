@@ -5,7 +5,7 @@ import { BrowserRouter } from 'react-router-dom';
 
 // Custom Imports
 import './index.css'
-import FrontendTest from './Tests/FrontendTest'
+import FrontendTest from './tests/FrontendTest'
 
 
 const root = ReactDOM.createRoot(

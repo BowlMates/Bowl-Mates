@@ -8,7 +8,9 @@ import me.bowlmates.bowlmatesbackend.Repositories.UserRepo;
 import me.bowlmates.bowlmatesbackend.Services.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
@@ -31,7 +33,6 @@ public class UserController {
     @Autowired
     private TokenService tokenService;
 
-
     @GetMapping("/")
     public String testUser() {
         return "User level";
@@ -51,29 +52,38 @@ public class UserController {
 //        return "/landing";
 //    }
 
-    @GetMapping(value = "/test", produces = "application/json")
-    public Map<String, String> test() {
-        Map<String, String> response = new HashMap<>();
-        response.put("message", "Test succeeded!");
-        return response;
+    @GetMapping(value = "/availability", produces = "application/json")
+    public Boolean[][] getAvailability() {
+        String username = "";
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null && auth.isAuthenticated()) {
+            username = auth.getName();
+        }
+        TestUser user = userRepository.findByUsername(username);
+        return user.getAvailability;
+    }
+
+    @PostMapping("/availability/save")
+    public Boolean setAvailability(@RequestBody Boolean[][] avail) {
+        String username = "";
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null && auth.isAuthenticated()) {
+            username = auth.getName();
+        }
+        TestUser user = userRepository.findByUsername(username);
+        user.setAvailability(avail);
+        return true;
     }
 
     @GetMapping(value = "/userinfo", produces = "application/json")
     public TestUser sendUserInfo() {
-        TestUser user = new TestUser();
-        user.setName("Geoff");
-        user.setEmail("Geoff@mail.com");
-        return user;
-    }
-
-    @RequestMapping("/*")
-    @GetMapping("/token")
-    public String tokenTest(@RequestHeader HttpServletRequest request) {
-        String authenticationHeader = request.getHeader("Authorization");
-        if (authenticationHeader == null || !authenticationHeader.startsWith("Bearer ")) {
-            throw new IllegalArgumentException();
+        String username = "";
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null && auth.isAuthenticated()) {
+            username = auth.getName();
         }
-        return tokenService.getUsernameFromToken(authenticationHeader);
+        TestUser user = userRepository.findByUsername(username);
+        return user;
     }
 
     @GetMapping("/register")
@@ -107,6 +117,22 @@ public class UserController {
         userRepository.save(userDto);
         System.out.println("Register success!");
         return "redirect:/register?success";
+    }
+
+    @GetMapping("/token")
+    public String tokenTest(@RequestHeader HttpServletRequest request) {
+        String authenticationHeader = request.getHeader("Authorization");
+        if (authenticationHeader == null || !authenticationHeader.startsWith("Bearer ")) {
+            throw new IllegalArgumentException();
+        }
+        return tokenService.getUsernameFromToken(authenticationHeader);
+    }
+
+    @GetMapping(value = "/test", produces = "application/json")
+    public Map<String, String> test() {
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "Test succeeded!");
+        return response;
     }
 
     SecurityContextLogoutHandler logoutHandler = new SecurityContextLogoutHandler();
