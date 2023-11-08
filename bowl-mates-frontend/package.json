@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@emotion/css": "^11.11.2",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.14.16",
@@ -14,8 +15,9 @@
     "@types/node": "^20.8.9",
     "@types/react": "^18.2.32",
     "@types/react-dom": "^18.2.14",
+    "js-cookie": "^2.2.1",
     "react": "^18.2.0",
-    "react-auth-kit": "^3.0.0-alpha.35",
+    "react-auth-kit": "^2.12.7",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.18.0",
     "react-scripts": "^5.0.1",

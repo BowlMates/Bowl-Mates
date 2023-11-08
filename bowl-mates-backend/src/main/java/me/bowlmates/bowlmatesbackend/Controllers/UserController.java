@@ -50,8 +50,8 @@ public class UserController {
     }
 
     @PostMapping("/pref")
-    public void addRestPreference(@RequestBody RestaurantDTO body) {
-        restaurantService.addPreference(body.getName());
+    public void addRestPreference(@RequestBody List<RestaurantDTO> body) {
+        restaurantService.addPreference(body);
     }
 
     @GetMapping(value = "/displaypref", produces = "application/json")
@@ -114,6 +114,8 @@ public class UserController {
         TestUser user = userRepository.findByUsername(username);
         return user;
     }
+
+    // TODO: userinfo post mapping
 
 //    @GetMapping("/token")
 //    public String tokenTest(@RequestHeader HttpServletRequest request) {
