@@ -1,7 +1,7 @@
 package me.bowlmates.bowlmatesbackend.Models;
 
 public class LoginResponseDTO {
-    private TestUser user;
+    private String username;
     private String jwt;
 
     public LoginResponseDTO(){
@@ -9,16 +9,16 @@ public class LoginResponseDTO {
     }
 
     public LoginResponseDTO(TestUser user, String jwt){
-        this.user = user;
+        this.username = user.getUsername();
         this.jwt = jwt;
     }
 
-    public TestUser getUser(){
-        return this.user;
+    public String getUser(){
+        return this.username;
     }
 
-    public void setUser(TestUser user){
-        this.user = user;
+    public void setUser(String username){
+        this.username = username;
     }
 
     public String getJwt(){
