@@ -2,38 +2,72 @@
 import {styled, useTheme} from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
+import TextField from "@mui/material/TextField";
+import {useState} from "react";
+import Button from "@mui/material/Button";
+import {useUserLogin} from "../../../../hooks/useUserLogin";
+import {useNavigate} from "react-router-dom";
 
-//Pre-Styling
-//----------------------------------------------------------------------------
-// You can pre-style components using the styled method/function
-// Place the component type you want styled as an argument (in this case - Box)
-// and then style the inside as if it were in-line styling or styling in a css
-// file
-const ExampleStyledComponent = styled(Box)(({ theme }) => ({
-    flexGrow: 1,
-    marginTop: "64px",
-    p: 3, //padding
-    backgroundColor: theme.palette.primary.main,
-    height: "calc(100% - 64px)",
-    width: "auto"
+const GreenText = styled(Typography)(({ theme }) => ({
+    fontStyle: 'italic',
+    color: 'green',
+    fontSize: "10vw"
 }));
+
+
 
 function Login () {
 
-    //Notes about some MUI component types you will probably use the most
-    //----------------------------------------------------------------------------
-    //Note: Box is a better div (pls don't use divs)
-    //Note: Typography is a better version of html text tags (h1, p, etc...).
-    //      you can set the type of typography using variant={"h1"} within the tag
-    //Note: There is usually an MUI replacement for everything so try to stick with
-    //      this family of components since they will be most cohesive together
-    //      while also allowing us to change theming easier and possibly implement
-    //      dark theme functionality
+    const theme = useTheme();
 
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+
+    const {userLogin} = useUserLogin();
+    const navigate = useNavigate();
     return (
-        <Typography variant={"h1"}>
-            This is the login page!
-        </Typography>
+    <Box display={"flex"} sx={{flexDirection: "column", alignItems : "center", justifyContent : "center"}}>
+        <GreenText variant={"h1"}>
+            let's
+        </GreenText>
+        <GreenText variant={"h1"}>
+            eat!
+        </GreenText>
+        <TextField
+            sx={{backgroundColor: "white", width: "20vw", marginBottom: "1vh", marginTop: "1vh"}}
+            label="Username"
+            variant="standard"
+            value={username}
+            onChange={(event)=>{
+                setUsername(event.target.value);
+            }}
+        >{username}</TextField>
+        <TextField
+            sx={{backgroundColor: "white", width: "20vw", marginBottom: "1vh", marginTop: "2vh"}}
+            label="Password"
+            variant="standard"
+            onChange={(event)=>{
+                setPassword(event.target.value);
+            }}
+        >{password}</TextField>
+        <Button
+            sx={{"height": "6vh", width: "20vw", backgroundColor: theme.palette.secondary.main}}
+            onClick={async () => {
+                let result : {success : boolean, message : string} = await userLogin(username, password).then((res) => {
+                    return res
+                });
+                if(result.success) {
+                    console.log(result.message);
+                    navigate("/app");
+                } else {
+                    console.log(result.message);
+                }
+            }}
+        >
+            Login
+        </Button>
+
+    </Box>
     )
 }
 

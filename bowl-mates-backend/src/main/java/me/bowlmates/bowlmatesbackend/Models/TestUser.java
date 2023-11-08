@@ -30,12 +30,15 @@ public class TestUser implements UserDetails {
     private String username;
     @Column
     private String password;
+//    @Column
+//    private boolean[] availability;
+
 
     @ManyToMany
-    @JoinTable(name = "user_favorite_restaurants",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "restaurant_id"))
-    private Set<TestRestaurant> favoriteRestaurants = new HashSet<>();
+//    @JoinTable(name = "user_favorite_restaurants",
+//            joinColumns = {@JoinColumn(name = "user_id")},
+//            inverseJoinColumns = {@JoinColumn(name = "restaurant_id")})
+    private Set<TestRestaurant> favoriteRestaurants;
 
     public TestUser() {
         super();
@@ -52,6 +55,7 @@ public class TestUser implements UserDetails {
         this.email = email;
         this.authorities = authorities;
         this.favoriteRestaurants = rests;
+//        this.availability = availability;
     }
 
 
@@ -133,4 +137,17 @@ public class TestUser implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+    public void addFavorite(TestRestaurant rest) {
+        this.favoriteRestaurants.add(rest);
+        rest.getUsers().add(this);
+    }
+
+//    public boolean[] getAvailability() {
+//        return availability;
+//    }
+//
+//    public void setAvailability(boolean[] availability) {
+//        this.availability = availability;
+//    }
 }

@@ -2,6 +2,9 @@ package me.bowlmates.bowlmatesbackend.Models;
 
 import jakarta.persistence.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Table(name = "test_restaurant")
 public class TestRestaurant {
@@ -10,13 +13,16 @@ public class TestRestaurant {
     @Column(unique = true)
     private Integer id; // Change to Integer type as it's typically used for IDs
     @Column
-    private String restaurant_name;
+    private String name;
     @Column(unique = true)
     private String address;
     @Column
     private String cuisine;
     @Column
     private Integer rating;
+
+    @ManyToMany(mappedBy = "favoriteRestaurants")
+    private Set<TestUser> users;
 
 
     public Integer getId() {
@@ -28,11 +34,11 @@ public class TestRestaurant {
     }
 
     public String getRestaurant_name() {
-        return restaurant_name;
+        return name;
     }
 
     public void setRestaurant_name(String restaurant_name) {
-        this.restaurant_name = restaurant_name;
+        this.name = restaurant_name;
     }
 
     public String getAddress() {
@@ -57,5 +63,13 @@ public class TestRestaurant {
 
     public void setRating(Integer rating) {
         this.rating = rating;
+    }
+
+    public Set<TestUser> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<TestUser> users) {
+        this.users = users;
     }
 }

@@ -75,18 +75,12 @@ function Sidebar(props : Props) {
     const navigate = useNavigate();
 
     const sidebarRoutes : {name : string, icon : any, route : ()=>void}[] = [
-        // This item exists for testing until security is updated
-        {name: "Landing", icon : <FlightLandIcon/>, route : ()=>{navigate("../")}},
-        // This item exists for testing until security is updated
-        {name: "Login", icon : <LoginIcon/>, route : ()=>{navigate("/login")}},
-        // This item exists for testing until security is updated
-        {name: "Sign Up", icon : <SensorOccupiedIcon/>, route : ()=>{navigate("/sign-up")}},
-        {name: "Home", icon : <HomeIcon/>, route : ()=>{navigate("/user-home")}},
-        {name: "Favorite Restaurants", icon : <RestaurantMenuIcon/>, route : ()=>{navigate("/favorite-restaurants")}},
-        {name: "Availability", icon : <EventAvailableIcon/>, route : ()=>{navigate("/availability")}},
-        {name: "Matching", icon : <Diversity3Icon/>, route : ()=>{navigate("/matching")}},
-        {name: "Successful Matches", icon : <CheckCircleIcon/>, route : ()=>{navigate("/successful-matches")}},
-        {name: "FAQ", icon : <InfoIcon/>, route : ()=>{navigate("/faq")}},
+        {name: "Home", icon : <HomeIcon/>, route : ()=>{navigate("/app/")}},
+        {name: "Favorite Restaurants", icon : <RestaurantMenuIcon/>, route : ()=>{navigate("/app/favorite-restaurants")}},
+        {name: "Availability", icon : <EventAvailableIcon/>, route : ()=>{navigate("/app/availability")}},
+        {name: "Matching", icon : <Diversity3Icon/>, route : ()=>{navigate("/app/matching")}},
+        {name: "Successful Matches", icon : <CheckCircleIcon/>, route : ()=>{navigate("/app/successful-matches")}},
+        {name: "FAQ", icon : <InfoIcon/>, route : ()=>{navigate("/app/faq")}},
     ];
 
     return (
