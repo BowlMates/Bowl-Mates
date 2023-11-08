@@ -2,7 +2,7 @@
 import {styled, useTheme} from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import {useRef} from "react";
+import {useRef, useState} from "react";
 
 //Pre-Styling
 //----------------------------------------------------------------------------
@@ -63,6 +63,11 @@ function Signup() {
     const passwordRef = useRef(null);
     const confirmPasswordRef = useRef(null);
 
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+
+
     // Retrieves input values from email, pw, confirm pw
     // fix the null issue later
     function handleSubmission() {
@@ -94,7 +99,7 @@ function Signup() {
                             {
                                 fontFamily: 'Inter, sans-serif',
                                 fontWeight: 300,
-                                fontSize: '25vw',
+                                fontSize: '20vw',
                                 //lineHeight: '1.2px'
                                 paddingTop: '10vh'
                             }
@@ -114,52 +119,72 @@ function Signup() {
                 marginLeft="50px"
                 marginTop="175px"
             >
+
+                {/*// ref={emailRef}*/}
+                {/*// contentEditable="true"*/}
+                {/*// suppressContentEditableWarning={true}*/}
+
                 <Rectangle
-                    bgcolor="#FDF5F5"
-                    ref={emailRef}
-                    contentEditable="true"
-                    suppressContentEditableWarning={true}
-                >
-                    <Typography
-                        variant="body1"
-                        style = {{
+                    bgcolor="#FDF5F5">
+                    <input
+                        type="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        onFocus={(e) => e.target.value === 'e-mail' && setEmail('')}
+                        placeholder="e-mail"
+                        style= {{
+                            width: '100%',
+                            border: 'none',
+                            outline: 'none',
                             fontSize: '40px',
                             fontFamily: 'Inter, sans-serif',
-                            color:'#54804D'
+                            textAlign: 'center',
+                            backgroundColor: '#FDF5F5',
+                            color: '#54804D'
                         }}
-                    > e-mail
-                    </Typography>
+                    />
                 </Rectangle>
                 <Rectangle
-                    bgcolor="#FDF5F5"
-                    ref={passwordRef}
-                    contentEditable="true"
-                    suppressContentEditableWarning={true}
-                >
-                    <Typography
-                        variant="body1"
-                        style = {{
-                            fontSize: '35px',
+                    bgcolor="#FDF5F5">
+                    <input
+                        type="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        onFocus={(e) => e.target.value === 'password' && setPassword('')}
+                        placeholder="password"
+                        style= {{
+                            width: '100%',
+                            border: 'none',
+                            outline: 'none',
+                            fontSize: '40px',
                             fontFamily: 'Inter, sans-serif',
-                            color:'#54804D'
+                            textAlign: 'center',
+                            backgroundColor: '#FDF5F5',
+                            color: '#54804D'
                         }}
-                    > password
-                    </Typography>
+                        />
                 </Rectangle>
                 <Rectangle
-                    bgcolor="#FDF5F5"
-                    ref={confirmPasswordRef}
-                    contentEditable="true"
-                    suppressContentEditableWarning={true}
-                >
-                    <Typography
-                        variant="body1"
-                        style = {{
-                            fontSize: '30px',
+                    bgcolor="#FDF5F5">
+                    <input
+                        type="confirmPassword"
+                        value={confirmPassword}
+                        onChange={(e) => setConfirmPassword(e.target.value)}
+                        onFocus={(e) => e.target.value === 'confirmPassword' && setConfirmPassword('')}
+                        placeholder="confirm password"
+                        style= {{
+                            width: '100%',
+                            border: 'none',
+                            outline: 'none',
+                            fontSize: '40px',
                             fontFamily: 'Inter, sans-serif',
-                            color:'#54804D'
+                            textAlign: 'center',
+                            backgroundColor: '#FDF5F5',
+                            color: '#54804D'
                         }}
-                    >confirm password</Typography>
+                    />
+
+
                 </Rectangle>
                 <Rectangle bgcolor="#54804D">
                     <Typography
