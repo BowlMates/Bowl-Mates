@@ -30,8 +30,8 @@ public class TestUser implements UserDetails {
     private String username;
     @Column
     private String password;
-    @Column
-    private boolean[] availability;
+//    @Column
+//    private boolean[] availability;
 
 
     @ManyToMany
@@ -46,7 +46,7 @@ public class TestUser implements UserDetails {
     }
 
     public TestUser(Integer userId, String name, String username, String password,
-                           String email, boolean[] availability, Set<Role> authorities, Set<TestRestaurant> rests) {
+                           String email, Set<Role> authorities, Set<TestRestaurant> rests) {
         super();
         this.id = userId;
         this.name = name;
@@ -55,7 +55,7 @@ public class TestUser implements UserDetails {
         this.email = email;
         this.authorities = authorities;
         this.favoriteRestaurants = rests;
-        this.availability = availability;
+//        this.availability = availability;
     }
 
 
@@ -143,11 +143,11 @@ public class TestUser implements UserDetails {
         rest.getUsers().add(this);
     }
 
-    public boolean[] getAvailability() {
-        return availability;
-    }
-
-    public void setAvailability(boolean[] availability) {
-        this.availability = availability;
-    }
+//    public boolean[] getAvailability() {
+//        return availability;
+//    }
+//
+//    public void setAvailability(boolean[] availability) {
+//        this.availability = availability;
+//    }
 }
