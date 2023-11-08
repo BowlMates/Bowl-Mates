@@ -1,5 +1,6 @@
 package me.bowlmates.bowlmatesbackend.Controllers;
 
+import jakarta.servlet.http.HttpServletRequest;
 import me.bowlmates.bowlmatesbackend.Models.UserRequestDTO;
 import me.bowlmates.bowlmatesbackend.Repositories.RestRepo;
 import me.bowlmates.bowlmatesbackend.Models.TestUser;
@@ -65,9 +66,14 @@ public class UserController {
         return user;
     }
 
+    @RequestMapping("/*")
     @GetMapping("/token")
-    public String tokenTest(@AuthenticationPrincipal String token) {
-        return tokenService.getUsernameFromToken(token);
+    public String tokenTest(@RequestHeader HttpServletRequest request) {
+        String authenticationHeader = request.getHeader("Authorization");
+        if (authenticationHeader == null || !authenticationHeader.startsWith("Bearer ")) {
+            throw new IllegalArgumentException();
+        }
+        return tokenService.getUsernameFromToken(authenticationHeader);
     }
 
     @GetMapping("/register")
