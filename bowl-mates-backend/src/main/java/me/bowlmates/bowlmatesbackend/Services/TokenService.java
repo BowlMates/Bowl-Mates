@@ -1,5 +1,6 @@
 package me.bowlmates.bowlmatesbackend.Services;
 
+import java.time.Duration;
 import java.time.Instant;
 import java.util.Base64;
 import java.util.NoSuchElementException;
@@ -24,6 +25,7 @@ public class TokenService {
     public String generateJwt(Authentication auth){
 
         Instant now = Instant.now();
+        Instant expirationTime = now.plus(Duration.ofMinutes(15));
 
         String scope = auth.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
@@ -34,6 +36,7 @@ public class TokenService {
                 .issuedAt(now)
                 .subject(auth.getName())
                 .claim("roles", scope)
+                .expiresAt(expirationTime)
                 .build();
 
         return jwtEncoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();
