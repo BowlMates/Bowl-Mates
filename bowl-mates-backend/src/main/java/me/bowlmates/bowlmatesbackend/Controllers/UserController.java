@@ -1,21 +1,18 @@
 package me.bowlmates.bowlmatesbackend.Controllers;
 
-import me.bowlmates.bowlmatesbackend.Models.UserRequestDTO;
+import me.bowlmates.bowlmatesbackend.Models.RestaurantDTO;
+import me.bowlmates.bowlmatesbackend.Models.TestRestaurant;
 import me.bowlmates.bowlmatesbackend.Repositories.RestRepo;
 import me.bowlmates.bowlmatesbackend.Models.TestUser;
+import me.bowlmates.bowlmatesbackend.Services.RestaurantService;
 import me.bowlmates.bowlmatesbackend.Repositories.UserRepo;
-import me.bowlmates.bowlmatesbackend.Services.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.ui.Model;
 
-import org.springframework.validation.BindingResult;
-
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 
 @RestController // This means that this class is a Controller
@@ -28,12 +25,54 @@ public class UserController {
     @Autowired
     private RestRepo restaurantRepository;
     @Autowired
-    private TokenService tokenService;
+    private RestaurantService restaurantService;
 
 
-    @GetMapping("/")
-    public String testUser() {
-        return "User level";
+    @GetMapping(value = "/", produces = "application/json")
+    public Map<String, String> user() {
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "user level");
+        return response;
+    }
+
+    @GetMapping(value = "/test", produces = "application/json")
+    public Map<String, String> test() {
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "Test succeeded!");
+        return response;
+    }
+
+    @PostMapping("/pref")
+    public void addRestPreference(@RequestBody RestaurantDTO body) {
+        restaurantService.addPreference(body.getName());
+    }
+
+    @GetMapping(value = "/displaypref", produces = "application/json")
+    public Set<RestaurantDTO> displayRestPreference() {
+        String username = "";
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if(auth != null && auth.isAuthenticated()){
+            username = auth.getName();
+        }
+        TestUser user = userRepository.findByUsername(username);
+        Set<RestaurantDTO> names = new HashSet<>();
+        Set<TestRestaurant> rests = user.getFavoriteRestaurants();
+        for (TestRestaurant rest : rests) {
+            names.add(new RestaurantDTO(rest));
+        }
+        return names;
+    }
+
+    @GetMapping(value = "/displayrests", produces = "application/json")
+    public Set<RestaurantDTO> displayAllRestaurants(){
+        List<TestRestaurant> allRests = restaurantRepository.findAll();
+        Set<RestaurantDTO> setRests = new HashSet<>();
+        for(TestRestaurant restaurant : allRests){
+            setRests.add(new RestaurantDTO(restaurant));
+        }
+
+        return setRests;
+
     }
 
 //    @CrossOrigin("http://localhost:3000")
@@ -50,58 +89,45 @@ public class UserController {
 //        return "/landing";
 //    }
 
-    @GetMapping(value = "/test", produces = "application/json")
-    public Map<String, String> test() {
-        Map<String, String> response = new HashMap<>();
-        response.put("message", "Test succeeded!");
-        return response;
-    }
 
-    @GetMapping(value = "/userinfo", produces = "application/json")
-    public TestUser sendUserInfo() {
-        TestUser user = new TestUser();
-        user.setName("Geoff");
-        user.setEmail("Geoff@mail.com");
-        return user;
-    }
-
-    @GetMapping("/token")
-    public String tokenTest(@AuthenticationPrincipal String token) {
-        return tokenService.getUsernameFromToken(token);
-    }
-
-    @GetMapping("/register")
-    public String showRegistrationForm(Model model) {
-        // create model object to store form data
-        TestUser user = new TestUser();
-        model.addAttribute("user", user);
-        System.out.println("Register made it this far!");
-        return "register";
-    }
-
-    @PostMapping("/register/save")
-    public String registration(@ModelAttribute("user") TestUser userDto,
-                                BindingResult result,
-                                Model model){
-        System.out.println("Register save");
-        TestUser existingUser = userRepository.findByEmail(userDto.getEmail());
-
-        if(existingUser != null && existingUser.getEmail() != null && !existingUser.getEmail().isEmpty()){
-            System.out.println("error 1");
-            result.rejectValue("email", null,
-                    "There is already an account registered with the same email");
-        }
-
-        if(result.hasErrors()){
-            System.out.println("error 2");
-            model.addAttribute("user", userDto);
-            return "/register";
-        }
-
-        userRepository.save(userDto);
-        System.out.println("Register success!");
-        return "redirect:/register?success";
-    }
+//    @CrossOrigin(origins = "http://localhost:3000")
+//    @PostMapping(path = "/testRegister", produces="Application/json")
+//    public @ResponseBody TestUser testRegister(@RequestParam("username") String username, @ModelAttribute("user") TestUser testUser) {
+//
+//        testUser.setName(username);
+//        testUser.setEmail(username + "@mail.com");
+//        testUser.setUsername(username);
+//        testUser.setPassword("Geoff");
+//
+//        TestUser existingUser = userRepository.findByEmail(testUser.getEmail());
+//
+//        if(existingUser != null && existingUser.getEmail() != null && !existingUser.getEmail().isEmpty()){
+//            System.out.println("Dup user");
+//            return testUser;
+//        }
+//
+//        userRepository.save(testUser);
+//        System.out.println("User added");
+//        return testUser;
+//    }
+//
+//    @CrossOrigin(origins = "http://localhost:3000")
+//    @GetMapping(path = "/test", produces="Application/json")
+//    public @ResponseBody TestUser testApi() {
+//
+//        TestUser u1 = new TestUser();
+//        u1.setName("u1");
+//        u1.setId(1);
+//        u1.setEmail("u1@mail.com");
+//        return u1;
+//    }
+//
+//    @CrossOrigin(origins = "http://localhost:3000")
+//    @GetMapping(path="/all", produces="Application/json")
+//    public @ResponseBody Iterable<TestUser> getAllUsers() {
+//        // This returns a JSON or XML with the users
+//        return userRepository.findAll();
+//    }
 
     SecurityContextLogoutHandler logoutHandler = new SecurityContextLogoutHandler();
 
