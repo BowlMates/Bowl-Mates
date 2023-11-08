@@ -82,7 +82,7 @@ function Availability() {
                 // height="100vh"
             >
 
-                <Box marginTop="20vh">
+                <Box paddingTop="20vh">
 
                     <Typography variant="h2"
                                 style={

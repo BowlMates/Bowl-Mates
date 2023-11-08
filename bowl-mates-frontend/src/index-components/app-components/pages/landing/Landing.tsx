@@ -21,10 +21,10 @@ function Landing() {
     const navigate = useNavigate();
     const logo = ""; // put path to our logo here
     const handleLogin = () => {
-        navigate('www.bowlmates.me/login') // replace with our login route
+        navigate("/login") // replace with our login route
     };
     const handleSignUp = () => {
-        navigate('www.bowlmates.me/signup') // replace with our signup route
+        navigate('sign-up') // replace with our signup route
     };
 
     return (
