@@ -184,7 +184,6 @@ function Signup() {
                         }}
                     />
 
-
                 </Rectangle>
                 <Rectangle bgcolor="#54804D">
                     <Typography
