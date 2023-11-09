@@ -5,11 +5,9 @@ import {BrowserRouter, Route, Routes} from 'react-router-dom';
 
 // Custom Imports
 import './index.css'
-<<<<<<< HEAD
-import FrontendTest from './tests/FrontendTest'
-=======
+
 import App from './index-components/App'
->>>>>>> backend
+
 
 
 // React Auth Kit imports
@@ -41,11 +39,7 @@ const root = ReactDOM.createRoot(
 )
 root.render(
   <React.StrictMode>
-<<<<<<< HEAD
-      <BrowserRouter>
-          <FrontendTest/>
-      </BrowserRouter>
-=======
+
       <AuthProvider authType = {'cookie'}
                     authName={'_auth'}
                     cookieDomain={window.location.hostname}
@@ -67,6 +61,5 @@ root.render(
               </ThemeProvider>
           </BrowserRouter>
       </AuthProvider>
->>>>>>> backend
   </React.StrictMode>
 )
