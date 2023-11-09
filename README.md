@@ -1,7 +1,7 @@
 # Bowl-Mates 
 
 ## How to Build and Test System:
-* ### System automatically builds on commits to main and production
+* ### System automatically builds on pushes/merges to main and production
 * ### To Manually Build:
   * Gradle -> Tasks -> build -> clean
   * Gradle -> Tasks -> build -> build
