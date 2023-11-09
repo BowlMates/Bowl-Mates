@@ -1,4 +1,5 @@
-# Bowl-Mates 
+# Bowl-Mates  
+## Beta v1.0.0
 
 ## How to Build and Test System:
 * ### System automatically builds on pushes/merges to main and production
