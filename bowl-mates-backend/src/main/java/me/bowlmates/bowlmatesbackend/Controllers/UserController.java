@@ -81,6 +81,7 @@ public class UserController {
         return setRests;
     }
 
+    // TODO: availability mappings
 //    @GetMapping(value = "/availability", produces = "application/json")
 //    public boolean[] getAvailability() {
 //        String username = "";
@@ -117,6 +118,7 @@ public class UserController {
 
     // TODO: userinfo post mapping
 
+    // TODO: figure out token parsing
 //    @GetMapping("/token")
 //    public String tokenTest(@RequestHeader HttpServletRequest request) {
 //        String authenticationHeader = request.getHeader("Authorization");
