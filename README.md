@@ -2,11 +2,11 @@
 ## Beta v1.0.0
 
 ## How to Build and Test System:
-* ### System automatically builds on pushes/merges to main and production
+* ### System automatically builds and tests on pushes/merges to main and production
 * ### To Manually Build:
   * Gradle -> Tasks -> build -> clean
   * Gradle -> Tasks -> build -> build
-* ### To Test:
+* ### To Manually Test:
   * Backend: Gradle -> Tasks -> verification -> check
   * Frontend:
     * (in terminal) npm start
