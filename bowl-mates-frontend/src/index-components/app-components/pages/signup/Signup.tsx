@@ -167,7 +167,7 @@ function Signup() {
                 <Rectangle
                     bgcolor="#FDF5F5">
                     <input
-                        type="confirmPassword"
+                        type="password"
                         value={confirmPassword}
                         onChange={(e) => setConfirmPassword(e.target.value)}
                         onFocus={(e) => e.target.value === 'confirmPassword' && setConfirmPassword('')}
