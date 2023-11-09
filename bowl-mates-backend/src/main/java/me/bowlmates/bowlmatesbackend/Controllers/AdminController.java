@@ -13,7 +13,7 @@ import java.util.Map;
 
 @RestController // This means that this class is a Controller
 @RequestMapping(path="/admin")
-@CrossOrigin("*")
+//@CrossOrigin("*")
 public class AdminController {
 
     @Autowired // This means to get the bean called userRepository
