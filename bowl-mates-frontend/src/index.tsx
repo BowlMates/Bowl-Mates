@@ -5,7 +5,9 @@ import {BrowserRouter, Route, Routes} from 'react-router-dom';
 
 // Custom Imports
 import './index.css'
+
 import App from './index-components/App'
+
 
 
 // React Auth Kit imports
@@ -37,6 +39,7 @@ const root = ReactDOM.createRoot(
 )
 root.render(
   <React.StrictMode>
+
       <AuthProvider authType = {'cookie'}
                     authName={'_auth'}
                     cookieDomain={window.location.hostname}

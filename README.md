@@ -16,7 +16,7 @@
   * public
     * Webpage assets
   * src
-    * JS App files
+    * JS FrontendTest files
     * Webpage assets
   * Docker files
 * ### Guides
