@@ -14,7 +14,7 @@
 ## How to Run the System:
 * ### Production version is currently running at bowlmates.me
 * ### To Run in your branch:
-  * Backend: Gradle -> Tasks -> application -> bootRun
+  * Backend: Gradle -> Tasks -> application -> bootRun  
         OR bowl-mates-backend -> src -> main -> java -> me.bowlmates.bowlmatesbackend -> BowlMatesBackendApplication
   * Frontend: npm start
 
