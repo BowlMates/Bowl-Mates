@@ -1,5 +1,23 @@
 # Bowl-Mates 
 
+## How to Build and Test System:
+* ### System automatically builds on commits to main and production
+* ### To Manually Build:
+  * Gradle -> Tasks -> build -> clean
+  * Gradle -> Tasks -> build -> build
+* ### To Test:
+  * Backend: Gradle -> Tasks -> verification -> check
+  * Frontend:
+    * (in terminal) npm start
+    * Manually verify function of UI components (further instructions in progress)
+
+## How to Run the System:
+* ### Production version is currently running at bowlmates.me
+* ### To Run in your branch:
+  * Backend: Gradle -> Tasks -> application -> bootRun
+        OR bowl-mates-backend -> src -> main -> java -> me.bowlmates.bowlmatesbackend -> BowlMatesBackendApplication
+  * Frontend: npm start
+
 ## Repository Layout:
 * ### bowl-mates-backend
   * Gradle files
