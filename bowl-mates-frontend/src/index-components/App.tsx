@@ -21,6 +21,7 @@ import Settings from "./app-components/pages/settings/Settings";
 import Box from "@mui/material/Box";
 import {useTheme} from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
+import FindRestaurants from "./app-components/pages/find-restaurants/FindRestaurants";
 
 
 function App() {
@@ -47,6 +48,7 @@ function App() {
                         <Routes>
                             <Route path={"/"} element={<Home />}/>
                             <Route path={"/favorite-restaurants"} element={<FavoriteRestaurants />}/>
+                            <Route path={"/find-restaurants"} element={<FindRestaurants />}/>
                             <Route path={"/availability"} element={<Availability />}/>
                             <Route path={"/matching"} element={<Matching />}/>
                             <Route path={"/successful-matches"} element={<SuccessfulMatches />}/>
