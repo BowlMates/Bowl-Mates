@@ -3,12 +3,12 @@ import {restaurant, restaurantJSON} from "../data-types/restaurants";
 
 // Assuming a type for the hook return
 interface UseNearbyPlacesResult {
-    restaurants: restaurantJSON[];
+    restaurants: restaurant[];
     loading: boolean;
     error: Error | null;
 }
 const useNearbyPlaces = (): UseNearbyPlacesResult => {
-    const [restaurants, setRestaurants] = useState<restaurantJSON[]>([]);
+    const [restaurants, setRestaurants] = useState<restaurant[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<Error | null>(null);
 
@@ -51,7 +51,6 @@ const useNearbyPlaces = (): UseNearbyPlacesResult => {
 
                 const data = await response.json();
 
-                //console.log(data)
 
                 const restaurantData = data.places.map((place: restaurantJSON) => ({
                     id: place.id || '',
@@ -60,13 +59,6 @@ const useNearbyPlaces = (): UseNearbyPlacesResult => {
                     rating: place.rating || 0,
                     cuisine: place.primaryType || 'Unknown Cuisine',
                 }));
-
-        //         console.log(restaurantData)
-        //
-        //         restaurantData.forEach((restaurantJSON: { displayName: any; formattedAddress: any; rating: any; primaryType: any; }) => {
-        //             console.log(`Restaurant: ${restaurantJSON.displayName}, Address: ${restaurantJSON.formattedAddress},
-        // Rating: ${restaurantJSON.rating}, Type: ${restaurantJSON.primaryType}`)
-        //         })
 
                 setRestaurants(restaurantData)
                 setLoading(false)

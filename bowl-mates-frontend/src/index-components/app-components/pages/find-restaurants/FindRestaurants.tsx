@@ -11,13 +11,7 @@ import getNearbyRestaurants from "../../../../hooks/getNearbyRestaurants";
 function FindRestaurants() {
     const theme = useTheme();
     const { restaurants, loading, error } = getNearbyRestaurants();
-    // console.log(loading)
-    // console.log(error)
-    console.log(restaurants)
-    restaurants.forEach(restaurantJSON => {
-        console.log(`Restaurant: ${restaurantJSON.displayName}, Address: ${restaurantJSON.formattedAddress},
-        Rating: ${restaurantJSON.rating}, Type: ${restaurantJSON.primaryType}`)
-    })
+
     if (loading) {
         return <div>Loading...</div>;
     }
@@ -34,11 +28,10 @@ function FindRestaurants() {
             <MapComponent />
             <Box display={"flex"} sx={{paddingBottom: "20px"}}>
                 <ul>
-                    {restaurants.map((restaurantJSON) => (
-                        <li key={restaurantJSON.id}>
-                            {/* if you uncomment this it WILL crash
-                            <strong>{restaurantJSON.displayName.text}</strong> */}
-                            - {restaurantJSON.formattedAddress} - Rating: {restaurantJSON.rating}
+                    {restaurants.map((restaurant) => (
+                        <li key={restaurant.id}>
+                            <strong>{restaurant.name}</strong>
+                            - {restaurant.address} - Rating: {restaurant.rating}
                         </li>
                     ))}
                 </ul>
