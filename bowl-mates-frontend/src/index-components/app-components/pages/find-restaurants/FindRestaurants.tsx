@@ -14,10 +14,10 @@ function FindRestaurants() {
     // console.log(loading)
     // console.log(error)
     console.log(restaurants)
-    // restaurants.forEach(restaurantJSON => {
-    //     console.log(`Restaurant: ${restaurantJSON.displayName}, Address: ${restaurantJSON.formattedAddress},
-    //     Rating: ${restaurantJSON.rating}, Type: ${restaurantJSON.primaryType}`)
-    // })
+    restaurants.forEach(restaurantJSON => {
+        console.log(`Restaurant: ${restaurantJSON.displayName}, Address: ${restaurantJSON.formattedAddress},
+        Rating: ${restaurantJSON.rating}, Type: ${restaurantJSON.primaryType}`)
+    })
     if (loading) {
         return <div>Loading...</div>;
     }
@@ -36,7 +36,8 @@ function FindRestaurants() {
                 <ul>
                     {restaurants.map((restaurantJSON) => (
                         <li key={restaurantJSON.id}>
-                            {/*<strong>{restaurantJSON.displayName.text}</strong> */}
+                            {/* if you uncomment this it WILL crash
+                            <strong>{restaurantJSON.displayName.text}</strong> */}
                             - {restaurantJSON.formattedAddress} - Rating: {restaurantJSON.rating}
                         </li>
                     ))}
