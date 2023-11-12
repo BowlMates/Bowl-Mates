@@ -35,8 +35,12 @@
   * public
     * Webpage assets
   * src
-    * JS FrontendTest files
-    * Webpage assets
+    * data-types (JS classes to parallel Java classes)
+    * hooks (React hooks - self explanatory)
+    * images (self explanatory)
+    * index-components (Various pages and their components)
+    * tests (React components for quick testing)
+    * Additional webpage assets
   * Docker files
 * ### Guides
   * Guides for Git, Node, etc.
