@@ -12,6 +12,8 @@ function FindRestaurants() {
     const theme = useTheme();
     const { restaurants, loading, error } = getNearbyRestaurants();
 
+    //console.log(restaurants)
+
     if (loading) {
         return <div>Loading...</div>;
     }

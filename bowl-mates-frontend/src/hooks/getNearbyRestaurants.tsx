@@ -30,14 +30,14 @@ const useNearbyPlaces = (): UseNearbyPlacesResult => {
                         },
                     body: JSON.stringify({
                         includedTypes: ['restaurant'],
-                        maxResultCount: 10,
+                        maxResultCount: 20,
                         locationRestriction: {
                             circle: {
                                 center: {
                                     latitude: uwCoords.lat,
                                     longitude: uwCoords.lng,
                                 },
-                                radius: 500.0,
+                                radius: 1000.0,
                             },
                         },
                     }),
@@ -59,6 +59,8 @@ const useNearbyPlaces = (): UseNearbyPlacesResult => {
                     rating: place.rating || 0,
                     cuisine: place.primaryType || 'Unknown Cuisine',
                 }));
+
+                console.log(restaurantData)
 
                 setRestaurants(restaurantData)
                 setLoading(false)
