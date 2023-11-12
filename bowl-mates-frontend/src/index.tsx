@@ -46,6 +46,7 @@ root.render(
                     cookieDomain={window.location.hostname}
                     cookieSecure={window.location.protocol === "https:"}>
           <BrowserRouter>
+              <FrontendTest />
               <ThemeProvider theme={appTheme}>
                   <Routes>
                       <Route path={"/"} element={<Landing />}/>
