@@ -2,7 +2,9 @@ package me.bowlmates.bowlmatesbackend.Models;
 
 import jakarta.persistence.*;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "test_availability")
@@ -10,7 +12,10 @@ public class TestAvailability {
     @jakarta.persistence.Id
     @GeneratedValue(strategy= GenerationType.AUTO)
 
-    private final int num_times = 11;
+    private final int NUM_TIMES = 11;
+
+    @ManyToMany(mappedBy = "availability")
+    private Set<TestUser> users;
 
     @Column
     private Integer hour;
@@ -19,19 +24,13 @@ public class TestAvailability {
     @Column(unique = true)
     private Integer hash;
 
-    public TestAvailability() {
-        hour = 0;
-        day = 0;
-        hash = 0;
-    }
-
-    private int calculateHash() {
-        return this.day * num_times + this.hour;
+    public static int calculateHash(int day, int hour, int numTimes) {
+        return day * numTimes + hour;
     }
 
     public void setHour(int hour) {
         this.hour = hour;
-        this.hash = calculateHash();
+        this.hash = this.hashCode();
     }
 
     public int getHour() {
@@ -40,16 +39,20 @@ public class TestAvailability {
 
     public void setDay(int day) {
         this.day = day;
-        this.hash = calculateHash();
+        this.hash = this.hashCode();
     }
 
     public int getDay() {
         return this.day;
     }
 
+    public void addUser(TestUser user) {
+        users.add(user);
+    }
+
     @Override
     public int hashCode() {
-        return this.day * num_times + this.hour;
+        return calculateHash(day, hour, NUM_TIMES);
     }
 
     @Override
