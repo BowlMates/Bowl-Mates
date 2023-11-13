@@ -35,24 +35,32 @@ public class TestRestaurantJUnitTest {
     public void TestRestaurantNameFunctions() {
         r1.setRestaurant_name("r1");
         assertEquals("r1", r1.getRestaurant_name());
+        r1.setRestaurant_name("notr1");
+        assertEquals("notr1", r1.getRestaurant_name());
     }
 
     @Test
     public void TestRestaurantAddressFunctions() {
         r1.setAddress("123 Street St");
         assertEquals("123 Street St", r1.getAddress());
+        r1.setAddress("124 notstreet st");
+        assertEquals("124 notstreet st", r1.getAddress());
     }
 
     @Test
     public void TestRestaurantCuisineFunctions() {
         r1.setCuisine("Generic");
         assertEquals("Generic", r1.getCuisine());
+        r1.setCuisine("notGeneric");
+        assertEquals("notGeneric", r1.getCuisine());
     }
 
     @Test
     public void TestRestaurantRatingFunctions() {
         r1.setRating(1);
         assertEquals(1, r1.getRating());
+        r1.setRating(2);
+        assertEquals(2, r1.getRating());
     }
 
     @Test
@@ -64,5 +72,9 @@ public class TestRestaurantJUnitTest {
         r1.setUsers(userSet);
         assertTrue(r1.getUsers().contains(u1));
         assertFalse(r1.getUsers().contains(u2));
+        userSet.add(u2);
+        userSet.remove(u1);
+        assertTrue(r1.getUsers().contains(u2));
+        assertFalse(r1.getUsers().contains(u1));
     }
 }
