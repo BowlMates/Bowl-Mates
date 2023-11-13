@@ -46,6 +46,8 @@ public class TestUser implements UserDetails {
     public TestUser() {
         super();
         authorities = new HashSet<>();
+        favoriteRestaurants = new HashSet<>();
+        availability = new HashSet<>();
     }
 
     public TestUser(Integer userId, String name, String username, String password,
@@ -58,9 +60,8 @@ public class TestUser implements UserDetails {
         this.email = email;
         this.authorities = authorities;
         this.favoriteRestaurants = rests;
-        this.availability = new HashSet<TestAvailability>();
+        this.availability = new HashSet<>();
     }
-
 
     public Integer getId() {
         return id;
@@ -105,7 +106,7 @@ public class TestUser implements UserDetails {
     }
 
     public Set<TestRestaurant> getFavoriteRestaurants() {
-        return this.favoriteRestaurants;
+        return Collections.unmodifiableSet(this.favoriteRestaurants);
     }
 
     public void setFavoriteRestaurants(Set<TestRestaurant> favoriteRestaurants) {
@@ -147,11 +148,13 @@ public class TestUser implements UserDetails {
     }
 
     public Set<TestAvailability> getAvailability() {
-        return availability;
+        return Collections.unmodifiableSet(availability);
     }
 
     public void setAvailability(Set<TestAvailability> availability) {
-        this.availability = availability;
+        // Shallow Copy
+        this.availability.addAll(availability);
+        this.availability.removeIf(avail -> !availability.contains(avail));
     }
 
     @Override
