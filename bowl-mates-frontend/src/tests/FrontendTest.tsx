@@ -14,7 +14,7 @@ const FrontendTest = () => {
             };
 
             try {
-                const loginResponse = await fetch('http://backend.bowlmates.me/auth/login', {
+                const loginResponse = await fetch('http://localhost:8080/auth/login', {
                     method: 'post',
                     headers: {
                         'Content-Type': 'application/json',
@@ -35,7 +35,7 @@ const FrontendTest = () => {
                 const requestHeaders = {
                     'Authorization': `Bearer ${jwt}`,
                 };
-                    const testResponse = await fetch('http://backend.bowlmates.me/user/test', {
+                    const testResponse = await fetch('http://localhost:8080/user/test', {
                         method: 'get',
                         headers: requestHeaders,
                     });
@@ -49,7 +49,7 @@ const FrontendTest = () => {
                     console.log('Test Response:', testResult.message);
 
 
-                const adminTestResponse = await fetch('http://backend.bowlmates.me/admin/test', {
+                const adminTestResponse = await fetch('http://localhost:8080/admin/test', {
                     method: 'get',
                     headers: requestHeaders,
                 });
@@ -71,7 +71,7 @@ const FrontendTest = () => {
 
     return (
         <div className='App'>
-            <header className='App-header'>Header goes here</header>
+            <header className='App-header'>Frontend Test Fields</header>
             <p>JWT: {jwt}</p>
             <p>Test Response: {testResponse}</p>
         </div>

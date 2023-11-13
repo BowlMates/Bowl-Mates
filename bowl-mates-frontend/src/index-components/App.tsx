@@ -8,6 +8,9 @@ import Header from "./app-components/Header";
 import BodyContainer from "./app-components/BodyContainer";
 import {useToggle} from "../hooks/useToggle";
 
+//Google API imports
+import {LoadScript} from "@react-google-maps/api";
+
 // Route Imports
 import Home from "./app-components/pages/home/Home";
 import FavoriteRestaurants from "./app-components/pages/favorite-restaurants/FavoriteRestaurants";
@@ -21,6 +24,7 @@ import Settings from "./app-components/pages/settings/Settings";
 import Box from "@mui/material/Box";
 import {useTheme} from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
+import FindRestaurants from "./app-components/pages/find-restaurants/FindRestaurants";
 
 
 function App() {
@@ -32,6 +36,8 @@ function App() {
     return (
         <>
             <Box sx={{ display: 'flex', height: "100%", width: "100%"}}>
+                {/* Putting the Google Maps API Loadscript here to avoid issues with rerendering - Cade */}
+                <LoadScript googleMapsApiKey="AIzaSyDXlQY2uFzDvS7HRowdgflkRqWtmKqYaGw"> </LoadScript>
                 <CssBaseline/>
                 <Header drawerOpen={drawerOpen} toggleDrawerOpen={toggleDrawerOpen}/>
                 <Sidebar drawerOpen={drawerOpen} toggleDrawerOpen={toggleDrawerOpen}/>
@@ -47,6 +53,7 @@ function App() {
                         <Routes>
                             <Route path={"/"} element={<Home />}/>
                             <Route path={"/favorite-restaurants"} element={<FavoriteRestaurants />}/>
+                            <Route path={"/find-restaurants"} element={<FindRestaurants />}/>
                             <Route path={"/availability"} element={<Availability />}/>
                             <Route path={"/matching"} element={<Matching />}/>
                             <Route path={"/successful-matches"} element={<SuccessfulMatches />}/>

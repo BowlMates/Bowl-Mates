@@ -20,6 +20,7 @@ import FlightLandIcon from '@mui/icons-material/FlightLand';
 import LoginIcon from '@mui/icons-material/Login';
 import SensorOccupiedIcon from '@mui/icons-material/SensorOccupied';
 import HomeIcon from '@mui/icons-material/Home';
+import SearchIcon from '@mui/icons-material/Search';
 import RestaurantMenuIcon from '@mui/icons-material/RestaurantMenu';
 import EventAvailableIcon from '@mui/icons-material/EventAvailable';
 import Diversity3Icon from '@mui/icons-material/Diversity3';
@@ -76,6 +77,7 @@ function Sidebar(props : Props) {
 
     const sidebarRoutes : {name : string, icon : any, route : ()=>void}[] = [
         {name: "Home", icon : <HomeIcon/>, route : ()=>{navigate("/app/")}},
+        {name: "Find Restaurants", icon : <SearchIcon/>, route : ()=>{navigate("/app/find-restaurants")}},
         {name: "Favorite Restaurants", icon : <RestaurantMenuIcon/>, route : ()=>{navigate("/app/favorite-restaurants")}},
         {name: "Availability", icon : <EventAvailableIcon/>, route : ()=>{navigate("/app/availability")}},
         {name: "Matching", icon : <Diversity3Icon/>, route : ()=>{navigate("/app/matching")}},
