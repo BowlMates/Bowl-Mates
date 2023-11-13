@@ -65,7 +65,7 @@ public class TestRestaurant {
     public void setRating(Integer rating) {
         this.rating = rating;
     }
-    
+
     public Set<TestUser> getUsers() {
         return Collections.unmodifiableSet(users);
     }
@@ -75,4 +75,17 @@ public class TestRestaurant {
     }
 
     //TODO: Equals and HashCode methods for hashing
+
+    @Override
+    public int hashCode() {
+        return this.address.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof TestRestaurant tR)) {
+            return false;
+        }
+        return this.address.equals(tR.getAddress());
+    }
 }

@@ -156,7 +156,7 @@ public class TestUser implements UserDetails {
 
     @Override
     public int hashCode() {
-        return this.id;
+        return this.email.hashCode();
     }
 
     @Override
@@ -164,7 +164,6 @@ public class TestUser implements UserDetails {
         if (!(o instanceof TestUser tU)) {
             return false;
         }
-        return this.id.equals(tU.id) && this.username.equals(tU.username)
-                && this.email.equals(tU.email);
+        return this.email.equals(tU.email);
     }
 }
