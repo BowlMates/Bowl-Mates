@@ -36,7 +36,7 @@ function App() {
     return (
         <>
             <Box sx={{ display: 'flex', height: "100%", width: "100%"}}>
-                {/*Putting the Google Maps API Loadscript here to avoid issues with rerendering - Cade*/}
+                {/* Putting the Google Maps API Loadscript here to avoid issues with rerendering - Cade */}
                 <LoadScript googleMapsApiKey="AIzaSyDXlQY2uFzDvS7HRowdgflkRqWtmKqYaGw"> </LoadScript>
                 <CssBaseline/>
                 <Header drawerOpen={drawerOpen} toggleDrawerOpen={toggleDrawerOpen}/>

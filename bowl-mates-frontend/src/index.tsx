@@ -5,7 +5,6 @@ import {BrowserRouter, Route, Routes} from 'react-router-dom';
 
 // Custom Imports
 import './index.css'
-
 import App from './index-components/App'
 
 
@@ -16,7 +15,6 @@ import Landing from "./index-components/app-components/pages/landing/Landing";
 import Login from "./index-components/app-components/pages/login/Login";
 import Signup from "./index-components/app-components/pages/signup/Signup";
 import {createTheme, ThemeProvider} from "@mui/material/styles";
-import FrontendTest from "./tests/FrontendTest";
 
 // This is where we create the theme passed to the rest of the application pages
 // By encapsulating the application with the ThemeProvider and useTheme hook,

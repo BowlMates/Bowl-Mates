@@ -8,22 +8,22 @@ interface UseNearbyPlacesResult {
     error: Error | null;
 }
 const useNearbyPlaces = (): UseNearbyPlacesResult => {
-    //Initialize state variables and their set functions, restaurants will contain all of our data from the API call
+    // Initialize state variables and their set functions, restaurants will contain all of our data from the API call
     const [restaurants, setRestaurants] = useState<restaurant[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<Error | null>(null);
 
-    //TODO: Find a way to get user location data as the center for the api call
+    // TODO: Find a way to get user location data as the center for the api call
     const uwCoords = {
         lat: 47.6550,
         lng: -122.3080,
     };
 
-    //Probably bad but i don't know how else to do this
+    // Probably bad but i don't know how else to do this
     const apiKey = "AIzaSyBQ_hQeijI05VaIoVXCStdM9ff-yc9T3jA"
 
-    //Generate POST request to Google Nearby Places (New) API.
-    //Documentation: https://developers.google.com/maps/documentation/places/web-service/nearby-search
+    // Generate POST request to Google Nearby Places (New) API.
+    // Documentation: https://developers.google.com/maps/documentation/places/web-service/nearby-search
     const requestOptions = {
         method: 'POST',
         headers: {
@@ -50,7 +50,7 @@ const useNearbyPlaces = (): UseNearbyPlacesResult => {
         const fetchData = async () => {
             try {
 
-                //Send the POST request and await the response
+                // Send the POST request and await the response
                 const response = await fetch('https://places.googleapis.com/v1/places:searchNearby', requestOptions);
 
                 if (!response.ok) {
@@ -71,7 +71,7 @@ const useNearbyPlaces = (): UseNearbyPlacesResult => {
                     longitude: place.location.longitude || 0.0
                 }));
 
-                //Update the state and handle any errors
+                // Update the state and handle any errors
                 setRestaurants(restaurantData)
                 setLoading(false)
             } catch (error: any) {

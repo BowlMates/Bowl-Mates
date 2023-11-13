@@ -11,7 +11,7 @@ import Button from "@mui/material/Button";
 import {useGetRestaurants} from "../../../../hooks/useGetRestaurants";
 import {useEffect, useState} from "react";
 
-//TODO: Get rid of these hard coded values
+// TODO: Get rid of these hard coded values
 let restaurants : restaurant[] = [
     {
         id: 5,

@@ -4,17 +4,17 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 
 // Google APi imports
-import MapComponent from "../../MapComponent";
+import MapComponent from "../find-restaurants-components/MapComponent";
 import React from "react";
 import getNearbyRestaurants from "../../../../hooks/getNearbyRestaurants";
 
-//The FindRestaurants component is responsible for calling the getNearbyRestaurants function and then
-//displaying all of the data returned by the API to the user
+// The FindRestaurants component is responsible for calling the getNearbyRestaurants function and then
+// displaying all of the data returned by the API to the user
 function FindRestaurants() {
     const theme = useTheme();    //Necessary?
     const {restaurants, loading, error} = getNearbyRestaurants();
 
-    //Handle cases where there's an error or the hook hasn't finished returning yet
+    // Handle cases where there's an error or the hook hasn't finished returning yet
     if (loading) {
         return <div>Loading...</div>;
     }
@@ -23,7 +23,7 @@ function FindRestaurants() {
         return <div>Error: {error.message}</div>;
     }
 
-    //TODO: Add favoriting functionality to the restaurant finder tool as per mock up
+    // TODO: Add favoriting functionality to the restaurant finder tool as per mock up
     return (
         <Box
             display="flex"
