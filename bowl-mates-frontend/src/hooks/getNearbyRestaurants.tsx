@@ -12,6 +12,8 @@ const useNearbyPlaces = (): UseNearbyPlacesResult => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<Error | null>(null);
 
+    //TODO: Figure out how to get user location data
+
     useEffect(() => {
         const fetchData = async () => {
             try {

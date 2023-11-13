@@ -1,5 +1,5 @@
 // MapComponent.js
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 import useNearbyPlaces from "../../hooks/getNearbyRestaurants";
 
@@ -14,7 +14,7 @@ const MapComponent = () => {
         lng: -122.3080,
     };
 
-
+    //TODO: FIgure out conditional rendering
 
     return (
         <LoadScript googleMapsApiKey="AIzaSyDXlQY2uFzDvS7HRowdgflkRqWtmKqYaGw">
