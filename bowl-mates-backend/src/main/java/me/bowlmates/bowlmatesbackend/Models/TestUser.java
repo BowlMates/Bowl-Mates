@@ -58,7 +58,7 @@ public class TestUser implements UserDetails {
         this.email = email;
         this.authorities = authorities;
         this.favoriteRestaurants = rests;
-//        this.availability = availability;
+        this.availability = new HashSet<TestAvailability>();
     }
 
 

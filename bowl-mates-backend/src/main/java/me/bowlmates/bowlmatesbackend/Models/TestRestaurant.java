@@ -74,8 +74,6 @@ public class TestRestaurant {
         this.users = users;
     }
 
-    //TODO: Equals and HashCode methods for hashing
-
     @Override
     public int hashCode() {
         return this.address.hashCode();
