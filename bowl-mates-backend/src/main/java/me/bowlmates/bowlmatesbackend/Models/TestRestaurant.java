@@ -65,6 +65,7 @@ public class TestRestaurant {
         this.rating = rating;
     }
 
+    // TODO: This is rep exposure. We need to change this!
     public Set<TestUser> getUsers() {
         return users;
     }
@@ -72,4 +73,6 @@ public class TestRestaurant {
     public void setUsers(Set<TestUser> users) {
         this.users = users;
     }
+
+    //TODO: Equals and HashCode methods for hashing
 }

@@ -31,13 +31,17 @@ public class TestUser implements UserDetails {
     @Column
     private String password;
 
-//    @Column
-//    private boolean[] availability;
+    @ManyToMany
+    @JoinTable(name = "user_avialability",
+            joinColumns = {@JoinColumn(name = "user_id")},
+            inverseJoinColumns = {@JoinColumn(name = "time_id")})
+    //TODO: Make Avail obj
+    private Set<String> availability;
 
     @ManyToMany
-//    @JoinTable(name = "user_favorite_restaurants",
-//            joinColumns = {@JoinColumn(name = "user_id")},
-//            inverseJoinColumns = {@JoinColumn(name = "restaurant_id")})
+    @JoinTable(name = "user_favorite_restaurants",
+            joinColumns = {@JoinColumn(name = "user_id")},
+            inverseJoinColumns = {@JoinColumn(name = "restaurant_id")})
     private Set<TestRestaurant> favoriteRestaurants;
 
     public TestUser() {
