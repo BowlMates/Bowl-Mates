@@ -12,7 +12,7 @@ import getNearbyRestaurants from "../../../../hooks/getNearbyRestaurants";
 //displaying all of the data returned by the API to the user
 function FindRestaurants() {
     const theme = useTheme();    //Necessary?
-    const { restaurants, loading, error } = getNearbyRestaurants();
+    const {restaurants, loading, error} = getNearbyRestaurants();
 
     //Handle cases where there's an error or the hook hasn't finished returning yet
     if (loading) {
@@ -25,23 +25,43 @@ function FindRestaurants() {
 
     //TODO: Add favoriting functionality to the restaurant finder tool as per mock up
     return (
-        <Box display={"flex"} sx={{flexDirection : "column", alignItems : "center", justifyContent : "center"}}>
-            <Typography variant={"h3"}>
-                This is the restaurant finder tool!
-            </Typography>
-            <MapComponent restaurants={restaurants} />
-            <Box display={"flex"} sx={{paddingBottom: "20px"}}>
-                <ul>
+        <Box
+            display="flex"
+            flexDirection={{ xs: 'column', md: 'row' }}
+            alignItems="stretch"
+            justifyContent="center"
+            padding={3}
+        >
+            <Box flex={{ xs: 1, md: 1 }} marginBottom={{ xs: 2, md: 0 }}>
+                <Box
+                    display="flex"
+                    flexDirection="column"
+                    alignItems="center"
+                    justifyContent="center"
+                    height="100%"
+                >
+                    <Typography variant="h4" gutterBottom>
+                        Welcome to the Restaurant Finder Tool!
+                    </Typography>
+                    <MapComponent restaurants={restaurants} />
+                </Box>
+            </Box>
+
+            <Box flex={{ xs: 1, md: 1 }} marginLeft={{ md: 2 }}>
+                <Typography variant="h5" gutterBottom>
+                    Nearby Restaurants:
+                </Typography>
+                <ul style={{ listStyle: 'none', padding: 0 }}>
                     {restaurants.map((restaurant) => (
-                        <li key={restaurant.id}>
-                            <strong>{restaurant.name}</strong>
-                            - {restaurant.address} - Rating: {restaurant.rating}
+                        <li key={restaurant.id} style={{ marginBottom: '10px' }}>
+                            <Typography variant="body1">
+                                <strong>{restaurant.name}</strong> - {restaurant.address} - Rating: {restaurant.rating}
+                            </Typography>
                         </li>
                     ))}
                 </ul>
             </Box>
         </Box>
-    )
+    );
 }
-
 export default FindRestaurants
