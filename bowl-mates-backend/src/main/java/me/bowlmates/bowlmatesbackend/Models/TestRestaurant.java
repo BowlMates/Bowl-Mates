@@ -25,7 +25,6 @@ public class TestRestaurant {
     @ManyToMany(mappedBy = "favoriteRestaurants")
     private Set<TestUser> users;
 
-
     public Integer getId() {
         return id;
     }

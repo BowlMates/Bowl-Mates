@@ -2,7 +2,6 @@ package me.bowlmates.bowlmatesbackend.Models;
 
 public class RestaurantDTO {
 
-
     private Integer id;
     private String name;
     private String address;
@@ -29,8 +28,6 @@ public class RestaurantDTO {
     public void setName(String name) {
         this.name = name;
     }
-
-
 
     public String toString(){
         return "Restaurant info: name: " + this.name;
