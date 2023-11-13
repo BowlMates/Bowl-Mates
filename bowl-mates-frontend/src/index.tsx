@@ -7,8 +7,6 @@ import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import './index.css'
 import App from './index-components/App'
 
-
-
 // React Auth Kit imports
 import {AuthProvider, RequireAuth} from "react-auth-kit";
 import Landing from "./index-components/app-components/pages/landing/Landing";
@@ -30,15 +28,13 @@ let appTheme = createTheme({
             main: "#54804D"
         }
     },
-
 });
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
-)
+);
 root.render(
   <React.StrictMode>
-
       <AuthProvider authType = {'cookie'}
                     authName={'_auth'}
                     cookieDomain={window.location.hostname}
