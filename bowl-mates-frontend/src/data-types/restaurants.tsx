@@ -1,4 +1,4 @@
-//Interface for restaurant objects to be used throughout the entirety of the app
+// Interface for restaurant objects to be used throughout the entirety of the app
 export interface restaurant {
     id : number,
     name : string,
@@ -10,8 +10,8 @@ export interface restaurant {
 }
 
 
-//Created a new interface for parsing the JSON api response and converting it into regular restaurant objects
-//Anytime we want to pull new information from the api we just update this interface
+// Created a new interface for parsing the JSON api response and converting it into regular restaurant objects
+// Anytime we want to pull new information from the api we just update this interface
 export interface restaurantJSON{
     id: string;
     formattedAddress: string;
