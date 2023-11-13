@@ -8,12 +8,13 @@ import MapComponent from "../../MapComponent";
 import React from "react";
 import getNearbyRestaurants from "../../../../hooks/getNearbyRestaurants";
 
+//The FindRestaurants component is responsible for calling the getNearbyRestaurants function and then
+//displaying all of the data returned by the API to the user
 function FindRestaurants() {
-    const theme = useTheme();
+    const theme = useTheme();    //Necessary?
     const { restaurants, loading, error } = getNearbyRestaurants();
 
-    //console.log(restaurants)
-
+    //Handle cases where there's an error or the hook hasn't finished returning yet
     if (loading) {
         return <div>Loading...</div>;
     }
@@ -22,12 +23,13 @@ function FindRestaurants() {
         return <div>Error: {error.message}</div>;
     }
 
+    //TODO: Add favoriting functionality to the restaurant finder tool as per mock up
     return (
         <Box display={"flex"} sx={{flexDirection : "column", alignItems : "center", justifyContent : "center"}}>
             <Typography variant={"h3"}>
                 This is the restaurant finder tool!
             </Typography>
-            <MapComponent />
+            <MapComponent restaurants={restaurants} />
             <Box display={"flex"} sx={{paddingBottom: "20px"}}>
                 <ul>
                     {restaurants.map((restaurant) => (

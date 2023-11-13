@@ -1,28 +1,37 @@
 // MapComponent.js
-import React, {useEffect, useState} from 'react';
-import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
-import useNearbyPlaces from "../../hooks/getNearbyRestaurants";
+import React from 'react';
+import {GoogleMap, MarkerF} from '@react-google-maps/api';
+import {restaurant} from "../../data-types/restaurants";
 
-const MapComponent = () => {
-    const mapContainerStyle = {
-        width: '100%',
-        height: '500px',
-    };
+const mapContainerStyle = {
+    width: '100%',
+    height: '500px',
+};
 
-    const uwCoords = {
-        lat: 47.6550,
-        lng: -122.3080,
-    };
+//Center of the map
+const uwCoords = {
+    lat: 47.6550,
+    lng: -122.3080,
+};
 
-    //TODO: FIgure out conditional rendering
-
+//The Map component is what renders our interactable google map as well as initializes all of the markers
+//contained within it via location data passed in as a prop with each restaurant
+function MapComponent({restaurants}: {restaurants: restaurant[]}) {
     return (
-        <LoadScript googleMapsApiKey="AIzaSyDXlQY2uFzDvS7HRowdgflkRqWtmKqYaGw">
             <GoogleMap mapContainerStyle={mapContainerStyle} center={uwCoords} zoom={13}>
-                <Marker position={uwCoords} />
+                <MarkerF
+                    position={uwCoords}
+                    title={"Current Location"}
+                />
+                {restaurants.map((restaurant) => (
+                    <MarkerF
+                        key={restaurant.id}
+                        position={{ lat: parseFloat(restaurant.latitude.toString()), lng: parseFloat(restaurant.longitude.toString())}}
+                        title={restaurant.name}
+                    />
+                ))}
             </GoogleMap>
-        </LoadScript>
     );
 };
 
-export default MapComponent;
+export default React.memo(MapComponent);

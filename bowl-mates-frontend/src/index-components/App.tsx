@@ -8,6 +8,9 @@ import Header from "./app-components/Header";
 import BodyContainer from "./app-components/BodyContainer";
 import {useToggle} from "../hooks/useToggle";
 
+//Google API imports
+import {LoadScript} from "@react-google-maps/api";
+
 // Route Imports
 import Home from "./app-components/pages/home/Home";
 import FavoriteRestaurants from "./app-components/pages/favorite-restaurants/FavoriteRestaurants";
@@ -33,6 +36,8 @@ function App() {
     return (
         <>
             <Box sx={{ display: 'flex', height: "100%", width: "100%"}}>
+                {/*Putting the Google Maps API Loadscript here to avoid issues with rerendering - Cade*/}
+                <LoadScript googleMapsApiKey="AIzaSyDXlQY2uFzDvS7HRowdgflkRqWtmKqYaGw"> </LoadScript>
                 <CssBaseline/>
                 <Header drawerOpen={drawerOpen} toggleDrawerOpen={toggleDrawerOpen}/>
                 <Sidebar drawerOpen={drawerOpen} toggleDrawerOpen={toggleDrawerOpen}/>

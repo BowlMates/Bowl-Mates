@@ -11,41 +11,52 @@ import Button from "@mui/material/Button";
 import {useGetRestaurants} from "../../../../hooks/useGetRestaurants";
 import {useEffect, useState} from "react";
 
+//TODO: Get rid of these hard coded values
 let restaurants : restaurant[] = [
     {
         id: 5,
         name: "Cactus",
         address: "535 Bellevue Square, Bellevue, WA 98004",
         cuisine: "Mexican",
-        rating: 3
+        rating: 3,
+        latitude: 0.0,
+        longitude: 0.0
     },
     {
         id: 4,
         name: "Canlis",
         address: "2576 Aurora Ave N, Seattle, WA 98109",
         cuisine: "Fine Dining",
-        rating: 5
+        rating: 5,
+        latitude: 0.0,
+        longitude: 0.0
     },
     {
         id: 3,
         name: "The Pink Door",
         address: "1919 Post Alley, Seattle, WA 98101",
         cuisine: "Italian",
-        rating: 5
+        rating: 5,
+        latitude: 0.0,
+        longitude: 0.0
     },
     {
         id: 1,
         name: "Kamonegi",
         address: "1054 N 39th St, Seattle, WA 98103",
         cuisine: "Japanese",
-        rating: 5
+        rating: 5,
+        latitude: 0.0,
+        longitude: 0.0
     },
     {
         id: 2,
         name: "Homer",
         address: "3013 Beacon Ave S, Seattle, WA 98144",
         cuisine: "Mediterranean",
-        rating: 5
+        rating: 5,
+        latitude: 0.0,
+        longitude: 0.0
     }
 ]
 
