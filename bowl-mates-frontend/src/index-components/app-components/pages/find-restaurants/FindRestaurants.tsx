@@ -32,7 +32,12 @@ function FindRestaurants() {
             justifyContent="center"
             padding={3}
         >
-            <Box flex={{ xs: 1, md: 1 }} marginBottom={{ xs: 2, md: 0 }}>
+            <Box
+                flex={{ xs: 1, md: 1 }}
+                marginBottom={{ xs: 2, md: 0 }}
+                border={{ md: '3px solid #000000' }}
+                borderRadius={{ md: '4px' }}
+            >
                 <Box
                     display="flex"
                     flexDirection="column"
@@ -47,7 +52,15 @@ function FindRestaurants() {
                 </Box>
             </Box>
 
-            <Box flex={{ xs: 1, md: 1 }} marginLeft={{ md: 2 }}>
+            <Box
+                flex={{ xs: 1, md: 1 }}
+                marginLeft={{ md: 2 }}
+                border={{ md: '3px solid #000000' }}
+                borderRadius={{ md: '4px' }}
+                display="flex"
+                flexDirection="column"
+                alignItems="center"
+            >
                 <Typography variant="h5" gutterBottom>
                     Nearby Restaurants:
                 </Typography>
