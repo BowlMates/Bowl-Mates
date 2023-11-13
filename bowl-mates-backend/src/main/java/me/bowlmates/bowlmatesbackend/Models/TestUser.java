@@ -35,8 +35,7 @@ public class TestUser implements UserDetails {
     @JoinTable(name = "user_avialability",
             joinColumns = {@JoinColumn(name = "user_id")},
             inverseJoinColumns = {@JoinColumn(name = "time_id")})
-    //TODO: Make Avail obj
-    private Set<String> availability;
+    private Set<TestAvailability> availability;
 
     @ManyToMany
     @JoinTable(name = "user_favorite_restaurants",
@@ -147,11 +146,25 @@ public class TestUser implements UserDetails {
         rest.getUsers().add(this);
     }
 
-//    public boolean[] getAvailability() {
-//        return availability;
-//    }
+    public Set<TestAvailability> getAvailability() {
+        return availability;
+    }
 
-//    public void setAvailability(boolean[] availability) {
-//        this.availability = availability;
-//    }
+    public void setAvailability(Set<TestAvailability> availability) {
+        this.availability = availability;
+    }
+
+    @Override
+    public int hashCode() {
+        return this.id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof TestUser tU)) {
+            return false;
+        }
+        return this.id.equals(tU.id) && this.username.equals(tU.username)
+                && this.email.equals(tU.email);
+    }
 }

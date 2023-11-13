@@ -2,6 +2,7 @@ package me.bowlmates.bowlmatesbackend.Models;
 
 import jakarta.persistence.*;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -64,10 +65,9 @@ public class TestRestaurant {
     public void setRating(Integer rating) {
         this.rating = rating;
     }
-
-    // TODO: This is rep exposure. We need to change this!
+    
     public Set<TestUser> getUsers() {
-        return users;
+        return Collections.unmodifiableSet(users);
     }
 
     public void setUsers(Set<TestUser> users) {
