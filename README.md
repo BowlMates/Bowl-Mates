@@ -1,4 +1,23 @@
-# Bowl-Mates 
+# Bowl-Mates  
+## Beta v1.0.0
+
+## How to Build and Test System:
+* ### System automatically builds and tests on pushes/merges to main and production
+* ### To Manually Build:
+  * Gradle -> Tasks -> build -> clean
+  * Gradle -> Tasks -> build -> build
+* ### To Manually Test:
+  * Backend: Gradle -> Tasks -> verification -> check
+  * Frontend:
+    * (in terminal) npm start
+    * Manually verify function of UI components (further instructions in progress)
+
+## How to Run the System:
+* ### Production version is currently running at bowlmates.me
+* ### To Run in your branch:
+  * Backend: Gradle -> Tasks -> application -> bootRun  
+        OR bowl-mates-backend -> src -> main -> java -> me.bowlmates.bowlmatesbackend -> BowlMatesBackendApplication
+  * Frontend: npm start
 
 ## Repository Layout:
 * ### bowl-mates-backend
@@ -16,8 +35,12 @@
   * public
     * Webpage assets
   * src
-    * JS App files
-    * Webpage assets
+    * data-types (JS classes to parallel Java classes)
+    * hooks (React hooks - self explanatory)
+    * images (self explanatory)
+    * index-components (Various pages and their components)
+    * tests (React components for quick testing)
+    * Additional webpage assets
   * Docker files
 * ### Guides
   * Guides for Git, Node, etc.

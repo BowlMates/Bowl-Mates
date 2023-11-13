@@ -30,9 +30,9 @@ public class TestUser implements UserDetails {
     private String username;
     @Column
     private String password;
+
 //    @Column
 //    private boolean[] availability;
-
 
     @ManyToMany
 //    @JoinTable(name = "user_favorite_restaurants",
@@ -146,7 +146,7 @@ public class TestUser implements UserDetails {
 //    public boolean[] getAvailability() {
 //        return availability;
 //    }
-//
+
 //    public void setAvailability(boolean[] availability) {
 //        this.availability = availability;
 //    }

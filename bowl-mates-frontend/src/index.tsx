@@ -8,6 +8,7 @@ import './index.css'
 import App from './index-components/App'
 
 
+
 // React Auth Kit imports
 import {AuthProvider, RequireAuth} from "react-auth-kit";
 import Landing from "./index-components/app-components/pages/landing/Landing";
@@ -37,6 +38,7 @@ const root = ReactDOM.createRoot(
 )
 root.render(
   <React.StrictMode>
+
       <AuthProvider authType = {'cookie'}
                     authName={'_auth'}
                     cookieDomain={window.location.hostname}
