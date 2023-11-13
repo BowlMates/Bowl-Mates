@@ -1,13 +1,10 @@
 package me.bowlmates.bowlmatesbackend.Controllers;
 
 import jakarta.servlet.http.HttpServletRequest;
-import me.bowlmates.bowlmatesbackend.Models.UserRequestDTO;
+import me.bowlmates.bowlmatesbackend.Models.*;
 
-import me.bowlmates.bowlmatesbackend.Models.RestaurantDTO;
-import me.bowlmates.bowlmatesbackend.Models.TestRestaurant;
-
+import me.bowlmates.bowlmatesbackend.Repositories.AvailRepo;
 import me.bowlmates.bowlmatesbackend.Repositories.RestRepo;
-import me.bowlmates.bowlmatesbackend.Models.TestUser;
 import me.bowlmates.bowlmatesbackend.Services.RestaurantService;
 import me.bowlmates.bowlmatesbackend.Repositories.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +31,8 @@ public class UserController {
     private UserRepo userRepository;
     @Autowired
     private RestRepo restaurantRepository;
+    @Autowired
+    private AvailRepo availabilityRepository;
     @Autowired
     private RestaurantService restaurantService;
 
@@ -81,29 +80,47 @@ public class UserController {
         return setRests;
     }
 
-    // TODO: availability mappings
-//    @GetMapping(value = "/availability", produces = "application/json")
-//    public boolean[] getAvailability() {
-//        String username = "";
-//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//        if (auth != null && auth.isAuthenticated()) {
-//            username = auth.getName();
-//        }
-//        TestUser user = userRepository.findByUsername(username);
-//        return user.getAvailability();
-//    }
-//
-//    @PostMapping("/availability/save")
-//    public Boolean setAvailability(@RequestBody boolean[] avail) {
-//        String username = "";
-//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//        if (auth != null && auth.isAuthenticated()) {
-//            username = auth.getName();
-//        }
-//        TestUser user = userRepository.findByUsername(username);
-//        user.setAvailability(avail);
-//        return true;
-//    }
+    @GetMapping(value = "/availability", produces = "application/json")
+    public List<AvailabilityDTO> getAvailability() {
+        String username = "";
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null && auth.isAuthenticated()) {
+            username = auth.getName();
+        }
+        TestUser user = userRepository.findByUsername(username);
+        Set<TestAvailability> availabilities = user.getAvailability();
+        List<AvailabilityDTO> aDTO = new ArrayList<>();
+        for (TestAvailability avail : availabilities) {
+            aDTO.add(new AvailabilityDTO(avail.getDay(), avail.getHour()));
+        }
+        return aDTO;
+    }
+    
+    @PostMapping("/availability/save")
+    public Boolean setAvailability(@RequestBody List<AvailabilityDTO> availabilityDTOList) {
+        String username = "";
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null && auth.isAuthenticated()) {
+            username = auth.getName();
+        }
+        TestUser user = userRepository.findByUsername(username);
+        Set<TestAvailability> avails = new HashSet<>();
+        for (AvailabilityDTO avail : availabilityDTOList) {
+            int hash = TestAvailability.calculateHash(avail.getDay(), avail.getTime(), 11);
+            TestAvailability tAvail = availabilityRepository.findByHash(hash);
+            if (tAvail == null) {
+                tAvail = new TestAvailability();
+                tAvail.setDay(avail.getDay());
+                tAvail.setHour(avail.getTime());
+            }
+            tAvail.addUser(user);
+            availabilityRepository.save(tAvail);
+            avails.add(tAvail);
+        }
+        user.setAvailability(avails);
+        // bad style, fix later
+        return true;
+    }
 
     @GetMapping(value = "/userinfo", produces = "application/json")
     public TestUser sendUserInfo() {
