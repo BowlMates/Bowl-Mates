@@ -1,16 +1,17 @@
+import React from "react";
+import useNearbyPlaces from "../../../../hooks/useNearbyPlaces";
+import MapComponent from "./find-restaurants-components/MapComponent";
+
 // MUI Imports
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 
-// Google APi imports
-import MapComponent from "./find-restaurants-components/MapComponent";
-import React from "react";
-import getNearbyRestaurants from "../../../../hooks/getNearbyRestaurants";
 
 // The FindRestaurants component is responsible for calling the getNearbyRestaurants function and then
 // displaying all of the data returned by the API to the user
-function FindRestaurants() {
-    const {restaurants, loading, error} = getNearbyRestaurants();
+function FindRestaurants(userLocation: {lat: number; lng: number}) {
+    const {restaurants, loading, error} = useNearbyPlaces(userLocation);
+
 
     // Handle cases where there's an error or the hook hasn't finished returning yet
     if (loading) {
@@ -46,7 +47,7 @@ function FindRestaurants() {
                     <Typography variant="h4" gutterBottom>
                         Welcome to the Restaurant Finder Tool!
                     </Typography>
-                    <MapComponent restaurants={restaurants} />
+                    <MapComponent restaurants={restaurants} userLocation={userLocation}/>
                 </Box>
             </Box>
 

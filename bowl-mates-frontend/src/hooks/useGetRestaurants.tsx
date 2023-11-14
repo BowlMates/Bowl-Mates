@@ -1,9 +1,6 @@
 // React Imports
 import {useState} from "react";
 
-// Custom Imports
-import {restaurant} from "../data-types/restaurants";
-
 // React Auth Kit Imports
 import {useAuthHeader} from 'react-auth-kit'
 

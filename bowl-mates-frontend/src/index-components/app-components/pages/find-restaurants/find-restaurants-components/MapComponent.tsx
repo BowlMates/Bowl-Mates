@@ -8,19 +8,14 @@ const mapContainerStyle = {
     height: '100%',
 };
 
-// Center of the map
-const uwCoords = {
-    lat: 47.6550,
-    lng: -122.3080,
-};
-
 // The Map component is what renders our interactable google map as well as initializes all of the markers
-// contained within it via location data passed in as a prop with each restaurant
-function MapComponent({restaurants}: {restaurants: restaurant[]}) {
+// contained within it via location data passed in via the restaurant and location props
+function MapComponent({restaurants, userLocation}: {restaurants: restaurant[], userLocation: {lat: number, lng: number }}) {
+
     return (
-            <GoogleMap mapContainerStyle={mapContainerStyle} center={uwCoords} zoom={13}>
+            <GoogleMap mapContainerStyle={mapContainerStyle} center={userLocation} zoom={13}>
                 <MarkerF
-                    position={uwCoords}
+                    position={userLocation}
                     title={"Current Location"}
                 />
                 {restaurants.map((restaurant) => (

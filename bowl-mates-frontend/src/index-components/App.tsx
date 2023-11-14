@@ -25,12 +25,33 @@ import Box from "@mui/material/Box";
 import {useTheme} from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import FindRestaurants from "./app-components/pages/find-restaurants/FindRestaurants";
+import useUserLocation from "../hooks/useUserLocation";
 
+// Constant for UW location data in case useUserLocation fails to retrieve user location data
+const uwCoords = {
+    lat: 47.6550,
+    lng: -122.3080,
+};
 
 function App() {
     const {state : drawerOpen, toggle : toggleDrawerOpen} = useToggle(false);
-
     const theme = useTheme();
+
+    // This logic is here because the user location data needs to be collected before use navigates to restaurants finder
+    // Call the useUserLocation hook to get user location data if possible
+    const locationResult = useUserLocation()
+    let userLocation: { lat: number, lng: number }
+
+    //If the locationResult returned is null, set userLocation to UW default - if not set it to the returned coords
+    if(locationResult.location === null){
+        userLocation = uwCoords;
+    }
+    else{
+        userLocation = {
+            lat: locationResult.location.latitude,
+            lng: locationResult.location.longitude
+        }
+    }
 
     return (
         <>
@@ -52,7 +73,7 @@ function App() {
                         <Routes>
                             <Route path={"/"} element={<Home />}/>
                             <Route path={"/favorite-restaurants"} element={<FavoriteRestaurants />}/>
-                            <Route path={"/find-restaurants"} element={<FindRestaurants />}/>
+                            <Route path={"/find-restaurants"} element={<FindRestaurants   lat={userLocation.lat} lng={userLocation.lng}/>}/>
                             <Route path={"/availability"} element={<Availability />}/>
                             <Route path={"/matching"} element={<Matching />}/>
                             <Route path={"/successful-matches"} element={<SuccessfulMatches />}/>
