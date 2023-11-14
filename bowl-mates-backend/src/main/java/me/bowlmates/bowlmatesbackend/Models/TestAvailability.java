@@ -52,6 +52,11 @@ public class TestAvailability {
         users.add(user);
     }
 
+    public static int getNumTimes() {
+        // bad style. fix later
+        return 11;
+    }
+
     @Override
     public int hashCode() {
         return calculateHash(day, hour, NUM_TIMES);

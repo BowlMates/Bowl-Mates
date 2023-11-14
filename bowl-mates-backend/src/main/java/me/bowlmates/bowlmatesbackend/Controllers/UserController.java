@@ -51,7 +51,9 @@ public class UserController {
     @GetMapping(value = "/displaypref", produces = "application/json")
     public Set<RestaurantDTO> displayRestPreference() {
         String username = "";
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Authentication auth = SecurityContextHolder
+                .getContext()
+                .getAuthentication();
         if(auth != null && auth.isAuthenticated()){
             username = auth.getName();
         }
@@ -77,7 +79,9 @@ public class UserController {
     @GetMapping(value = "/availability", produces = "application/json")
     public List<AvailabilityDTO> getAvailability() {
         String username = "";
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Authentication auth = SecurityContextHolder
+                .getContext()
+                .getAuthentication();
         if (auth != null && auth.isAuthenticated()) {
             username = auth.getName();
         }
@@ -93,14 +97,19 @@ public class UserController {
     @PostMapping("/availability/save")
     public Boolean setAvailability(@RequestBody List<AvailabilityDTO> availabilityDTOList) {
         String username = "";
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Authentication auth = SecurityContextHolder
+                .getContext()
+                .getAuthentication();
         if (auth != null && auth.isAuthenticated()) {
             username = auth.getName();
         }
         TestUser user = userRepository.findByUsername(username);
         Set<TestAvailability> avails = new HashSet<>();
         for (AvailabilityDTO avail : availabilityDTOList) {
-            int hash = TestAvailability.calculateHash(avail.getDay(), avail.getTime(), 11);
+            int hash = TestAvailability
+                    .calculateHash(avail.getDay(),
+                            avail.getTime(),
+                            TestAvailability.getNumTimes());
             TestAvailability tAvail = availabilityRepository.findByHash(hash);
             if (tAvail == null) {
                 tAvail = new TestAvailability();
@@ -119,7 +128,9 @@ public class UserController {
     @GetMapping(value = "/userinfo", produces = "application/json")
     public TestUser sendUserInfo() {
         String username = "";
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Authentication auth = SecurityContextHolder
+                .getContext()
+                .getAuthentication();
         if (auth != null && auth.isAuthenticated()) {
             username = auth.getName();
         }
@@ -128,16 +139,6 @@ public class UserController {
     }
 
     // TODO: userinfo post mapping
-
-    // TODO: figure out token parsing
-//    @GetMapping("/token")
-//    public String tokenTest(@RequestHeader HttpServletRequest request) {
-//        String authenticationHeader = request.getHeader("Authorization");
-//        if (authenticationHeader == null || !authenticationHeader.startsWith("Bearer ")) {
-//            throw new IllegalArgumentException();
-//        }
-//        return tokenService.getUsernameFromToken(authenticationHeader);
-//    }
 
     @GetMapping(value = "/test", produces = "application/json")
     public Map<String, String> test() {
