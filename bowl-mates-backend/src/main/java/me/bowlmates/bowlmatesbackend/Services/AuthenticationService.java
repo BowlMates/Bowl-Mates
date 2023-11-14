@@ -18,6 +18,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * A service used to handled user logins and registration
+ */
 @Service
 @Transactional
 public class AuthenticationService {
@@ -37,6 +40,15 @@ public class AuthenticationService {
     @Autowired
     private TokenService tokenService;
 
+    /**
+     * Registers a new user
+     *
+     * @param name a string representing the name of the user
+     * @param username a string representing the username of the user
+     * @param password a string representing the password of the user
+     * @param email a string representing the email of the user
+     * @return a {@link TestUser} that was registered
+     */
     public TestUser registerUser(String name,
                                  String username,
                                  String password,
@@ -50,6 +62,13 @@ public class AuthenticationService {
                 email, authorities, new HashSet<>()));
     }
 
+    /**
+     * Logs a user in
+     * 
+     * @param username a string representing the user's username
+     * @param password a string representing the user's password
+     * @return a {@link LoginResponseDTO} representing the logged-in user
+     */
     public LoginResponseDTO loginUser(String username, String password) {
 
         try {
