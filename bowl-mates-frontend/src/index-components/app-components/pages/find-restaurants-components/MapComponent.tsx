@@ -1,26 +1,22 @@
 // MapComponent.js
-import React from 'react';
+import React, {useState} from 'react';
 import {GoogleMap, MarkerF} from '@react-google-maps/api';
 import {restaurant} from "../../../../data-types/restaurants";
+import useUserLocation from "../../../../hooks/useUserLocation";
 
 const mapContainerStyle = {
     width: '100%',
     height: '100%',
 };
 
-// Center of the map
-const uwCoords = {
-    lat: 47.6550,
-    lng: -122.3080,
-};
-
 // The Map component is what renders our interactable google map as well as initializes all of the markers
-// contained within it via location data passed in as a prop with each restaurant
-function MapComponent({restaurants}: {restaurants: restaurant[]}) {
+// contained within it via location data passed in via the restaurant and location props
+function MapComponent({restaurants, userLocation}: {restaurants: restaurant[], userLocation: {lat: number, lng: number }}) {
+
     return (
-            <GoogleMap mapContainerStyle={mapContainerStyle} center={uwCoords} zoom={13}>
+            <GoogleMap mapContainerStyle={mapContainerStyle} center={userLocation} zoom={13}>
                 <MarkerF
-                    position={uwCoords}
+                    position={userLocation}
                     title={"Current Location"}
                 />
                 {restaurants.map((restaurant) => (
@@ -34,4 +30,4 @@ function MapComponent({restaurants}: {restaurants: restaurant[]}) {
     );
 };
 
-export default React.memo(MapComponent);
+export default MapComponent;
