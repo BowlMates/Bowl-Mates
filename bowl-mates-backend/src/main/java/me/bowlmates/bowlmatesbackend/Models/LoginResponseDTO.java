@@ -1,7 +1,7 @@
 package me.bowlmates.bowlmatesbackend.Models;
 
 /**
- * Used for passing availability info frontend <-> backend
+ * Used for passing login response to frontend
  */
 public class LoginResponseDTO {
     private String username;
@@ -16,26 +16,47 @@ public class LoginResponseDTO {
 
     /**
      * Constructor
+     *
      * @param user TestUser to grab username from
-     * @param jwt
+     * @param jwt generated json web token
      */
     public LoginResponseDTO(TestUser user, String jwt) {
         this.username = user.getUsername();
         this.jwt = jwt;
     }
 
+    /**
+     * Gets username
+     *
+     * @return username of this
+     */
     public String getUser() {
         return this.username;
     }
 
+    /**
+     * Sets username
+     *
+     * @param username String to set username to
+     */
     public void setUser(String username) {
         this.username = username;
     }
 
+    /**
+     * Gets jwt
+     *
+     * @return jwt stored in this
+     */
     public String getJwt() {
         return this.jwt;
     }
 
+    /**
+     * Sets jwt
+     *
+     * @param jwt value to assign to jwt in this
+     */
     public void setJwt(String jwt) {
         this.jwt = jwt;
     }

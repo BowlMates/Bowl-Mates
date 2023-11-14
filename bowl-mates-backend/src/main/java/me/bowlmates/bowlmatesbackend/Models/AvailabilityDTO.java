@@ -10,6 +10,7 @@ public class AvailabilityDTO {
 
     /**
      * Constructor for this
+     *
      * @param day day value to set
      * @param time time value to set
      */
@@ -20,6 +21,7 @@ public class AvailabilityDTO {
 
     /**
      * Sets day
+     *
      * @param day value to be set to
      */
     public void setDay(int day) {
@@ -28,6 +30,7 @@ public class AvailabilityDTO {
 
     /**
      * Gets day
+     *
      * @return day field of this
      */
     public int getDay() {
@@ -36,6 +39,7 @@ public class AvailabilityDTO {
 
     /**
      * Sets time
+     *
      * @param time value to be set to
      */
     public void setTime(int time) {
@@ -44,6 +48,7 @@ public class AvailabilityDTO {
 
     /**
      * Gets time
+     *
      * @return time field of this
      */
     public int getTime() {
