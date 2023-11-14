@@ -1,7 +1,7 @@
 // MapComponent.js
 import React from 'react';
 import {GoogleMap, MarkerF} from '@react-google-maps/api';
-import {restaurant} from "../../../../data-types/restaurants";
+import {restaurant} from "../../../../../data-types/restaurants";
 
 const mapContainerStyle = {
     width: '100%',
@@ -32,6 +32,6 @@ function MapComponent({restaurants}: {restaurants: restaurant[]}) {
                 ))}
             </GoogleMap>
     );
-};
+}
 
-export default React.memo(MapComponent);
+export default MapComponent;

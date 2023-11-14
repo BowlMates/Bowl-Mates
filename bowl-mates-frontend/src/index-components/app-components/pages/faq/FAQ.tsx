@@ -7,6 +7,7 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Box from '@mui/material/Box';
+import Link from "@mui/material/Link";
 
 
 //Pre-Styling
@@ -51,7 +52,7 @@ function FAQ () {
                     </AccordionSummary>
                     <AccordionDetails>
                         <Typography>
-                            It is Geoffgeoff's favorite new app on the block hehe
+                            It is a way to meet new people by matching based on availability and favorite restaurants.
                         </Typography>
                     </AccordionDetails>
                 </Accordion>
@@ -61,12 +62,15 @@ function FAQ () {
                         aria-controls="panel2a-content"
                         id="panel2a-header"
                     >
-                        <Typography>Why is Geoffgeoff so hot?</Typography>
+                        <Typography>Do you have a user manual?</Typography>
                     </AccordionSummary>
                     <AccordionDetails>
                         <Typography>
-                            Some things are just laws of nature that you can't really question.
+                            Yes it is linked here:
                         </Typography>
+                        <Link>
+                            https://docs.google.com/document/d/1XaWdXT156YKWg6wizoMOhZdTV7eUF3p0ckaLsWxtqPk/edit?usp=sharing
+                        </Link>
                     </AccordionDetails>
                 </Accordion>
             <Accordion>
@@ -79,8 +83,8 @@ function FAQ () {
                 </AccordionSummary>
                 <AccordionDetails>
                     <Typography>
-                        Geoffgeoff, Jasper Balinas, Cade and Tim Dillon,
-                        Dan Johnson, and Stephen Cushbear
+                        Jasper Balinas, Cade Dillon,  Tim Dillon,
+                        Dan Johnson, Stephen Cushman, and Geoffrey Aldrich
                     </Typography>
                 </AccordionDetails>
             </Accordion>

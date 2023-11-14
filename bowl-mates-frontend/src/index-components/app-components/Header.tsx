@@ -12,7 +12,6 @@ import MuiAppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Box from "@mui/material/Box";
 
-
 // MUI ICONS
 import SettingsIcon from '@mui/icons-material/Settings';
 import IconButton from "@mui/material/IconButton";
@@ -21,7 +20,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import {useNavigate} from "react-router-dom";
 
 // React Auth Kit Imports
-import { useSignOut } from 'react-auth-kit'
+import {useSignOut} from 'react-auth-kit'
 
 interface AppBarProps extends MuiAppBarProps {
     open?: boolean;
@@ -46,7 +45,6 @@ const AppBar = styled(MuiAppBar, {
     }),
 }));
 
-
 interface Props {
     drawerOpen: boolean,
     toggleDrawerOpen: () => void
@@ -56,7 +54,7 @@ function Header(props: Props) {
 
     const navigate = useNavigate();
 
-    const signOut = useSignOut()
+    const signOut = useSignOut();
 
     return (
         <AppBar position="fixed">
@@ -78,15 +76,17 @@ function Header(props: Props) {
                         sx={{height: 50}}
                         alt={"BowlMates Logo"}
                         src={Logo}
-                        onClick={()=>{navigate("/")}}
+                        onClick={() => {
+                            navigate("/")
+                        }}
                     />
                 </Box>
                 <Box>
                     <IconButton
                         color="inherit"
                         aria-label="open drawer"
-                        onClick={()=>{
-                            navigate("/")
+                        onClick={() => {
+                            navigate("/");
                             signOut();
                         }}
                         edge="start"
@@ -98,7 +98,9 @@ function Header(props: Props) {
                     <IconButton
                         color="inherit"
                         aria-label="open drawer"
-                        onClick={()=>{navigate("/app/settings")}}
+                        onClick={() => {
+                            navigate("/app/settings")
+                        }}
                         edge="start"
                     >
                         <SettingsIcon/>
@@ -106,7 +108,7 @@ function Header(props: Props) {
                 </Box>
             </Toolbar>
         </AppBar>
-    )
+    );
 }
 
 export default Header
