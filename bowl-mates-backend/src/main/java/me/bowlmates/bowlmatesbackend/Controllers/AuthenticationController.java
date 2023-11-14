@@ -21,6 +21,7 @@ public class AuthenticationController {
 
     /**
      * Registers a new user from request received from frontend
+     *
      * @param body Filled fields from frontend registration
      * @return TestUser object constructed from registration
      */
@@ -32,6 +33,7 @@ public class AuthenticationController {
 
     /**
      * Authenticates a user when they attempt log in
+     *
      * @param body RegistrationDTO object containing username and password
      * @return LoginResponseDTO object containing json web token for future authentication
      */
@@ -46,6 +48,7 @@ public class AuthenticationController {
 
     /**
      * Test of server status, as this REST Controller does not require authentication
+     *
      * @return String with server status (User will get 404 when server is not up)
      */
     @GetMapping("/servertest")

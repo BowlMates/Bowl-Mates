@@ -24,6 +24,7 @@ public class AdminController {
 
     /**
      * Current method is placeholder for future admin landing page
+     *
      * @return A map with a message verifying user has reached admin page
      */
     @GetMapping(value = "/", produces = "application/json")
@@ -35,6 +36,7 @@ public class AdminController {
 
     /**
      * Produces a test message for integration testing
+     *
      * @return A map with the test message
      */
     @GetMapping(value = "/test", produces = "application/json")

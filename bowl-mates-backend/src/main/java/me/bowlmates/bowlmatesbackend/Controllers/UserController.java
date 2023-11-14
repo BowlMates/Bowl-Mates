@@ -37,6 +37,7 @@ public class UserController {
 
     /**
      * Landing page for user
+     *
      * @return a Map with message signifying user level
      */
     @GetMapping(value = "/", produces = "application/json")
@@ -48,6 +49,7 @@ public class UserController {
 
     /**
      * Adds restaurants to user's favorites
+     *
      * @param body RestaurantDTO list of favorite restaurants
      */
     @PostMapping("/pref")
@@ -57,6 +59,7 @@ public class UserController {
 
     /**
      * Provides set of user's favorite restaurants
+     *
      * @return Set of RestaurantDTO objects tied to user
      */
     @GetMapping(value = "/displaypref", produces = "application/json")
@@ -79,6 +82,7 @@ public class UserController {
 
     /**
      * Gets all restaurants
+     *
      * @return a Set of RestaurantDTO objects representing all restaurants
      */
     @GetMapping(value = "/displayrests", produces = "application/json")
@@ -93,6 +97,7 @@ public class UserController {
 
     /**
      * Provides frontend with user availability
+     *
      * @return a List of AvailabilityDTO objects representing times user is available
      */
     @GetMapping(value = "/availability", produces = "application/json")
@@ -116,6 +121,7 @@ public class UserController {
 
     /**
      * Updates user availability from frontend
+     *
      * @param availabilityDTOList List of AvailabilityDTO representing user availability
      */
     @PostMapping("/availability/save")
@@ -151,6 +157,7 @@ public class UserController {
 
     /**
      * Function for integration testing
+     *
      * @return Map of String with message
      */
     @GetMapping(value = "/test", produces = "application/json")
