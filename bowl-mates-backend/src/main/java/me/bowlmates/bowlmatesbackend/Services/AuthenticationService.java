@@ -64,7 +64,7 @@ public class AuthenticationService {
 
     /**
      * Logs a user in
-     * 
+     *
      * @param username a string representing the user's username
      * @param password a string representing the user's password
      * @return a {@link LoginResponseDTO} representing the logged-in user
