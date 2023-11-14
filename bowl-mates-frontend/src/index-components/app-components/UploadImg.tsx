@@ -1,0 +1,28 @@
+import React, { useState } from "react";
+
+function UploadImg() {
+    const [file, setFile] = useState<string | null>(null);
+
+    function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+        const selectedFile = e.target.files?.[0];
+
+        if (selectedFile) {
+            console.log(selectedFile);
+            setFile(URL.createObjectURL(selectedFile));
+        }
+    }
+
+    return (
+        <div className="App">
+            <h2>Add Image:</h2>
+            <input type="file" accept="image/*" onChange={handleChange} />
+            <img src={file || ''} alt={file || "No file selected"} style={{
+                width: "100px",
+                height: "100px",
+                position: "absolute"
+            }}/>
+        </div>
+    );
+}
+
+export default UploadImg;

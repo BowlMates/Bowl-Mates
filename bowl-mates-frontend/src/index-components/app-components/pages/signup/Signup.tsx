@@ -4,6 +4,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import {useState} from "react";
 
+// Styled component for the rectangular boxes in the form
 const Rectangle = styled(Box)({
     width: '120%',
     height: '100px',
@@ -16,7 +17,7 @@ const Rectangle = styled(Box)({
 });
 
 function Signup() {
-
+    // State hooks for handling user input
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
@@ -31,7 +32,7 @@ function Signup() {
             height="75vh"
         >
 
-            {/*SIGNUP TEXT*/}
+            {/* Large signup text */}
             <Typography variant={"h1"}
                         style={
                             {
@@ -49,7 +50,7 @@ function Signup() {
                 up
             </Typography>
 
-            {/*RECTANGLES*/}
+            {/* Container for input fields */}
             <Box
                 display="flex"
                 flexDirection="column"
@@ -57,7 +58,7 @@ function Signup() {
                 marginLeft="50px"
                 marginTop="175px"
             >
-
+                {/* Email input field */}
                 <Rectangle
                     bgcolor="#FDF5F5">
                     <input
@@ -78,6 +79,8 @@ function Signup() {
                         }}
                     />
                 </Rectangle>
+
+                {/* Password input field */}
                 <Rectangle
                     bgcolor="#FDF5F5">
                     <input
@@ -98,6 +101,8 @@ function Signup() {
                         }}
                     />
                 </Rectangle>
+
+                {/* Confirm password input field */}
                 <Rectangle
                     bgcolor="#FDF5F5">
                     <input
@@ -119,6 +124,8 @@ function Signup() {
                     />
 
                 </Rectangle>
+
+                {/* Submit button */}
                 <Rectangle bgcolor="#54804D">
                     <Typography
                         variant="body1"
