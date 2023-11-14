@@ -167,6 +167,12 @@ public class UserController {
         return response;
     }
 
+    @PostMapping(value = "/image/post")
+    public Boolean updateImage(@RequestBody String body) {
+        // TODO: implement
+        return true;
+    }
+
     SecurityContextLogoutHandler logoutHandler = new SecurityContextLogoutHandler();
 
 }
