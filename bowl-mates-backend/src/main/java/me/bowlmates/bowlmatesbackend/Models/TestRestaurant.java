@@ -10,6 +10,9 @@ import jakarta.persistence.Table;
 import java.util.Collections;
 import java.util.Set;
 
+/**
+ * Interfaces server and database restaurant data
+ */
 @Entity
 @Table(name = "test_restaurant")
 public class TestRestaurant {
@@ -29,51 +32,112 @@ public class TestRestaurant {
     @ManyToMany(mappedBy = "favoriteRestaurants")
     private Set<TestUser> users;
 
+    /**
+     * Gets id
+     *
+     * @return id field of this
+     */
     public Integer getId() {
         return id;
     }
 
+    /**
+     * Sets id
+     *
+     * @param id value to set id field of this to
+     */
     public void setId(Integer id) {
         this.id = id;
     }
 
+    /**
+     * Gets name
+     *
+     * @return name field of this
+     */
     public String getRestaurant_name() {
         return name;
     }
 
+    /**
+     * Sets name
+     *
+     * @param restaurant_name value to set name field in this to
+     */
     public void setRestaurant_name(String restaurant_name) {
         this.name = restaurant_name;
     }
 
+    /**
+     * Gets address
+     *
+     * @return address field of this
+     */
     public String getAddress() {
         return address;
     }
 
+    /**
+     * Sets address
+     *
+     * @param address value to set address of this to
+     */
     public void setAddress(String address) {
         this.address = address;
     }
 
+    /**
+     * Gets cuisine
+     *
+     * @return cuisine field of this
+     */
     public String getCuisine() {
         return cuisine;
     }
 
+    /**
+     * Sets cuisine
+     *
+     * @param cuisine value to set cuisine field of this to
+     */
     public void setCuisine(String cuisine) {
         this.cuisine = cuisine;
     }
 
+    /**
+     * Gets rating
+     *
+     * @return rating field of this
+     */
     public Integer getRating() {
         return rating;
     }
 
+    /**
+     * Sets rating
+     *
+     * @param rating value to set rating field of this to
+     */
     public void setRating(Integer rating) {
         this.rating = rating;
     }
 
+    /**
+     * Gets users who have this restaurant as a favorite
+     *
+     * @return Set of these users
+     */
     public Set<TestUser> getUsers() {
         return Collections.unmodifiableSet(users);
     }
 
+    /**
+     * Assigns users who have this restaurant as a favorite
+     *
+     * @param users Set to assign users field to
+     */
     public void setUsers(Set<TestUser> users) {
+        // TODO: store copy instead of reference
         this.users = users;
     }
 
