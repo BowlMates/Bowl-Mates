@@ -23,7 +23,7 @@ const useUserLocation = (): UseUserLocationResult => {
                     // pass them to the state update function as UserLocation type
                     (position) => {
                         const { latitude, longitude } = position.coords;
-                        setLocation({ latitude, longitude } as UserLocation);
+                        setLocation({ latitude, longitude });
                     },
                     (err) => {
                         // In error case, set error state from response

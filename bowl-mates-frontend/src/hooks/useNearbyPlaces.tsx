@@ -73,8 +73,6 @@ const useNearbyPlaces = (userLocation: {lat: number, lng: number}): UseNearbyPla
                     longitude: place.location.longitude || 0.0
                 }));
 
-                console.log(restaurantData)
-
                 // Update the state and handle any errors
                 setRestaurants(restaurantData)
                 setLoading(false)

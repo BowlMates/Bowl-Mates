@@ -43,7 +43,7 @@ function App() {
     let userLocation: { lat: number, lng: number }
 
     //If the locationResult returned is null, set userLocation to UW default - if not set it to the returned coords
-    if(locationResult.location == null){
+    if(locationResult.location === null){
         userLocation = uwCoords;
     }
     else{
