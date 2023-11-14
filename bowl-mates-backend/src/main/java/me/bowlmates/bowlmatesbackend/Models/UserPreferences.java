@@ -8,6 +8,9 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
+/**
+ * A model of preferred restaurants by a user
+ */
 @Entity
 @Table(name = "UserPreference")
 public class UserPreferences {
