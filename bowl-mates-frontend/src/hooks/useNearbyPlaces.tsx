@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import {restaurant, restaurantJSON} from "../data-types/restaurants";
-import useUserLocation from "./useUserLocation";
 
 // Define a type interface so that the FindRestaurants component knows the type of the return
 interface UseNearbyPlacesResult {
