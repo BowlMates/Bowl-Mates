@@ -17,7 +17,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.JwtEncoder;
@@ -35,17 +34,29 @@ import java.util.Arrays;
 @Configuration
 public class SecurityConfig {
 
+
     private final RSAKeyProperties keys;
 
+    /**
+     * A constructor for the security config
+     * @param keys the keys passed to the config to identify encryption methods
+     */
     public SecurityConfig(RSAKeyProperties keys) {
         this.keys = keys;
     }
 
+    /**
+     * Creates a password encoder to create security for a user
+     * @return {@link BCryptPasswordEncoder}the password encoder
+     */
     @Bean
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
 
+    /**
+     * This bean manages the authentication during user login
+     */
     @Bean
     public AuthenticationManager authManager(UserDetailsService detailsService) {
         DaoAuthenticationProvider daoProvider = new DaoAuthenticationProvider();
@@ -54,6 +65,10 @@ public class SecurityConfig {
         return new ProviderManager(daoProvider);
     }
 
+    /**
+     * A bean that allows cross-origin referencing
+     * @return the {@link UrlBasedCorsConfigurationSource} object that allows http requests from the given origin
+     */
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
@@ -65,6 +80,13 @@ public class SecurityConfig {
         return source;
     }
 
+    /**
+     * Combines all security features for the app and creates a chain of security operations
+     *
+     * @param http the {@link HttpSecurity} object used to define security configurations for HTTP requests
+     * @return a {@link SecurityFilterChain} representing the configured security chain
+     * @throws Exception if an error occurs while configuring the security settings
+     */
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
@@ -89,11 +111,21 @@ public class SecurityConfig {
         return http.build();
     }
 
+    /**
+     * A bean that allows for the decryption of jwt tokens in http requests
+     *
+     * @return a {@link NimbusJwtDecoder} to decode jwt tokens
+     */
     @Bean
     public JwtDecoder jwtDecoder() {
         return NimbusJwtDecoder.withPublicKey(keys.getPublicKey()).build();
     }
 
+    /**
+     * A bean that allows for the encryption of jwt tokens for http responses
+     *
+     * @return a {@link NimbusJwtEncoder} that encodes jwt tokens
+     */
     @Bean
     public JwtEncoder jwtEncoder() {
         JWK jwk = new RSAKey.Builder(keys.getPublicKey()).privateKey(keys.getPrivateKey()).build();
@@ -101,6 +133,11 @@ public class SecurityConfig {
         return new NimbusJwtEncoder(jwks);
     }
 
+    /**
+     * A bean that converts jwt tokens to allow for authentication
+     *
+     * @return a {@link JwtGrantedAuthoritiesConverter} that converts jwt tokens
+     */
     @Bean
     public JwtAuthenticationConverter jwtAuthenticationConverter() {
         JwtGrantedAuthoritiesConverter jwtGrantedAuthoritiesConverter = new JwtGrantedAuthoritiesConverter();
