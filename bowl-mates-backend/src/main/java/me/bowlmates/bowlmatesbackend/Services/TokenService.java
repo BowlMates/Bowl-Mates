@@ -10,9 +10,15 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.oauth2.jwt.*;
+import org.springframework.security.oauth2.jwt.JwtClaimsSet;
+import org.springframework.security.oauth2.jwt.JwtDecoder;
+import org.springframework.security.oauth2.jwt.JwtEncoder;
+import org.springframework.security.oauth2.jwt.JwtEncoderParameters;
 import org.springframework.stereotype.Service;
 
+/**
+ * A service used to generate jwt tokens for authentication purposes
+ */
 @Service
 public class TokenService {
 
@@ -22,7 +28,12 @@ public class TokenService {
     @Autowired
     private JwtDecoder jwtDecoder;
 
-    public String generateJwt(Authentication auth){
+    /**
+     * A class to generate the jwt token
+     * @param auth the authentication used to identify jwt tokens
+     * @return a string representation of a jwt token
+     */
+    public String generateJwt(Authentication auth) {
 
         Instant now = Instant.now();
         Instant expirationTime = now.plus(Duration.ofMinutes(15));
@@ -41,19 +52,4 @@ public class TokenService {
 
         return jwtEncoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();
     }
-
-    public String getUsernameFromToken(String token) {
-        if (token == null) {
-            throw new NoSuchElementException();
-        }
-        String[] chunks = token.split("\\.");
-        Base64.Decoder decoder = Base64.getUrlDecoder();
-        String body = new String(decoder.decode(chunks[1]));
-        Scanner scn = new Scanner(body);
-        scn.findAll("\"username\":");
-        scn.useDelimiter("\"");
-        String username = scn.next();
-        return username;
-    }
-
 }
