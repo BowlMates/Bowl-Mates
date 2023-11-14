@@ -6,7 +6,7 @@ import {useNavigate} from "react-router-dom";
 import {DrawerHeader, DRAWER_WIDTH} from "./shared-app-components";
 
 // MUI Imports
-import { styled, useTheme, Theme, CSSObject } from '@mui/material/styles';
+import {styled, Theme, CSSObject} from '@mui/material/styles';
 import MuiDrawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
 import Divider from '@mui/material/Divider';
@@ -16,9 +16,6 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 
 //MUI ICONS
-import FlightLandIcon from '@mui/icons-material/FlightLand';
-import LoginIcon from '@mui/icons-material/Login';
-import SensorOccupiedIcon from '@mui/icons-material/SensorOccupied';
 import HomeIcon from '@mui/icons-material/Home';
 import SearchIcon from '@mui/icons-material/Search';
 import RestaurantMenuIcon from '@mui/icons-material/RestaurantMenu';
@@ -48,8 +45,8 @@ const closedMixin = (theme: Theme): CSSObject => ({
     },
 });
 
-const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
-    ({ theme, open }) => ({
+const Drawer = styled(MuiDrawer, {shouldForwardProp: (prop) => prop !== 'open'})(
+    ({theme, open}) => ({
         backgroundColor: theme.palette.primary.main,
         width: DRAWER_WIDTH,
         flexShrink: 0,
@@ -67,31 +64,58 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 );
 
 interface Props {
-    drawerOpen : boolean,
-    toggleDrawerOpen : () => void
+    drawerOpen: boolean,
+    toggleDrawerOpen: () => void
 }
 
-function Sidebar(props : Props) {
-    const theme = useTheme();
+function Sidebar(props: Props) {
     const navigate = useNavigate();
 
-    const sidebarRoutes : {name : string, icon : any, route : ()=>void}[] = [
-        {name: "Home", icon : <HomeIcon/>, route : ()=>{navigate("/app/")}},
-        {name: "Find Restaurants", icon : <SearchIcon/>, route : ()=>{navigate("/app/find-restaurants")}},
-        {name: "Favorite Restaurants", icon : <RestaurantMenuIcon/>, route : ()=>{navigate("/app/favorite-restaurants")}},
-        {name: "Availability", icon : <EventAvailableIcon/>, route : ()=>{navigate("/app/availability")}},
-        {name: "Matching", icon : <Diversity3Icon/>, route : ()=>{navigate("/app/matching")}},
-        {name: "Successful Matches", icon : <CheckCircleIcon/>, route : ()=>{navigate("/app/successful-matches")}},
-        {name: "FAQ", icon : <InfoIcon/>, route : ()=>{navigate("/app/faq")}},
+    const sidebarRoutes: { name: string, icon: any, route: () => void }[] = [
+        {
+            name: "Home", icon: <HomeIcon/>, route: () => {
+                navigate("/app/")
+            }
+        },
+        {
+            name: "Find Restaurants", icon: <SearchIcon/>, route: () => {
+                navigate("/app/find-restaurants")
+            }
+        },
+        {
+            name: "Favorite Restaurants", icon: <RestaurantMenuIcon/>, route: () => {
+                navigate("/app/favorite-restaurants")
+            }
+        },
+        {
+            name: "Availability", icon: <EventAvailableIcon/>, route: () => {
+                navigate("/app/availability")
+            }
+        },
+        {
+            name: "Matching", icon: <Diversity3Icon/>, route: () => {
+                navigate("/app/matching")
+            }
+        },
+        {
+            name: "Successful Matches", icon: <CheckCircleIcon/>, route: () => {
+                navigate("/app/successful-matches")
+            }
+        },
+        {
+            name: "FAQ", icon: <InfoIcon/>, route: () => {
+                navigate("/app/faq")
+            }
+        },
     ];
 
     return (
         <Drawer variant="permanent" open={props.drawerOpen}>
             <DrawerHeader/>
-            <Divider />
+            <Divider/>
             <List>
-                {sidebarRoutes.map((item, index) => (
-                    <ListItem key={item.name} disablePadding sx={{ display: 'block' }} onClick={item.route}>
+                {sidebarRoutes.map((item) => (
+                    <ListItem key={item.name} disablePadding sx={{display: 'block'}} onClick={item.route}>
                         <ListItemButton
                             sx={{
                                 minHeight: 48,
@@ -108,12 +132,12 @@ function Sidebar(props : Props) {
                             >
                                 {item.icon}
                             </ListItemIcon>
-                            <ListItemText primary={item.name} sx={{ opacity: props.drawerOpen ? 1 : 0 }} />
+                            <ListItemText primary={item.name} sx={{opacity: props.drawerOpen ? 1 : 0}}/>
                         </ListItemButton>
                     </ListItem>
                 ))}
             </List>
-            <Divider />
+            <Divider/>
         </Drawer>
     );
 }

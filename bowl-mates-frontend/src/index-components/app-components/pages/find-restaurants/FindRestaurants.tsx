@@ -1,19 +1,17 @@
+import React from "react";
+import useNearbyPlaces from "../../../../hooks/useNearbyPlaces";
+import MapComponent from "./find-restaurants-components/MapComponent";
+
 // MUI Imports
-import {styled, useTheme} from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 
-// Google APi imports
-import MapComponent from "../find-restaurants-components/MapComponent";
-import React from "react";
-import getNearbyRestaurants from "../../../../hooks/useNearbyPlaces";
-import useNearbyPlaces from "../../../../hooks/useNearbyPlaces";
 
 // The FindRestaurants component is responsible for calling the getNearbyRestaurants function and then
 // displaying all of the data returned by the API to the user
 function FindRestaurants(userLocation: {lat: number; lng: number}) {
-    const theme = useTheme();    //Necessary?
     const {restaurants, loading, error} = useNearbyPlaces(userLocation);
+
 
     // Handle cases where there's an error or the hook hasn't finished returning yet
     if (loading) {

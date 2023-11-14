@@ -35,8 +35,7 @@ const uwCoords = {
 
 function App() {
     const {state : drawerOpen, toggle : toggleDrawerOpen} = useToggle(false);
-    const theme = useTheme()
-
+    const theme = useTheme();
 
     // This logic is here because the user location data needs to be collected before use navigates to restaurants finder
     // Call the useUserLocation hook to get user location data if possible
@@ -57,8 +56,6 @@ function App() {
     return (
         <>
             <Box sx={{ display: 'flex', height: "100%", width: "100%"}}>
-                {/* Putting the Google Maps API Loadscript here to avoid issues with rerendering - Cade */}
-                <LoadScript googleMapsApiKey="AIzaSyDXlQY2uFzDvS7HRowdgflkRqWtmKqYaGw"> </LoadScript>
                 <CssBaseline/>
                 <Header drawerOpen={drawerOpen} toggleDrawerOpen={toggleDrawerOpen}/>
                 <Sidebar drawerOpen={drawerOpen} toggleDrawerOpen={toggleDrawerOpen}/>
@@ -71,6 +68,8 @@ function App() {
                 }}>
                     <Box sx={{width : "100%", height : "64px"}}/>
                     <BodyContainer className={"BodyContainer"}>
+                        {/* Domain Restricted Routing set in the on Google's API website */}
+                        <LoadScript googleMapsApiKey="AIzaSyDXlQY2uFzDvS7HRowdgflkRqWtmKqYaGw"/>
                         <Routes>
                             <Route path={"/"} element={<Home />}/>
                             <Route path={"/favorite-restaurants"} element={<FavoriteRestaurants />}/>

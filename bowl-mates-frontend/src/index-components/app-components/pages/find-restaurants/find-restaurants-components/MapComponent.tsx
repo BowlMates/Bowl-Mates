@@ -1,8 +1,7 @@
 // MapComponent.js
-import React, {useState} from 'react';
+import React from 'react';
 import {GoogleMap, MarkerF} from '@react-google-maps/api';
-import {restaurant} from "../../../../data-types/restaurants";
-import useUserLocation from "../../../../hooks/useUserLocation";
+import {restaurant} from "../../../../../data-types/restaurants";
 
 const mapContainerStyle = {
     width: '100%',
@@ -28,6 +27,6 @@ function MapComponent({restaurants, userLocation}: {restaurants: restaurant[], u
                 ))}
             </GoogleMap>
     );
-};
+}
 
 export default MapComponent;
