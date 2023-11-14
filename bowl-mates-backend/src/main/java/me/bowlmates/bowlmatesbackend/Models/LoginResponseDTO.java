@@ -1,13 +1,24 @@
 package me.bowlmates.bowlmatesbackend.Models;
 
+/**
+ * Used for passing availability info frontend <-> backend
+ */
 public class LoginResponseDTO {
     private String username;
     private String jwt;
 
+    /**
+     * Default constructor
+     */
     public LoginResponseDTO() {
         super();
     }
 
+    /**
+     * Constructor
+     * @param user TestUser to grab username from
+     * @param jwt
+     */
     public LoginResponseDTO(TestUser user, String jwt) {
         this.username = user.getUsername();
         this.jwt = jwt;
