@@ -9,11 +9,14 @@ public class RegistrationDTO {
 
 
 
-    public RegistrationDTO(){
+    public RegistrationDTO() {
         super();
     }
 
-    public RegistrationDTO(String name, String username, String password, String email){
+    public RegistrationDTO(String name,
+                           String username,
+                           String password,
+                           String email) {
         super();
         this.name = name;
         this.username = username;
@@ -29,19 +32,19 @@ public class RegistrationDTO {
         this.name = name;
     }
 
-    public String getUsername(){
+    public String getUsername() {
         return this.username;
     }
 
-    public void setUsername(String username){
+    public void setUsername(String username) {
         this.username = username;
     }
 
-    public String getPassword(){
+    public String getPassword() {
         return this.password;
     }
 
-    public void setPassword(String password){
+    public void setPassword(String password) {
         this.password = password;
     }
 
@@ -53,7 +56,7 @@ public class RegistrationDTO {
         this.email = email;
     }
 
-    public String toString(){
+    public String toString() {
         return "Registration info: name: " + this.name + "username: " +
                 this.username + " password: " + this.password + " email: " + this.email;
     }

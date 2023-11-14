@@ -24,7 +24,9 @@ public class TestAvailability {
     @Column(unique = true)
     private Integer hash;
 
-    public static int calculateHash(int day, int hour, int numTimes) {
+    public static int calculateHash(int day,
+                                    int hour,
+                                    int numTimes) {
         return day * numTimes + hour;
     }
 

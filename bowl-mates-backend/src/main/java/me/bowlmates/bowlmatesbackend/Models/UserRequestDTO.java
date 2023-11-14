@@ -14,16 +14,20 @@ public class UserRequestDTO {
         this.token = token;
     }
 
-    public String getUsername(){
+    public String getUsername() {
         return this.username;
     }
 
-    public void setUsername(String username){
+    public void setUsername(String username) {
         this.username = username;
     }
 
-    public String getToken() {return this.token;}
+    public String getToken() {
+        return this.token;
+    }
 
-    public void setToken(String token) {this.token = token;}
+    public void setToken(String token) {
+        this.token = token;
+    }
 
 }

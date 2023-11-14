@@ -36,11 +36,6 @@ public class UserController {
     @Autowired
     private RestaurantService restaurantService;
 
-    @GetMapping("/")
-    public String testUser() {
-        return "User level";
-    }
-
     @GetMapping(value = "/", produces = "application/json")
     public Map<String, String> user() {
         Map<String, String> response = new HashMap<>();
@@ -70,13 +65,12 @@ public class UserController {
     }
 
     @GetMapping(value = "/displayrests", produces = "application/json")
-    public Set<RestaurantDTO> displayAllRestaurants(){
+    public Set<RestaurantDTO> displayAllRestaurants() {
         List<TestRestaurant> allRests = restaurantRepository.findAll();
         Set<RestaurantDTO> setRests = new HashSet<>();
         for(TestRestaurant restaurant : allRests){
             setRests.add(new RestaurantDTO(restaurant));
         }
-
         return setRests;
     }
 
@@ -95,7 +89,7 @@ public class UserController {
         }
         return aDTO;
     }
-    
+
     @PostMapping("/availability/save")
     public Boolean setAvailability(@RequestBody List<AvailabilityDTO> availabilityDTOList) {
         String username = "";

@@ -22,7 +22,7 @@ public class TokenService {
     @Autowired
     private JwtDecoder jwtDecoder;
 
-    public String generateJwt(Authentication auth){
+    public String generateJwt(Authentication auth) {
 
         Instant now = Instant.now();
         Instant expirationTime = now.plus(Duration.ofMinutes(15));

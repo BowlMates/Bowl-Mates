@@ -37,7 +37,7 @@ public class AdminController {
     }
 
     @GetMapping("/restaurant")
-    public String showRestaurantForm(Model model){
+    public String showRestaurantForm(Model model) {
         // create model object to store form data
         TestRestaurant rest = new TestRestaurant();
         model.addAttribute("rest", rest);
@@ -45,9 +45,9 @@ public class AdminController {
     }
 
     @PostMapping("/restaurant/save")
-    public String restaurant_info( @ModelAttribute("rest") TestRestaurant restData,
+    public String restaurant_info(@ModelAttribute("rest") TestRestaurant restData,
                                    BindingResult result,
-                                   Model model){
+                                   Model model) {
         TestRestaurant existingTestRestaurant = restaurantRepository.findByAddress(restData.getAddress());
 
         if(existingTestRestaurant != null && existingTestRestaurant.getAddress() != null && !existingTestRestaurant.getAddress().isEmpty()){
@@ -55,7 +55,7 @@ public class AdminController {
                     "Your restaurant is already registered with BowlMates!");
         }
 
-        if(result.hasErrors()){
+        if(result.hasErrors()) {
             model.addAttribute("rest", restData);
             return "/restaurant";
         }

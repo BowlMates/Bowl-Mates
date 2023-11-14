@@ -17,13 +17,13 @@ public class AuthenticationController {
     private AuthenticationService authenticationService;
 
     @PostMapping("/register")
-    public TestUser registerUser(@RequestBody RegistrationDTO body){
+    public TestUser registerUser(@RequestBody RegistrationDTO body) {
         return authenticationService.registerUser(body.getName(), body.getUsername(),
                 body.getPassword(), body.getEmail());
     }
 
     @PostMapping("/login")
-    public LoginResponseDTO loginUser(@RequestBody RegistrationDTO body){
+    public LoginResponseDTO loginUser(@RequestBody RegistrationDTO body) {
         LoginResponseDTO response = authenticationService.loginUser(body.getUsername(), body.getPassword());
         if (response.getUser() == null) {
             throw new IllegalArgumentException();

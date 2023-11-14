@@ -50,8 +50,13 @@ public class TestUser implements UserDetails {
         availability = new HashSet<>();
     }
 
-    public TestUser(Integer userId, String name, String username, String password,
-                           String email, Set<Role> authorities, Set<TestRestaurant> rests) {
+    public TestUser(Integer userId,
+                    String name,
+                    String username,
+                    String password,
+                    String email,
+                    Set<Role> authorities,
+                    Set<TestRestaurant> rests) {
         super();
         this.id = userId;
         this.name = name;

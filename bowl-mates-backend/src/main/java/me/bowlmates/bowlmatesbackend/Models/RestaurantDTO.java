@@ -8,11 +8,11 @@ public class RestaurantDTO {
     private String cuisine;
     private Integer rating;
 
-    public RestaurantDTO(){
+    public RestaurantDTO() {
         super();
     }
 
-    public RestaurantDTO(TestRestaurant restaurant){
+    public RestaurantDTO(TestRestaurant restaurant) {
         super();
         this.id = restaurant.getId();
         this.name = restaurant.getRestaurant_name();
