@@ -7,6 +7,7 @@ import Button from '@mui/material/Button';
 import Typography from "@mui/material/Typography";
 import TextField from '@mui/material/TextField';
 import React from "react";
+import UploadImg from "../../UploadImg";
 
 function Settings () {
 
@@ -39,6 +40,7 @@ function Settings () {
                 </Grid>
                 <Grid item xs={6}>
                     <Button variant="contained">select photo</Button>
+                    <UploadImg />
                 </Grid>
                 <Grid item xs={6}>
                     <Box component="section" sx={{ p: 2, border: '1px dashed grey' }}>photo preview</Box>

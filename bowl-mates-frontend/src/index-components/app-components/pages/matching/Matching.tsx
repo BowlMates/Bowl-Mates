@@ -8,6 +8,8 @@ import React from "react";
 import WestIcon from "@mui/icons-material/West";
 import EastIcon from "@mui/icons-material/East";
 
+import UserCard from "../../UserCard";
+
 //Pre-Styling
 //----------------------------------------------------------------------------
 // You can pre-style components using the styled method/function
@@ -39,7 +41,7 @@ function Matching () {
         <Container maxWidth="sm">
             <Grid container spacing={2}>
                 <Grid item xs={12}>
-                    <Box component="section" sx={{ p: 2, border: '1px dashed grey' }}>user card</Box>
+                    <Box component="section" sx={{ p: 2, border: '1px dashed grey' }}><UserCard /></Box>
                 </Grid>
                 <Grid item xs={6}>
                     <Button color="error" variant="outlined" fullWidth={true} startIcon={<WestIcon />}>
