@@ -66,7 +66,9 @@ public class TestRestaurantJUnitTest {
     @Test
     public void TestRestaurantUserFunctions() {
         TestUser u1 = new TestUser();
+        u1.setEmail("u1@mail.com");
         TestUser u2 = new TestUser();
+        u2.setEmail("u2@mail.com");
         Set<TestUser> userSet = new HashSet<>();
         userSet.add(u1);
         r1.setUsers(userSet);

@@ -1,6 +1,11 @@
 package me.bowlmates.bowlmatesbackend.Models;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.Table;
 
 import java.util.HashSet;
 import java.util.Objects;
@@ -23,6 +28,13 @@ public class TestAvailability {
     private Integer day;
     @Column(unique = true)
     private Integer hash;
+
+    public TestAvailability() {
+        this.day = 0;
+        this.hour = 0;
+        this.hash = 0;
+        this.users = new HashSet<>();
+    }
 
     public static int calculateHash(int day,
                                     int hour,

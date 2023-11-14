@@ -4,11 +4,11 @@ import java.util.HashSet;
 import java.util.Set;
 
 import me.bowlmates.bowlmatesbackend.Models.LoginResponseDTO;
-import me.bowlmates.bowlmatesbackend.Models.TestRestaurant;
-import me.bowlmates.bowlmatesbackend.Models.TestUser;
 import me.bowlmates.bowlmatesbackend.Models.Role;
+import me.bowlmates.bowlmatesbackend.Models.TestUser;
 import me.bowlmates.bowlmatesbackend.Repositories.RoleRepo;
 import me.bowlmates.bowlmatesbackend.Repositories.UserRepo;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -17,7 +17,6 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 
 @Service
 @Transactional

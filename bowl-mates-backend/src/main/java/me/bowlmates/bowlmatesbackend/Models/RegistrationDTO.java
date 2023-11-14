@@ -7,8 +7,6 @@ public class RegistrationDTO {
     private String password;
     private String email;
 
-
-
     public RegistrationDTO() {
         super();
     }
