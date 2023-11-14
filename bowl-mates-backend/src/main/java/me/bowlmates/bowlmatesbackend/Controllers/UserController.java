@@ -1,20 +1,13 @@
 package me.bowlmates.bowlmatesbackend.Controllers;
 
-import jakarta.servlet.http.HttpServletRequest;
 import me.bowlmates.bowlmatesbackend.Models.*;
-
 import me.bowlmates.bowlmatesbackend.Repositories.AvailRepo;
 import me.bowlmates.bowlmatesbackend.Repositories.RestRepo;
 import me.bowlmates.bowlmatesbackend.Services.RestaurantService;
 import me.bowlmates.bowlmatesbackend.Repositories.UserRepo;
+
 import org.springframework.beans.factory.annotation.Autowired;
-
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-
-import org.springframework.security.core.Authentication;
-
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.web.bind.annotation.*;

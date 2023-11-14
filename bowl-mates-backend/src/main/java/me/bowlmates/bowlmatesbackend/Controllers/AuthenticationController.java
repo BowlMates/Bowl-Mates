@@ -1,12 +1,12 @@
 package me.bowlmates.bowlmatesbackend.Controllers;
 
-import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
+import me.bowlmates.bowlmatesbackend.Models.LoginResponseDTO;
+import me.bowlmates.bowlmatesbackend.Models.RegistrationDTO;
+import me.bowlmates.bowlmatesbackend.Models.TestUser;
+import me.bowlmates.bowlmatesbackend.Services.AuthenticationService;
 
-import me.bowlmates.bowlmatesbackend.Services.*;
-import me.bowlmates.bowlmatesbackend.Models.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth")
