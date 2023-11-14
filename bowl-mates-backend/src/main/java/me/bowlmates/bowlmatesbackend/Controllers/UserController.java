@@ -12,9 +12,16 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
-
+/**
+ * REST Controller for user requests
+ */
 @RestController // This means that this class is a Controller
 @RequestMapping(path="/user") // This means URL's start with /demo (after Application path)
 public class UserController {
@@ -28,6 +35,10 @@ public class UserController {
     @Autowired
     private RestaurantService restaurantService;
 
+    /**
+     * Landing page for user
+     * @return a Map with message signifying user level
+     */
     @GetMapping(value = "/", produces = "application/json")
     public Map<String, String> user() {
         Map<String, String> response = new HashMap<>();
@@ -35,11 +46,19 @@ public class UserController {
         return response;
     }
 
+    /**
+     * Adds restaurants to user's favorites
+     * @param body RestaurantDTO list of favorite restaurants
+     */
     @PostMapping("/pref")
     public void addRestPreference(@RequestBody List<RestaurantDTO> body) {
         restaurantService.addPreference(body);
     }
 
+    /**
+     * Provides set of user's favorite restaurants
+     * @return Set of RestaurantDTO objects tied to user
+     */
     @GetMapping(value = "/displaypref", produces = "application/json")
     public Set<RestaurantDTO> displayRestPreference() {
         String username = "";
@@ -58,6 +77,10 @@ public class UserController {
         return names;
     }
 
+    /**
+     * Gets all restaurants
+     * @return a Set of RestaurantDTO objects representing all restaurants
+     */
     @GetMapping(value = "/displayrests", produces = "application/json")
     public Set<RestaurantDTO> displayAllRestaurants() {
         List<TestRestaurant> allRests = restaurantRepository.findAll();
@@ -68,6 +91,10 @@ public class UserController {
         return setRests;
     }
 
+    /**
+     * Provides frontend with user availability
+     * @return a List of AvailabilityDTO objects representing times user is available
+     */
     @GetMapping(value = "/availability", produces = "application/json")
     public List<AvailabilityDTO> getAvailability() {
         String username = "";
@@ -87,8 +114,12 @@ public class UserController {
         return aDTO;
     }
 
+    /**
+     * Updates user availability from frontend
+     * @param availabilityDTOList List of AvailabilityDTO representing user availability
+     */
     @PostMapping("/availability/save")
-    public Boolean setAvailability(@RequestBody List<AvailabilityDTO> availabilityDTOList) {
+    public void setAvailability(@RequestBody List<AvailabilityDTO> availabilityDTOList) {
         String username = "";
         Authentication auth = SecurityContextHolder
                 .getContext()
@@ -114,25 +145,14 @@ public class UserController {
             avails.add(tAvail);
         }
         user.setAvailability(avails);
-        // bad style, fix later
-        return true;
     }
 
-    @GetMapping(value = "/userinfo", produces = "application/json")
-    public TestUser sendUserInfo() {
-        String username = "";
-        Authentication auth = SecurityContextHolder
-                .getContext()
-                .getAuthentication();
-        if (auth != null && auth.isAuthenticated()) {
-            username = auth.getName();
-        }
-        TestUser user = userRepository.findByUsername(username);
-        return user;
-    }
+    // TODO: userinfo mappings
 
-    // TODO: userinfo post mapping
-
+    /**
+     * Function for integration testing
+     * @return Map of String with message
+     */
     @GetMapping(value = "/test", produces = "application/json")
     public Map<String, String> test() {
         Map<String, String> response = new HashMap<>();

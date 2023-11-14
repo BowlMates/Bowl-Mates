@@ -1,20 +1,19 @@
 package me.bowlmates.bowlmatesbackend.Controllers;
 
-import me.bowlmates.bowlmatesbackend.Models.TestRestaurant;
 import me.bowlmates.bowlmatesbackend.Repositories.RestRepo;
 import me.bowlmates.bowlmatesbackend.Repositories.UserRepo;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * REST API for admin functions
+ */
 @RestController // This means that this class is a Controller
 @RequestMapping(path="/admin")
-//@CrossOrigin("*")
 public class AdminController {
 
     @Autowired // This means to get the bean called userRepository
@@ -23,6 +22,10 @@ public class AdminController {
     @Autowired
     private RestRepo restaurantRepository;
 
+    /**
+     * Current method is placeholder for future admin landing page
+     * @return A map with a message verifying user has reached admin page
+     */
     @GetMapping(value = "/", produces = "application/json")
     public Map<String, String> admin() {
         Map<String, String> response = new HashMap<>();
@@ -30,39 +33,15 @@ public class AdminController {
         return response;
     }
 
+    /**
+     * Produces a test message for integration testing
+     * @return A map with the test message
+     */
     @GetMapping(value = "/test", produces = "application/json")
     public Map<String, String> test() {
         Map<String, String> response = new HashMap<>();
         response.put("message", "Test succeeded!");
         return response;
-    }
-
-    @GetMapping("/restaurant")
-    public String showRestaurantForm(Model model) {
-        // create model object to store form data
-        TestRestaurant rest = new TestRestaurant();
-        model.addAttribute("rest", rest);
-        return "restaurant";
-    }
-
-    @PostMapping("/restaurant/save")
-    public String restaurant_info(@ModelAttribute("rest") TestRestaurant restData,
-                                   BindingResult result,
-                                   Model model) {
-        TestRestaurant existingTestRestaurant = restaurantRepository.findByAddress(restData.getAddress());
-
-        if(existingTestRestaurant != null && existingTestRestaurant.getAddress() != null && !existingTestRestaurant.getAddress().isEmpty()){
-            result.rejectValue("address", null,
-                    "Your restaurant is already registered with BowlMates!");
-        }
-
-        if(result.hasErrors()) {
-            model.addAttribute("rest", restData);
-            return "/restaurant";
-        }
-
-        restaurantRepository.save(restData);
-        return "redirect:/restaurant?success";
     }
 
 }
