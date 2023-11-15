@@ -1,0 +1,27 @@
+[
+  {
+    "chat-id" : 0,
+    "match-name" : "Fred",
+    "pronouns" : "he/him"
+  },
+  {
+    "chat-id" : 1,
+    "match-name" : "Velma",
+    "pronouns" : "they/them"
+  },
+  {
+    "chat-id" : 2,
+    "match-name" : "Scooby",
+    "pronouns" : "dog/doggo/good boi"
+  },
+  {
+    "chat-id" : 69,
+    "match-name" : "Daphne",
+    "pronouns" : "she/her"
+  },
+  {
+    "chat-id" : 69,
+    "match-name" : "Shaggy",
+    "pronouns" : "he/him"
+  }
+]
