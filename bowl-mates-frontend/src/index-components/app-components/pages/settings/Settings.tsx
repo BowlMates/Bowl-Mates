@@ -1,5 +1,4 @@
 // MUI Imports
-import {styled} from "@mui/material/styles";
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
@@ -11,8 +10,11 @@ import UploadImg from "../../UploadImg";
 
 function Settings () {
 
-    // need to add photo upload functionality
     return (
+        /**
+         * A page with two halves, the left side displays the user's own usercard and the right side has
+         * textfields with default or exiting user info where you can edit your info and change the profile picture
+         */
         <Container maxWidth="sm">
             <Typography variant="h1">
                 give us the details
