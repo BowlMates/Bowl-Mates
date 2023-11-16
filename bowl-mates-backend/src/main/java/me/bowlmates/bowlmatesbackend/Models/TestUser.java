@@ -1,11 +1,24 @@
 package me.bowlmates.bowlmatesbackend.Models;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.Table;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.*;
 
+/**
+ * A model representing a user in the application
+ */
 @Entity // This tells Hibernate to make a table out of this class
 @Table(name = "test_user")
 public class TestUser implements UserDetails {
@@ -31,22 +44,42 @@ public class TestUser implements UserDetails {
     @Column
     private String password;
 
-//    @Column
-//    private boolean[] availability;
+    @ManyToMany
+    @JoinTable(name = "user_avialability")
+    private Set<TestAvailability> availability;
 
     @ManyToMany
-//    @JoinTable(name = "user_favorite_restaurants",
-//            joinColumns = {@JoinColumn(name = "user_id")},
-//            inverseJoinColumns = {@JoinColumn(name = "restaurant_id")})
+    @JoinTable(name = "user_favorite_restaurants")
     private Set<TestRestaurant> favoriteRestaurants;
 
+    /**
+     * a default constructor to make a user with no details
+     */
     public TestUser() {
         super();
         authorities = new HashSet<>();
+        favoriteRestaurants = new HashSet<>();
+        availability = new HashSet<>();
     }
 
-    public TestUser(Integer userId, String name, String username, String password,
-                           String email, Set<Role> authorities, Set<TestRestaurant> rests) {
+    /**
+     * An all field constructor for a user that sets all details
+     *
+     * @param userId an integer that represents the user
+     * @param name the name of the user
+     * @param username the username of the user
+     * @param password the password of the user
+     * @param email the email of the user
+     * @param authorities the authorities of the user
+     * @param rests the restaurants the user prefers
+     */
+    public TestUser(Integer userId,
+                    String name,
+                    String username,
+                    String password,
+                    String email,
+                    Set<Role> authorities,
+                    Set<TestRestaurant> rests) {
         super();
         this.id = userId;
         this.name = name;
@@ -55,30 +88,59 @@ public class TestUser implements UserDetails {
         this.email = email;
         this.authorities = authorities;
         this.favoriteRestaurants = rests;
-//        this.availability = availability;
+        this.availability = new HashSet<>();
     }
 
-
+    /**
+     * gets the id of the user
+     *
+     * @return the id of the user
+     */
     public Integer getId() {
         return id;
     }
 
+    /**
+     * sets the id of the user
+     *
+     * @param id the id to be set
+     */
     public void setId(Integer id) {
         this.id = id;
     }
 
+    /**
+     * gets the name of the user
+     *
+     * @return the name of the user
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * sets the name of the user
+     *
+     * @param name the name to be set
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * gets the email of the user
+     *
+     * @return the email of the user
+     */
     public String getEmail() {
         return email;
     }
 
+    /**
+     * sets the email of the user
+     *
+     * @param email the email to be set
+     */
     public void setEmail(String email) {
         this.email = email;
     }
@@ -88,6 +150,11 @@ public class TestUser implements UserDetails {
         return this.username;
     }
 
+    /**
+     * sets the username of the user
+     *
+     * @param userName sets the name of the user
+     */
     public void setUsername(String userName) {
         this.username = userName;
     }
@@ -97,18 +164,38 @@ public class TestUser implements UserDetails {
         return this.password;
     }
 
+    /**
+     * sets the password of the user
+     *
+     * @param password the password to be set
+     */
     public void setPassword(String password) {
         this.password = password;
     }
 
+    /**
+     * gets the restaurants the user enjoys
+     *
+     * @return a set of restaurants
+     */
     public Set<TestRestaurant> getFavoriteRestaurants() {
-        return this.favoriteRestaurants;
+        return Collections.unmodifiableSet(this.favoriteRestaurants);
     }
 
+    /**
+     * sets the users favorite restaurants
+     *
+     * @param favoriteRestaurants a set of restaurants the user prefers
+     */
     public void setFavoriteRestaurants(Set<TestRestaurant> favoriteRestaurants) {
         this.favoriteRestaurants = favoriteRestaurants;
     }
 
+    /**
+     * sets the authorities of the user
+     *
+     * @param authorities the authorities to be set
+     */
     public void setAuthorities(Set<Role> authorities) {
         this.authorities = authorities;
     }
@@ -138,16 +225,36 @@ public class TestUser implements UserDetails {
         return true;
     }
 
-    public void addFavorite(TestRestaurant rest) {
-        this.favoriteRestaurants.add(rest);
-        rest.getUsers().add(this);
+    /**
+     * gets the availability of the user
+     *
+     * @return a set of the user's availability
+     */
+    public Set<TestAvailability> getAvailability() {
+        return Collections.unmodifiableSet(availability);
     }
 
-//    public boolean[] getAvailability() {
-//        return availability;
-//    }
+    /**
+     * sets the availabilities of the user
+     *
+     * @param availability the availabilities to be set
+     */
+    public void setAvailability(Set<TestAvailability> availability) {
+        // Shallow Copy
+        this.availability.addAll(availability);
+        this.availability.removeIf(avail -> !availability.contains(avail));
+    }
 
-//    public void setAvailability(boolean[] availability) {
-//        this.availability = availability;
-//    }
+    @Override
+    public int hashCode() {
+        return this.email.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof TestUser tU)) {
+            return false;
+        }
+        return this.email.equals(tU.email);
+    }
 }

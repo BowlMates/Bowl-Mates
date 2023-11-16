@@ -7,17 +7,19 @@ interface UseNearbyPlacesResult {
     loading: boolean;
     error: Error | null;
 }
-const useNearbyPlaces = (): UseNearbyPlacesResult => {
+
+// Constant for UW location data in case useUserLocation fails to retrieve user location data
+const uwCoords = {
+    lat: 47.6550,
+    lng: -122.3080,
+};
+
+const useNearbyPlaces = (userLocation: {lat: number, lng: number}): UseNearbyPlacesResult => {
     // Initialize state variables and their set functions, restaurants will contain all of our data from the API call
     const [restaurants, setRestaurants] = useState<restaurant[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<Error | null>(null);
 
-    // TODO: Find a way to get user location data as the center for the api call
-    const uwCoords = {
-        lat: 47.6550,
-        lng: -122.3080,
-    };
 
     // Probably bad but i don't know how else to do this
     const apiKey = "AIzaSyBQ_hQeijI05VaIoVXCStdM9ff-yc9T3jA"
@@ -37,8 +39,8 @@ const useNearbyPlaces = (): UseNearbyPlacesResult => {
             locationRestriction: {
                 circle: {
                     center: {
-                        latitude: uwCoords.lat,
-                        longitude: uwCoords.lng,
+                        latitude: userLocation.lat,
+                        longitude: userLocation.lng,
                     },
                     radius: 5000.0,
                 },
