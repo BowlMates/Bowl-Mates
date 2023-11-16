@@ -150,10 +150,12 @@ public class UserController {
             availabilityRepository.save(tAvail);
             avails.add(tAvail);
         }
+        System.out.println(avails);
         user.setAvailability(avails);
     }
 
     // TODO: userinfo mappings
+    // TODO: usercard mappings
 
     /**
      * Function for integration testing

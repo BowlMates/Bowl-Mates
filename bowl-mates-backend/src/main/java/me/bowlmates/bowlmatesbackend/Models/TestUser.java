@@ -45,7 +45,7 @@ public class TestUser implements UserDetails {
     private String password;
 
     @ManyToMany
-    @JoinTable(name = "user_avialability")
+    @JoinTable(name = "user_availability")
     private Set<TestAvailability> availability;
 
     @ManyToMany
