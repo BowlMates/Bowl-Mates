@@ -1,5 +1,3 @@
-//import react from react;
-//import Paper from
 
 import {Card, CardActionArea, CardContent, CardMedia} from "@mui/material";
 import Typography from "@mui/material/Typography";
@@ -7,7 +5,6 @@ import Typography from "@mui/material/Typography";
 const UserCard = () => {
     return (
         <Card>
-        <CardActionArea>
             <CardMedia
                 component="img"
                 height="140"
@@ -25,9 +22,9 @@ const UserCard = () => {
                     This is my bio, please swipe right!
                 </Typography>
             </CardContent>
-        </CardActionArea>
-    </Card>
-);
+
+        </Card>
+    );
 }
 
 export default UserCard;
