@@ -10,21 +10,24 @@ import EastIcon from "@mui/icons-material/East";
 import UserCard from "../../UserCard";
 
 function Matching () {
-
+    /**
+     * Returns the page where you swipe left and right on various user cards
+     * will update matches list and potential matches queue as the user interacts
+     */
     return (
         <Container maxWidth="sm">
             <Grid container spacing={2}>
                 <Grid item xs={12}>
-                    <Box component="section" sx={{ p: 2, border: '1px dashed grey' }}><UserCard /></Box>
+                    <Box component="section" sx={{ p: 2}}><UserCard /></Box>
                 </Grid>
                 <Grid item xs={6}>
                     <Button color="error" variant="outlined" fullWidth={true} startIcon={<WestIcon />}>
-                        new card
+                        Swipe left
                     </Button>
                 </Grid>
                 <Grid item xs={6}>
                     <Button color="success" variant="outlined" fullWidth={true} endIcon={<EastIcon />}>
-                        set date
+                        Swipe right
                     </Button>
                 </Grid>
             </Grid>
