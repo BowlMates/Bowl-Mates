@@ -200,6 +200,24 @@ public class TestUser implements UserDetails {
         this.authorities = authorities;
     }
 
+    /**
+     * gets the availability of the user
+     *
+     * @return a set of the user's availability
+     */
+    public Set<TestAvailability> getAvailability() {
+        return Collections.unmodifiableSet(availability);
+    }
+
+    /**
+     * sets the availabilities of the user
+     *
+     * @param availability the availabilities to be set
+     */
+    public void setAvailability(Set<TestAvailability> availability) {
+        this.availability = availability;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return this.authorities;
@@ -223,26 +241,6 @@ public class TestUser implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
-    }
-
-    /**
-     * gets the availability of the user
-     *
-     * @return a set of the user's availability
-     */
-    public Set<TestAvailability> getAvailability() {
-        return Collections.unmodifiableSet(availability);
-    }
-
-    /**
-     * sets the availabilities of the user
-     *
-     * @param availability the availabilities to be set
-     */
-    public void setAvailability(Set<TestAvailability> availability) {
-        // Shallow Copy
-        this.availability.addAll(availability);
-        this.availability.removeIf(avail -> !availability.contains(avail));
     }
 
     @Override

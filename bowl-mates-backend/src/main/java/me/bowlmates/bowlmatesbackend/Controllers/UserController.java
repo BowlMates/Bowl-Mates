@@ -3,6 +3,7 @@ package me.bowlmates.bowlmatesbackend.Controllers;
 import me.bowlmates.bowlmatesbackend.Models.*;
 import me.bowlmates.bowlmatesbackend.Repositories.AvailRepo;
 import me.bowlmates.bowlmatesbackend.Repositories.RestRepo;
+import me.bowlmates.bowlmatesbackend.Services.AvailabilityService;
 import me.bowlmates.bowlmatesbackend.Services.RestaurantService;
 import me.bowlmates.bowlmatesbackend.Repositories.UserRepo;
 
@@ -34,6 +35,8 @@ public class UserController {
     private AvailRepo availabilityRepository;
     @Autowired
     private RestaurantService restaurantService;
+    @Autowired
+    private AvailabilityService availabilityService;
 
     /**
      * Landing page for user
@@ -52,7 +55,7 @@ public class UserController {
      *
      * @param body RestaurantDTO list of favorite restaurants
      */
-    @PostMapping("/pref")
+    @PostMapping("/prefs/save")
     public void addRestPreference(@RequestBody List<RestaurantDTO> body) {
         restaurantService.addPreference(body);
     }
@@ -62,7 +65,7 @@ public class UserController {
      *
      * @return Set of RestaurantDTO objects tied to user
      */
-    @GetMapping(value = "/displaypref", produces = "application/json")
+    @GetMapping(value = "/prefs", produces = "application/json")
     public Set<RestaurantDTO> displayRestPreference() {
         String username = "";
         Authentication auth = SecurityContextHolder
@@ -85,7 +88,7 @@ public class UserController {
      *
      * @return a Set of RestaurantDTO objects representing all restaurants
      */
-    @GetMapping(value = "/displayrests", produces = "application/json")
+    @GetMapping(value = "/rests", produces = "application/json")
     public Set<RestaurantDTO> displayAllRestaurants() {
         List<TestRestaurant> allRests = restaurantRepository.findAll();
         Set<RestaurantDTO> setRests = new HashSet<>();
@@ -113,7 +116,6 @@ public class UserController {
         Set<TestAvailability> availabilities = user.getAvailability();
         List<AvailabilityDTO> aDTO = new ArrayList<>();
         for (TestAvailability avail : availabilities) {
-            System.out.println(avail.getDay());
             aDTO.add(new AvailabilityDTO(avail.getDay(), avail.getHour()));
         }
         return aDTO;
@@ -126,32 +128,7 @@ public class UserController {
      */
     @PostMapping("/availability/save")
     public void setAvailability(@RequestBody List<AvailabilityDTO> availabilityDTOList) {
-        String username = "";
-        Authentication auth = SecurityContextHolder
-                .getContext()
-                .getAuthentication();
-        if (auth != null && auth.isAuthenticated()) {
-            username = auth.getName();
-        }
-        TestUser user = userRepository.findByUsername(username);
-        Set<TestAvailability> avails = new HashSet<>();
-        for (AvailabilityDTO avail : availabilityDTOList) {
-            int hash = TestAvailability
-                    .calculateHash(avail.getDay(),
-                            avail.getTime(),
-                            TestAvailability.getNumTimes());
-            TestAvailability tAvail = availabilityRepository.findByHash(hash);
-            if (tAvail == null) {
-                tAvail = new TestAvailability();
-                tAvail.setDay(avail.getDay());
-                tAvail.setHour(avail.getTime());
-            }
-            tAvail.addUser(user);
-            availabilityRepository.save(tAvail);
-            avails.add(tAvail);
-        }
-        System.out.println(avails);
-        user.setAvailability(avails);
+        availabilityService.addAvail(availabilityDTOList);
     }
 
     // TODO: userinfo mappings
