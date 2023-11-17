@@ -83,13 +83,13 @@ const FrontendTest = () => {
             }
         }
 
-        async function restTests() {
+        async function availTests() {
             try {
                 // Request /user/test with JWT as Bearer token
                 const requestHeaders = {
                     'Authorization': `Bearer ${jwt}`,
                 };
-                const postResponse1 = await fetch('http://localhost:8080/user/availability/save', {
+                const postResponse1 = await fetch('http://localhost:8080/user/avail/save', {
                     method: 'post',
                     headers: requestHeaders,
                     body: JSON.stringify(availSet),
@@ -99,7 +99,7 @@ const FrontendTest = () => {
                     throw new Error('Avails test post request 1 failed');
                 }
 
-                const getResponse1 = await fetch('http://localhost:8080/user/availability', {
+                const getResponse1 = await fetch('http://localhost:8080/user/avail', {
                     method: 'get',
                     headers: requestHeaders,
                 });
@@ -114,23 +114,23 @@ const FrontendTest = () => {
                 }
                 setAvailSet([{day: 1, time: 1}]);
 
-                const postResponse2 = await fetch('http://localhost:8080/user/availability/save', {
+                const postResponse2 = await fetch('http://localhost:8080/user/avail/save', {
                     method: 'post',
                     headers: requestHeaders,
                     body: JSON.stringify(availSet),
                 });
 
                 if (!postResponse2.ok) {
-                    throw new Error('Avails test post request 1 failed');
+                    throw new Error('Avails test post request 2 failed');
                 }
 
-                const getResponse2 = await fetch('http://localhost:8080/user/availability', {
+                const getResponse2 = await fetch('http://localhost:8080/user/avail', {
                     method: 'get',
                     headers: requestHeaders,
                 });
 
                 if (!getResponse2.ok) {
-                    throw new Error('Avails test get request 1 failed');
+                    throw new Error('Avails test get request 2 failed');
                 }
                 const testAvailSet2 = await getResponse2.json();
                 setAccessTestResponse('passed');
@@ -145,21 +145,18 @@ const FrontendTest = () => {
 
         loginAndGetJWT();
         accessTests();
-        restTests();
+        availTests();
     }, [jwt, availSet]);
 
-    if (!debug) {
-        return (<div></div>);
-    } else {
-        return (
-            <div className='App'>
-                <header className='App-header'>Frontend Test Fields</header>
-                <p>JWT: {jwtFound}</p>
-                <p>Access Test Response: {accessTestResponse}</p>
-                <p>Avail Test Response: {availTestResponse}</p>
-            </div>
-        );
-    }
+    return (
+        <div className='App'>
+            <header className='App-header'>Frontend Test Fields</header>
+            <p>JWT: {jwtFound}</p>
+            <p>Access Test Response: {accessTestResponse}</p>
+            <p>Avail Test Response: {availTestResponse}</p>
+        </div>
+    );
+
 };
 
 export default FrontendTest;

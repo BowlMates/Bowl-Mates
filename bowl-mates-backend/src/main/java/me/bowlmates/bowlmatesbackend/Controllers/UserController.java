@@ -103,7 +103,7 @@ public class UserController {
      *
      * @return a List of AvailabilityDTO objects representing times user is available
      */
-    @GetMapping(value = "/availability", produces = "application/json")
+    @GetMapping(value = "/avail", produces = "application/json")
     public List<AvailabilityDTO> getAvailability() {
         String username = "";
         Authentication auth = SecurityContextHolder
@@ -126,7 +126,7 @@ public class UserController {
      *
      * @param availabilityDTOList List of AvailabilityDTO representing user availability
      */
-    @PostMapping("/availability/save")
+    @PostMapping("/avail/save")
     public void setAvailability(@RequestBody List<AvailabilityDTO> availabilityDTOList) {
         availabilityService.addAvail(availabilityDTOList);
     }
