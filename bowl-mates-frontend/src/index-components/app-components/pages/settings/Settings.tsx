@@ -9,11 +9,11 @@ import React from "react";
 import UploadImg from "../../UploadImg";
 
 function Settings () {
-
+    // need to add photo upload functionality
     return (
         /**
-         * A page with two halves, the left side displays the user's own usercard and the right side has
-         * textfields with default or exiting user info where you can edit your info and change the profile picture
+         * A page with two halves, the left side displays the user's own user card and the right side has
+         * text fields with default or exiting user info where you can edit your info and change the profile picture
          */
         <Container maxWidth="sm">
             <Typography variant="h1">
