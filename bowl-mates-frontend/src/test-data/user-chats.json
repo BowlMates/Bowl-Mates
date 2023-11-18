@@ -1,32 +1,37 @@
 [
   {
     "chat-id" : 0,
-    "match-name" : "Fred",
+    "match-first-name" : "Fred",
+    "match-last-name" : "Fred",
     "pronouns" : "he/him",
-    "photo-url" : "https://ibb.co/f4ZXj25"
+    "photo-url" : "https://i.ibb.co/TmJw9kS/IMG-3336.jpg"
   },
   {
     "chat-id" : 1,
-    "match-name" : "Velma",
+    "match-first-name" : "Velma",
+    "match-last-name" : "Fred",
     "pronouns" : "they/them",
-    "photo-url" : "https://ibb.co/f4ZXj25"
+    "photo-url" : "https://i.ibb.co/TmJw9kS/IMG-3336.jpg"
   },
   {
     "chat-id" : 2,
-    "match-name" : "Scooby",
+    "match-first-name" : "Scooby",
+    "match-last-name" : "Fred",
     "pronouns" : "dog/doggo/good boi",
-    "photo-url" : "https://ibb.co/f4ZXj25"
+    "photo-url" : "https://i.ibb.co/TmJw9kS/IMG-3336.jpg"
   },
   {
     "chat-id" : 69,
-    "match-name" : "Daphne",
+    "match-first-name" : "Daphne",
+    "match-last-name" : "Fred",
     "pronouns" : "she/her",
-    "photo-url" : "https://ibb.co/f4ZXj25"
+    "photo-url" : "https://i.ibb.co/TmJw9kS/IMG-3336.jpg"
   },
   {
     "chat-id" : 91,
-    "match-name" : "Shaggy",
+    "match-first-name" : "Shaggy",
+    "match-last-name" : "Fred",
     "pronouns" : "he/him",
-    "photo-url" : "https://ibb.co/f4ZXj25"
+    "photo-url" : "https://i.ibb.co/TmJw9kS/IMG-3336.jpg"
   }
 ]
