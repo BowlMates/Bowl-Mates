@@ -9,11 +9,11 @@ import Link from "@mui/material/Link";
 
 
 function FAQ () {
-
+    // returns an FAQ of common questions and has a link to our user manual
     return (
         /**
-         * Creates a centered container that contains a list of toggle-able questions that open the
-         * answers to the listed questions
+         * Creates a centered container that contains a list of questions that expand to
+         * display the answers to said listed questions on click
          */
         <Container maxWidth={"sm"}>
             <Typography variant={"h1"}>
