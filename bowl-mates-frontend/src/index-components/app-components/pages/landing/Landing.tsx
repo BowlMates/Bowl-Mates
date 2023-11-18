@@ -7,7 +7,6 @@ import {useNavigate} from "react-router-dom";
 import bm from "../../../../images/BOWLMATES-LOGO.png";
 
 function Landing() {
-
     // Hook for navigation
     const navigate = useNavigate();
 

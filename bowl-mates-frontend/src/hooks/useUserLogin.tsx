@@ -9,7 +9,9 @@ export const useUserLogin = () => {
     const loginReturns : {success : boolean, message : string}[] = [
         {success : true, message : "Login Successful"},
         {success : false, message : "Incorrect Login Information"},
-    ]
+    ];
+
+    const jwtExpiration : number = 30; // In minutes
 
     const headers = {
         "Content-Type" : "application/json",
@@ -42,11 +44,12 @@ export const useUserLogin = () => {
             }
             if (signIn({
                 token: body.jwt,
-                expiresIn: 3600,
+                expiresIn: jwtExpiration,
                 tokenType: "Bearer",
-                authState: {name: username},
+                // Converts minute value into millisecond and -1 to ensure
+                // we expire before a user tries to swap to a new window and make a bad call
+                authState: {user: username, jwtExpiration : (Date.now() + (jwtExpiration - 1) * 100000).toString()},
             })) {
-                console.log(body.jwt);
                 returnVal = loginReturns[0];
             }
             return returnVal;

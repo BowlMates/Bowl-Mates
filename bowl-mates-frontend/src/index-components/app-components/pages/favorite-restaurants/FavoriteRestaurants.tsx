@@ -12,6 +12,7 @@ import IconButton from "@mui/material/IconButton";
 // Custom Imports
 import {useGetRestaurants} from "../../../../hooks/useGetRestaurants";
 import {useEffect, useState} from "react";
+import {useIsUserSessionValid} from "../../../../hooks/useIsUserSessionValid";
 
 // TODO: Get rid of these hard coded values
 let restaurants : restaurant[] = [
@@ -63,6 +64,12 @@ let restaurants : restaurant[] = [
 ]
 
 function FavoriteRestaurants () {
+    const isSessionValid = useIsUserSessionValid();
+    useEffect(()=>{
+        // CHECKS IF SESSION IS CURRENTLY VALID BEFORE DRAWING COMPONENT
+        isSessionValid();
+        // CHECKS IF SESSION IS CURRENTLY VALID BEFORE DRAWING COMPONENT
+    });
 
     // Custom hooks for managing restaurant data and favorites
     const {favRes, setFavRes, postRestaurants, getRestaurants} = useGetRestaurants();

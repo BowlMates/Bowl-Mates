@@ -5,10 +5,20 @@ import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import Typography from "@mui/material/Typography";
 import TextField from '@mui/material/TextField';
-import React from "react";
+import React, {useEffect} from "react";
 import UploadImg from "../../UploadImg";
 
+// Custom Imports
+import {useIsUserSessionValid} from "../../../../hooks/useIsUserSessionValid";
+
 function Settings () {
+    const isSessionValid = useIsUserSessionValid();
+    useEffect(()=>{
+        // CHECKS IF SESSION IS CURRENTLY VALID BEFORE DRAWING COMPONENT
+        isSessionValid();
+        // CHECKS IF SESSION IS CURRENTLY VALID BEFORE DRAWING COMPONENT
+    });
+
     // need to add photo upload functionality
     return (
         /**

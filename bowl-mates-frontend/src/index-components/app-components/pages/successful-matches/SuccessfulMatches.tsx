@@ -5,6 +5,8 @@ import SuccessfulMatchesContainer from "./successful-matches-components/Successf
 import SuccessfulMatchesSidebar from "./successful-matches-components/SuccessfulMatchesSidebar";
 import ChatBody from "./successful-matches-components/ChatBody";
 import SidebarCard from "./successful-matches-components/SidebarCard";
+import {useIsUserSessionValid} from "../../../../hooks/useIsUserSessionValid";
+import {useEffect} from "react";
 
 //Changing this num changes the width of the sidebar and the various widths pertaining to the sidebar
 const chatSidebarWidthNum : number = 320;
@@ -27,7 +29,12 @@ export const sidebarMeasurements : sidebarMeasurementType = {
 }
 
 function SuccessfulMatches() {
-
+    const isSessionValid = useIsUserSessionValid();
+    useEffect(()=>{
+        // CHECKS IF SESSION IS CURRENTLY VALID BEFORE DRAWING COMPONENT
+        isSessionValid();
+        // CHECKS IF SESSION IS CURRENTLY VALID BEFORE DRAWING COMPONENT
+    });
 
     return (
         <SuccessfulMatchesContainer>
