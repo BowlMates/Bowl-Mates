@@ -4,6 +4,7 @@ import me.bowlmates.bowlmatesbackend.Models.*;
 import me.bowlmates.bowlmatesbackend.Repositories.AvailRepo;
 import me.bowlmates.bowlmatesbackend.Repositories.RestRepo;
 import me.bowlmates.bowlmatesbackend.Services.AvailabilityService;
+import me.bowlmates.bowlmatesbackend.Services.MatchingAlgorithm;
 import me.bowlmates.bowlmatesbackend.Services.RestaurantService;
 import me.bowlmates.bowlmatesbackend.Repositories.UserRepo;
 
@@ -37,6 +38,9 @@ public class UserController {
     private RestaurantService restaurantService;
     @Autowired
     private AvailabilityService availabilityService;
+
+    @Autowired
+    private MatchingAlgorithm matchingAlgorithm;
 
     /**
      * Landing page for user
@@ -130,6 +134,20 @@ public class UserController {
     public void setAvailability(@RequestBody List<AvailabilityDTO> availabilityDTOList) {
         availabilityService.addAvail(availabilityDTOList);
     }
+
+    /**
+     *
+     */
+    @GetMapping("/match")
+    public void runMatches() {
+        matchingAlgorithm.QueueUp();
+    }
+
+    @GetMapping(value = "/match/show", produces = "application/json")
+    public List<Integer> showMatches() {
+        return matchingAlgorithm.showQueue();
+    }
+
 
     // TODO: userinfo mappings
     // TODO: usercard mappings

@@ -1,15 +1,6 @@
 package me.bowlmates.bowlmatesbackend.Models;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -52,6 +43,9 @@ public class TestUser implements UserDetails {
     @JoinTable(name = "user_favorite_restaurants")
     private Set<TestRestaurant> favoriteRestaurants;
 
+    @Lob
+    private byte[] serializedQueue;
+
     /**
      * a default constructor to make a user with no details
      */
@@ -60,6 +54,8 @@ public class TestUser implements UserDetails {
         authorities = new HashSet<>();
         favoriteRestaurants = new HashSet<>();
         availability = new HashSet<>();
+        // is there a better way to initialize this array?
+        serializedQueue = new byte[0];
     }
 
     /**
@@ -72,6 +68,7 @@ public class TestUser implements UserDetails {
      * @param email the email of the user
      * @param authorities the authorities of the user
      * @param rests the restaurants the user prefers
+     * @param queue the matching queue of the user
      */
     public TestUser(Integer userId,
                     String name,
@@ -79,7 +76,8 @@ public class TestUser implements UserDetails {
                     String password,
                     String email,
                     Set<Role> authorities,
-                    Set<TestRestaurant> rests) {
+                    Set<TestRestaurant> rests,
+                    byte[] queue) {
         super();
         this.id = userId;
         this.name = name;
@@ -89,6 +87,7 @@ public class TestUser implements UserDetails {
         this.authorities = authorities;
         this.favoriteRestaurants = rests;
         this.availability = new HashSet<>();
+        this.serializedQueue = queue;
     }
 
     /**
@@ -216,6 +215,24 @@ public class TestUser implements UserDetails {
      */
     public void setAvailability(Set<TestAvailability> availability) {
         this.availability = availability;
+    }
+
+    /**
+     * gets the matching queue of the user
+     *
+     * @return the serialized form of the matching queue
+     */
+    public byte[] getSerializedQueue() {
+        return serializedQueue;
+    }
+
+    /**
+     * sets the matching queue of the user
+     *
+     * @param serializedQueue a serialized form of the queue to be set
+     */
+    public void setSerializedQueue(byte[] serializedQueue) {
+        this.serializedQueue = serializedQueue;
     }
 
     @Override
