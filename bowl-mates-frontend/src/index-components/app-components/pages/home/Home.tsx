@@ -31,9 +31,12 @@ function Home () {
     //      dark theme functionality
 
     return (
-        <Typography variant={"h1"}>
-            This is the home page!
-        </Typography>
+        <>
+            <Typography variant={"h1"}>
+                This is the home page!
+            </Typography>
+            <img alt={"Adam watching yo, he is."} src={"https://i.ibb.co/TmJw9kS/IMG-3336.jpg"} style={{height : "100%", width : "100%"}}/>
+        </>
     )
 }
 
