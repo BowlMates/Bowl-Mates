@@ -1,0 +1,10 @@
+[
+  {
+    "conversationId" : 9999,
+    "added" : true
+  },
+  {
+    "conversationId" : 1,
+    "added" : false
+  }
+]

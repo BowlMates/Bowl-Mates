@@ -1,0 +1,24 @@
+//////////////////////////////////////////////////////////////////
+
+TYPE: GET
+BODY: empty
+
+Responses:
+401 (Not authorized) - empty body
+4XX (Unsuccessful) - empty Body
+200 (Success) - fromBackend-bio.json
+
+Explanation: Returns the user's public data
+
+//////////////////////////////////////////////////////////////////
+
+TYPE: POST
+BODY: toBackend-bio.json
+
+Responses:
+401 (Not authorized) - empty body
+200 (Success) - empty body
+
+Explanation: Updates the users public data
+
+//////////////////////////////////////////////////////////////////
