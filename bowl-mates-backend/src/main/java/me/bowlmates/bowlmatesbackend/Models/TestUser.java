@@ -88,7 +88,7 @@ public class TestUser implements UserDetails {
         this.email = email;
         this.authorities = authorities;
         this.favoriteRestaurants = rests;
-        this.profile = new TestProfile(userId);
+        this.profile = new TestProfile(this, userId);
         this.profile.setName(name);
         this.availability = new HashSet<>();
         this.serializedQueue = queue;
@@ -237,6 +237,12 @@ public class TestUser implements UserDetails {
      */
     public void setSerializedQueue(byte[] serializedQueue) {
         this.serializedQueue = serializedQueue;
+    }
+
+    // TODO: Document profile methods
+    public TestProfile getProfile() {
+        // Yes this is rep exposure. The one place this method will be called needs to mutate this field anyway.
+        return this.profile;
     }
 
     @Override

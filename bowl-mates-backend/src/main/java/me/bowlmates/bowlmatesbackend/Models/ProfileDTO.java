@@ -1,41 +1,22 @@
 package me.bowlmates.bowlmatesbackend.Models;
 
-import jakarta.persistence.*;
-
 //TODO: Documentation
-@Entity
-@Table(name = "test_profile")
-public class TestProfile {
+public class ProfileDTO {
 
-    @Id
-    @Column(unique = true)
-    private Integer id;
-
-    @OneToOne
-    @JoinTable(name = "user_profile")
-    private TestUser user;
-
-    @Column
     private String name;
-    @Column
     private String bio;
-    @Column
     private String photoPath;
 
-    public TestProfile() {
-        super();
-    }
-
-    public TestProfile(TestUser user, int id) {
-        this.user = user;
-        this.id = id;
+    public ProfileDTO() {
         this.name = "";
         this.bio = "";
         this.photoPath = "";
     }
 
-    public int getId() {
-        return this.id;
+    public ProfileDTO(String name, String bio, String photoPath) {
+        this.name = name;
+        this.bio = bio;
+        this.photoPath = photoPath;
     }
 
     public void setName(String name) {
@@ -60,9 +41,5 @@ public class TestProfile {
 
     public String getPhotoPath() {
         return this.photoPath;
-    }
-
-    public ProfileDTO getDTO() {
-        return new ProfileDTO(name, bio, photoPath);
     }
 }

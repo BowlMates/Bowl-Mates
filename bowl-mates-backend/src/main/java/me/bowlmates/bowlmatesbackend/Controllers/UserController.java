@@ -135,9 +135,8 @@ public class UserController {
         availabilityService.addAvail(availabilityDTOList);
     }
 
-    /**
-     *
-     */
+
+    // TODO: Matching documentation
     @GetMapping("/match")
     public void runMatches() {
         matchingAlgorithm.QueueUp();
@@ -148,9 +147,36 @@ public class UserController {
         return matchingAlgorithm.showQueue();
     }
 
-
-    // TODO: userinfo mappings
-    // TODO: usercard mappings
+    // TODO: Profile documentation
+    @GetMapping("/profile")
+    public ProfileDTO getProfile() {
+        String username = "";
+        Authentication auth = SecurityContextHolder
+                .getContext()
+                .getAuthentication();
+        if (auth != null && auth.isAuthenticated()) {
+            username = auth.getName();
+        }
+        TestUser user = userRepository.findByUsername(username);
+        TestProfile profile = user.getProfile();
+        return profile.getDTO();
+    }
+    
+    @PostMapping("/profile/save")
+    public void setProfile(@RequestBody ProfileDTO profileDTO) {
+        String username = "";
+        Authentication auth = SecurityContextHolder
+                .getContext()
+                .getAuthentication();
+        if (auth != null && auth.isAuthenticated()) {
+            username = auth.getName();
+        }
+        TestUser user = userRepository.findByUsername(username);
+        TestProfile profile = user.getProfile();
+        profile.setName(profileDTO.getName());
+        profile.setBio(profileDTO.getBio());
+        profile.setPhotoPath(profileDTO.getPhotoPath());
+    }
 
     /**
      * Function for integration testing
