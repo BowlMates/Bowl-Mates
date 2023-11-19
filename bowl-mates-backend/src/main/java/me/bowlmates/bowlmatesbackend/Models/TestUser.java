@@ -25,8 +25,6 @@ public class TestUser implements UserDetails {
             inverseJoinColumns = {@JoinColumn(name="role_id")}
     )
     private Set<Role> authorities;
-    @Column
-    private String name;
 
     @Column(unique = true) // Make the 'email' field unique
     private String email;
@@ -43,6 +41,10 @@ public class TestUser implements UserDetails {
     @JoinTable(name = "user_favorite_restaurants")
     private Set<TestRestaurant> favoriteRestaurants;
 
+    @OneToOne
+    @JoinTable(name = "user_profile")
+    private TestProfile profile;
+
     @Lob
     private byte[] serializedQueue;
 
@@ -54,6 +56,7 @@ public class TestUser implements UserDetails {
         authorities = new HashSet<>();
         favoriteRestaurants = new HashSet<>();
         availability = new HashSet<>();
+        profile = new TestProfile();
         // is there a better way to initialize this array?
         serializedQueue = new byte[0];
     }
@@ -80,12 +83,13 @@ public class TestUser implements UserDetails {
                     byte[] queue) {
         super();
         this.id = userId;
-        this.name = name;
         this.username = username;
         this.password = password;
         this.email = email;
         this.authorities = authorities;
         this.favoriteRestaurants = rests;
+        this.profile = new TestProfile(userId);
+        this.profile.setName(name);
         this.availability = new HashSet<>();
         this.serializedQueue = queue;
     }
@@ -114,7 +118,7 @@ public class TestUser implements UserDetails {
      * @return the name of the user
      */
     public String getName() {
-        return name;
+        return this.profile.getName();
     }
 
     /**
@@ -123,7 +127,7 @@ public class TestUser implements UserDetails {
      * @param name the name to be set
      */
     public void setName(String name) {
-        this.name = name;
+        this.profile.setName(name);
     }
 
     /**
