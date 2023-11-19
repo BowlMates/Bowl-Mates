@@ -60,7 +60,7 @@ public class UserController {
      * @param body RestaurantDTO list of favorite restaurants
      */
     @PostMapping("/prefs/save")
-    public void addRestPreference(@RequestBody List<RestaurantDTO> body) {
+    public void setRestPreferences(@RequestBody List<RestaurantDTO> body) {
         restaurantService.addPreference(body);
     }
 
@@ -70,7 +70,7 @@ public class UserController {
      * @return Set of RestaurantDTO objects tied to user
      */
     @GetMapping(value = "/prefs", produces = "application/json")
-    public Set<RestaurantDTO> displayRestPreference() {
+    public Set<RestaurantDTO> getRestPreferences() {
         String username = "";
         Authentication auth = SecurityContextHolder
                 .getContext()
@@ -93,7 +93,7 @@ public class UserController {
      * @return a Set of RestaurantDTO objects representing all restaurants
      */
     @GetMapping(value = "/rests", produces = "application/json")
-    public Set<RestaurantDTO> displayAllRestaurants() {
+    public Set<RestaurantDTO> getAllRestaurants() {
         List<TestRestaurant> allRests = restaurantRepository.findAll();
         Set<RestaurantDTO> setRests = new HashSet<>();
         for(TestRestaurant restaurant : allRests){
@@ -190,8 +190,8 @@ public class UserController {
         return response;
     }
 
-    @PostMapping(value = "/image/post")
-    public Boolean updateImage(@RequestBody String body) {
+    @PostMapping(value = "/image/save")
+    public Boolean setImage(@RequestBody String body) {
         // TODO: implement
         return true;
     }
