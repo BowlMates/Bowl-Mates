@@ -1,6 +1,18 @@
 # Bowl-Mates  
 ## Beta v1.0.1
 
+## Outside Resources
+* ### Bowlmates User Manual
+  * https://docs.google.com/document/d/1XaWdXT156YKWg6wizoMOhZdTV7eUF3p0ckaLsWxtqPk/edit?usp=sharing
+* ### Bowlmates Living Document
+  * https://docs.google.com/document/d/1s8vvfJqxqnsePnGVFLLxlHJLX_QCBa6_yk7jYLvBLpw/edit?usp=sharing
+* ### Developer Guidelines
+  * https://docs.google.com/document/d/1vekN4H6lccm73DYur62gEpSALbmktFXKYdsQMYk2yRs/edit?usp=sharing
+* ### Bowlmates Bug Tracker (Form)
+  * https://docs.google.com/forms/d/e/1FAIpQLSd9PnUsYVFg4WBpGVpfx50mFsphlle9J71hSRMwnM3gbcExkw/viewform?usp=sharing
+* ### Bowlmates Bug Tracker (Results)
+  * https://docs.google.com/spreadsheets/d/1hyxpv_1DRpXxKBSFBCRmRMxyubDUxN6RGQQbwUv7BUA/edit?usp=sharing
+
 ## How to Build and Test System:
 * ### System automatically builds and tests on pushes/merges to main and production
 * ### To Manually Build:
