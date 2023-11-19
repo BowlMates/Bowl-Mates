@@ -1,0 +1,18 @@
+//////////////////////////////////////////////////////////////////
+
+TYPE: POST
+BODY: toBackend-match-chat-update.json
+      **A list of conversationIds and the last message timestamp**
+
+Responses:
+401 (Not authorized) - empty body
+4XX (Unsuccessful) - empty Body
+200 (Success) - fromBackend-match-chat-update.json
+
+Explanation: This will send a new message for the specific
+             conversation (indicated by the conversationId).
+             We receive the same message back from the backend
+             plus a timestamp that was added to the message
+             while being processed by the backend.
+
+//////////////////////////////////////////////////////////////////

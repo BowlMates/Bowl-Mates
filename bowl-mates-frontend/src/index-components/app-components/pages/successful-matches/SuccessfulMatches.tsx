@@ -51,9 +51,9 @@ function SuccessfulMatches() {
                 />
                 <SidebarCard
                     conversationID={1}
-                    firstName={"Adamn"}
-                    lastName={"Brown"}
-                    imageURL={"https://i.ibb.co/TmJw9kS/IMG-3336.jpg"}
+                    firstName={"FRED"}
+                    lastName={"Saucy Bakka"}
+                    imageURL={"https://cdn.media.amplience.net/i/partycity/P853205?$large$&fmt=auto&qlt=default"}
                     timeInMilliseconds={1700300074024}
                     message={"Today is a good time for me"}
                     selected={false}
@@ -61,11 +61,11 @@ function SuccessfulMatches() {
                 />
                 <SidebarCard
                     conversationID={1}
-                    firstName={"Adamn"}
-                    lastName={"Potato"}
-                    imageURL={"https://i.ibb.co/TmJw9kS/IMG-3336.jpg"}
+                    firstName={"Velma"}
+                    lastName={"Jinkers"}
+                    imageURL={"https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/60085341-4442-4819-bfa0-d2793122a55e/deywqhh-105bed09-e203-4d43-be5c-7131bea48b71.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzYwMDg1MzQxLTQ0NDItNDgxOS1iZmEwLWQyNzkzMTIyYTU1ZVwvZGV5d3FoaC0xMDViZWQwOS1lMjAzLTRkNDMtYmU1Yy03MTMxYmVhNDhiNzEuanBnIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.4DkT8FZ3gD6Ad4L6M3tHKZamYazwB2mohxbNrfaZBew"}
                     timeInMilliseconds={1700208001000}
-                    message={"Yesterday was a good time for me :("}
+                    message={"Jinkies! I've think I've found a clue! SUGOI-NE"}
                     selected={false}
                     setChatWindow={()=>{console.log("nothing happened! haha!!!")}}
                 />

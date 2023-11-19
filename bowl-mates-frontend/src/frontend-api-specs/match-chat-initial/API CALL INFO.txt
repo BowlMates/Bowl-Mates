@@ -1,0 +1,19 @@
+//////////////////////////////////////////////////////////////////
+
+TYPE: GET
+BODY: toBackend-match-chat-initial.json
+      **A single conversationID & the number of messages to return**
+
+Responses:
+401 (Not authorized) - empty body
+4XX (Unsuccessful) - empty Body
+200 (Success) - fromBackend-match-chat-initial.json
+
+Explanation: A list of messages between 2 users from a single
+             conversation. Number of messages specified with
+             conversationId in the body of request
+
+Extra Info: A call will be made for every conversationId
+            (conversation) that the user has
+
+//////////////////////////////////////////////////////////////////

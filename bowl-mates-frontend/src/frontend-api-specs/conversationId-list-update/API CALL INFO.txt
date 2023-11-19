@@ -1,0 +1,16 @@
+//////////////////////////////////////////////////////////////////
+
+TYPE: GET
+BODY: toBackend-conversationId-list-update.json
+      **The conversationId list that the frontend currently has**
+
+Responses:
+401 (Not authorized) - empty body
+4XX (Unsuccessful) - empty Body
+200 (Success) - fromBackend-conversationId-list-update.json
+
+Explanation: Gets a list of conversationId's that are either added
+             or removed (newly matched/unmatched) from the user's
+             list of matches
+
+//////////////////////////////////////////////////////////////////
