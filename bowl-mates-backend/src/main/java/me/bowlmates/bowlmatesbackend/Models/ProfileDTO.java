@@ -4,17 +4,20 @@ package me.bowlmates.bowlmatesbackend.Models;
 public class ProfileDTO {
 
     private String name;
+    private String pronouns;
     private String bio;
     private String photoPath;
 
     public ProfileDTO() {
         this.name = "";
+        this.pronouns = "";
         this.bio = "";
         this.photoPath = "";
     }
 
-    public ProfileDTO(String name, String bio, String photoPath) {
+    public ProfileDTO(String name, String pronouns, String bio, String photoPath) {
         this.name = name;
+        this.pronouns = pronouns;
         this.bio = bio;
         this.photoPath = photoPath;
     }
@@ -25,6 +28,14 @@ public class ProfileDTO {
 
     public String getName() {
         return this.name;
+    }
+
+    public void setPronouns(String pronouns) {
+        this.pronouns = pronouns;
+    }
+
+    public String getPronouns() {
+        return this.pronouns;
     }
 
     public void setBio(String bio) {

@@ -18,6 +18,8 @@ public class TestProfile {
     @Column
     private String name;
     @Column
+    private String pronouns;
+    @Column
     private String bio;
     @Column
     private String photoPath;
@@ -30,6 +32,7 @@ public class TestProfile {
         this.user = user;
         this.id = id;
         this.name = "";
+        this.pronouns = "";
         this.bio = "";
         this.photoPath = "";
     }
@@ -44,6 +47,14 @@ public class TestProfile {
 
     public String getName() {
         return this.name;
+    }
+
+    public void setPronouns(String pronouns) {
+        this.pronouns = pronouns;
+    }
+
+    public String getPronouns() {
+        return this.pronouns;
     }
 
     public void setBio(String bio) {
@@ -63,6 +74,6 @@ public class TestProfile {
     }
 
     public ProfileDTO getDTO() {
-        return new ProfileDTO(name, bio, photoPath);
+        return new ProfileDTO(name, pronouns, bio, photoPath);
     }
 }

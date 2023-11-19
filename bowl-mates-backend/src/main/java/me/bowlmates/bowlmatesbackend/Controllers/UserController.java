@@ -174,8 +174,8 @@ public class UserController {
         TestUser user = userRepository.findByUsername(username);
         TestProfile profile = user.getProfile();
         profile.setName(profileDTO.getName());
+        profile.setPronouns(profileDTO.getPronouns());
         profile.setBio(profileDTO.getBio());
-        profile.setPhotoPath(profileDTO.getPhotoPath());
     }
 
     /**
