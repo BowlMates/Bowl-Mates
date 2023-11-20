@@ -22,7 +22,8 @@ let restaurants : restaurant[] = [
         cuisine: "Mexican",
         rating: 3,
         latitude: 0.0,
-        longitude: 0.0
+        longitude: 0.0,
+        reference: ''
     },
     {
         id: 4,
@@ -31,7 +32,8 @@ let restaurants : restaurant[] = [
         cuisine: "Fine Dining",
         rating: 5,
         latitude: 0.0,
-        longitude: 0.0
+        longitude: 0.0,
+        reference: ''
     },
     {
         id: 3,
@@ -40,7 +42,8 @@ let restaurants : restaurant[] = [
         cuisine: "Italian",
         rating: 5,
         latitude: 0.0,
-        longitude: 0.0
+        longitude: 0.0,
+        reference: ''
     },
     {
         id: 1,
@@ -49,7 +52,8 @@ let restaurants : restaurant[] = [
         cuisine: "Japanese",
         rating: 5,
         latitude: 0.0,
-        longitude: 0.0
+        longitude: 0.0,
+        reference: ''
     },
     {
         id: 2,
@@ -58,7 +62,8 @@ let restaurants : restaurant[] = [
         cuisine: "Mediterranean",
         rating: 5,
         latitude: 0.0,
-        longitude: 0.0
+        longitude: 0.0,
+        reference: ''
     }
 ]
 
