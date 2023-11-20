@@ -11,7 +11,7 @@ import React from "react";
 import {sidebarMeasurements} from "../SuccessfulMatches";
 
 const MatchBox = styled(Box)(() => ({
-    height: "60px",
+    height: "70px",
     width: sidebarMeasurements.chatSidebarWidthMinusSomeValue,
     display: "flex",
     alignItems: "center",
