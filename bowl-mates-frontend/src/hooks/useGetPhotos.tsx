@@ -42,8 +42,6 @@ const useGetPhotos = (restaurants: restaurant[]): useGetPhotosResult => {
         fetchPhotos()
     }, [restaurants]);
 
-    //console.log(photos)
-
     return {photos, photosLoading, photosError};
 };
 export default useGetPhotos;
