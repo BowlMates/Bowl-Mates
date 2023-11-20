@@ -1,15 +1,6 @@
 package me.bowlmates.bowlmatesbackend.Models;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -34,8 +25,6 @@ public class TestUser implements UserDetails {
             inverseJoinColumns = {@JoinColumn(name="role_id")}
     )
     private Set<Role> authorities;
-    @Column
-    private String name;
 
     @Column(unique = true) // Make the 'email' field unique
     private String email;
@@ -45,12 +34,19 @@ public class TestUser implements UserDetails {
     private String password;
 
     @ManyToMany
-    @JoinTable(name = "user_avialability")
+    @JoinTable(name = "user_availability")
     private Set<TestAvailability> availability;
 
     @ManyToMany
     @JoinTable(name = "user_favorite_restaurants")
     private Set<TestRestaurant> favoriteRestaurants;
+
+    @OneToOne
+    @JoinTable(name = "user_profile")
+    private TestProfile profile;
+
+    @Lob
+    private byte[] serializedQueue;
 
     /**
      * a default constructor to make a user with no details
@@ -60,6 +56,9 @@ public class TestUser implements UserDetails {
         authorities = new HashSet<>();
         favoriteRestaurants = new HashSet<>();
         availability = new HashSet<>();
+        profile = new TestProfile();
+        // is there a better way to initialize this array?
+        serializedQueue = new byte[0];
     }
 
     /**
@@ -72,6 +71,7 @@ public class TestUser implements UserDetails {
      * @param email the email of the user
      * @param authorities the authorities of the user
      * @param rests the restaurants the user prefers
+     * @param queue the matching queue of the user
      */
     public TestUser(Integer userId,
                     String name,
@@ -79,16 +79,19 @@ public class TestUser implements UserDetails {
                     String password,
                     String email,
                     Set<Role> authorities,
-                    Set<TestRestaurant> rests) {
+                    Set<TestRestaurant> rests,
+                    byte[] queue) {
         super();
         this.id = userId;
-        this.name = name;
         this.username = username;
         this.password = password;
         this.email = email;
         this.authorities = authorities;
         this.favoriteRestaurants = rests;
+        this.profile = new TestProfile(this, userId);
+        this.profile.setName(name);
         this.availability = new HashSet<>();
+        this.serializedQueue = queue;
     }
 
     /**
@@ -115,7 +118,7 @@ public class TestUser implements UserDetails {
      * @return the name of the user
      */
     public String getName() {
-        return name;
+        return this.profile.getName();
     }
 
     /**
@@ -124,7 +127,7 @@ public class TestUser implements UserDetails {
      * @param name the name to be set
      */
     public void setName(String name) {
-        this.name = name;
+        this.profile.setName(name);
     }
 
     /**
@@ -200,6 +203,48 @@ public class TestUser implements UserDetails {
         this.authorities = authorities;
     }
 
+    /**
+     * gets the availability of the user
+     *
+     * @return a set of the user's availability
+     */
+    public Set<TestAvailability> getAvailability() {
+        return Collections.unmodifiableSet(availability);
+    }
+
+    /**
+     * sets the availabilities of the user
+     *
+     * @param availability the availabilities to be set
+     */
+    public void setAvailability(Set<TestAvailability> availability) {
+        this.availability = availability;
+    }
+
+    /**
+     * gets the matching queue of the user
+     *
+     * @return the serialized form of the matching queue
+     */
+    public byte[] getSerializedQueue() {
+        return serializedQueue;
+    }
+
+    /**
+     * sets the matching queue of the user
+     *
+     * @param serializedQueue a serialized form of the queue to be set
+     */
+    public void setSerializedQueue(byte[] serializedQueue) {
+        this.serializedQueue = serializedQueue;
+    }
+
+    // TODO: Document profile methods
+    public TestProfile getProfile() {
+        // Yes this is rep exposure. The one place this method will be called needs to mutate this field anyway.
+        return this.profile;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return this.authorities;
@@ -223,26 +268,6 @@ public class TestUser implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
-    }
-
-    /**
-     * gets the availability of the user
-     *
-     * @return a set of the user's availability
-     */
-    public Set<TestAvailability> getAvailability() {
-        return Collections.unmodifiableSet(availability);
-    }
-
-    /**
-     * sets the availabilities of the user
-     *
-     * @param availability the availabilities to be set
-     */
-    public void setAvailability(Set<TestAvailability> availability) {
-        // Shallow Copy
-        this.availability.addAll(availability);
-        this.availability.removeIf(avail -> !availability.contains(avail));
     }
 
     @Override
