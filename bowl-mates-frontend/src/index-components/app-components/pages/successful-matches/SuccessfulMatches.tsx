@@ -12,20 +12,17 @@ import MessageBubble from "./successful-matches-components/body/MessageBubble";
 //Changing this num changes the width of the sidebar and the various widths pertaining to the sidebar
 const chatSidebarWidthNum : number = 320;
 const chatSidebarWidth : string = chatSidebarWidthNum + "px";
-const chatSidebarWidthPlusScrollbar : string = (chatSidebarWidthNum + 20) + "px";
 const chatSidebarWidthMinusSomeValue : string = (chatSidebarWidthNum - 18) + "px";
 
 interface sidebarMeasurementType {
     chatSidebarWidthNum : number,
     chatSidebarWidth : string,
-    chatSidebarWidthPlusScrollbar : string,
     chatSidebarWidthMinusSomeValue : string,
 }
 
 export const sidebarMeasurements : sidebarMeasurementType = {
     chatSidebarWidthNum : chatSidebarWidthNum,
     chatSidebarWidth : chatSidebarWidth,
-    chatSidebarWidthPlusScrollbar : chatSidebarWidthPlusScrollbar,
     chatSidebarWidthMinusSomeValue : chatSidebarWidthMinusSomeValue,
 }
 

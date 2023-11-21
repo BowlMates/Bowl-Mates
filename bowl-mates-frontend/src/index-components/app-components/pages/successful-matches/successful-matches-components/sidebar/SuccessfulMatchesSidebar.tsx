@@ -17,7 +17,6 @@ const ChatSidebarContainer = styled(Box)(() => ({
     // Uses the hover property of css
     '&:hover': {
         overflowY: "auto",
-        width: sidebarMeasurements.chatSidebarWidthPlusScrollbar
     },
 }));
 
