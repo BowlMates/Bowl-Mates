@@ -55,12 +55,12 @@ public class UserController {
     }
 
     /**
-     * Adds restaurants to user's favorites
+     * Adds restaurant to user's favorites
      *
-     * @param body RestaurantDTO list of favorite restaurants
+     * @param body RestaurantDTO restaurant object returned from the front end
      */
     @PostMapping("/prefs/save")
-    public void setRestPreferences(@RequestBody List<RestaurantDTO> body) {
+    public void setRestPreferences(@RequestBody RestaurantDTO body) {
         restaurantService.addPreference(body);
     }
 

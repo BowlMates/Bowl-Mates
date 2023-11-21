@@ -15,14 +15,14 @@ export const useUserLogin = () => {
         "Content-Type" : "application/json",
     }
 
-    let productionLink : string = "https://backend.bowlmates.me/auth/login";
-    //let testingLink : string = "http://localhost:8080/auth/login";
+    //let productionLink : string = "https://backend.bowlmates.me/auth/login";
+    let testingLink : string = "http://localhost:8080/auth/login";
 
     const userLogin = async (username : string, password : string) : Promise<{ success: boolean, message: string }> => {
 
         let returnVal = loginReturns[1];
 
-        return await fetch(productionLink, {
+        return await fetch(testingLink, {
             headers: headers,
             method: "post",
             body: JSON.stringify({
