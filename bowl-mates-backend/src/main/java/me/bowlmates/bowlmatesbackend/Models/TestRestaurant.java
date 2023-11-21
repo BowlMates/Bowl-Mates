@@ -6,7 +6,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
-import org.hibernate.annotations.UuidGenerator;
 
 import java.util.Collections;
 import java.util.Set;
@@ -15,12 +14,12 @@ import java.util.Set;
  * Interfaces server and database restaurant data
  */
 @Entity
-@Table(name = "restaurants")
+@Table(name = "test_restaurant")
 public class TestRestaurant {
     @jakarta.persistence.Id
-    @UuidGenerator
+    @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(unique = true)
-    private String id; // Change to String type as that's what is being returned by Google api
+    private Integer id; // Change to Integer type as it's typically used for IDs
     @Column
     private String name;
     @Column(unique = true)
@@ -28,40 +27,17 @@ public class TestRestaurant {
     @Column
     private String cuisine;
     @Column
-    private Float rating;
-    @Column
-    private Float latitude;
-    @Column
-    private Float longitude;
-    @Column
-    private String reference;
-
+    private Integer rating;
 
     @ManyToMany(mappedBy = "favoriteRestaurants")
     private Set<TestUser> users;
-
-    public TestRestaurant() {
-        super();
-    }
-
-    // Constructor to take objects returned to front end and convert them into objects for use in back end
-    public TestRestaurant(RestaurantDTO restaurantDTO) {
-        this.id = restaurantDTO.getId();
-        this.name = restaurantDTO.getName();
-        this.address = restaurantDTO.getAddress();
-        this.cuisine = restaurantDTO.getCuisine();
-        this.rating = restaurantDTO.getRating();
-        this.latitude = restaurantDTO.getLatitude();
-        this.longitude = restaurantDTO.getLongitude();
-        this.reference = restaurantDTO.getReference();
-    }
 
     /**
      * Gets id
      *
      * @return id field of this
      */
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -70,7 +46,7 @@ public class TestRestaurant {
      *
      * @param id value to set id field of this to
      */
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -133,7 +109,7 @@ public class TestRestaurant {
      *
      * @return rating field of this
      */
-    public Float getRating() {
+    public Integer getRating() {
         return rating;
     }
 
@@ -142,7 +118,7 @@ public class TestRestaurant {
      *
      * @param rating value to set rating field of this to
      */
-    public void setRating(Float rating) {
+    public void setRating(Integer rating) {
         this.rating = rating;
     }
 
@@ -175,29 +151,5 @@ public class TestRestaurant {
             return false;
         }
         return this.address.equals(tR.getAddress());
-    }
-
-    public String getReference() {
-        return reference;
-    }
-
-    public void setReference(String reference) {
-        this.reference = reference;
-    }
-
-    public Float getLatitude() {
-        return latitude;
-    }
-
-    public void setLatitude(Float latitude) {
-        this.latitude = latitude;
-    }
-
-    public Float getLongitude() {
-        return longitude;
-    }
-
-    public void setLongitude(Float longitude) {
-        this.longitude = longitude;
     }
 }

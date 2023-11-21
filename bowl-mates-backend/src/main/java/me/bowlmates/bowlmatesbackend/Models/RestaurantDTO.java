@@ -5,14 +5,11 @@ package me.bowlmates.bowlmatesbackend.Models;
  */
 public class RestaurantDTO {
 
-    private String id;
+    private Integer id;
     private String name;
     private String address;
     private String cuisine;
-    private Float rating;
-    private Float latitude;
-    private Float longitude;
-    private String reference;
+    private Integer rating;
 
     /**
      * Default constructor
@@ -33,7 +30,6 @@ public class RestaurantDTO {
         this.address = restaurant.getAddress();
         this.cuisine = restaurant.getCuisine();
         this.rating = restaurant.getRating();
-        this.reference = restaurant.getReference();
     }
 
     /**
@@ -104,7 +100,7 @@ public class RestaurantDTO {
      *
      * @return rating field of this
      */
-    public Float getRating() {
+    public Integer getRating() {
         return rating;
     }
 
@@ -113,7 +109,7 @@ public class RestaurantDTO {
      *
      * @param rating Integer to set rating of this to
      */
-    public void setRating(Float rating) {
+    public void setRating(Integer rating) {
         this.rating = rating;
     }
 
@@ -122,7 +118,7 @@ public class RestaurantDTO {
      *
      * @return id field of this
      */
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -131,31 +127,7 @@ public class RestaurantDTO {
      *
      * @param id value to set id of this to
      */
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
-    }
-
-    public String getReference() {
-        return reference;
-    }
-
-    public void setReference(String reference) {
-        this.reference = reference;
-    }
-
-    public Float getLatitude() {
-        return latitude;
-    }
-
-    public void setLatitude(Float latitude) {
-        this.latitude = latitude;
-    }
-
-    public Float getLongitude() {
-        return longitude;
-    }
-
-    public void setLongitude(Float longitude) {
-        this.longitude = longitude;
     }
 }

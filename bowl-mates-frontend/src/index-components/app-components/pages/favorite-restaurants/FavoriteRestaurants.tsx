@@ -73,7 +73,6 @@ function FavoriteRestaurants () {
     const {favRes, setFavRes, postRestaurants, getRestaurants} = useGetRestaurants();
     const theme = useTheme();
 
-    console.log("here")
     const [boolFavs, setBoolFavs] = useState([false, false, false, false, false, false]);
 
     // Fetch favorite restaurants on component mount
@@ -144,7 +143,6 @@ function FavoriteRestaurants () {
                             </CardContent>
                             <IconButton
                                 onClick = {() => {
-                                    console.log(restaurant.name)
                                     let index = hasRestaurant(restaurant.id);
                                     if (index >= 0) {
                                         let resArrayCopy = [...favRes];

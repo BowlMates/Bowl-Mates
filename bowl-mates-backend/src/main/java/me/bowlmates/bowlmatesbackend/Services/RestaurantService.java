@@ -31,11 +31,9 @@ public class RestaurantService {
     /**
      * Adds a list of restaurants to a user's preferences
      *
-     * @param restDTO a restaurant transfer object to be added to a user's preference list
+     * @param rests a list of restaurant transfer objects to be added to a user's preference list
      */
-
-    // Updating to only handle one restaurant at a time as that's how user will interact with the objects
-    public void addPreference(RestaurantDTO restDTO) {
+    public void addPreference(List<RestaurantDTO> rests) {
         String username = "";
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if(auth != null && auth.isAuthenticated()) {
@@ -43,27 +41,12 @@ public class RestaurantService {
         } else {
             return;
         }
-
         TestUser user = userRepository.findByUsername(username);
-
-        Set<TestRestaurant> newFavs = new HashSet<>();
-        Set<TestRestaurant> oldFavs = user.getFavoriteRestaurants();
-
-        for (TestRestaurant rest: oldFavs) {
-            newFavs.add(rest);
+        Set<TestRestaurant> updatedRests = new HashSet<>();
+        for (RestaurantDTO rest : rests) {
+            TestRestaurant updated = restRepository.findByName(rest.getName());
+            updatedRests.add(updated);
         }
-
-        TestRestaurant restUpdate = new TestRestaurant(restDTO);
-
-        if(newFavs.contains(restUpdate)){
-            newFavs.remove(restUpdate);
-        }
-        else{
-            newFavs.add(restUpdate);
-            restRepository.save(restUpdate);
-        }
-
-
-        user.setFavoriteRestaurants(newFavs);
+        user.setFavoriteRestaurants(updatedRests);
     }
 }
