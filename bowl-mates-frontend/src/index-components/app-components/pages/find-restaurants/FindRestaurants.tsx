@@ -15,11 +15,6 @@ function FindRestaurants(userLocation: {lat: number; lng: number}) {
     const {restaurants, placesLoading, placesError} = useNearbyPlaces(userLocation);
     const {photos, photosLoading, photosError} = useGetPhotos(restaurants);
 
-    // Handle cases where there's an error or the hook hasn't finished returning yet
-    if (placesLoading || photosLoading) {
-        return <div>Loading...</div>;
-    }
-
     if (placesError) {
         return <div>Error: {placesError.message}</div>;
     }

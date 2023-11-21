@@ -24,4 +24,8 @@ public interface RestRepo extends JpaRepository<TestRestaurant, Integer> {
      * @return the information of the queried restaurant
      */
     TestRestaurant findByName(String name);
+
+    // I made this to be able to delete restaurants if they become unassociated with a user account
+    @Override
+    void delete(TestRestaurant restaurant);
 }

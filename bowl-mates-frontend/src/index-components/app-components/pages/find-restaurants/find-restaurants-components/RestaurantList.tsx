@@ -6,13 +6,18 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import useSaveRestaurant from "../../../../../hooks/useSaveRestaurants";
 
 interface RestaurantListProps {
     restaurants: restaurant[];
     photos: string[];
 }
 
+
+
 const RestaurantList: React.FC<RestaurantListProps> = ({ restaurants, photos }) => {
+    const { saveRestaurant } = useSaveRestaurant();
+
     return(
         <Grid container spacing={3}>
             {restaurants.map((restaurant, index) => (
@@ -52,7 +57,8 @@ const RestaurantList: React.FC<RestaurantListProps> = ({ restaurants, photos }) 
                                 marginTop: 'auto', // Align the icon to the bottom of the Card
                             }}
                             onClick={() => {
-                                // TODO: Implement restaurant favoriting logic
+                                console.log(restaurant.name)
+                                saveRestaurant(restaurant);
                             }}
                         >
                             <FavoriteIcon />

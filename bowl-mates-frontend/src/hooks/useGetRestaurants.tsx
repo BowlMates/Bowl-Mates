@@ -12,15 +12,18 @@ export const useGetRestaurants = () => {
 
     const authHeader = useAuthHeader();
 
-    let getFavRestaurantsProductionLink : string = "https://backend.bowlmates.me/user/displaypref";
-    //let getFavRestaurantsTestingLink : string = "http://localhost:8080/user/displaypref";
+    // Updated links to new backend user endpoints
 
-    let postFavRestaurantsProductionLink : string = "https://backend.bowlmates.me/user/pref";
-    //let postFavRestaurantsTestingLink : string = "http://localhost:8080/user/pref";
+    //let getFavRestaurantsProductionLink : string = "https://backend.bowlmates.me/user/prefs";
+    let getFavRestaurantsTestingLink : string = "http://localhost:8080/user/prefs";
+
+    //let postFavRestaurantsProductionLink : string = "https://backend.bowlmates.me/user/prefs/save";
+    let postFavRestaurantsTestingLink : string = "http://localhost:8080/user/prefs/save";
 
     const getRestaurants = () => {
+        console.log("useGetRestaurants")
 
-        fetch(getFavRestaurantsProductionLink, {
+        fetch(getFavRestaurantsTestingLink, {
             headers: {
                 "Authorization": authHeader(),
                 "Content-Type": "application/json",
@@ -47,7 +50,7 @@ export const useGetRestaurants = () => {
 
     const postRestaurants = () => {
 
-        fetch(postFavRestaurantsProductionLink, {
+        fetch(postFavRestaurantsTestingLink, {
             headers: {
                 "Authorization" : authHeader(),
                 "Content-Type": "application/json",
