@@ -1,12 +1,13 @@
 // MUI Imports
 
 // Custom Imports
-import SuccessfulMatchesContainer from "./successful-matches-components/SuccessfulMatchesContainer";
-import SuccessfulMatchesSidebar from "./successful-matches-components/SuccessfulMatchesSidebar";
-import ChatBody from "./successful-matches-components/ChatBody";
-import SidebarCard from "./successful-matches-components/SidebarCard";
+import SuccessfulMatchesContainer from "./successful-matches-components/sidebar/SuccessfulMatchesContainer";
+import SuccessfulMatchesSidebar from "./successful-matches-components/sidebar/SuccessfulMatchesSidebar";
+import ChatBody from "./successful-matches-components/body/ChatBody";
+import SidebarCard from "./successful-matches-components/sidebar/SidebarCard";
 import {useIsUserSessionValid} from "../../../../hooks/useIsUserSessionValid";
 import {useEffect} from "react";
+import MessageBubble from "./successful-matches-components/body/MessageBubble";
 
 //Changing this num changes the width of the sidebar and the various widths pertaining to the sidebar
 const chatSidebarWidthNum : number = 320;
@@ -420,7 +421,9 @@ function SuccessfulMatches() {
                     setChatWindow={()=>{console.log("nothing happened! haha!!!")}}
                 />
             </SuccessfulMatchesSidebar>
-            <ChatBody/>
+            <ChatBody>
+                <MessageBubble/>
+            </ChatBody>
         </SuccessfulMatchesContainer>
     )
 }
