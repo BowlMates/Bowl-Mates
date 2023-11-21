@@ -13,7 +13,7 @@ import Toolbar from "@mui/material/Toolbar";
 import Box from "@mui/material/Box";
 
 // MUI ICONS
-import SettingsIcon from '@mui/icons-material/Settings';
+import PersonIcon from '@mui/icons-material/Person';
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import LogoutIcon from '@mui/icons-material/Logout';
@@ -103,7 +103,7 @@ function Header(props: Props) {
                         }}
                         edge="start"
                     >
-                        <SettingsIcon/>
+                        <PersonIcon/>
                     </IconButton>
                 </Box>
             </Toolbar>

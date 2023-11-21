@@ -10,8 +10,9 @@ const user = {
     image: 'https://i.imgur.com/yXOvdOSs.jpg',
 };
 
+
 const UserCard = () => {
-    // returns a user card containing pic, name, pronouns, and bio
+    // returns a user card containing pic, name, pronouns, and bio from their unique user number
     return (
         <Card>
             <CardMedia
