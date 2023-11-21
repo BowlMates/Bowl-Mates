@@ -41,8 +41,7 @@ public class TestUser implements UserDetails {
     @JoinTable(name = "user_favorite_restaurants")
     private Set<TestRestaurant> favoriteRestaurants;
 
-    @OneToOne
-    @JoinTable(name = "user_profile")
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private TestProfile profile;
 
     @Lob
