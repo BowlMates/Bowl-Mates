@@ -1,8 +1,13 @@
+// React Imports
+import React, {useEffect, useState} from "react";
+
 // MUI Imports
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import React, {useState} from "react";
 import Button from "@mui/material/Button";
+
+// Custom Imports
+import {useIsUserSessionValid} from "../../../../hooks/useIsUserSessionValid";
 
 // Predefined time slots for availability
 const timeSlots = [
@@ -25,6 +30,12 @@ const daysOfWeek = [
 ]
 
 function Availability() {
+    const isSessionValid = useIsUserSessionValid();
+    useEffect(()=>{
+        // CHECKS IF SESSION IS CURRENTLY VALID BEFORE DRAWING COMPONENT
+        isSessionValid();
+        // CHECKS IF SESSION IS CURRENTLY VALID BEFORE DRAWING COMPONENT
+    });
 
     // State to track availability for each time slot on each day
     const [availability, setAvailability] =

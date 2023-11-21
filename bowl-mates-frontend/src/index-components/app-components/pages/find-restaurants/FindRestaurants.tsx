@@ -1,4 +1,5 @@
-import React from "react";
+// React Imports
+import React, {useEffect} from "react";
 import useNearbyPlaces from "../../../../hooks/useNearbyPlaces";
 import MapComponent from "./find-restaurants-components/MapComponent";
 
@@ -6,10 +7,20 @@ import MapComponent from "./find-restaurants-components/MapComponent";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 
+// Custom Imports
+import {useIsUserSessionValid} from "../../../../hooks/useIsUserSessionValid";
+
 
 // The FindRestaurants component is responsible for calling the getNearbyRestaurants function and then
 // displaying all of the data returned by the API to the user
 function FindRestaurants(userLocation: {lat: number; lng: number}) {
+    const isSessionValid = useIsUserSessionValid();
+    useEffect(()=>{
+        // CHECKS IF SESSION IS CURRENTLY VALID BEFORE DRAWING COMPONENT
+        isSessionValid();
+        // CHECKS IF SESSION IS CURRENTLY VALID BEFORE DRAWING COMPONENT
+    });
+
     const {restaurants, loading, error} = useNearbyPlaces(userLocation);
 
 
