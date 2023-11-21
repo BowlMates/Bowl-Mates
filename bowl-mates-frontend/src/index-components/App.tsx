@@ -18,7 +18,7 @@ import Availability from "./app-components/pages/availability/Availability";
 import Matching from "./app-components/pages/matching/Matching";
 import SuccessfulMatches from "./app-components/pages/successful-matches/SuccessfulMatches";
 import FAQ from "./app-components/pages/faq/FAQ";
-import Settings from "./app-components/pages/settings/Settings";
+import Profile from "./app-components/pages/profile/Profile";
 
 // MUI Imports
 import Box from "@mui/material/Box";
@@ -77,7 +77,7 @@ function App() {
                             <Route path={"/availability"} element={<Availability />}/>
                             <Route path={"/matching"} element={<Matching />}/>
                             <Route path={"/successful-matches"} element={<SuccessfulMatches />}/>
-                            <Route path={"/settings"} element={<Settings />}/>
+                            <Route path={"/settings"} element={<Profile />}/>
                             <Route path={"/faq"} element={<FAQ />}/>
                         </Routes>
                     </BodyContainer>
