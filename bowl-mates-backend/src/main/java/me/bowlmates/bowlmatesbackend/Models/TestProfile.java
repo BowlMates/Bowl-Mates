@@ -4,15 +4,17 @@ import jakarta.persistence.*;
 
 //TODO: Documentation
 @Entity
+
 @Table(name = "test_profile")
 public class TestProfile {
 
     @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(unique = true)
     private Integer id;
 
-    @OneToOne
-    @JoinTable(name = "user_profile")
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id")
     private TestUser user;
 
     @Column
