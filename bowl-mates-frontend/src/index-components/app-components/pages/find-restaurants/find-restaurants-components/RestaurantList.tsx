@@ -58,7 +58,17 @@ const RestaurantList: React.FC<RestaurantListProps> = ({ restaurants, photos }) 
                             }}
                             onClick={() => {
                                 console.log(restaurant.name)
-                                saveRestaurant(restaurant);
+                                let splicedRest: restaurant = {
+                                    id: restaurant.id,
+                                    name: restaurant.name,
+                                    address: restaurant.address,
+                                    cuisine: restaurant.cuisine,
+                                    rating: restaurant.rating,
+                                    latitude: restaurant.latitude,
+                                    longitude: restaurant.longitude,
+                                    reference: photos[index]
+                                }
+                                saveRestaurant(splicedRest);
                             }}
                         >
                             <FavoriteIcon />
