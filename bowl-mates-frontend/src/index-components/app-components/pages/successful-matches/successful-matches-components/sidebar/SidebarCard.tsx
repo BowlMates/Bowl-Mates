@@ -8,7 +8,7 @@ import {ToggleButton} from "@mui/material";
 import React from "react";
 
 // Sidebar Measurement import from Successful Matches Page
-import {sidebarMeasurements} from "../SuccessfulMatches";
+import {sidebarMeasurements} from "../../SuccessfulMatches";
 
 const MatchBox = styled(Box)(() => ({
     height: "70px",
