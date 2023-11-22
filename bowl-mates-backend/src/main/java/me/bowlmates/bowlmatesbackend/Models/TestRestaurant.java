@@ -19,7 +19,6 @@ import java.util.Set;
 public class TestRestaurant {
     // TODO Find a way to not have auto generated keys
     @jakarta.persistence.Id
-    @UuidGenerator
     @Column(unique = true)
     private String id; // Change to String type as that's what is being returned by Google api
     @Column
