@@ -59,7 +59,7 @@ public class AuthenticationService {
         Set<Role> authorities = new HashSet<>();
         authorities.add(userRole);
         return userRepository.save(new TestUser(0, name, username, encodedPassword,
-                email, authorities, new HashSet<>(), new byte[0]));
+                email, authorities, new HashSet<>(), new HashSet<>(), new HashSet<>(), new HashSet<>(), new byte[0]));
     }
 
     /**
