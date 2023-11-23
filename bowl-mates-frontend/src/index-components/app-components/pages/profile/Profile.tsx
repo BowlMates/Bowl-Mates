@@ -21,9 +21,9 @@ const user = {
 
 function Profile () {
 
-    const [displayName, setDisplayName] = useState('');
-    const [pronouns, setPronouns] = useState('');
-    const [bio, setBio] = useState('');
+    const [displayName, setDisplayName] = useState(user.name);
+    const [pronouns, setPronouns] = useState(user.pronouns);
+    const [bio, setBio] = useState(user.bio);
     // need to add photo upload functionality
     return (
         /**
@@ -44,7 +44,6 @@ function Profile () {
                 <Grid item xs={6}>
                     <TextField id="filled-basic"
                                label="display name"
-                               defaultValue={user.name}
                                variant="filled"
                                fullWidth={true}
                                inputProps={{maxLength: 30}}
@@ -58,7 +57,6 @@ function Profile () {
                     <TextField id="filled-basic"
                                label="pronouns"
                                variant="filled"
-                               defaultValue={user.pronouns}
                                fullWidth={true}
                                inputProps={{maxLength: 30}}
                                value={pronouns}
@@ -71,7 +69,6 @@ function Profile () {
                     <TextField id="filled-multiline-static"
                                label="bio"
                                multiline rows={4}
-                               defaultValue={user.bio}
                                variant="filled"
                                fullWidth={true}
                                inputProps={{maxLength: 300}}
