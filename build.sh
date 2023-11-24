@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-cd ./bowl-mates-backend || echo "failed to enter backend dir";
-./gradlew clean;
-./gradlew build;
-cd ..;
+./build-backend.sh;
+cd ./bowl-mates-frontend || echo "failed to enter frontend directory";
+npm install;
