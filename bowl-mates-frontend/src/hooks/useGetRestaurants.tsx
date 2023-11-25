@@ -3,6 +3,7 @@ import {useState} from "react";
 
 // React Auth Kit Imports
 import {useAuthHeader} from 'react-auth-kit'
+import {user_prefs_address, user_prefs_save_address} from "../api-addresses";
 
 
 
@@ -12,18 +13,9 @@ export const useGetRestaurants = () => {
 
     const authHeader = useAuthHeader();
 
-    // Updated links to new backend user endpoints
-
-    //let getFavRestaurantsProductionLink : string = "https://backend.bowlmates.me/user/prefs";
-    let getFavRestaurantsTestingLink : string = "http://localhost:8080/user/prefs";
-
-    //let postFavRestaurantsProductionLink : string = "https://backend.bowlmates.me/user/prefs/save";
-    let postFavRestaurantsTestingLink : string = "http://localhost:8080/user/prefs/save";
-
     const getRestaurants = () => {
-        console.log("useGetRestaurants")
 
-        fetch(getFavRestaurantsTestingLink, {
+        fetch(user_prefs_address, {
             headers: {
                 "Authorization": authHeader(),
                 "Content-Type": "application/json",
@@ -50,7 +42,7 @@ export const useGetRestaurants = () => {
 
     const postRestaurants = () => {
 
-        fetch(postFavRestaurantsTestingLink, {
+        fetch(user_prefs_save_address, {
             headers: {
                 "Authorization" : authHeader(),
                 "Content-Type": "application/json",

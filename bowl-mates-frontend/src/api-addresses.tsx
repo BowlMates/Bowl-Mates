@@ -1,0 +1,61 @@
+// This will ideally change with the value of an environment variable
+// CHANGE TO TRUE IF GOING INTO PRODUCTION
+const LOCAL : boolean = true;
+// CHANGE TO TRUE IF GOING INTO PRODUCTION
+
+const LOCAL_ADD: string =  "http://localhost:8080";
+const SERVER_ADD: string = "https://backend.bowlmates.me";
+const ADDRESS: string = LOCAL ? LOCAL_ADD : SERVER_ADD;
+
+// POST user login
+const login : string = "/auth/login";
+const login_address : string = ADDRESS + login;
+
+// POST user signup
+const register : string = "/auth/register";
+const register_address : string = ADDRESS + register;
+
+// GET user prefs
+const user_prefs : string = "/user/prefs";
+const user_prefs_address : string = ADDRESS + user_prefs;
+
+// POST user prefs
+const user_prefs_save : string = "/user/prefs/save";
+const user_prefs_save_address : string = ADDRESS + user_prefs_save;
+
+// GET user availability
+const user_avail : string = "/user/avail";
+const user_avail_address : string = ADDRESS + user_avail;
+
+// POST user availability
+const user_avail_save : string = "/user/avail/save";
+const user_avail_save_address : string = ADDRESS + user_avail_save;
+
+// GET user matches
+const user_match_show : string = "/user/match/show";
+const user_match_show_address : string = ADDRESS + user_match_show;
+
+// GET user profile information w/ photo url
+const user_profile : string = "/user/profile";
+const user_profile_address : string = ADDRESS + user_profile;
+
+// POST user profile information (sending photo url does nothing)
+const user_profile_save : string = "/user/profile/save";
+const user_profile_save_address : string = ADDRESS + user_profile_save;
+
+// POST user profile photo
+const user_image_save : string = "/user/profile/save";
+const user_image_save_address : string = ADDRESS + user_image_save;
+
+export {
+    login_address,
+    register_address,
+    user_prefs_address,
+    user_prefs_save_address,
+    user_avail_address,
+    user_avail_save_address,
+    user_match_show_address,
+    user_profile_address,
+    user_profile_save_address,
+    user_image_save_address
+};
