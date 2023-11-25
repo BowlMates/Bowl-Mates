@@ -3,6 +3,7 @@ import { styled } from "@mui/system";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import useUserSignup from "../../../../hooks/useUserSignup";
+import {redirect, useNavigate} from "react-router-dom";
 
 const Rectangle = styled(Box)({
     width: '120%',
@@ -42,6 +43,7 @@ function Signup() {
     };
 
     const { userSignup } = useUserSignup();
+    const navigate = useNavigate();
 
     const handleInputChange = (e: any, setter: any) => {
         const value = e.target.value;
@@ -70,6 +72,7 @@ function Signup() {
         // Perform signup if all validations pass
         if (isValidEmail && isPasswordMatch && usernameValid) {
             userSignup(name, username, email, password );
+            navigate("/login");
         }
     };
 
