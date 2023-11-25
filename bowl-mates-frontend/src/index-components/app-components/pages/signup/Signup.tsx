@@ -1,10 +1,9 @@
-// MUI Imports
-import {styled} from "@mui/material/styles";
+import React, { useState } from "react";
+import { styled } from "@mui/system";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import {useState} from "react";
+import useUserSignup from "../../../../hooks/useUserSignup";
 
-// Styled component for the rectangular boxes in the form
 const Rectangle = styled(Box)({
     width: '120%',
     height: '100px',
@@ -13,120 +12,115 @@ const Rectangle = styled(Box)({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: '4px',
-    cursor: 'pointer'
+    cursor: 'pointer',
 });
 
+interface StateFields {
+    name: [string, React.Dispatch<React.SetStateAction<string>>];
+    username: [string, React.Dispatch<React.SetStateAction<string>>];
+    email: [string, React.Dispatch<React.SetStateAction<string>>];
+    password: [string, React.Dispatch<React.SetStateAction<string>>];
+    confirmPassword: [string, React.Dispatch<React.SetStateAction<string>>];
+}
+
 function Signup() {
-    // State hooks for handling user input
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
+    const [name, setName] = useState<string>('');
+    const [username, setUsername] = useState<string>('');
+    const [email, setEmail] = useState<string>('');
+    const [password, setPassword] = useState<string>('');
+    const [confirmPassword, setConfirmPassword] = useState<string>('');
+    const [isValidEmail, setIsValidEmail] = useState(true);
+    const [isPasswordMatch, setIsPasswordMatch] = useState(true);
+    const [usernameValid, setUsernameValid] = useState(true);
+
+    const stateFields: StateFields = {
+        name: [name, setName],
+        username: [username, setUsername],
+        email: [email, setEmail],
+        password: [password, setPassword],
+        confirmPassword: [confirmPassword, setConfirmPassword],
+    };
+
+    const { userSignup } = useUserSignup();
+
+    const handleInputChange = (e: any, setter: any) => {
+        const value = e.target.value;
+        setter(value);
+    };
+
+    const handleInputFocus = (e: any, setter: any, placeholder: any) => {
+        if (e.target.value === placeholder) {
+            setter('');
+        }
+    };
+
+    const handleSubmit = () => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const isValid = emailRegex.test(email);
+        setIsValidEmail(isValid);
+
+        let passwordsMatch: boolean;
+        passwordsMatch = password === confirmPassword;
+        setIsPasswordMatch(passwordsMatch);
+
+        let validUsername: boolean;
+        validUsername = username !== '';
+        setUsernameValid(validUsername);
+
+        // Perform signup if all validations pass
+        if (isValidEmail && isPasswordMatch && usernameValid) {
+            userSignup(name, username, email, password );
+        }
+    };
 
     return (
-
-        <Box
-            display="flex"
-            flexDirection="row"
-            justifyContent="space-around"
-            alignItems="center"
-            height="75vh"
-        >
-
-            {/* Large signup text */}
-            <Typography variant={"h1"}
-                        style={
-                            {
-                                fontFamily: 'Inter, sans-serif',
-                                fontWeight: 300,
-                                fontSize: '20vw',
-                                //lineHeight: '1.2px'
-                                paddingTop: '10vh'
-                            }
-                        }
-                        align="left"
-                        color="000000"
+        <Box display="flex" flexDirection="row" justifyContent="space-around" alignItems="center" height="75vh">
+            <Typography
+                variant="h1"
+                style={{
+                    fontFamily: 'Inter, sans-serif',
+                    fontWeight: 300,
+                    fontSize: '20vw',
+                    paddingTop: '10vh',
+                }}
+                align="left"
+                color="000000"
             >
-                sign <br/>
+                sign <br />
                 up
             </Typography>
 
-            {/* Container for input fields */}
-            <Box
-                display="flex"
-                flexDirection="column"
-                alignItems="center"
-                marginLeft="50px"
-                marginTop="175px"
-            >
-                {/* Email input field */}
-                <Rectangle
-                    bgcolor="#FDF5F5">
-                    <input
-                        type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        onFocus={(e) => e.target.value === 'e-mail' && setEmail('')}
-                        placeholder="e-mail"
-                        style={{
-                            width: '100%',
-                            border: 'none',
-                            outline: 'none',
-                            fontSize: '40px',
-                            fontFamily: 'Inter, sans-serif',
-                            textAlign: 'center',
-                            backgroundColor: '#FDF5F5',
-                            color: '#54804D'
-                        }}
-                    />
-                </Rectangle>
+            <Box display="flex" flexDirection="column" alignItems="center" marginLeft="50px" marginTop="175px">
+                {Object.entries(stateFields).map(([field, [value, setter]]) => (
+                    <Rectangle bgcolor="#FDF5F5" key={field}>
+                        <input
+                            type={field === "password" || field === "confirmPassword" ? "password" : "text"}
+                            value={value}
+                            onChange={(e) => {
+                                handleInputChange(e, setter);
+                            }}
+                            onFocus={(e) => handleInputFocus(e, setter, field)}
+                            placeholder={field}
+                            style={{
+                                width: '100%',
+                                border: 'none',
+                                outline: 'none',
+                                fontSize: '40px',
+                                fontFamily: 'Inter, sans-serif',
+                                textAlign: 'center',
+                                backgroundColor: '#FDF5F5',
+                                color: '#54804D',
+                                borderColor: (field === "email" && !isValidEmail) || (field === "confirmPassword" && !isPasswordMatch) ? 'red' : 'initial',
+                            }}
+                        />
+                    </Rectangle>
+                ))}
 
-                {/* Password input field */}
-                <Rectangle
-                    bgcolor="#FDF5F5">
-                    <input
-                        type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        onFocus={(e) => e.target.value === 'password' && setPassword('')}
-                        placeholder="password"
-                        style={{
-                            width: '100%',
-                            border: 'none',
-                            outline: 'none',
-                            fontSize: '40px',
-                            fontFamily: 'Inter, sans-serif',
-                            textAlign: 'center',
-                            backgroundColor: '#FDF5F5',
-                            color: '#54804D'
-                        }}
-                    />
-                </Rectangle>
+                {!usernameValid && <p style={{ color: 'red', marginTop: '10px' }}>Please enter a valid username.</p>}
+                {!isValidEmail && <p style={{ color: 'red', marginTop: '10px' }}>Please enter a valid email address.</p>}
+                {!isPasswordMatch && <p style={{ color: 'red', marginTop: '10px' }}>Passwords do not match.</p>}
 
-                {/* Confirm password input field */}
-                <Rectangle
-                    bgcolor="#FDF5F5">
-                    <input
-                        type="password"
-                        value={confirmPassword}
-                        onChange={(e) => setConfirmPassword(e.target.value)}
-                        onFocus={(e) => e.target.value === 'confirmPassword' && setConfirmPassword('')}
-                        placeholder="confirm password"
-                        style={{
-                            width: '100%',
-                            border: 'none',
-                            outline: 'none',
-                            fontSize: '40px',
-                            fontFamily: 'Inter, sans-serif',
-                            textAlign: 'center',
-                            backgroundColor: '#FDF5F5',
-                            color: '#54804D'
-                        }}
-                    />
-
-                </Rectangle>
-
-                {/* Submit button */}
-                <Rectangle bgcolor="#54804D">
+                <Rectangle bgcolor="#54804D" onClick={handleSubmit}>
                     <Typography
                         variant="body1"
                         style={{
@@ -143,4 +137,4 @@ function Signup() {
     );
 }
 
-export default Signup
+export default Signup;
