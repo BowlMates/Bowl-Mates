@@ -22,7 +22,6 @@ const useSaveRestaurant = () => {
             } else {
                 console.log(res)
                 console.log("Failed to post");
-                JSON.stringify(restaurant);
             }
         });
     }
