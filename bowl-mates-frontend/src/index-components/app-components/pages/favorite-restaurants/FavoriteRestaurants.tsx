@@ -105,7 +105,7 @@ function FavoriteRestaurants () {
                                     marginTop: 'auto', // Align the icon to the bottom of the Card
                                 }}
                                 onClick = {() => {
-                                    console.log(restaurant.name)
+                                    console.log(restaurant.name);
                                     saveRestaurant(restaurant);
                                     getRestaurants();
                                 }}
