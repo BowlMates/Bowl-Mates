@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useMemo} from "react";
 import useNearbyPlaces from "../../../../hooks/useNearbyPlaces";
 import MapComponent from "./find-restaurants-components/MapComponent";
 
@@ -14,6 +14,8 @@ import RestaurantList from "./find-restaurants-components/RestaurantList";
 function FindRestaurants(userLocation: {lat: number; lng: number}) {
     const {restaurants, placesLoading, placesError} = useNearbyPlaces(userLocation);
     const {photos, photosLoading, photosError} = useGetPhotos(restaurants);
+    const memoizedRestaurants = useMemo(() => restaurants, [restaurants]);
+    const memoizedPhotos = useMemo(() => photos, [photos]);
 
     if (placesError) {
         return <div>Error: {placesError.message}</div>;
@@ -23,7 +25,6 @@ function FindRestaurants(userLocation: {lat: number; lng: number}) {
         return <div>Error: {photosError.message}</div>
     }
 
-    // TODO: Add favoriting functionality to the restaurant finder tool as per mock up
     return (
         <Box
             display="flex"
@@ -51,7 +52,7 @@ function FindRestaurants(userLocation: {lat: number; lng: number}) {
                     <Typography variant="h4" gutterBottom>
                         Welcome to the Restaurant Finder Tool!
                     </Typography>
-                    <MapComponent restaurants={restaurants} userLocation={userLocation}/>
+                    <MapComponent restaurants={memoizedRestaurants} userLocation={userLocation}/>
                 </Box>
             </Box>
 
@@ -71,7 +72,7 @@ function FindRestaurants(userLocation: {lat: number; lng: number}) {
                 <Typography variant="h5" gutterBottom>
                     Nearby Restaurants:
                 </Typography>
-                <RestaurantList restaurants={restaurants} photos={photos}/>
+                <RestaurantList restaurants={memoizedRestaurants} photos={memoizedPhotos}/>
             </Box>
         </Box>
     );
