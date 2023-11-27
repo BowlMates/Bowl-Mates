@@ -13,6 +13,7 @@ import Landing from "./index-components/app-components/pages/landing/Landing";
 import Login from "./index-components/app-components/pages/login/Login";
 import Signup from "./index-components/app-components/pages/signup/Signup";
 import {createTheme, ThemeProvider} from "@mui/material/styles";
+import FrontendTest from "./tests/FrontendTest";
 
 // This is where we create the theme passed to the rest of the application pages
 // By encapsulating the application with the ThemeProvider and useTheme hook,
@@ -40,6 +41,7 @@ root.render(
                     cookieDomain={window.location.hostname}
                     cookieSecure={window.location.protocol === "https:"}>
           <BrowserRouter>
+              <FrontendTest />
               <ThemeProvider theme={appTheme}>
                   <Routes>
                       <Route path={"/"} element={<Landing />}/>
