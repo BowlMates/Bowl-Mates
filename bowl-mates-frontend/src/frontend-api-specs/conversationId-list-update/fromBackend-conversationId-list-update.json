@@ -1,10 +1,10 @@
 [
   {
-    "conversationId" : 9999,
+    "matchID" : 9999,
     "added" : true
   },
   {
-    "conversationId" : 1,
+    "matchID" : 1,
     "added" : false
   }
 ]
