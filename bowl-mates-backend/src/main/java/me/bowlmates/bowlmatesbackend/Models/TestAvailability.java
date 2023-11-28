@@ -18,9 +18,8 @@ import java.util.Set;
 @Table(name = "test_availability")
 public class TestAvailability {
     @jakarta.persistence.Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
-
-    private final int NUM_TIMES = getNumTimes();
+    @Column(unique = true)
+    private Integer hash;
 
     @ManyToMany(mappedBy = "availability")
     private Set<TestUser> users;
@@ -29,8 +28,7 @@ public class TestAvailability {
     private Integer hour;
     @Column
     private Integer day;
-    @Column(unique = true)
-    private Integer hash;
+
 
     /**
      * Default constructor
@@ -39,6 +37,14 @@ public class TestAvailability {
         this.day = 0;
         this.hour = 0;
         this.hash = 0;
+        this.users = new HashSet<>();
+
+    }
+
+    public TestAvailability(int day, int hour) {
+        this.day = day;
+        this.hour = hour;
+        this.hash = calculateHash(day, hour, 11);
         this.users = new HashSet<>();
     }
 
@@ -103,15 +109,15 @@ public class TestAvailability {
         users.add(user);
     }
 
-    /**
-     * Static method to keep num times in one place in case of change later
-     *
-     * @return Number of time slots in a day
-     */
-    public static int getNumTimes() {
-        // magic numbers are bad style. fix later
-        return 11;
-    }
+//    /**
+//     * Static method to keep num times in one place in case of change later
+//     *
+//     * @return Number of time slots in a day
+//     */
+//    public static int getNumTimes() {
+//        // magic numbers are bad style. fix later
+//        return 11;
+//    }
 
     @Override
     public String toString() {
@@ -120,7 +126,7 @@ public class TestAvailability {
 
     @Override
     public int hashCode() {
-        return calculateHash(day, hour, NUM_TIMES);
+        return calculateHash(day, hour, 11);
     }
 
     @Override

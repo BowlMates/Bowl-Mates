@@ -4,8 +4,8 @@ import {restaurant, restaurantJSON} from "../data-types/restaurants";
 // Define a type interface so that the FindRestaurants component knows the type of the return
 interface UseNearbyPlacesResult {
     restaurants: restaurant[];
-    loading: boolean;
-    error: Error | null;
+    placesLoading: boolean;
+    placesError: Error | null;
 }
 
 // Constant for UW location data in case useUserLocation fails to retrieve user location data
@@ -17,8 +17,8 @@ const uwCoords = {
 const useNearbyPlaces = (userLocation: {lat: number, lng: number}): UseNearbyPlacesResult => {
     // Initialize state variables and their set functions, restaurants will contain all of our data from the API call
     const [restaurants, setRestaurants] = useState<restaurant[]>([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState<Error | null>(null);
+    const [placesLoading, setPlacesLoading] = useState(true);
+    const [placesError, setPlacesError] = useState<Error | null>(null);
 
 
     // Probably bad but i don't know how else to do this
@@ -31,7 +31,8 @@ const useNearbyPlaces = (userLocation: {lat: number, lng: number}): UseNearbyPla
         headers: {
             'Content-Type': 'application/json',
             'X-Goog-Api-Key': apiKey,
-            'X-Goog-FieldMask': 'places.id,places.displayName,places.formattedAddress,places.primaryType,places.rating,places.location'
+            'X-Goog-FieldMask': 'places.id,places.displayName,places.formattedAddress,places.primaryType,' +
+                'places.rating,places.location,places.photos'
         },
         body: JSON.stringify({
             includedTypes: ['restaurant'],
@@ -63,22 +64,25 @@ const useNearbyPlaces = (userLocation: {lat: number, lng: number}): UseNearbyPla
 
                 // Here we map the data from the api call onto our restaurant objects using an intermediary
                 // See comment in restaurants interface for more info on restaurantJSON class
-                const restaurantData = data.places.map((place: restaurantJSON) => ({
+                const restaurantData: restaurant[] = data.places.map((place: restaurantJSON) => ({
                     id: place.id || '',
                     name: place.displayName?.text || 'Unknown Name',
                     address: place.formattedAddress || 'Unknown Address',
                     rating: place.rating || 0,
                     cuisine: place.primaryType || 'Unknown Cuisine',
                     latitude: place.location.latitude || 0.0,
-                    longitude: place.location.longitude || 0.0
+                    longitude: place.location.longitude || 0.0,
+                    reference: place.photos[0].name || 'Unknown Photo Reference'
                 }));
+
+
 
                 // Update the state and handle any errors
                 setRestaurants(restaurantData)
-                setLoading(false)
+                setPlacesLoading(false)
             } catch (error: any) {
-                setError(error as Error);
-                setLoading(false);
+                setPlacesError(error as Error);
+                setPlacesLoading(false);
             }
         };
 
@@ -86,7 +90,7 @@ const useNearbyPlaces = (userLocation: {lat: number, lng: number}): UseNearbyPla
     }, []); // The empty dependency array ensures that the effect runs once when the component mounts
 
 
-    return { restaurants, loading, error };
+    return { restaurants, placesLoading, placesError};
 };
 
 export default useNearbyPlaces;
