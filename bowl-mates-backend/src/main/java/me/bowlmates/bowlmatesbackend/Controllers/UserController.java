@@ -3,6 +3,8 @@ package me.bowlmates.bowlmatesbackend.Controllers;
 import me.bowlmates.bowlmatesbackend.Models.*;
 import me.bowlmates.bowlmatesbackend.Repositories.AvailRepo;
 import me.bowlmates.bowlmatesbackend.Repositories.RestRepo;
+import me.bowlmates.bowlmatesbackend.Services.AvailabilityService;
+import me.bowlmates.bowlmatesbackend.Services.MatchingAlgorithm;
 import me.bowlmates.bowlmatesbackend.Services.RestaurantService;
 import me.bowlmates.bowlmatesbackend.Repositories.UserRepo;
 
@@ -34,6 +36,11 @@ public class UserController {
     private AvailRepo availabilityRepository;
     @Autowired
     private RestaurantService restaurantService;
+    @Autowired
+    private AvailabilityService availabilityService;
+
+    @Autowired
+    private MatchingAlgorithm matchingAlgorithm;
 
     /**
      * Landing page for user
@@ -52,8 +59,8 @@ public class UserController {
      *
      * @param body RestaurantDTO list of favorite restaurants
      */
-    @PostMapping("/pref")
-    public void addRestPreference(@RequestBody List<RestaurantDTO> body) {
+    @PostMapping("/prefs/save")
+    public void setRestPreferences(@RequestBody List<RestaurantDTO> body) {
         restaurantService.addPreference(body);
     }
 
@@ -62,8 +69,8 @@ public class UserController {
      *
      * @return Set of RestaurantDTO objects tied to user
      */
-    @GetMapping(value = "/displaypref", produces = "application/json")
-    public Set<RestaurantDTO> displayRestPreference() {
+    @GetMapping(value = "/prefs", produces = "application/json")
+    public Set<RestaurantDTO> getRestPreferences() {
         String username = "";
         Authentication auth = SecurityContextHolder
                 .getContext()
@@ -85,8 +92,8 @@ public class UserController {
      *
      * @return a Set of RestaurantDTO objects representing all restaurants
      */
-    @GetMapping(value = "/displayrests", produces = "application/json")
-    public Set<RestaurantDTO> displayAllRestaurants() {
+    @GetMapping(value = "/rests", produces = "application/json")
+    public Set<RestaurantDTO> getAllRestaurants() {
         List<TestRestaurant> allRests = restaurantRepository.findAll();
         Set<RestaurantDTO> setRests = new HashSet<>();
         for(TestRestaurant restaurant : allRests){
@@ -100,7 +107,7 @@ public class UserController {
      *
      * @return a List of AvailabilityDTO objects representing times user is available
      */
-    @GetMapping(value = "/availability", produces = "application/json")
+    @GetMapping(value = "/avail", produces = "application/json")
     public List<AvailabilityDTO> getAvailability() {
         String username = "";
         Authentication auth = SecurityContextHolder
@@ -113,7 +120,6 @@ public class UserController {
         Set<TestAvailability> availabilities = user.getAvailability();
         List<AvailabilityDTO> aDTO = new ArrayList<>();
         for (TestAvailability avail : availabilities) {
-            System.out.println(avail.getDay());
             aDTO.add(new AvailabilityDTO(avail.getDay(), avail.getHour()));
         }
         return aDTO;
@@ -124,8 +130,26 @@ public class UserController {
      *
      * @param availabilityDTOList List of AvailabilityDTO representing user availability
      */
-    @PostMapping("/availability/save")
+    @PostMapping("/avail/save")
     public void setAvailability(@RequestBody List<AvailabilityDTO> availabilityDTOList) {
+        availabilityService.addAvail(availabilityDTOList);
+    }
+
+
+    // TODO: Matching documentation
+    @GetMapping("/match")
+    public void runMatches() {
+        matchingAlgorithm.QueueUp();
+    }
+
+    @GetMapping(value = "/match/show", produces = "application/json")
+    public List<Integer> showMatches() {
+        return matchingAlgorithm.showQueue();
+    }
+
+    // TODO: Profile documentation
+    @GetMapping("/profile")
+    public ProfileDTO getProfile() {
         String username = "";
         Authentication auth = SecurityContextHolder
                 .getContext()
@@ -134,26 +158,25 @@ public class UserController {
             username = auth.getName();
         }
         TestUser user = userRepository.findByUsername(username);
-        Set<TestAvailability> avails = new HashSet<>();
-        for (AvailabilityDTO avail : availabilityDTOList) {
-            int hash = TestAvailability
-                    .calculateHash(avail.getDay(),
-                            avail.getTime(),
-                            TestAvailability.getNumTimes());
-            TestAvailability tAvail = availabilityRepository.findByHash(hash);
-            if (tAvail == null) {
-                tAvail = new TestAvailability();
-                tAvail.setDay(avail.getDay());
-                tAvail.setHour(avail.getTime());
-            }
-            tAvail.addUser(user);
-            availabilityRepository.save(tAvail);
-            avails.add(tAvail);
-        }
-        user.setAvailability(avails);
+        TestProfile profile = user.getProfile();
+        return profile.getDTO();
     }
-
-    // TODO: userinfo mappings
+    
+    @PostMapping("/profile/save")
+    public void setProfile(@RequestBody ProfileDTO profileDTO) {
+        String username = "";
+        Authentication auth = SecurityContextHolder
+                .getContext()
+                .getAuthentication();
+        if (auth != null && auth.isAuthenticated()) {
+            username = auth.getName();
+        }
+        TestUser user = userRepository.findByUsername(username);
+        TestProfile profile = user.getProfile();
+        profile.setName(profileDTO.getName());
+        profile.setPronouns(profileDTO.getPronouns());
+        profile.setBio(profileDTO.getBio());
+    }
 
     /**
      * Function for integration testing
@@ -167,8 +190,8 @@ public class UserController {
         return response;
     }
 
-    @PostMapping(value = "/image/post")
-    public Boolean updateImage(@RequestBody String body) {
+    @PostMapping(value = "/image/save")
+    public Boolean setImage(@RequestBody String body) {
         // TODO: implement
         return true;
     }
