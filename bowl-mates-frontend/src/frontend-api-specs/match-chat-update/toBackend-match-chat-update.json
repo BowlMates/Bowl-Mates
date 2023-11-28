@@ -1,10 +1,10 @@
 [
   {
-    "conversationId": 1,
+    "matchID": 1,
     "lastSentTime": 1700002460467
   },
   {
-    "conversationId": 2,
+    "matchID": 2,
     "lastSentTime": 1700099990467
   }
 ]

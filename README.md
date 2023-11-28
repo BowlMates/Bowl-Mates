@@ -1,13 +1,24 @@
 # Bowl-Mates  
 ## Beta v1.0.1
 
+## Outside Resources
+* ### Bowlmates User Manual
+  * https://docs.google.com/document/d/1XaWdXT156YKWg6wizoMOhZdTV7eUF3p0ckaLsWxtqPk/edit?usp=sharing
+* ### Bowlmates Living Document
+  * https://docs.google.com/document/d/1s8vvfJqxqnsePnGVFLLxlHJLX_QCBa6_yk7jYLvBLpw/edit?usp=sharing
+* ### Developer Guidelines
+  * https://docs.google.com/document/d/1vekN4H6lccm73DYur62gEpSALbmktFXKYdsQMYk2yRs/edit?usp=sharing
+* ### Bowlmates Bug Tracker (Form)
+  * https://docs.google.com/forms/d/e/1FAIpQLSd9PnUsYVFg4WBpGVpfx50mFsphlle9J71hSRMwnM3gbcExkw/viewform?usp=sharing
+* ### Bowlmates Bug Tracker (Results)
+  * https://docs.google.com/spreadsheets/d/1hyxpv_1DRpXxKBSFBCRmRMxyubDUxN6RGQQbwUv7BUA/edit?usp=sharing
+
 ## How to Build and Test System:
 * ### System automatically builds and tests on pushes/merges to main and production
 * ### To Manually Build:
-  * Gradle -> Tasks -> build -> clean
-  * Gradle -> Tasks -> build -> build
+  * From root directory: ./build.sh
 * ### To Manually Test:
-  * Backend: Gradle -> Tasks -> verification -> check
+  * From root directory: ./test.sh
   * Frontend:
     * (in terminal) npm start
     * Manually verify function of UI components (further instructions in progress)
@@ -15,9 +26,10 @@
 ## How to Run the System:
 * ### Production version is currently running at bowlmates.me
 * ### To Run in your branch:
-  * Backend: Gradle -> Tasks -> application -> bootRun  
+  * Backend: ./run-backend.sh 
         OR bowl-mates-backend -> src -> main -> java -> me.bowlmates.bowlmatesbackend -> BowlMatesBackendApplication
-  * Frontend: npm start
+  * Frontend: ./run-frontend.sh  
+  Note: Running these concurrently will require separate terminal instances
 
 ## Repository Layout:
 * ### bowl-mates-backend
@@ -59,6 +71,7 @@
 ## Version Info:
 
   * JDK 21.0.1
+  * Gradle 8.3
   * Springboot 3.1.5
   * MySQL 8.0.35
   * TypeScript 4.9.5

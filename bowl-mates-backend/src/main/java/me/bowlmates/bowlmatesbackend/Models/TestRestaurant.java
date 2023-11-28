@@ -137,7 +137,6 @@ public class TestRestaurant {
      * @param users Set to assign users field to
      */
     public void setUsers(Set<TestUser> users) {
-        // TODO: store copy instead of reference
         this.users = users;
     }
 

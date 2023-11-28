@@ -114,6 +114,11 @@ public class TestAvailability {
     }
 
     @Override
+    public String toString() {
+        return "Day: " + this.day + ", Time: " + this.hour;
+    }
+
+    @Override
     public int hashCode() {
         return calculateHash(day, hour, NUM_TIMES);
     }

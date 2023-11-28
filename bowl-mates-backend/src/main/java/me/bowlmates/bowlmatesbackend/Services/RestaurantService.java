@@ -36,7 +36,7 @@ public class RestaurantService {
     public void addPreference(List<RestaurantDTO> rests) {
         String username = "";
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if(auth != null && auth.isAuthenticated()){
+        if(auth != null && auth.isAuthenticated()) {
             username = auth.getName();
         } else {
             return;
