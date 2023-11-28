@@ -1,3 +1,5 @@
+
+// React Imports
 import React, {useEffect, useMemo} from "react";
 import useNearbyPlaces from "../../../../hooks/useNearbyPlaces";
 import MapComponent from "./find-restaurants-components/MapComponent";
@@ -8,6 +10,9 @@ import Typography from "@mui/material/Typography";
 import useGetPhotos from "../../../../hooks/useGetPhotos";
 import RestaurantList from "./find-restaurants-components/RestaurantList";
 
+// Custom Imports
+import {useIsUserSessionValid} from "../../../../hooks/useIsUserSessionValid";
+
 
 // The FindRestaurants component is responsible for calling the getNearbyRestaurants function and then
 // displaying all of the data returned by the API to the user
@@ -16,6 +21,13 @@ function FindRestaurants(userLocation: {lat: number; lng: number}) {
     const {photos, photosLoading, photosError} = useGetPhotos(restaurants);
     const memoizedRestaurants = useMemo(() => restaurants, [restaurants]);
     const memoizedPhotos = useMemo(() => photos, [photos]);
+    const isSessionValid = useIsUserSessionValid();
+    useEffect(()=>{
+        // CHECKS IF SESSION IS CURRENTLY VALID BEFORE DRAWING COMPONENT
+        isSessionValid();
+        // CHECKS IF SESSION IS CURRENTLY VALID BEFORE DRAWING COMPONENT
+    });
+
 
     if (placesError) {
         return <div>Error: {placesError.message}</div>;
