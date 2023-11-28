@@ -1,7 +1,7 @@
 // This will ideally change with the value of an environment variable
-// CHANGE TO TRUE IF GOING INTO PRODUCTION
+// CHANGE TO FALSE IF GOING INTO PRODUCTION
 const LOCAL : boolean = true;
-// CHANGE TO TRUE IF GOING INTO PRODUCTION
+// CHANGE TO FALSE IF GOING INTO PRODUCTION
 
 const LOCAL_ADD: string =  "http://localhost:8080";
 const SERVER_ADD: string = "https://backend.bowlmates.me";
