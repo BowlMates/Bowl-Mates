@@ -10,6 +10,7 @@ const ChatSidebarContainer = styled(Box)(() => ({
     className: "chat-sidebar-container",
     height: "100%", // Needs an extra 20 to fill the side otherwise background shows
     width: sidebarMeasurements.chatSidebarWidth,
+    minWidth: sidebarMeasurements.chatSidebarWidth,
     background: "rgba(256, 256, 256, 0.6)",
     display: "inline-block",
     overflow: "hidden",

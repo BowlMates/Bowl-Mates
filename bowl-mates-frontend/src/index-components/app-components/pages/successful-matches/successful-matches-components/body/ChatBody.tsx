@@ -10,7 +10,10 @@ import {sidebarMeasurements} from "../../SuccessfulMatches";
 
 const Body = styled(Box)(() => ({
     height: "100%",
-    width: "calc(100vw - " + sidebarMeasurements.chatSidebarWidthNum + ")",
+    // width: "calc(100vw - " + sidebarMeasurements.chatSidebarWidth + ")",
+    backgroundColor: "purple",
+    flexGrow: 1,
+    minWidth: "200px",
 }));
 
 interface Props {}
