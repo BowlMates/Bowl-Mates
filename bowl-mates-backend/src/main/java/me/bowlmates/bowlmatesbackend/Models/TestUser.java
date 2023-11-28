@@ -41,6 +41,18 @@ public class TestUser implements UserDetails {
     @JoinTable(name = "user_favorite_restaurants")
     private Set<TestRestaurant> favoriteRestaurants;
 
+    @ManyToMany
+    @JoinTable(name = "matches")
+    private Set<TestUser> matches;
+
+    @ManyToMany
+    @JoinTable(name = "approvals")
+    private Set<TestUser> approvals;
+
+    @ManyToMany
+    @JoinTable(name = "rejects")
+    private Set<TestUser> rejects;
+
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private TestProfile profile;
 
@@ -56,6 +68,9 @@ public class TestUser implements UserDetails {
         favoriteRestaurants = new HashSet<>();
         availability = new HashSet<>();
         profile = new TestProfile();
+        matches = new HashSet<>();
+        approvals = new HashSet<>();
+        rejects = new HashSet<>();
         // is there a better way to initialize this array?
         serializedQueue = new byte[0];
     }
@@ -79,6 +94,9 @@ public class TestUser implements UserDetails {
                     String email,
                     Set<Role> authorities,
                     Set<TestRestaurant> rests,
+                    Set<TestUser> matches,
+                    Set<TestUser> approvals,
+                    Set<TestUser> rejects,
                     byte[] queue) {
         super();
         this.id = userId;
@@ -90,6 +108,9 @@ public class TestUser implements UserDetails {
         this.profile = new TestProfile(this, userId);
         this.profile.setName(name);
         this.availability = new HashSet<>();
+        this.matches = matches;
+        this.approvals = approvals;
+        this.rejects = rejects;
         this.serializedQueue = queue;
     }
 
@@ -191,6 +212,60 @@ public class TestUser implements UserDetails {
      */
     public void setFavoriteRestaurants(Set<TestRestaurant> favoriteRestaurants) {
         this.favoriteRestaurants = favoriteRestaurants;
+    }
+
+    /**
+     * gets the matches of the user
+     *
+     * @return the matches of the user
+     */
+    public Set<TestUser> getMatches() {
+        return this.matches;
+    }
+
+    /**
+     * sets the matches of the user
+     *
+     * @param matches the matches to be set
+     */
+    public void setMatches(Set<TestUser> matches) {
+        this.matches = matches;
+    }
+
+    /**
+     * gets the approvals of the user
+     *
+     * @return the approvals of the user
+     */
+    public Set<TestUser> getApprovals() {
+        return this.approvals;
+    }
+
+    /**
+     * sets the approvals of the user
+     *
+     * @param approvals the approvals to be set
+     */
+    public void setApprovals(Set<TestUser> approvals) {
+        this.approvals = approvals;
+    }
+
+    /**
+     * gets the rejects of the user
+     *
+     * @return the rejects of the user
+     */
+    public Set<TestUser> getRejects() {
+        return this.rejects;
+    }
+
+    /**
+     * sets the rejects of the user
+     *
+     * @param rejects the rejects to be set
+     */
+    public void setRejects(Set<TestUser> rejects) {
+        this.rejects = rejects;
     }
 
     /**
