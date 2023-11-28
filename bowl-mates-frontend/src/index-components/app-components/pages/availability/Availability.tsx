@@ -236,12 +236,22 @@ function Availability() {
                     ))}
                 </Box>
 
+                <Box
+                    m={4}
+                    //margin
+                    display="flex"
+                    justifyContent="flex-end"
+                    alignItems="flex-end"
+                >
+                    {/* Submit button */}
+                    <Button type="submit" color="success" variant="contained" size="large">
+                        submit
+                    </Button>
+                </Box>
+
             </Box>
 
-            {/* Submit button */}
-            <Button type="submit" color="success" variant="contained">
-                submit
-            </Button>
+
         </Box>
 
 
