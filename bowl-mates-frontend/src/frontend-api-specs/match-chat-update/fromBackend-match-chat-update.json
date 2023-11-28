@@ -1,0 +1,40 @@
+[
+  {
+    "conversationId": 1,
+    "chat-update": [
+      {
+        "conversationId": 1,
+        "matchId": 1,
+        "date": 1700002292173,
+        "chatterId": 2,
+        "message": "Hello Other User!"
+      },
+      {
+        "conversationId": 1,
+        "matchId": 1,
+        "date": 1700002412889,
+        "chatterId": 2,
+        "message": "Would you like go pump some iron instead of eat?"
+      }
+    ]
+  },
+  {
+    "conversationId": 2,
+    "chat-update": [
+      {
+        "conversationId": 2,
+        "matchId": 1,
+        "date": 1700002292173,
+        "chatterId": 2,
+        "message": "Hello my other User!"
+      },
+      {
+        "conversationId": 2,
+        "matchId": 1,
+        "date": 1700002412889,
+        "chatterId": 2,
+        "message": "Would you like applesauce if I stuck my toes in it?"
+      }
+    ]
+  }
+]

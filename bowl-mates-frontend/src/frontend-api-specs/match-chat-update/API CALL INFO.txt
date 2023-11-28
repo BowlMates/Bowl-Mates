@@ -1,0 +1,16 @@
+//////////////////////////////////////////////////////////////////
+
+TYPE: GET
+BODY: toBackend-match-chat-update.json
+      **A list of conversationIds and the last message timestamp**
+
+Responses:
+401 (Not authorized) - empty body
+4XX (Unsuccessful) - empty Body
+200 (Success) - fromBackend-match-chat-update.json
+
+Explanation: This will get a list of conversations that have
+             updated and will also provide the user with the
+             updates in a similar format to match-chat-initial
+
+//////////////////////////////////////////////////////////////////
