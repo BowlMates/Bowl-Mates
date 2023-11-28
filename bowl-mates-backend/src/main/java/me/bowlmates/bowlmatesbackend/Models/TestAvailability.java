@@ -18,8 +18,9 @@ import java.util.Set;
 @Table(name = "test_availability")
 public class TestAvailability {
     @jakarta.persistence.Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
-
+    @Column(unique = true)
+    private Integer hash;
+    
     private final int NUM_TIMES = getNumTimes();
 
     @ManyToMany(mappedBy = "availability")
@@ -29,8 +30,7 @@ public class TestAvailability {
     private Integer hour;
     @Column
     private Integer day;
-    @Column(unique = true)
-    private Integer hash;
+
 
     /**
      * Default constructor
