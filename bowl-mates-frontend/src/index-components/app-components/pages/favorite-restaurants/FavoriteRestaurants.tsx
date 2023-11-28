@@ -120,4 +120,4 @@ function FavoriteRestaurants () {
     )
 }
 
-export default FavoriteRestaurants
+export default React.memo(FavoriteRestaurants)
