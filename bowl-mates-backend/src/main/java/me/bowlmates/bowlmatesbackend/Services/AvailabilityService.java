@@ -45,8 +45,14 @@ public class AvailabilityService {
         TestUser user = userRepository.findByUsername(username);
         Set<TestAvailability> updatedAvails = new HashSet<>();
         for (AvailabilityDTO avail : avails) {
-            int hash = TestAvailability.calculateHash(avail.getDay(), avail.getTime(), TestAvailability.getNumTimes());
+            int hash = TestAvailability.calculateHash(avail.getDay(), avail.getTime(), 11);
             TestAvailability updated = availRepository.findByHash(hash);
+            System.out.println(hash);
+            if (updated == null) {
+                updated = new TestAvailability(avail.getDay(), avail.getTime());
+                availRepository.save(updated);
+            }
+            updated.addUser(user);
             updatedAvails.add(updated);
         }
         user.setAvailability(updatedAvails);
