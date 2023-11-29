@@ -419,7 +419,7 @@ function SuccessfulMatches() {
                 />
             </SuccessfulMatchesSidebar>
             <ChatBody>
-                <MessageBubble/>
+                <MessageBubble message={"hello there sir"}/>
             </ChatBody>
         </SuccessfulMatchesContainer>
     )
