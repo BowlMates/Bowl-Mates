@@ -1,7 +1,7 @@
 import {restaurant} from "../data-types/restaurants";
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 
-// Probably bad but i don't know how else to do this
+// Probably bad but I don't know how else to do this
 const apiKey = "AIzaSyBQ_hQeijI05VaIoVXCStdM9ff-yc9T3jA"
 
 interface useGetPhotosResult {
@@ -14,6 +14,9 @@ const useGetPhotos = (restaurants: restaurant[]): useGetPhotosResult => {
     const [photos, setPhotos] = useState<string[]>([])
     const [photosLoading, setPhotosLoading] = useState(true);
     const [photosError, setPhotosError] = useState<Error | null>(null);
+
+    // Keep a reference to the previous userLocation
+    const prevRestaurants = useRef(restaurants);
 
     useEffect(() => {
         const fetchPhotos = async () => {
@@ -32,14 +35,19 @@ const useGetPhotos = (restaurants: restaurant[]): useGetPhotosResult => {
                     setPhotosLoading(false);
                 };
 
-                sequentialFetch();
+                await sequentialFetch();
             } catch(error: any){
                 setPhotosError(error as Error);
                 setPhotosLoading(false)
             }
         }
-
-        fetchPhotos()
+        if(prevRestaurants.current !== restaurants){
+            console.log("Get photos api call executes...")
+            fetchPhotos();
+            prevRestaurants.current = restaurants;
+        } else{
+            console.log("Get photos api call skipped...")
+        }
     }, [restaurants]);
 
     return {photos, photosLoading, photosError};

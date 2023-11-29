@@ -11,7 +11,7 @@ import IconButton from "@mui/material/IconButton";
 
 // Custom Imports
 import {useGetRestaurants} from "../../../../hooks/useGetRestaurants";
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useMemo, useState} from "react";
 import useSaveRestaurant from "../../../../hooks/useSaveRestaurants";
 
 
@@ -21,9 +21,10 @@ function FavoriteRestaurants () {
     const {favRes, setFavRes, postRestaurants, getRestaurants} = useGetRestaurants();
     const { saveRestaurant } = useSaveRestaurant();
 
+    const memoizedFavs = useMemo(() => favRes, [favRes]);
+
     const theme = useTheme();
 
-    console.log("here")
     const [boolFavs, setBoolFavs] = useState([false, false, false, false, false, false]);
 
     // Fetch favorite restaurants on component mount
@@ -69,7 +70,7 @@ function FavoriteRestaurants () {
                 your favorites
             </Typography>
             <Grid container spacing = {3}>
-                {favRes.map((restaurant: restaurant, index) => (
+                {memoizedFavs.map((restaurant: restaurant, index) => (
                     <Grid item xs={12} sm={6} md={4} key={restaurant.id}>
                         <Card sx={{
                             display: 'flex',
@@ -104,7 +105,7 @@ function FavoriteRestaurants () {
                                     marginTop: 'auto', // Align the icon to the bottom of the Card
                                 }}
                                 onClick = {() => {
-                                    console.log(restaurant.name)
+                                    console.log(restaurant.name);
                                     saveRestaurant(restaurant);
                                     getRestaurants();
                                 }}
@@ -119,4 +120,4 @@ function FavoriteRestaurants () {
     )
 }
 
-export default FavoriteRestaurants
+export default React.memo(FavoriteRestaurants)

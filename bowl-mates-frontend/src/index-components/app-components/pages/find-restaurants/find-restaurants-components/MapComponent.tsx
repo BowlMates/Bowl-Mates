@@ -8,10 +8,9 @@ const mapContainerStyle = {
     height: '100%',
 };
 
-// The Map component is what renders our interactable google map as well as initializes all of the markers
+// The Map component is what renders our interactable google map as well as initializes all the markers
 // contained within it via location data passed in via the restaurant and location props
 function MapComponent({restaurants, userLocation}: {restaurants: restaurant[], userLocation: {lat: number, lng: number }}) {
-
     return (
             <GoogleMap mapContainerStyle={mapContainerStyle} center={userLocation} zoom={13}>
                 <MarkerF
@@ -29,4 +28,4 @@ function MapComponent({restaurants, userLocation}: {restaurants: restaurant[], u
     );
 }
 
-export default MapComponent;
+export default React.memo(MapComponent);

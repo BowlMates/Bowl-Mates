@@ -1,5 +1,5 @@
 import {restaurant} from "../../../../../data-types/restaurants";
-import React from "react";
+import React, {memo} from "react";
 import Grid from "@mui/material/Grid";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
@@ -79,4 +79,4 @@ const RestaurantList: React.FC<RestaurantListProps> = ({ restaurants, photos }) 
         </Grid>
     );
 }
-export default RestaurantList;
+export default React.memo(RestaurantList);

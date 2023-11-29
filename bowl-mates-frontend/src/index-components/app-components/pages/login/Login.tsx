@@ -16,7 +16,6 @@ const GreenText = styled(Typography)(({theme}) => ({
 
 
 function Login() {
-
     const theme = useTheme();
 
     const [username, setUsername] = useState("");
@@ -44,7 +43,7 @@ function Login() {
             <TextField
                 sx={{backgroundColor: "white", width: "20vw", marginBottom: "1vh", marginTop: "2vh"}}
                 label="Password"
-                type={password}
+                type="password"
                 variant="standard"
                 onChange={(event) => {
                     setPassword(event.target.value);

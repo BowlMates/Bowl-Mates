@@ -1,16 +1,15 @@
 import {restaurant} from "../data-types/restaurants";
 import {useAuthHeader} from "react-auth-kit";
+import {user_prefs_save_address} from "../api-addresses";
+
 
 const useSaveRestaurant = () => {
     const authHeader = useAuthHeader();
 
     const saveRestaurant = (restaurant: restaurant)=> {
-        let postRestTestLink : string = "http://localhost:8080/user/prefs/save";
-        //let postRestProdLink : string = "https://backend.bowlmates.me/user/prefs/save";
-
         const token = authHeader();
 
-        fetch(postRestTestLink, {
+        fetch(user_prefs_save_address, {
             headers: {
                 "Authorization" : token,
                 "Content-Type": "application/json",
@@ -23,7 +22,6 @@ const useSaveRestaurant = () => {
             } else {
                 console.log(res)
                 console.log("Failed to post");
-                JSON.stringify(restaurant);
             }
         });
     }

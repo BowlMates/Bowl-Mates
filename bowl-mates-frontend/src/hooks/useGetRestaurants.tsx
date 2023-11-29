@@ -4,12 +4,13 @@ import {useState} from "react";
 // React Auth Kit Imports
 import {useAuthHeader} from 'react-auth-kit'
 import {user_prefs_address, user_prefs_save_address} from "../api-addresses";
+import {restaurant} from "../data-types/restaurants";
 
 
 
 export const useGetRestaurants = () => {
 
-    const [favRes, setFavRes] = useState([]);
+    const [favRes, setFavRes] = useState<restaurant[]>([]);
 
     const authHeader = useAuthHeader();
 
@@ -34,7 +35,15 @@ export const useGetRestaurants = () => {
                 console.log("Unable to get Restaurants");
                 setFavRes([]);
             } else {
-                setFavRes(body);
+                let temp: restaurant[] = body;
+                temp.sort((a,b) => {
+                    // Primary sort by 'name'
+                    const nameComparison = a.name.localeCompare(b.name);
+
+                    // Secondary sort by 'rating' if 'name' is the same
+                    return nameComparison !== 0 ? nameComparison : b.rating - a.rating;
+            })
+                setFavRes(temp);
             }
         });
 
