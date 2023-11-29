@@ -1,6 +1,7 @@
 package me.bowlmates.bowlmatesbackend.Repositories;
 
 import me.bowlmates.bowlmatesbackend.Models.TestProfile;
+import me.bowlmates.bowlmatesbackend.Models.TestUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 // TODO: Documentation

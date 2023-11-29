@@ -5,6 +5,7 @@ import me.bowlmates.bowlmatesbackend.Repositories.AvailRepo;
 import me.bowlmates.bowlmatesbackend.Repositories.RestRepo;
 import me.bowlmates.bowlmatesbackend.Services.AvailabilityService;
 import me.bowlmates.bowlmatesbackend.Services.MatchingAlgorithm;
+import me.bowlmates.bowlmatesbackend.Services.ProfileService;
 import me.bowlmates.bowlmatesbackend.Services.RestaurantService;
 import me.bowlmates.bowlmatesbackend.Repositories.UserRepo;
 
@@ -33,11 +34,11 @@ public class UserController {
     @Autowired
     private RestRepo restaurantRepository;
     @Autowired
-    private AvailRepo availabilityRepository;
-    @Autowired
     private RestaurantService restaurantService;
     @Autowired
     private AvailabilityService availabilityService;
+    @Autowired
+    private ProfileService profileService;
 
     @Autowired
     private MatchingAlgorithm matchingAlgorithm;
@@ -154,33 +155,13 @@ public class UserController {
 
     // TODO: Profile documentation
     @GetMapping("/profile")
-    public ProfileDTO getProfile() {
-        String username = "";
-        Authentication auth = SecurityContextHolder
-                .getContext()
-                .getAuthentication();
-        if (auth != null && auth.isAuthenticated()) {
-            username = auth.getName();
-        }
-        TestUser user = userRepository.findByUsername(username);
-        TestProfile profile = user.getProfile();
-        return profile.getDTO();
+    public ProfileDTO getProfile() throws Exception {
+        profileService.getProfile();
     }
 
     @PostMapping("/profile/save")
-    public void setProfile(@RequestBody ProfileDTO profileDTO) {
-        String username = "";
-        Authentication auth = SecurityContextHolder
-                .getContext()
-                .getAuthentication();
-        if (auth != null && auth.isAuthenticated()) {
-            username = auth.getName();
-        }
-        TestUser user = userRepository.findByUsername(username);
-        TestProfile profile = user.getProfile();
-        profile.setName(profileDTO.getName());
-        profile.setPronouns(profileDTO.getPronouns());
-        profile.setBio(profileDTO.getBio());
+    public void setProfile(@RequestBody ProfileDTO profileDTO) throws Exception {
+        profileService.updateProfile(profileDTO);
     }
 
     // TODO: Message documentation
