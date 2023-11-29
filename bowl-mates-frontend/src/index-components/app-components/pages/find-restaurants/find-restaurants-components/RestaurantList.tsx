@@ -21,7 +21,7 @@ const RestaurantList: React.FC<RestaurantListProps> = ({ restaurants, photos }) 
     return(
         <Grid container spacing={3}>
             {restaurants.map((restaurant, index) => (
-                <Grid item xs={12} sm={6} md={4} key={restaurant.id}>
+                <Grid item xs={12} sm={6} key={restaurant.id}>
                     <Card
                         sx={{
                             display: 'flex',

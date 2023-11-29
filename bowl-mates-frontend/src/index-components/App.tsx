@@ -13,7 +13,6 @@ import {LoadScript} from "@react-google-maps/api";
 
 // Route Imports
 import Home from "./app-components/pages/home/Home";
-import FavoriteRestaurants from "./app-components/pages/favorite-restaurants/FavoriteRestaurants";
 import Availability from "./app-components/pages/availability/Availability";
 import Matching from "./app-components/pages/matching/Matching";
 import SuccessfulMatches from "./app-components/pages/successful-matches/SuccessfulMatches";
@@ -72,7 +71,6 @@ function App() {
                         <LoadScript googleMapsApiKey="AIzaSyDXlQY2uFzDvS7HRowdgflkRqWtmKqYaGw"/>
                         <Routes>
                             <Route path={"/"} element={<Home />}/>
-                            <Route path={"/favorite-restaurants"} element={<FavoriteRestaurants />}/>
                             <Route path={"/find-restaurants"} element={<FindRestaurants   lat={userLocation.lat} lng={userLocation.lng}/>}/>
                             <Route path={"/availability"} element={<Availability />}/>
                             <Route path={"/matching"} element={<Matching />}/>
