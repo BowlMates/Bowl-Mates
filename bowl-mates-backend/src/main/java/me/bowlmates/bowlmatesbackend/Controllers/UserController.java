@@ -55,12 +55,12 @@ public class UserController {
     }
 
     /**
-     * Adds restaurant to user's favorites
+     * Adds restaurants to user's favorites
      *
-     * @param body RestaurantDTO restaurant object returned from the front end
+     * @param body RestaurantDTO list of favorite restaurants
      */
     @PostMapping("/prefs/save")
-    public void setRestPreferences(@RequestBody RestaurantDTO body) {
+    public void setRestPreferences(@RequestBody List<RestaurantDTO> body) {
         restaurantService.addPreference(body);
     }
 
@@ -145,6 +145,11 @@ public class UserController {
     @GetMapping(value = "/match/show", produces = "application/json")
     public List<Integer> showMatches() {
         return matchingAlgorithm.showQueue();
+    }
+
+    @PostMapping("/match/approve")
+    public List<Integer> approve(@RequestBody Integer userId) {
+        return matchingAlgorithm.approve(userId);
     }
 
     // TODO: Profile documentation
