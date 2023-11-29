@@ -16,7 +16,7 @@ function Home () {
     return (
         <>
             <Typography variant={"h1"}>
-                This is the home page!
+                Welcome home, son!
             </Typography>
             <img alt={"Adam watching yo, he is."} src={"https://i.ibb.co/TmJw9kS/IMG-3336.jpg"} style={{height : "100%", width : "100%"}}/>
         </>
