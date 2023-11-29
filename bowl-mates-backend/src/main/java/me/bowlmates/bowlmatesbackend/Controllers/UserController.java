@@ -60,7 +60,7 @@ public class UserController {
      * @param body RestaurantDTO list of favorite restaurants
      */
     @PostMapping("/prefs/save")
-    public void setRestPreferences(@RequestBody List<RestaurantDTO> body) {
+    public void setRestPreferences(@RequestBody RestaurantDTO body) {
         restaurantService.addPreference(body);
     }
 
