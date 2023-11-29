@@ -1,6 +1,6 @@
 
 // React Imports
-import React, {useEffect, useState, useMemo} from "react";
+import React, {useEffect, useMemo} from "react";
 import useNearbyPlaces from "../../../../hooks/useNearbyPlaces";
 import MapComponent from "./find-restaurants-components/MapComponent";
 import {useGetRestaurants} from "../../../../hooks/useGetRestaurants";
@@ -10,27 +10,36 @@ import {restaurant} from "../../../../data-types/restaurants";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import useGetPhotos from "../../../../hooks/useGetPhotos";
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import IconButton from "@mui/material/IconButton";
-import {red, grey} from "@mui/material/colors";
-import CardMedia from "@mui/material/CardMedia";
-import Button from '@mui/material/Button';
 import {useIsUserSessionValid} from "../../../../hooks/useIsUserSessionValid";
 import RestaurantList from "./find-restaurants-components/RestaurantList";
 import FavoriteList from "./find-restaurants-components/FavoriteList";
-
-
 
 // The FindRestaurants component is responsible for calling the getNearbyRestaurants function and then
 // displaying all the data returned by the API to the user
 function FindRestaurants(userLocation: {lat: number; lng: number}) {
     const {restaurants, placesError} = useNearbyPlaces(userLocation);
-    const {favRes, setFavRes, getRestaurants} = useGetRestaurants();
     const {photos, photosError} = useGetPhotos(restaurants);
+    const {favRes, getRestaurants} = useGetRestaurants();
     const memoizedRestaurants = useMemo(() => restaurants, [restaurants]);
     const memoizedPhotos = useMemo(() => photos, [photos]);
+
+    let restaurantWithPhotos: restaurant[] = [];
+
+    for(let i = 0; i < memoizedRestaurants.length; i++){
+        let splicedRest: restaurant = {
+            id: memoizedRestaurants[i].id,
+            name: memoizedRestaurants[i].name,
+            address: memoizedRestaurants[i].address,
+            cuisine: memoizedRestaurants[i].cuisine,
+            rating: memoizedRestaurants[i].rating,
+            latitude: memoizedRestaurants[i].latitude,
+            longitude: memoizedRestaurants[i].longitude,
+            reference: memoizedPhotos[i]
+        }
+
+        restaurantWithPhotos.push(splicedRest);
+    }
+
     const isSessionValid = useIsUserSessionValid();
 
     useEffect(()=>{
@@ -42,61 +51,7 @@ function FindRestaurants(userLocation: {lat: number; lng: number}) {
     // Fetch favorite restaurants on component mount
     useEffect(()=>{
         getRestaurants();
-    },[]);
-
-
-    // State to manage favorite restaurants
-    const [favorites, setFavorites] = useState<restaurant[]>(favRes);
-
-    // Check if a restaurant is a favorite
-    const isFavorite = (id: number) => {
-        return favorites.some(fav => fav.id === id);
-    }
-
-    // Toggle favorite status
-    const toggleFavorite = (restaurant: restaurant) => {
-        if (isFavorite(restaurant.id)) {
-            // If it's already a favorite, remove it
-            setFavorites(favorites.filter(fav => fav.name !== restaurant.name));
-        } else {
-            // If it's not a favorite, add it
-            setFavorites([...favorites, restaurant]);
-        }
-    };
-
-    // Save favorites to local storage or server
-    const saveFavorites = () => {
-        // Implement saving logic
-        // For example, save to local storage or send to a server
-        // @ts-ignore
-        setFavRes(favorites);
-    };
-
-    // Render restaurant card
-    const renderRestaurantCard = (restaurant: restaurant, isFav: boolean) => (
-        <Card sx={{ marginBottom:2, border: '1px solid #ccc', borderRadius: '4px' }}>
-            {/* Placeholder for restaurant photo */}
-            <CardMedia
-                component="img"
-                height="140"
-                image="/placeholder-image.jpg" // Replace with actual image path
-                alt={restaurant.name}
-            />
-            <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
-                    {restaurant.name}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                    {restaurant.address}
-                </Typography>
-                {/* Add more restaurant details as needed */}
-            </CardContent>
-            <IconButton onClick={() => toggleFavorite(restaurant)}>
-                <FavoriteIcon style={{ color: isFav ? red[500] : grey[500] }} />
-            </IconButton>
-        </Card>
-    );
-
+    },[favRes]);
 
     if(photosError){
         return <div>Error: {photosError.message}</div>
@@ -106,6 +61,7 @@ function FindRestaurants(userLocation: {lat: number; lng: number}) {
         return <div>Error: {placesError.message}</div>;
     }
 
+    //TODO: Answer the "button" question (i.e. how are we going to implement batch updates
     return (
         <Box
             display="flex"
@@ -124,11 +80,11 @@ function FindRestaurants(userLocation: {lat: number; lng: number}) {
                 maxHeight="100%"
                 display="flex"
                 flexDirection="column">
-                <Typography variant="h5" gutterBottom component="div" sx={{ padding: 1, backgroundColor: 'transparent', color: '#54804D', fontSize: '34px' }}>
+                <Typography variant="h5" sx={{ padding: 1, backgroundColor: 'transparent', color: '#54804D', fontSize: '34px', textAlign: 'center' }}>
                     Nearby Restaurants
                 </Typography>
-                <Box sx={{ padding: 2, maxHeight: '100%', overflowY: 'auto', flexGrow: 1 }}>
-                    <RestaurantList restaurants={memoizedRestaurants} photos={memoizedPhotos}/>
+                <Box sx={{ padding: 2, maxHeight: '100%', overflowY: 'auto'}}>
+                    <RestaurantList restaurants={restaurantWithPhotos}/>
                 </Box>
             </Box>
 
@@ -149,10 +105,10 @@ function FindRestaurants(userLocation: {lat: number; lng: number}) {
                  maxHeight="100%"
                  display="flex"
                  flexDirection="column">
-                <Typography variant="h5" gutterBottom component="div" sx={{ padding: 1, backgroundColor: 'transparent', color: '#54804D', fontSize: '34px' }}>
+                <Typography variant="h5" sx={{ padding: 1, backgroundColor: 'transparent', color: '#54804D', fontSize: '34px', textAlign: 'center' }}>
                     Favorite Restaurants
                 </Typography>
-                <Box sx={{ padding: 2, maxHeight: '100%', overflowY: 'auto', flexGrow: 1 }}>
+                <Box sx={{ padding: 2, maxHeight: '100%', overflowY: 'auto'}}>
                     <FavoriteList favRestaurants={favRes} />
                 </Box>
                 {/*<Button variant="contained" onClick={saveFavorites} sx={{ m: 2, mt: 'auto', color: '#54804D' }}>*/}
