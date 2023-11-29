@@ -55,6 +55,13 @@ public class TestMessage {
         this.message = message;
     }
 
+    public MessageDTO toMessageDTO() {
+        return new MessageDTO(this.matchId,
+                this.date,
+                this.chatterId,
+                this.message);
+    }
+
     @Override
     public int hashCode() {
         return this.id;
