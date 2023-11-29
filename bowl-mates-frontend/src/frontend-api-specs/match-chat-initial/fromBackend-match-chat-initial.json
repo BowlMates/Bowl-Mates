@@ -1,0 +1,50 @@
+[
+  {
+    "matchId": 1,
+    "date": 1700002292173,
+    "chatterId": 2,
+    "message": "Hello Other User!"
+  },
+  {
+    "matchId": 1,
+    "date": 1700002412889,
+    "chatterId": 2,
+    "message": "Would you like to eat with me?"
+  },
+  {
+    "matchId": 1,
+    "date": 1700002426821,
+    "chatterId": 1,
+    "message": "Hell naw fam!"
+  },
+  {
+    "matchId": 1,
+    "date": 1700002434525,
+    "chatterId": 2,
+    "message": "fr fr?! Then y u match w/ me m8?!"
+  },
+  {
+    "matchId": 1,
+    "date": 1700002440493,
+    "chatterId": 1,
+    "message": "You was lookin bussin. Dat's y. U knw wt i'm sayin fr fr?"
+  },
+  {
+    "matchId": 1,
+    "date": 1700002447981,
+    "chatterId": 2,
+    "message": "I get that a lot. I truly am \"bussin\" as the youngins say these days."
+  },
+  {
+    "matchId": 1,
+    "date": 1700002454662,
+    "chatterId": 1,
+    "message": "Hellz yah brudder"
+  },
+  {
+    "matchId": 1,
+    "date": 1700002460467,
+    "chatterId": 2,
+    "message": "Good Day, my dudey dude"
+  }
+]

@@ -1,33 +1,39 @@
-//import react from react;
-//import Paper from
 
-import {Card, CardActionArea, CardContent, CardMedia} from "@mui/material";
+import {Card, CardContent, CardMedia} from "@mui/material";
 import Typography from "@mui/material/Typography";
 
+// example user, we would use users from the matches queue to get the data
+const user = {
+    name: 'Hedy Lamarr',
+    pronouns: 'she/her',
+    bio: 'I am a baddie you cannot stop me',
+    image: 'https://i.imgur.com/yXOvdOSs.jpg',
+};
+
+
 const UserCard = () => {
+    // returns a user card containing pic, name, pronouns, and bio from their unique user number
     return (
         <Card>
-        <CardActionArea>
             <CardMedia
                 component="img"
-                height="140"
-                image="/static/images/cards/contemplative-reptile.jpg"
-                alt="green iguana"
+                // height="500"
+                image={user.image}
+                alt="user photo"
             />
             <CardContent>
                 <Typography gutterBottom variant="h3" component="div">
-                    Geoff Geoff
+                    {user.name}
                 </Typography>
                 <Typography gutterBottom variant="body1" component="div">
-                    He/him
+                    {user.pronouns}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                    This is my bio, please swipe right!
+                    {user.bio}
                 </Typography>
             </CardContent>
-        </CardActionArea>
-    </Card>
-);
+        </Card>
+    );
 }
 
 export default UserCard;
