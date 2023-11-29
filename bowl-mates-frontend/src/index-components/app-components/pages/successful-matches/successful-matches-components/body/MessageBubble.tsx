@@ -6,25 +6,35 @@ import {styled} from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 
-const StyledBody = styled(Box)(() => ({
+const ChatContainer = styled(Box)(() => ({
     maxWidth: "40%",
-    backgroundColor: "greenyellow",
+    width: "fit-content"
 }));
 
 interface Props {
-    message : string;
+    message : string,
+    isUser : boolean,
 }
 
 function MessageBubble(props : Props){
 
+    const ChatBubble = styled(Box)(() => ({
+        position: "relative",
+        padding: "10px 20px 10px 20px",
+        background: props.isUser ? "lightGreen" : "hotPink",
+        borderRadius: props.isUser ? "30px 30px 0px 30px" : "30px 30px 30px 0px",
+        overflowWrap: "break-word",
+    }));
+
     return (
-        <StyledBody>
-            <Typography>
-                {props.message}
-            </Typography>
-        </StyledBody>
+        <ChatContainer>
+            <ChatBubble >
+                <Typography>
+                    {props.message}
+                </Typography>
+            </ChatBubble>
+        </ChatContainer>
     );
-    // return (<></>);
 }
 
 export default MessageBubble
