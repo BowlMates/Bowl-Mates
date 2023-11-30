@@ -1,10 +1,8 @@
-<<<<<<< HEAD
+
 
 // React Imports
 import React, {useEffect, useMemo} from "react";
-=======
-import React from "react";
->>>>>>> backend-convo
+
 import useNearbyPlaces from "../../../../hooks/useNearbyPlaces";
 import MapComponent from "./find-restaurants-components/MapComponent";
 import {useGetRestaurants} from "../../../../hooks/useGetRestaurants";
@@ -14,19 +12,16 @@ import {restaurant} from "../../../../data-types/restaurants";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import useGetPhotos from "../../../../hooks/useGetPhotos";
-<<<<<<< HEAD
+
 import {useIsUserSessionValid} from "../../../../hooks/useIsUserSessionValid";
 import RestaurantList from "./find-restaurants-components/RestaurantList";
 import FavoriteList from "./find-restaurants-components/FavoriteList";
-=======
-import RestaurantList from "./find-restaurants-components/RestaurantList";
 
->>>>>>> backend-convo
+
 
 // The FindRestaurants component is responsible for calling the getNearbyRestaurants function and then
 // displaying all the data returned by the API to the user
 function FindRestaurants(userLocation: {lat: number; lng: number}) {
-<<<<<<< HEAD
     const {restaurants, placesError} = useNearbyPlaces(userLocation);
     const {photos, photosError} = useGetPhotos(restaurants);
     const {favRes, getRestaurants} = useGetRestaurants();
@@ -62,22 +57,17 @@ function FindRestaurants(userLocation: {lat: number; lng: number}) {
     useEffect(()=>{
         getRestaurants();
     },[favRes]);
-=======
-    const {restaurants, placesLoading, placesError} = useNearbyPlaces(userLocation);
-    const {photos, photosLoading, photosError} = useGetPhotos(restaurants);
+    // const {restaurants, placesLoading, placesError} = useNearbyPlaces(userLocation);
+    // const {photos, photosLoading, photosError} = useGetPhotos(restaurants);
 
     if (placesError) {
         return <div>Error: {placesError.message}</div>;
     }
->>>>>>> backend-convo
 
     if(photosError){
         return <div>Error: {photosError.message}</div>
     }
 
-    if (placesError) {
-        return <div>Error: {placesError.message}</div>;
-    }
 
     //TODO: Answer the "button" question (i.e. how are we going to implement batch updates
     return (
