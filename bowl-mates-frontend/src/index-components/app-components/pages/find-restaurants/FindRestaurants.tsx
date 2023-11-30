@@ -45,6 +45,7 @@ function FindRestaurants(userLocation: {lat: number; lng: number}) {
         restaurantWithPhotos.push(splicedRest);
     }
 
+
     const isSessionValid = useIsUserSessionValid();
 
     useEffect(()=>{
@@ -84,15 +85,24 @@ function FindRestaurants(userLocation: {lat: number; lng: number}) {
                 flex={{ xs: 1, md: 1 }}
                 marginRight={{ md: 2 }}
                 border={{ md: '3px solid #000000' }}
-                borderRadius={{ md: '4px' }}
+                borderRadius={{ md: '12px' }}
                 maxHeight="100%"
                 display="flex"
                 flexDirection="column">
                 <Typography variant="h5" sx={{ padding: 1, backgroundColor: 'transparent', color: '#54804D', fontSize: '34px', textAlign: 'center' }}>
                     Nearby Restaurants
                 </Typography>
-                <Box sx={{ padding: 2, maxHeight: '100%', overflowY: 'auto'}}>
-                    <RestaurantList restaurants={restaurantWithPhotos}/>
+                <Box sx={{
+                    padding: 2,
+                    maxHeight: '100%',
+                    overflowY: "hidden",
+
+                    // Uses the hover property of css
+                    '&:hover': {
+                        overflowY: "auto",
+                    }
+                }}>
+                    <RestaurantList restaurants={restaurantWithPhotos} favRes={favRes}/>
                 </Box>
             </Box>
 
@@ -100,7 +110,7 @@ function FindRestaurants(userLocation: {lat: number; lng: number}) {
             <Box
                 flex={{ xs: 1, md: 1 }}
                 border={{ md: '3px solid #000000' }}
-                borderRadius={{ md: '4px' }}
+                borderRadius={{ md: '12px' }}
                 marginRight={{ xs: 0, md: 2 }}
                 height="100%">
                 <MapComponent restaurants={restaurants} userLocation={userLocation} />
@@ -109,14 +119,23 @@ function FindRestaurants(userLocation: {lat: number; lng: number}) {
             {/* Favorite Restaurants Column */}
             <Box flex={{ xs: 1, md: 1 }}
                  border={{ md: '3px solid #000000' }}
-                 borderRadius={{ md: '4px' }}
+                 borderRadius={{ md: '12px' }}
                  maxHeight="100%"
                  display="flex"
                  flexDirection="column">
                 <Typography variant="h5" sx={{ padding: 1, backgroundColor: 'transparent', color: '#54804D', fontSize: '34px', textAlign: 'center' }}>
                     Favorite Restaurants
                 </Typography>
-                <Box sx={{ padding: 2, maxHeight: '100%', overflowY: 'auto'}}>
+                <Box sx={{
+                    padding: 2,
+                    maxHeight: '100%',
+                    overflowY: "hidden",
+
+                    // Uses the hover property of css
+                    '&:hover': {
+                        overflowY: "auto"
+                    }
+                }}>
                     <FavoriteList favRestaurants={favRes} />
                 </Box>
                 {/*<Button variant="contained" onClick={saveFavorites} sx={{ m: 2, mt: 'auto', color: '#54804D' }}>*/}
