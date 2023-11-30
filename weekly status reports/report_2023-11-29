@@ -1,0 +1,146 @@
+# TEAM REPORT
+
+## PREVIOUS WEEK'S GOALS
+* Improve simplicity and clarity for new contributors
+* Refactor Restaurant representation and data transfer process to eliminate SQL bugs and improve performance
+* Work on caching data returned from api calls to improve performance and save resources
+
+## PROGRESS AND ISSUES
+* Restaurant finding + favoriting merged
+* Restaurant finding + favoriting page fully functional
+* Home page is amusing
+* 
+
+### Things that worked:
+* We now have restaurant data flowing from the Google API to the frontend, then posting to the backend, being processed and then stored in our database. And it's all dynamic and based on user location.  
+
+### Things that did not work:
+*
+
+### What we learned:
+*
+
+### Where we had trouble:
+*
+
+### Where we were blocked:
+*
+
+## PLANS AND GOALS FOR NEXT WEEK
+* Have a functional app for our demo
+
+# INDIVIDUAL REPORTS
+
+### JASPER
+
+-- Goals (accomplished) for this past week --
+
+
+-- Progress and Issues --
+
+
+-- Things I had trouble with--
+
+
+-- Blocks --
+
+
+-- Plans and Goals for Next Week --
+
+  
+
+### ____________________________________________
+
+### CADE
+
+-- Goals (accomplished) for this past week -- 
+
+
+-- Progress and Issues --
+
+
+-- Things I had trouble with--
+
+
+-- Blocks --
+
+
+-- Plans and Goals for Next Week --
+
+
+### ____________________________________________
+
+### GEOFFREY
+
+-- Goals (accomplished) for this past week --
+
+
+-- Progress and Issues --
+
+
+-- Things I had trouble with--
+
+
+-- Blocks --
+
+
+-- Plans and Goals for Next Week --
+
+
+### ____________________________________________
+
+### TIM
+
+-- Goals (accomplished) for this past week --
+
+
+-- Progress and Issues --
+
+
+-- Things I had trouble with--
+
+
+-- Blocks --
+
+
+-- Plans and Goals for Next Week --
+
+
+### ____________________________________________
+
+### STEPHEN
+
+-- Goals (accomplished) for this past week --
+  
+
+-- Progress and Issues --
+
+  
+-- Things I had trouble with--
+
+  
+-- Blocks --
+
+  
+-- Plans and Goals for Next Week --
+
+
+### ____________________________________________
+
+### DAN
+
+-- Goals (accomplished) for this past week --
+
+
+-- Progress and Issues --
+
+
+-- Things I had trouble with --
+
+
+-- Blocks --
+
+
+-- Plans and Goals for Next Week --
+
+
