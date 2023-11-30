@@ -43,8 +43,68 @@
   },
   {
     "matchId": 1,
+    "date": 1700002454662,
+    "chatterId": 2,
+    "message": "Hellz yah brudder"
+  },
+  {
+    "matchId": 1,
+    "date": 1700002454662,
+    "chatterId": 1,
+    "message": "Hellz yah brudder"
+  },
+  {
+    "matchId": 1,
+    "date": 1700002454662,
+    "chatterId": 2,
+    "message": "But really, you want to get something to eat sometime? I love me some uber Japanese fuds"
+  },
+  {
+    "matchId": 1,
+    "date": 1700002454662,
+    "chatterId": 1,
+    "message": "WOWZERS, I LOVE JAPANESE FOOD, MY DUDEY DUDE."
+  },
+  {
+    "matchId": 1,
+    "date": 1700002454662,
+    "chatterId": 2,
+    "message": "Japanese cuisine is berry gud."
+  },
+  {
+    "matchId": 1,
+    "date": 1700002454662,
+    "chatterId": 1,
+    "message": "Tis indeed good, monsieur."
+  },
+  {
+    "matchId": 1,
+    "date": 1700002454662,
+    "chatterId": 2,
+    "message": "Oui Oui"
+  },
+  {
+    "matchId": 1,
     "date": 1700002460467,
     "chatterId": 2,
     "message": "Good Day, my dudey dude"
+  },
+  {
+    "matchId": 1,
+    "date": 1700002460467,
+    "chatterId": 2,
+    "message": "I like potatoes as well. Potatoes are dope! You can do some many great things with potatos! You can make some potato chippies, some baked potato, some potato chippies, etc... Crazy stuff, my dude!"
+  },
+  {
+    "matchId": 1,
+    "date": 1700002460467,
+    "chatterId": 2,
+    "message": "Good Day, my dudey dude"
+  },
+  {
+    "matchId": 1,
+    "date": 1700002460467,
+    "chatterId": 2,
+    "message": "Yeh, good day!"
   }
 ]

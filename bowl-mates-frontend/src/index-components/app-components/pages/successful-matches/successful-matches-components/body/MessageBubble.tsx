@@ -6,17 +6,19 @@ import {styled} from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 
-const ChatContainer = styled(Box)(() => ({
-    maxWidth: "40%",
-    width: "fit-content"
-}));
-
 interface Props {
     message : string,
     isUser : boolean,
 }
 
 function MessageBubble(props : Props){
+
+    const BubbleContainer = styled(Box)(() => ({
+        maxWidth: "40%",
+        width: "fit-content",
+        padding: "10px",
+        marginLeft: props.isUser ? "auto" : "0px",
+    }));
 
     const ChatBubble = styled(Box)(() => ({
         position: "relative",
@@ -27,13 +29,13 @@ function MessageBubble(props : Props){
     }));
 
     return (
-        <ChatContainer>
-            <ChatBubble >
+        <BubbleContainer>
+            <ChatBubble>
                 <Typography>
                     {props.message}
                 </Typography>
             </ChatBubble>
-        </ChatContainer>
+        </BubbleContainer>
     );
 }
 

@@ -15,15 +15,22 @@ const sendBoxSize = "90px";
 const ChatBodyContainer = styled(Box)(() => ({
     height: "100%",
     flexGrow: 1,
-    minWidth: "200px",
+    minWidth: "400px",
     padding: "20px",
 }));
 
 const ChatBox = styled(Box)(() => ({
     height: "calc(100% - " + sendBoxSize + ")",
+    minWidth: "100%",
+    width: "100%",
     flexGrow: 1,
     padding: "20px",
-    overflow: "auto",
+    overflow: "hidden",
+    display: "inline-block",
+    // Uses the hover property of css
+    '&:hover': {
+        overflowY: "auto",
+    },
 }));
 
 const SendContainer = styled(Box)(() => ({

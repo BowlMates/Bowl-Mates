@@ -7,7 +7,6 @@ import React from "react";
 import {sidebarMeasurements} from "../../SuccessfulMatches";
 
 const ChatSidebarContainer = styled(Box)(() => ({
-    className: "chat-sidebar-container",
     height: "100%", // Needs an extra 20 to fill the side otherwise background shows
     width: sidebarMeasurements.chatSidebarWidth,
     minWidth: sidebarMeasurements.chatSidebarWidth,
