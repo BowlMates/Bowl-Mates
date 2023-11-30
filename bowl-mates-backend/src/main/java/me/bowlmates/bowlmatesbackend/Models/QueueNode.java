@@ -58,7 +58,7 @@ public class QueueNode implements Serializable, Comparable<QueueNode> {
 
     @Override
     public int compareTo(QueueNode other) {
-        return Integer.compare(this.value, other.value);
+        return Integer.compare(other.value, this.value);
     }
 
     @Override
