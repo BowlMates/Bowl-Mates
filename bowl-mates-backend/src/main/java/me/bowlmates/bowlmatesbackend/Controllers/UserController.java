@@ -156,7 +156,7 @@ public class UserController {
     // TODO: Profile documentation
     @GetMapping("/profile")
     public ProfileDTO getProfile() throws Exception {
-        profileService.getProfile();
+        return profileService.getProfile().getDTO();
     }
 
     @PostMapping("/profile/save")
