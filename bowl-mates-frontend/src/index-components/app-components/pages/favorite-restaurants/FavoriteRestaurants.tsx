@@ -11,19 +11,70 @@ import IconButton from "@mui/material/IconButton";
 
 // Custom Imports
 import {useGetRestaurants} from "../../../../hooks/useGetRestaurants";
-import React, {useEffect, useState} from "react";
-import useSaveRestaurant from "../../../../hooks/useSaveRestaurants";
+import {useEffect, useState} from "react";
+import {useIsUserSessionValid} from "../../../../hooks/useIsUserSessionValid";
 
+// TODO: Get rid of these hard coded values
+let restaurants : restaurant[] = [
+    {
+        id: 5,
+        name: "Cactus",
+        address: "535 Bellevue Square, Bellevue, WA 98004",
+        cuisine: "Mexican",
+        rating: 3,
+        latitude: 0.0,
+        longitude: 0.0
+    },
+    {
+        id: 4,
+        name: "Canlis",
+        address: "2576 Aurora Ave N, Seattle, WA 98109",
+        cuisine: "Fine Dining",
+        rating: 5,
+        latitude: 0.0,
+        longitude: 0.0
+    },
+    {
+        id: 3,
+        name: "The Pink Door",
+        address: "1919 Post Alley, Seattle, WA 98101",
+        cuisine: "Italian",
+        rating: 5,
+        latitude: 0.0,
+        longitude: 0.0
+    },
+    {
+        id: 1,
+        name: "Kamonegi",
+        address: "1054 N 39th St, Seattle, WA 98103",
+        cuisine: "Japanese",
+        rating: 5,
+        latitude: 0.0,
+        longitude: 0.0
+    },
+    {
+        id: 2,
+        name: "Homer",
+        address: "3013 Beacon Ave S, Seattle, WA 98144",
+        cuisine: "Mediterranean",
+        rating: 5,
+        latitude: 0.0,
+        longitude: 0.0
+    }
+]
 
 function FavoriteRestaurants () {
+    const isSessionValid = useIsUserSessionValid();
+    useEffect(()=>{
+        // CHECKS IF SESSION IS CURRENTLY VALID BEFORE DRAWING COMPONENT
+        isSessionValid();
+        // CHECKS IF SESSION IS CURRENTLY VALID BEFORE DRAWING COMPONENT
+    });
 
     // Custom hooks for managing restaurant data and favorites
     const {favRes, setFavRes, postRestaurants, getRestaurants} = useGetRestaurants();
-    const { saveRestaurant } = useSaveRestaurant();
-
     const theme = useTheme();
 
-    console.log("here")
     const [boolFavs, setBoolFavs] = useState([false, false, false, false, false, false]);
 
     // Fetch favorite restaurants on component mount
@@ -69,23 +120,16 @@ function FavoriteRestaurants () {
                 your favorites
             </Typography>
             <Grid container spacing = {3}>
-                {favRes.map((restaurant: restaurant, index) => (
+                {restaurants.map((restaurant, index) => (
                     <Grid item xs={12} sm={6} md={4} key={restaurant.id}>
                         <Card sx={{
                             display: 'flex',
                             flexDirection: 'column',
                             height: '100%',
                             backgroundColor: '#54804D',
-                            color: '#FDF5F5',
-                            justifyContent: 'space-between', // Align content space-between
-                            alignItems: 'center', // Center the content vertically
+                            color: '#FDF5F5'
                         }}>
                             <CardContent>
-                                <img
-                                    src={restaurant.reference}
-                                    alt={`${restaurant.name}`}
-                                    style={{ width: '100%', height: 'auto', maxHeight: '200px', objectFit: 'cover' }}
-                                />
                                 <Typography gutterBottom variant="h5" component="div">
                                     {restaurant.name}
                                 </Typography>
@@ -100,20 +144,24 @@ function FavoriteRestaurants () {
                                 </Typography>
                             </CardContent>
                             <IconButton
-                                sx={{
-                                    marginTop: 'auto', // Align the icon to the bottom of the Card
-                                }}
                                 onClick = {() => {
-                                    console.log(restaurant.name)
-                                    saveRestaurant(restaurant);
-                                    getRestaurants();
+                                    let index = hasRestaurant(restaurant.id);
+                                    if (index >= 0) {
+                                        let resArrayCopy = [...favRes];
+                                        resArrayCopy.splice(index, 1);
+                                        setFavRes(resArrayCopy);
+                                    } else {
+                                        let resArrayCopy = [...favRes, restaurant];
+                                        // @ts-ignore
+                                        setFavRes(resArrayCopy);
+                                    }
                                 }}
                             >
                                 <FavoriteIcon />
                             </IconButton>
                         </Card>
                     </Grid>
-                ))}
+                    ))}
             </Grid>
         </Box>
     )

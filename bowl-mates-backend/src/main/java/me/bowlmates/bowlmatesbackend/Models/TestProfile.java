@@ -30,9 +30,8 @@ public class TestProfile {
         super();
     }
 
-    public TestProfile(TestUser user, int id) {
+    public TestProfile(TestUser user) {
         this.user = user;
-        this.id = id;
         this.name = "";
         this.pronouns = "";
         this.bio = "";
@@ -77,5 +76,11 @@ public class TestProfile {
 
     public ProfileDTO getDTO() {
         return new ProfileDTO(name, pronouns, bio, photoPath);
+    }
+
+    public void updateFromDTO(ProfileDTO profileDTO) {
+        setName(profileDTO.getName());
+        setPronouns(profileDTO.getPronouns());
+        setBio(profileDTO.getBio());
     }
 }

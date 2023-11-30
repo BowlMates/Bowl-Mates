@@ -67,7 +67,7 @@ public class TestUser implements UserDetails {
         authorities = new HashSet<>();
         favoriteRestaurants = new HashSet<>();
         availability = new HashSet<>();
-        profile = new TestProfile();
+        profile = null;
         matches = new HashSet<>();
         approvals = new HashSet<>();
         rejects = new HashSet<>();
@@ -79,7 +79,6 @@ public class TestUser implements UserDetails {
      * An all field constructor for a user that sets all details
      *
      * @param userId an integer that represents the user
-     * @param name the name of the user
      * @param username the username of the user
      * @param password the password of the user
      * @param email the email of the user
@@ -88,7 +87,6 @@ public class TestUser implements UserDetails {
      * @param queue the matching queue of the user
      */
     public TestUser(Integer userId,
-                    String name,
                     String username,
                     String password,
                     String email,
@@ -105,8 +103,7 @@ public class TestUser implements UserDetails {
         this.email = email;
         this.authorities = authorities;
         this.favoriteRestaurants = rests;
-        this.profile = new TestProfile(this, userId);
-        this.profile.setName(name);
+        this.profile = null;
         this.availability = new HashSet<>();
         this.matches = matches;
         this.approvals = approvals;
@@ -314,9 +311,8 @@ public class TestUser implements UserDetails {
     }
 
     // TODO: Document profile methods
-    public TestProfile getProfile() {
-        // Yes this is rep exposure. The one place this method will be called needs to mutate this field anyway.
-        return this.profile;
+    public void setProfile(TestProfile profile) {
+        this.profile = profile;
     }
 
     @Override

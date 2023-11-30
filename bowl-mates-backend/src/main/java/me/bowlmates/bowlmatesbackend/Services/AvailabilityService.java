@@ -45,6 +45,7 @@ public class AvailabilityService {
         TestUser user = userRepository.findByUsername(username);
         Set<TestAvailability> updatedAvails = new HashSet<>();
         for (AvailabilityDTO avail : avails) {
+            // TODO: Magic Number here
             int hash = TestAvailability.calculateHash(avail.getDay(), avail.getTime(), 11);
             TestAvailability updated = availRepository.findByHash(hash);
             System.out.println(hash);

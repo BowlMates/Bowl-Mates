@@ -43,6 +43,7 @@
   },
   {
     "matchId": 1,
+<<<<<<< HEAD
     "date": 1700002454662,
     "chatterId": 2,
     "message": "Hellz yah brudder"
@@ -106,5 +107,10 @@
     "date": 1700002460467,
     "chatterId": 2,
     "message": "Yeh, good day!"
+=======
+    "date": 1700002460467,
+    "chatterId": 2,
+    "message": "Good Day, my dudey dude"
+>>>>>>> backend-convo
   }
 ]

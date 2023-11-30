@@ -1,9 +1,14 @@
 // React Imports
+<<<<<<< HEAD
 import React, {useState} from "react";
+=======
+import React from "react";
+>>>>>>> backend-convo
 
 // MUI Imports
 import {styled} from "@mui/material/styles";
 import Box from "@mui/material/Box";
+<<<<<<< HEAD
 import {chatMessage} from "../../../../../../data-types/chatMessage";
 import MessageBubble from "./MessageBubble";
 import TextField from "@mui/material/TextField";
@@ -90,6 +95,25 @@ function ChatBody(props : Props){
                 </ModifiedIconButton>
             </SendContainer>
         </ChatBodyContainer>
+=======
+
+// Custom Imports
+import {sidebarMeasurements} from "../../SuccessfulMatches";
+
+const Body = styled(Box)(() => ({
+    height: "100%",
+    width: "calc(100vw - " + sidebarMeasurements.chatSidebarWidthNum + ")",
+}));
+
+interface Props {}
+
+function ChatBody(props : React.PropsWithChildren<Props>){
+
+    return (
+        <Body>
+            {props.children}
+        </Body>
+>>>>>>> backend-convo
     )
 }
 

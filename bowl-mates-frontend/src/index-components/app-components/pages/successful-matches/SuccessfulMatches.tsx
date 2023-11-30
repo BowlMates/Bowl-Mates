@@ -9,6 +9,7 @@ import {useIsUserSessionValid} from "../../../../hooks/useIsUserSessionValid";
 import {useEffect} from "react";
 import MessageBubble from "./successful-matches-components/body/MessageBubble";
 
+<<<<<<< HEAD
 // Data Imports
 import dummyData from "../../../../frontend-api-specs/match-chat-initial/fromBackend-match-chat-initial.json"
 
@@ -17,6 +18,13 @@ const chatSidebarWidthNum : number = 320;
 const chatSidebarWidth : string = chatSidebarWidthNum + "px";
 const chatSidebarWidthMinusSomeValue : string = (chatSidebarWidthNum - 18) + "px";
 
+=======
+//Changing this num changes the width of the sidebar and the various widths pertaining to the sidebar
+const chatSidebarWidthNum : number = 320;
+const chatSidebarWidth : string = chatSidebarWidthNum + "px";
+const chatSidebarWidthMinusSomeValue : string = (chatSidebarWidthNum - 18) + "px";
+
+>>>>>>> backend-convo
 interface sidebarMeasurementType {
     chatSidebarWidthNum : number,
     chatSidebarWidth : string,
@@ -200,8 +208,235 @@ function SuccessfulMatches() {
                     selected={false}
                     setChatWindow={()=>{console.log("nothing happened! haha!!!")}}
                 />
+<<<<<<< HEAD
             </SuccessfulMatchesSidebar>
             <ChatBody messages={dummyData}/>
+=======
+                <SidebarCard
+                    conversationID={1}
+                    firstName={"Adamn"}
+                    lastName={"Potato"}
+                    imageURL={"https://i.ibb.co/TmJw9kS/IMG-3336.jpg"}
+                    timeInMilliseconds={1700208001000}
+                    message={"Yesterday was a good time for me :("}
+                    selected={false}
+                    setChatWindow={()=>{console.log("nothing happened! haha!!!")}}
+                />
+                <SidebarCard
+                    conversationID={1}
+                    firstName={"Adamn"}
+                    lastName={"Potato"}
+                    imageURL={"https://i.ibb.co/TmJw9kS/IMG-3336.jpg"}
+                    timeInMilliseconds={1700208001000}
+                    message={"Yesterday was a good time for me :("}
+                    selected={false}
+                    setChatWindow={()=>{console.log("nothing happened! haha!!!")}}
+                />
+                <SidebarCard
+                    conversationID={1}
+                    firstName={"Adamn"}
+                    lastName={"Potato"}
+                    imageURL={"https://i.ibb.co/TmJw9kS/IMG-3336.jpg"}
+                    timeInMilliseconds={1700208001000}
+                    message={"Yesterday was a good time for me :("}
+                    selected={false}
+                    setChatWindow={()=>{console.log("nothing happened! haha!!!")}}
+                />
+                <SidebarCard
+                    conversationID={1}
+                    firstName={"Adamn"}
+                    lastName={"Potato"}
+                    imageURL={"https://i.ibb.co/TmJw9kS/IMG-3336.jpg"}
+                    timeInMilliseconds={1700208001000}
+                    message={"Yesterday was a good time for me :("}
+                    selected={false}
+                    setChatWindow={()=>{console.log("nothing happened! haha!!!")}}
+                />
+                <SidebarCard
+                    conversationID={1}
+                    firstName={"Adamn"}
+                    lastName={"Potato"}
+                    imageURL={"https://i.ibb.co/TmJw9kS/IMG-3336.jpg"}
+                    timeInMilliseconds={1700208001000}
+                    message={"Yesterday was a good time for me :("}
+                    selected={false}
+                    setChatWindow={()=>{console.log("nothing happened! haha!!!")}}
+                />
+                <SidebarCard
+                    conversationID={1}
+                    firstName={"Adamn"}
+                    lastName={"Potato"}
+                    imageURL={"https://i.ibb.co/TmJw9kS/IMG-3336.jpg"}
+                    timeInMilliseconds={1700208001000}
+                    message={"Yesterday was a good time for me :("}
+                    selected={false}
+                    setChatWindow={()=>{console.log("nothing happened! haha!!!")}}
+                />
+                <SidebarCard
+                    conversationID={1}
+                    firstName={"Adamn"}
+                    lastName={"Potato"}
+                    imageURL={"https://i.ibb.co/TmJw9kS/IMG-3336.jpg"}
+                    timeInMilliseconds={1700208001000}
+                    message={"Yesterday was a good time for me :("}
+                    selected={false}
+                    setChatWindow={()=>{console.log("nothing happened! haha!!!")}}
+                />
+                <SidebarCard
+                    conversationID={1}
+                    firstName={"Adamn"}
+                    lastName={"Potato"}
+                    imageURL={"https://i.ibb.co/TmJw9kS/IMG-3336.jpg"}
+                    timeInMilliseconds={1700208001000}
+                    message={"Yesterday was a good time for me :("}
+                    selected={false}
+                    setChatWindow={()=>{console.log("nothing happened! haha!!!")}}
+                />
+                <SidebarCard
+                    conversationID={1}
+                    firstName={"Adamn"}
+                    lastName={"Potato"}
+                    imageURL={"https://i.ibb.co/TmJw9kS/IMG-3336.jpg"}
+                    timeInMilliseconds={1700208001000}
+                    message={"Yesterday was a good time for me :("}
+                    selected={false}
+                    setChatWindow={()=>{console.log("nothing happened! haha!!!")}}
+                />
+                <SidebarCard
+                    conversationID={1}
+                    firstName={"Adamn"}
+                    lastName={"Potato"}
+                    imageURL={"https://i.ibb.co/TmJw9kS/IMG-3336.jpg"}
+                    timeInMilliseconds={1700208001000}
+                    message={"Yesterday was a good time for me :("}
+                    selected={false}
+                    setChatWindow={()=>{console.log("nothing happened! haha!!!")}}
+                />
+                <SidebarCard
+                    conversationID={1}
+                    firstName={"Adamn"}
+                    lastName={"Potato"}
+                    imageURL={"https://i.ibb.co/TmJw9kS/IMG-3336.jpg"}
+                    timeInMilliseconds={1700208001000}
+                    message={"Yesterday was a good time for me :("}
+                    selected={false}
+                    setChatWindow={()=>{console.log("nothing happened! haha!!!")}}
+                />
+                <SidebarCard
+                    conversationID={1}
+                    firstName={"Adamn"}
+                    lastName={"Potato"}
+                    imageURL={"https://i.ibb.co/TmJw9kS/IMG-3336.jpg"}
+                    timeInMilliseconds={1700208001000}
+                    message={"Yesterday was a good time for me :("}
+                    selected={false}
+                    setChatWindow={()=>{console.log("nothing happened! haha!!!")}}
+                />
+                <SidebarCard
+                    conversationID={1}
+                    firstName={"Adamn"}
+                    lastName={"Potato"}
+                    imageURL={"https://i.ibb.co/TmJw9kS/IMG-3336.jpg"}
+                    timeInMilliseconds={1700208001000}
+                    message={"Yesterday was a good time for me :("}
+                    selected={false}
+                    setChatWindow={()=>{console.log("nothing happened! haha!!!")}}
+                />
+                <SidebarCard
+                    conversationID={1}
+                    firstName={"Adamn"}
+                    lastName={"Potato"}
+                    imageURL={"https://i.ibb.co/TmJw9kS/IMG-3336.jpg"}
+                    timeInMilliseconds={1700208001000}
+                    message={"Yesterday was a good time for me :("}
+                    selected={false}
+                    setChatWindow={()=>{console.log("nothing happened! haha!!!")}}
+                />
+                <SidebarCard
+                    conversationID={1}
+                    firstName={"Adamn"}
+                    lastName={"Potato"}
+                    imageURL={"https://i.ibb.co/TmJw9kS/IMG-3336.jpg"}
+                    timeInMilliseconds={1700208001000}
+                    message={"Yesterday was a good time for me :("}
+                    selected={false}
+                    setChatWindow={()=>{console.log("nothing happened! haha!!!")}}
+                />
+                <SidebarCard
+                    conversationID={1}
+                    firstName={"Adamn"}
+                    lastName={"Potato"}
+                    imageURL={"https://i.ibb.co/TmJw9kS/IMG-3336.jpg"}
+                    timeInMilliseconds={1700208001000}
+                    message={"Yesterday was a good time for me :("}
+                    selected={false}
+                    setChatWindow={()=>{console.log("nothing happened! haha!!!")}}
+                />
+                <SidebarCard
+                    conversationID={1}
+                    firstName={"Adamn"}
+                    lastName={"Potato"}
+                    imageURL={"https://i.ibb.co/TmJw9kS/IMG-3336.jpg"}
+                    timeInMilliseconds={1700208001000}
+                    message={"Yesterday was a good time for me :("}
+                    selected={false}
+                    setChatWindow={()=>{console.log("nothing happened! haha!!!")}}
+                />
+                <SidebarCard
+                    conversationID={1}
+                    firstName={"Adamn"}
+                    lastName={"Potato"}
+                    imageURL={"https://i.ibb.co/TmJw9kS/IMG-3336.jpg"}
+                    timeInMilliseconds={1700208001000}
+                    message={"Yesterday was a good time for me :("}
+                    selected={false}
+                    setChatWindow={()=>{console.log("nothing happened! haha!!!")}}
+                />
+                <SidebarCard
+                    conversationID={1}
+                    firstName={"Adamn"}
+                    lastName={"Potato"}
+                    imageURL={"https://i.ibb.co/TmJw9kS/IMG-3336.jpg"}
+                    timeInMilliseconds={1700208001000}
+                    message={"Yesterday was a good time for me :("}
+                    selected={false}
+                    setChatWindow={()=>{console.log("nothing happened! haha!!!")}}
+                />
+                <SidebarCard
+                    conversationID={1}
+                    firstName={"Adamn"}
+                    lastName={"Potato"}
+                    imageURL={"https://i.ibb.co/TmJw9kS/IMG-3336.jpg"}
+                    timeInMilliseconds={1700208001000}
+                    message={"Yesterday was a good time for me :("}
+                    selected={false}
+                    setChatWindow={()=>{console.log("nothing happened! haha!!!")}}
+                />
+                <SidebarCard
+                    conversationID={1}
+                    firstName={"Adamn"}
+                    lastName={"Potato"}
+                    imageURL={"https://i.ibb.co/TmJw9kS/IMG-3336.jpg"}
+                    timeInMilliseconds={1700208001000}
+                    message={"Yesterday was a good time for me :("}
+                    selected={false}
+                    setChatWindow={()=>{console.log("nothing happened! haha!!!")}}
+                />
+                <SidebarCard
+                    conversationID={1}
+                    firstName={"Adamn"}
+                    lastName={"Potato"}
+                    imageURL={"https://i.ibb.co/TmJw9kS/IMG-3336.jpg"}
+                    timeInMilliseconds={1700208001000}
+                    message={"Yesterday was a good time for me :("}
+                    selected={false}
+                    setChatWindow={()=>{console.log("nothing happened! haha!!!")}}
+                />
+            </SuccessfulMatchesSidebar>
+            <ChatBody>
+                <MessageBubble/>
+            </ChatBody>
+>>>>>>> backend-convo
         </SuccessfulMatchesContainer>
     )
 }
