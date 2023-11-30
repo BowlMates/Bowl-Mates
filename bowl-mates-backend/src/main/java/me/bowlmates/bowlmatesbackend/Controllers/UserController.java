@@ -3,10 +3,7 @@ package me.bowlmates.bowlmatesbackend.Controllers;
 import me.bowlmates.bowlmatesbackend.Models.*;
 import me.bowlmates.bowlmatesbackend.Repositories.AvailRepo;
 import me.bowlmates.bowlmatesbackend.Repositories.RestRepo;
-import me.bowlmates.bowlmatesbackend.Services.AvailabilityService;
-import me.bowlmates.bowlmatesbackend.Services.MatchingAlgorithm;
-import me.bowlmates.bowlmatesbackend.Services.ProfileService;
-import me.bowlmates.bowlmatesbackend.Services.RestaurantService;
+import me.bowlmates.bowlmatesbackend.Services.*;
 import me.bowlmates.bowlmatesbackend.Repositories.UserRepo;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,12 +12,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * REST Controller for user requests
@@ -39,6 +31,8 @@ public class UserController {
     private AvailabilityService availabilityService;
     @Autowired
     private ProfileService profileService;
+    @Autowired
+    private MessageService messageService;
 
     @Autowired
     private MatchingAlgorithm matchingAlgorithm;
@@ -166,14 +160,37 @@ public class UserController {
 
     // TODO: Message documentation
     @PostMapping("/message")
-    public List<MessageDTO> getMessages(@RequestBody MessageDTO messageDTO) {
-        // TODO: Implementation
-        return new ArrayList<>();
+    public List<List<MessageDTO>> getMessages(@RequestBody List<Integer> matchIds) {
+        List<List<MessageDTO>> messages = new ArrayList<>();
+        for (int matchId : matchIds) {
+            messages.add(messageService.getMessages(matchId));
+        }
+        messages.sort(Comparator.comparing(l -> l.get(0).getDate()));
+        return messages;
     }
     
     @PostMapping("/message/send")
     public void sendMessage(@RequestBody MessageDTO messageDTO) {
-        // TODO: Implementation
+        messageService.sendMessage(messageDTO);
+    }
+
+    @GetMapping("/message/matches")
+    public Map<ProfileDTO, Integer> getMatchHashes() {
+        String username = "";
+        Authentication auth = SecurityContextHolder
+                .getContext()
+                .getAuthentication();
+        if (auth != null && auth.isAuthenticated()) {
+            username = auth.getName();
+        }
+        TestUser user = userRepository.findByUsername(username);
+        Map<ProfileDTO, Integer> matchesToHashes = new HashMap<>();
+        for (TestUser match : user.getMatches()) {
+            int matchHash = TestMessage.matchHash(user.getId(), match.getId());
+            ProfileDTO matchDTO = profileService.getProfileFromUser(match);
+            matchesToHashes.put(matchDTO, matchHash);
+        }
+        return matchesToHashes;
     }
 
     /**

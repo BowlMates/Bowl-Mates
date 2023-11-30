@@ -49,4 +49,12 @@ public class ProfileService {
         }
         return profile;
     }
+
+    public ProfileDTO getProfileFromUser(TestUser user) {
+        Optional<TestProfile> repoProfile = profileRepo.findById(user.getId());
+        if (repoProfile.isEmpty()) {
+            throw new NoSuchElementException("Unable to find user profile");
+        }
+        return repoProfile.get().getDTO();
+    }
 }

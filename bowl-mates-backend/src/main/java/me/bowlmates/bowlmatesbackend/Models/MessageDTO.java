@@ -1,5 +1,7 @@
 package me.bowlmates.bowlmatesbackend.Models;
 
+import java.util.Comparator;
+
 public class MessageDTO {
 
     private Integer matchId;

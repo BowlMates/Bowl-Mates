@@ -12,7 +12,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 
 // TODO: Implement
 @Service
@@ -20,29 +22,25 @@ import java.util.List;
 public class MessageService {
 
     @Autowired
-    UserRepo userRepo;
-    @Autowired
     MessageRepo messageRepo;
 
-    public List<TestMessage> getMessages() {
-        String username = "";
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth != null && auth.isAuthenticated()) {
-            username = auth.getName();
-        } else {
-            return new ArrayList<>();
+    public List<MessageDTO> getMessages(int matchId) {
+        Set<TestMessage> messages = messageRepo.findByMatchId(matchId);
+        List<MessageDTO> messageList = new ArrayList<>();
+        for (TestMessage message : messages) {
+            messageList.add(message.toMessageDTO());
         }
-        TestUser user = userRepo.findByUsername(username);
+        messageList.sort(Comparator.comparing((MessageDTO::getDate)));
+        return messageList;
     }
 
     public void sendMessage(MessageDTO messageDTO) {
-        String username = "";
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth != null && auth.isAuthenticated()) {
-            username = auth.getName();
-        } else {
-            return;
-        }
-        TestUser user = userRepo.findByUsername(username);
+        TestMessage message = new TestMessage();
+        message.setMatchId(messageDTO.getMatchId());
+        message.setDate(messageDTO.getDate());
+        message.setChatterId(messageDTO.getChatterId());
+        message.setMessage(messageDTO.getMessage());
+        messageRepo.save(message);
     }
+
 }

@@ -62,6 +62,11 @@ public class TestMessage {
                 this.message);
     }
 
+    public static int matchHash(int id1, int id2) {
+        // Whatever this is, it needs to be the same, regardless of order
+        return id1 * id2 - id1 - id2;
+    }
+
     @Override
     public int hashCode() {
         return this.id;
