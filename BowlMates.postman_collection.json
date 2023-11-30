@@ -1,0 +1,243 @@
+{
+	"info": {
+		"_postman_id": "da14776d-1f02-4db6-8158-dfdd9e0a1523",
+		"name": "BowlMates",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30960793",
+		"_collection_link": "https://crimson-firefly-13712.postman.co/workspace/New-Team-Workspace~ab19ab6a-206e-4424-90ab-a36a04215986/collection/30960793-da14776d-1f02-4db6-8158-dfdd9e0a1523?action=share&source=collection_link&creator=30960793"
+	},
+	"item": [
+		{
+			"name": "Register",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"TimTim\",\r\n    \"username\": \"TimTim\",\r\n    \"password\": \"Tim\",\r\n    \"email\": \"Tim@mail.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/auth/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"auth",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"TimTim\",\r\n    \"password\": \"Tim\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/auth/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Display Availabilities",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJzZWxmIiwic3ViIjoiVGltVGltIiwiZXhwIjoxNzAxMjMxMjczLCJpYXQiOjE3MDEyMzAzNzMsInJvbGVzIjoiVVNFUiJ9.Gzmbn63pWAtwuq93wkLxQYDwfHwsxkwvhkJVSxe1nCXlObYvU6J4hjbz8mzPzqI-PjRLY0UL3oZWNRBG_Ict7EyIz3tJegjGiNO5KIBpQkF9clgoxjjtiHYGqeKSHyFuZ3j8RHpSWWe9GCRCl3NMiXC9FWW1LpNpx2B2ic8-fuB72Qsetbbs_a5xn1YKAUvQu-CIaEAqhfiWDxYoMHcnuKP7R8IBUe5fqt9WpIDqEqlle5k5R3Ug8M2cifQ6PmdMSDg2w3cVd3FEeVLQBXusxOvki0mIRlAIiXI4hYxVCsmae7Zkd4PggQ-01Kse-EADBQCgyJxi8QHi9sleEcO_5w",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/user/avail",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"avail"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Save Availitilies",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJzZWxmIiwic3ViIjoiVGltVGltIiwiZXhwIjoxNzAxMjI0MDM3LCJpYXQiOjE3MDEyMjMxMzcsInJvbGVzIjoiVVNFUiJ9.qY4oaBi7kZYSKH8_T90-S2cC3Kl2sOId34RRTIOKnE39PDdlRDiHTi3dE9dv7_ICgoPknWmW5Cx5EJXGIrXZoP0OEyLUhZQqpE1QSdG0_mI2acdknC-gPfbXxNKz8H7QLxPeHnDXX1beSndkwZahWOMLoJB7nvmD4Gl_YVxJIHiX98wQ0JpnKVWCzlexUqWOTh8TwiqXNyLzvAqS1OissDLD1dsfLZus5thsyvtAgV9w34T0Qnt7I6L8krOkiGq3kwNBkLT-TPpIlBNaGHwziNb8IZbZaN5RdEFl1ANtHqyTnMASG8ODFp4hU6kITvDnSX0TIXwhzeU9Z7IOVDo97w",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[{\"day\": 0, \"time\": 0}, {\"day\": 1, \"time\": 1}]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/user/avail/save",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"avail",
+						"save"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Generate Potential Queue",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJzZWxmIiwic3ViIjoiVGltVGltIiwiZXhwIjoxNzAxMjMxMjczLCJpYXQiOjE3MDEyMzAzNzMsInJvbGVzIjoiVVNFUiJ9.Gzmbn63pWAtwuq93wkLxQYDwfHwsxkwvhkJVSxe1nCXlObYvU6J4hjbz8mzPzqI-PjRLY0UL3oZWNRBG_Ict7EyIz3tJegjGiNO5KIBpQkF9clgoxjjtiHYGqeKSHyFuZ3j8RHpSWWe9GCRCl3NMiXC9FWW1LpNpx2B2ic8-fuB72Qsetbbs_a5xn1YKAUvQu-CIaEAqhfiWDxYoMHcnuKP7R8IBUe5fqt9WpIDqEqlle5k5R3Ug8M2cifQ6PmdMSDg2w3cVd3FEeVLQBXusxOvki0mIRlAIiXI4hYxVCsmae7Zkd4PggQ-01Kse-EADBQCgyJxi8QHi9sleEcO_5w",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/user/match",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"match"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Display Queue",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJzZWxmIiwic3ViIjoiVGltVGltIiwiZXhwIjoxNzAxMjMxMjczLCJpYXQiOjE3MDEyMzAzNzMsInJvbGVzIjoiVVNFUiJ9.Gzmbn63pWAtwuq93wkLxQYDwfHwsxkwvhkJVSxe1nCXlObYvU6J4hjbz8mzPzqI-PjRLY0UL3oZWNRBG_Ict7EyIz3tJegjGiNO5KIBpQkF9clgoxjjtiHYGqeKSHyFuZ3j8RHpSWWe9GCRCl3NMiXC9FWW1LpNpx2B2ic8-fuB72Qsetbbs_a5xn1YKAUvQu-CIaEAqhfiWDxYoMHcnuKP7R8IBUe5fqt9WpIDqEqlle5k5R3Ug8M2cifQ6PmdMSDg2w3cVd3FEeVLQBXusxOvki0mIRlAIiXI4hYxVCsmae7Zkd4PggQ-01Kse-EADBQCgyJxi8QHi9sleEcO_5w",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/user/match/show",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"match",
+						"show"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Approve User",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJzZWxmIiwic3ViIjoiVGltVGltIiwiZXhwIjoxNzAxMjMxMjczLCJpYXQiOjE3MDEyMzAzNzMsInJvbGVzIjoiVVNFUiJ9.Gzmbn63pWAtwuq93wkLxQYDwfHwsxkwvhkJVSxe1nCXlObYvU6J4hjbz8mzPzqI-PjRLY0UL3oZWNRBG_Ict7EyIz3tJegjGiNO5KIBpQkF9clgoxjjtiHYGqeKSHyFuZ3j8RHpSWWe9GCRCl3NMiXC9FWW1LpNpx2B2ic8-fuB72Qsetbbs_a5xn1YKAUvQu-CIaEAqhfiWDxYoMHcnuKP7R8IBUe5fqt9WpIDqEqlle5k5R3Ug8M2cifQ6PmdMSDg2w3cVd3FEeVLQBXusxOvki0mIRlAIiXI4hYxVCsmae7Zkd4PggQ-01Kse-EADBQCgyJxi8QHi9sleEcO_5w",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "\"1\"",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/user/match/approve",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"match",
+						"approve"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
