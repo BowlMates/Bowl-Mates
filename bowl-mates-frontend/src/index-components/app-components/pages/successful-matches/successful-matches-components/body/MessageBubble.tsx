@@ -4,7 +4,6 @@ import React from "react";
 // MUI Imports
 import {styled} from "@mui/material/styles";
 import Box from "@mui/material/Box";
-<<<<<<< HEAD
 import Typography from "@mui/material/Typography";
 
 interface Props {
@@ -38,7 +37,6 @@ function MessageBubble(props : Props){
             </ChatBubble>
         </BubbleContainer>
     );
-=======
 
 const StyledBody = styled(Box)(() => ({
     height: "100px",
@@ -52,7 +50,6 @@ function MessageBubble(props : Props){
 
     return (<StyledBody/>);
     // return (<></>);
->>>>>>> backend-convo
 }
 
 export default MessageBubble

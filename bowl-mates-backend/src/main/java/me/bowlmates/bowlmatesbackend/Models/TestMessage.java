@@ -13,11 +13,7 @@ public class TestMessage {
     @Column
     private Integer matchId;
     @Column
-<<<<<<< HEAD
-    private Integer date;
-=======
     private Long date;
->>>>>>> backend-convo
     @Column
     private Integer chatterId;
     @Column
@@ -35,19 +31,11 @@ public class TestMessage {
         this.matchId = matchId;
     }
 
-<<<<<<< HEAD
-    public int getDate() {
+    public Long getDate() {
         return this.date;
     }
 
-    public void setDate(int date) {
-=======
-    public long getDate() {
-        return this.date;
-    }
-
-    public void setDate(long date) {
->>>>>>> backend-convo
+    public void setDate(Long date) {
         this.date = date;
     }
 
@@ -67,8 +55,6 @@ public class TestMessage {
         this.message = message;
     }
 
-<<<<<<< HEAD
-=======
     public MessageDTO toMessageDTO() {
         return new MessageDTO(this.matchId,
                 this.date,
@@ -81,7 +67,6 @@ public class TestMessage {
         return id1 * id2 - id1 - id2;
     }
 
->>>>>>> backend-convo
     @Override
     public int hashCode() {
         return this.id;
