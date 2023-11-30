@@ -1,5 +1,6 @@
 package me.bowlmates.bowlmatesbackend.Controllers;
 
+import jakarta.persistence.criteria.CriteriaBuilder;
 import me.bowlmates.bowlmatesbackend.Models.*;
 import me.bowlmates.bowlmatesbackend.Repositories.AvailRepo;
 import me.bowlmates.bowlmatesbackend.Repositories.RestRepo;
@@ -135,21 +136,45 @@ public class UserController {
         availabilityService.addAvail(availabilityDTOList);
     }
 
-
-    // TODO: Matching documentation
+    /**
+     * updates the users matching queue
+     */
     @GetMapping("/match")
     public void runMatches() {
         matchingAlgorithm.QueueUp();
     }
 
+    /**
+     * returns a list of the users potential matches based on their ranking
+     * from the matching algorithm
+     *
+     * @return an ordered list of integers representing user ids (ordered by matching potential)
+     */
     @GetMapping(value = "/match/show", produces = "application/json")
     public List<Integer> showMatches() {
         return matchingAlgorithm.showQueue();
     }
 
+    /**
+     * used when a user approves another user
+     *
+     * @param userId the other user to be approved
+     * @return an updated list of the matching queue minus the most recent approved user
+     */
     @PostMapping("/match/approve")
     public List<Integer> approve(@RequestBody Integer userId) {
         return matchingAlgorithm.approve(userId);
+    }
+
+    /**
+     * used when a user rejects another user
+     *
+     * @param userId the other user to be rejected
+     * @return an updated list of the matching queue minus the most recent rejected user
+     */
+    @PostMapping("/match/reject")
+    public List<Integer> reject(@RequestBody Integer userId) {
+        return matchingAlgorithm.deny(userId);
     }
 
     // TODO: Profile documentation

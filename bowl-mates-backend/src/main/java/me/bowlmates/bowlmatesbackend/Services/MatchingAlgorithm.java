@@ -20,6 +20,11 @@ public class MatchingAlgorithm {
     @Autowired
     private UserRepo userRepository;
 
+    /**
+     * runs the matching algorithm for the current user and populates their potential matches queue
+     *
+     * @return true if the algorithm is successful otherwise false
+     */
     public boolean QueueUp() {
         String username = "";
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -90,6 +95,11 @@ public class MatchingAlgorithm {
         return true;
     }
 
+    /**
+     * displays the potential matches queue of the user
+     *
+     * @return the potential matches queue of the user
+     */
     public List<Integer> showQueue() {
         String username = "";
         List<Integer> list = new ArrayList<>();
@@ -116,6 +126,13 @@ public class MatchingAlgorithm {
         return list;
     }
 
+    /**
+     * adds another user to the approved list of the current user or to the matching list
+     * if the other user has the current user in their approved list
+     *
+     * @param userId the other user to be approved
+     * @return the new potential matches queue minus the most recent approved user
+     */
     public List<Integer> approve(int userId) {
         String username = "";
         List<Integer> list = new ArrayList<>();
@@ -145,6 +162,12 @@ public class MatchingAlgorithm {
         return showQueue();
     }
 
+    /**
+     * adds another user to the rejection list of the current user
+     *
+     * @param userId the other user to be denied
+     * @return the updated potential matching queue of the current user
+     */
     public List<Integer> deny(int userId) {
         String username = "";
         List<Integer> list = new ArrayList<>();
@@ -163,7 +186,10 @@ public class MatchingAlgorithm {
         return showQueue();
     }
 
-    public void next() {
+    /**
+     * a pop method for the queue that also handles the serialization steps
+     */
+    private void next() {
         String username = "";
         List<Integer> list = new ArrayList<>();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
