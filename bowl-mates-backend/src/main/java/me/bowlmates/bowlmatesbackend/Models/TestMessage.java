@@ -13,7 +13,7 @@ public class TestMessage {
     @Column
     private Integer matchId;
     @Column
-    private Integer date;
+    private Long date;
     @Column
     private Integer chatterId;
     @Column
@@ -31,11 +31,11 @@ public class TestMessage {
         this.matchId = matchId;
     }
 
-    public int getDate() {
+    public long getDate() {
         return this.date;
     }
 
-    public void setDate(int date) {
+    public void setDate(long date) {
         this.date = date;
     }
 

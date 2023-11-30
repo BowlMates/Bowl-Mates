@@ -5,19 +5,19 @@ import java.util.Comparator;
 public class MessageDTO {
 
     private Integer matchId;
-    private Integer date;
+    private Long date;
     private Integer chatterId;
     private String message;
 
     public MessageDTO() {
         this.matchId = 0;
-        this.date = 0;
+        this.date = 0L;
         this.chatterId = 0;
         this.message = "";
     }
 
     public MessageDTO(int matchId,
-                      int date,
+                      long date,
                       int chatterId,
                       String message) {
         this.matchId = matchId;
@@ -34,11 +34,11 @@ public class MessageDTO {
         this.matchId = matchId;
     }
 
-    public int getDate() {
+    public long getDate() {
         return this.date;
     }
 
-    public void setDate(int date) {
+    public void setDate(long date) {
         this.date = date;
     }
 

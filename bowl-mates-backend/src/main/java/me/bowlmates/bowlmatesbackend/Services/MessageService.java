@@ -11,6 +11,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -37,7 +38,7 @@ public class MessageService {
     public void sendMessage(MessageDTO messageDTO) {
         TestMessage message = new TestMessage();
         message.setMatchId(messageDTO.getMatchId());
-        message.setDate(messageDTO.getDate());
+        message.setDate(Instant.now().toEpochMilli());
         message.setChatterId(messageDTO.getChatterId());
         message.setMessage(messageDTO.getMessage());
         messageRepo.save(message);
