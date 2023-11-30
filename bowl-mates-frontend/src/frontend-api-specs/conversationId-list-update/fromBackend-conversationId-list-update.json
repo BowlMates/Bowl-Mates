@@ -1,0 +1,10 @@
+[
+  {
+    "matchID" : 9999,
+    "added" : true
+  },
+  {
+    "matchID" : 1,
+    "added" : false
+  }
+]

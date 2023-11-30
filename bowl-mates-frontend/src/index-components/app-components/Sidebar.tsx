@@ -83,11 +83,6 @@ function Sidebar(props: Props) {
             }
         },
         {
-            name: "Favorite Restaurants", icon: <RestaurantMenuIcon/>, route: () => {
-                navigate("/app/favorite-restaurants")
-            }
-        },
-        {
             name: "Availability", icon: <EventAvailableIcon/>, route: () => {
                 navigate("/app/availability")
             }
