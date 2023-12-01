@@ -37,19 +37,6 @@ function MessageBubble(props : Props){
             </ChatBubble>
         </BubbleContainer>
     );
-
-const StyledBody = styled(Box)(() => ({
-    height: "100px",
-    width: "100px",
-    backgroundColor: "greenyellow",
-}));
-
-interface Props {}
-
-function MessageBubble(props : Props){
-
-    return (<StyledBody/>);
-    // return (<></>);
 }
 
 export default MessageBubble
