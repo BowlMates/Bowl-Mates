@@ -1,7 +1,7 @@
 [
   {
     "matchID": 1,
-    "chat-update": [
+    "chatUpdate": [
       {
         "matchID": 1,
         "date": 1700002292173,
@@ -18,7 +18,7 @@
   },
   {
     "matchID": 2,
-    "chat-update": [
+    "chatUpdate": [
       {
         "matchID": 2,
         "date": 1700002292173,
