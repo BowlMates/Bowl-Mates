@@ -212,7 +212,7 @@ public class UserController {
         Map<ProfileDTO, Integer> matchesToHashes = new HashMap<>();
         for (TestUser match : user.getMatches()) {
             int matchHash = TestMessage.matchHash(user.getId(), match.getId());
-            ProfileDTO matchDTO = profileService.getProfileFromUser(match);
+            ProfileDTO matchDTO = match.getProfile().getDTO();
             matchesToHashes.put(matchDTO, matchHash);
         }
         return matchesToHashes;
