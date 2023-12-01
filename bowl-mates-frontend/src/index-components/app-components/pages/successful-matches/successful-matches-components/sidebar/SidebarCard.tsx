@@ -13,10 +13,7 @@ import {sidebarMeasurements} from "../../SuccessfulMatches";
 const MatchBox = styled(Box)(() => ({
     height: "70px",
     width: sidebarMeasurements.chatSidebarWidthMinusSomeValue,
-<<<<<<< HEAD
     minWidth: sidebarMeasurements.chatSidebarWidthMinusSomeValue,
-=======
->>>>>>> backend-convo
     display: "flex",
     alignItems: "center",
     padding: "3px",
