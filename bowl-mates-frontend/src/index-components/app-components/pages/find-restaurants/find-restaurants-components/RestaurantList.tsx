@@ -8,7 +8,7 @@ interface RestaurantListProps {
     favRes: restaurant[];
 }
 
-const RestaurantList: React.FC<RestaurantListProps> = ({ restaurants, favRes }) => {
+const RestaurantList: React.FC<RestaurantListProps> = ({ restaurants, favRes}) => {
     let displayRests: restaurant[] = [];
 
     if(restaurants.length > 0 && favRes.length > 0){
