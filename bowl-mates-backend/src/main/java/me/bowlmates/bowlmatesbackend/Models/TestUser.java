@@ -311,9 +311,6 @@ public class TestUser implements UserDetails {
     }
 
     // TODO: Document profile methods
-    public TestProfile getProfile() {
-        return this.profile;
-    }
     public void setProfile(TestProfile profile) {
         this.profile = profile;
     }
