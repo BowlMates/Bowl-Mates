@@ -199,7 +199,7 @@ public class UserController {
         messageService.sendMessage(messageDTO);
     }
 
-    @GetMapping("/message/matches")
+    @GetMapping("/matches")
     public Map<ProfileDTO, Integer> getMatchHashes() {
         String username = "";
         Authentication auth = SecurityContextHolder
@@ -210,6 +210,7 @@ public class UserController {
         }
         TestUser user = userRepository.findByUsername(username);
         Map<ProfileDTO, Integer> matchesToHashes = new HashMap<>();
+        // TODO : Change this method
         for (TestUser match : user.getMatches()) {
             int matchHash = TestMessage.matchHash(user.getId(), match.getId());
             ProfileDTO matchDTO = match.getProfile().getDTO();

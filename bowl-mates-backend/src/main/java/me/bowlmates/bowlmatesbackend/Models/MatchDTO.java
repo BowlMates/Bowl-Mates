@@ -7,6 +7,6 @@ public class MatchDTO {
     private String matchLastName;
     private String pronouns;
     private String matchPhotoURL;
-    
+
     // TODO : Implement Methods
 }
