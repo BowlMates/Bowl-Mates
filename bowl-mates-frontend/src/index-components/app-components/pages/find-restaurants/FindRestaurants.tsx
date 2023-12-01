@@ -92,7 +92,7 @@ function FindRestaurants(userLocation: {lat: number; lng: number}) {
                     Nearby Restaurants
                 </Typography>
                 <Box sx={{ padding: 2, maxHeight: '100%', overflowY: 'auto'}}>
-                    <RestaurantList restaurants={restaurantWithPhotos}/>
+                    <RestaurantList restaurants={restaurantWithPhotos} favRes={favRes}/>
                 </Box>
             </Box>
 
