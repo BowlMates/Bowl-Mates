@@ -41,7 +41,7 @@ public class ProfileService {
         TestProfile profile;
         Optional<TestProfile> repoProfile = profileRepo.findById(user.getId());
         if (repoProfile.isEmpty()) {
-            profile = new TestProfile(user);
+            profile = new TestProfile(user, user.getName());
             profileRepo.save(profile);
             user.setProfile(profile);
         } else {

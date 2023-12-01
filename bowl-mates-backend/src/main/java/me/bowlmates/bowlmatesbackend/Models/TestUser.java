@@ -67,7 +67,7 @@ public class TestUser implements UserDetails {
         authorities = new HashSet<>();
         favoriteRestaurants = new HashSet<>();
         availability = new HashSet<>();
-        profile = null;
+        profile = new TestProfile();
         matches = new HashSet<>();
         approvals = new HashSet<>();
         rejects = new HashSet<>();
@@ -103,7 +103,7 @@ public class TestUser implements UserDetails {
         this.email = email;
         this.authorities = authorities;
         this.favoriteRestaurants = rests;
-        this.profile = null;
+        this.profile = new TestProfile();
         this.availability = new HashSet<>();
         this.matches = matches;
         this.approvals = approvals;

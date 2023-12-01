@@ -1,6 +1,7 @@
 package me.bowlmates.bowlmatesbackend.Controllers;
 
 import me.bowlmates.bowlmatesbackend.Models.LoginResponseDTO;
+import me.bowlmates.bowlmatesbackend.Models.ProfileDTO;
 import me.bowlmates.bowlmatesbackend.Models.RegistrationDTO;
 import me.bowlmates.bowlmatesbackend.Models.TestUser;
 import me.bowlmates.bowlmatesbackend.Services.AuthenticationService;
@@ -26,7 +27,7 @@ public class AuthenticationController {
      * @return TestUser object constructed from registration
      */
     @PostMapping("/register")
-    public TestUser registerUser(@RequestBody RegistrationDTO body) {
+    public ProfileDTO registerUser(@RequestBody RegistrationDTO body) {
         return authenticationService.registerUser(body.getName(), body.getUsername(),
                 body.getPassword(), body.getEmail());
     }

@@ -14,7 +14,7 @@ public class TestProfile {
     private Integer id;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "user_id")
     private TestUser user;
 
     @Column
@@ -30,9 +30,9 @@ public class TestProfile {
         super();
     }
 
-    public TestProfile(TestUser user) {
+    public TestProfile(TestUser user, String name) {
         this.user = user;
-        this.name = "";
+        this.name = name;
         this.pronouns = "";
         this.bio = "";
         this.photoPath = "";

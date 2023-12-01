@@ -3,9 +3,7 @@ package me.bowlmates.bowlmatesbackend.Services;
 import java.util.HashSet;
 import java.util.Set;
 
-import me.bowlmates.bowlmatesbackend.Models.LoginResponseDTO;
-import me.bowlmates.bowlmatesbackend.Models.Role;
-import me.bowlmates.bowlmatesbackend.Models.TestUser;
+import me.bowlmates.bowlmatesbackend.Models.*;
 import me.bowlmates.bowlmatesbackend.Repositories.RoleRepo;
 import me.bowlmates.bowlmatesbackend.Repositories.UserRepo;
 
@@ -49,17 +47,22 @@ public class AuthenticationService {
      * @param email a string representing the email of the user
      * @return a {@link TestUser} that was registered
      */
-    public TestUser registerUser(String name,
-                                 String username,
-                                 String password,
-                                 String email) {
+    public ProfileDTO registerUser(String name,
+                                   String username,
+                                   String password,
+                                   String email) {
 
         String encodedPassword = passwordEncoder.encode(password);
         Role userRole = roleRepository.findByAuthority("USER").get();
         Set<Role> authorities = new HashSet<>();
         authorities.add(userRole);
-        return userRepository.save(new TestUser(0, username, encodedPassword,
-                email, authorities, new HashSet<>(), new HashSet<>(), new HashSet<>(), new HashSet<>(), new byte[0]));
+        TestUser user = new TestUser(0, username, encodedPassword,
+                email, authorities, new HashSet<>(), new HashSet<>(), new HashSet<>(), new HashSet<>(), new byte[0]);
+        TestProfile profile = new TestProfile(user, name);
+        user.setProfile(profile);
+        userRepository.save(user);
+        ProfileDTO profileDTO = new ProfileDTO(profile.getName(), profile.getPronouns(), profile.getBio(), profile.getPhotoPath());
+        return profileDTO;
     }
 
     /**
