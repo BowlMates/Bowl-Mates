@@ -1,7 +1,7 @@
 import {register_address} from "../api-addresses";
 
 const useUserSignup = () => {
-    const userSignup = (name: string, username: string, email: string, password: string) => {
+    const userSignup = (firstName: string, lastName: string, username: string, email: string, password: string) => {
 
         fetch(register_address, {
             headers: {
@@ -9,7 +9,8 @@ const useUserSignup = () => {
             },
             method: "POST",
             body: JSON.stringify({
-                name: name,
+                firstName: firstName,
+                lastName: lastName,
                 username: username,
                 email: email,
                 password: password

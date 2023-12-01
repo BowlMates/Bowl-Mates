@@ -40,13 +40,24 @@ export const useUserLogin = () => {
                 console.log("Login failed");
                 return returnVal;
             }
+            const token = body.jwt;
+            const userID = body.id;
+            const username = body.username;
+            const firstName = body.firstName;
+            const lastName = body.lastName;
             if (signIn({
-                token: body.jwt,
+                token: token,
                 expiresIn: jwtExpiration,
                 tokenType: "Bearer",
                 // Converts minute value into millisecond and -1 to ensure
                 // we expire before a user tries to swap to a new window and make a bad call
-                authState: {user: username, jwtExpiration : (Date.now() + (jwtExpiration - 1) * 100000).toString()},
+                authState: {
+                    userID: userID,
+                    username: username,
+                    firstName: firstName,
+                    lastName: lastName,
+                    jwtExpiration : (Date.now() + (jwtExpiration - 1) * 100000).toString(),
+                },
             })) {
                 returnVal = loginReturns[0];
             }
