@@ -67,8 +67,6 @@ public class RestaurantService {
 
         }
 
-
         user.setFavoriteRestaurants(newFavs);
-        userRepository.save(user);
     }
 }
