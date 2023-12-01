@@ -6,6 +6,7 @@ package me.bowlmates.bowlmatesbackend.Models;
 public class LoginResponseDTO {
     private String username;
     private String jwt;
+    private Integer id;
 
     /**
      * Default constructor
@@ -22,6 +23,7 @@ public class LoginResponseDTO {
      */
     public LoginResponseDTO(TestUser user, String jwt) {
         this.username = user.getUsername();
+        this.id = user.getId();
         this.jwt = jwt;
     }
 
@@ -41,6 +43,12 @@ public class LoginResponseDTO {
      */
     public void setUser(String username) {
         this.username = username;
+    }
+
+    public Integer getId() {return this.id;}
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     /**

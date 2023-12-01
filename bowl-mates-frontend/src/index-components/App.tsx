@@ -54,14 +54,6 @@ function App() {
         }
     }
 
-    //TODO: Figure out how to stop google maps from breaking on reload of App
-    useEffect(() => {
-        if (!googleMapsLoaded) {
-            // Load Google Maps API script here
-            setGoogleMapsLoaded(true);
-        }
-    }, [googleMapsLoaded]);
-
     return (
         <>
             <Box sx={{ display: 'flex', height: "100%", width: "100%"}}>
@@ -78,14 +70,14 @@ function App() {
                     <Box sx={{width : "100%", height : "64px"}}/>
                     <BodyContainer className={"BodyContainer"}>
                         {/* Domain Restricted Routing set in the on Google's API website */}
-                        <div>
-                            {googleMapsLoaded && (
-                                <LoadScript
-                                    googleMapsApiKey={"AIzaSyDXlQY2uFzDvS7HRowdgflkRqWtmKqYaGw"}
-                                >
-                                </LoadScript>
-                            )}
-                        </div>
+                        {/*<div>*/}
+                        {/*    {googleMapsLoaded && (*/}
+                        {/*        <LoadScript*/}
+                        {/*            googleMapsApiKey={"AIzaSyDXlQY2uFzDvS7HRowdgflkRqWtmKqYaGw"}*/}
+                        {/*        >*/}
+                        {/*        </LoadScript>*/}
+                        {/*    )}*/}
+                        {/*</div>*/}
                         <Routes>
                             <Route path={"/"} element={<Home />}/>
                             <Route path={"/find-restaurants"} element={<FindRestaurants   lat={userLocation.lat} lng={userLocation.lng}/>}/>

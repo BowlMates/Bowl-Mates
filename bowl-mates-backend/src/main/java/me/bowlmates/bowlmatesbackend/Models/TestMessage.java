@@ -13,7 +13,7 @@ public class TestMessage {
     @Column
     private Integer matchId;
     @Column
-    private Integer date;
+    private Long date;
     @Column
     private Integer chatterId;
     @Column
@@ -31,11 +31,11 @@ public class TestMessage {
         this.matchId = matchId;
     }
 
-    public int getDate() {
+    public Long getDate() {
         return this.date;
     }
 
-    public void setDate(int date) {
+    public void setDate(Long date) {
         this.date = date;
     }
 
@@ -53,6 +53,18 @@ public class TestMessage {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public MessageDTO toMessageDTO() {
+        return new MessageDTO(this.matchId,
+                this.date,
+                this.chatterId,
+                this.message);
+    }
+
+    public static int matchHash(int id1, int id2) {
+        // Whatever this is, it needs to be the same, regardless of order
+        return id1 * id2 - id1 - id2;
     }
 
     @Override

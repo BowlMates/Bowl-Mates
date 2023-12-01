@@ -37,7 +37,7 @@ const RestaurantCard: React.FC<RestaurantCardProps> = ({ restaurant, isFavorite 
                     {restaurant.name}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                    Cuisine: {restaurant.cuisine}
+                    Type: {restaurant.cuisine}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
                     Address: {restaurant.address}

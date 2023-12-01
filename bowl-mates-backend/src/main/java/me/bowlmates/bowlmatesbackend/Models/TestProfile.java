@@ -14,7 +14,7 @@ public class TestProfile {
     private Integer id;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "user_id")
     private TestUser user;
 
     @Column
@@ -30,10 +30,9 @@ public class TestProfile {
         super();
     }
 
-    public TestProfile(TestUser user, int id) {
+    public TestProfile(TestUser user, String name) {
         this.user = user;
-        this.id = id;
-        this.name = "";
+        this.name = name;
         this.pronouns = "";
         this.bio = "";
         this.photoPath = "";
@@ -77,5 +76,11 @@ public class TestProfile {
 
     public ProfileDTO getDTO() {
         return new ProfileDTO(name, pronouns, bio, photoPath);
+    }
+
+    public void updateFromDTO(ProfileDTO profileDTO) {
+        setName(profileDTO.getName());
+        setPronouns(profileDTO.getPronouns());
+        setBio(profileDTO.getBio());
     }
 }

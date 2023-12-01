@@ -22,22 +22,6 @@ public class TestUserJUnitTest {
     // Verifies all class fields are mutable and not hard coded
 
     @Test
-    public void TestUserNameFunctions() {
-        u1.setName("u1");
-        assertEquals("u1", u1.getName());
-        u1.setName("notu1");
-        assertEquals("notu1", u1.getName());
-    }
-
-    @Test
-    public void TestUserIDFunctions() {
-        u1.setId(1);
-        assertEquals(1, u1.getId());
-        u1.setId(2);
-        assertEquals(2, u1.getId());
-    }
-
-    @Test
     public void TestUserEmailFunctions() {
         u1.setEmail("u1@mail.com");
         assertEquals("u1@mail.com", u1.getEmail());
