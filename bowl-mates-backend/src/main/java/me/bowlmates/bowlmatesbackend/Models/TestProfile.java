@@ -26,7 +26,7 @@ public class TestProfile {
     @Column
     private String bio;
     @Column
-    private String photoPath;
+    private String photo;
 
     public TestProfile() {
         super();
@@ -38,7 +38,7 @@ public class TestProfile {
         this.lastName = lastName;
         this.pronouns = "";
         this.bio = "";
-        this.photoPath = "";
+        this.photo = "";
     }
 
     public int getId() {
@@ -75,16 +75,16 @@ public class TestProfile {
         return this.bio;
     }
 
-    public void setPhotoPath(String photoPath) {
-        this.photoPath = photoPath;
+    public void setPhotoPath(String photo) {
+        this.photo = photo;
     }
 
-    public String getPhotoPath() {
-        return this.photoPath;
+    public String getPhoto() {
+        return this.photo;
     }
 
     public ProfileDTO getDTO() {
-        return new ProfileDTO(firstName, lastName, pronouns, bio, photoPath);
+        return new ProfileDTO(firstName, lastName, pronouns, bio);
     }
 
     public void updateFromDTO(ProfileDTO profileDTO) {
