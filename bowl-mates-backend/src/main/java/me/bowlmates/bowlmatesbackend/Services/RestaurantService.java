@@ -57,7 +57,7 @@ public class RestaurantService {
 
         if(newFavs.contains(restUpdate)){
             newFavs.remove(restUpdate);
-            restRepository.delete(restRepository.findByAddress(restUpdate.getAddress()));
+//            restRepository.delete(restRepository.findByAddress(restUpdate.getAddress()));
         }
         else{
             newFavs.add(restUpdate);
@@ -69,5 +69,6 @@ public class RestaurantService {
 
 
         user.setFavoriteRestaurants(newFavs);
+        userRepository.save(user);
     }
 }
