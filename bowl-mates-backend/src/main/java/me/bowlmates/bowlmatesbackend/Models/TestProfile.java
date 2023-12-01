@@ -18,7 +18,9 @@ public class TestProfile {
     private TestUser user;
 
     @Column
-    private String name;
+    private String firstName;
+    @Column
+    private String lastName;
     @Column
     private String pronouns;
     @Column
@@ -30,9 +32,10 @@ public class TestProfile {
         super();
     }
 
-    public TestProfile(TestUser user, String name) {
+    public TestProfile(TestUser user, String firstName, String lastName) {
         this.user = user;
-        this.name = name;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.pronouns = "";
         this.bio = "";
         this.photoPath = "";
@@ -42,12 +45,18 @@ public class TestProfile {
         return this.id;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getName() {
-        return this.name;
+    public String getFirstName() {
+        return this.firstName;
+    }
+
+    public void setLastName(String lastName) { this.lastName = lastName;}
+
+    public String getLastName() {
+        return this.lastName;
     }
 
     public void setPronouns(String pronouns) {
@@ -75,11 +84,12 @@ public class TestProfile {
     }
 
     public ProfileDTO getDTO() {
-        return new ProfileDTO(name, pronouns, bio, photoPath);
+        return new ProfileDTO(firstName, lastName, pronouns, bio, photoPath);
     }
 
     public void updateFromDTO(ProfileDTO profileDTO) {
-        setName(profileDTO.getName());
+        setFirstName(profileDTO.getFirstName());
+        setLastName((profileDTO).getLastName());
         setPronouns(profileDTO.getPronouns());
         setBio(profileDTO.getBio());
     }
