@@ -183,6 +183,13 @@ public class UserController {
         profileService.updateProfile(profileDTO);
     }
 
+    @GetMapping("/profile/other")
+    public ProfileDTO getOtherProfile(@RequestBody Integer userId) throws Exception {
+        TestUser other = userRepository.findById(userId).get();
+        TestProfile profile = other.getProfile();
+        return profile.getDTO();
+    }
+
     // TODO: Message documentation
     @PostMapping("/message")
     public List<List<MessageDTO>> getMessages(@RequestBody List<Integer> matchIds) {
