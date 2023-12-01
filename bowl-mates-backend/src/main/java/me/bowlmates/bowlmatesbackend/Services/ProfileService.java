@@ -38,23 +38,6 @@ public class ProfileService {
             throw new NoSuchElementException("User not authenticated");
         }
         TestUser user = userRepo.findByUsername(username);
-        TestProfile profile;
-        Optional<TestProfile> repoProfile = profileRepo.findById(user.getId());
-        if (repoProfile.isEmpty()) {
-            profile = new TestProfile(user, user.getName());
-            profileRepo.save(profile);
-            user.setProfile(profile);
-        } else {
-            profile = repoProfile.get();
-        }
-        return profile;
-    }
-
-    public ProfileDTO getProfileFromUser(TestUser user) {
-        Optional<TestProfile> repoProfile = profileRepo.findById(user.getId());
-        if (repoProfile.isEmpty()) {
-            throw new NoSuchElementException("Unable to find user profile");
-        }
-        return repoProfile.get().getDTO();
+        return user.getProfile();
     }
 }

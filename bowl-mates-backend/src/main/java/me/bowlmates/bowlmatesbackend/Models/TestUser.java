@@ -315,6 +315,8 @@ public class TestUser implements UserDetails {
         this.profile = profile;
     }
 
+    public TestProfile getProfile() {return this.profile;}
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return this.authorities;
