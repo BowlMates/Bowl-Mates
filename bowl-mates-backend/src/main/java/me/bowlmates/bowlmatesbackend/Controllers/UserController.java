@@ -228,6 +228,7 @@ public class UserController {
                     matchProfile.getLastName(),
                     matchProfile.getPronouns(),
                     matchProfile.getPhoto());
+            matchDTOList.add(matchDTO);
         }
         return matchDTOList;
     }
