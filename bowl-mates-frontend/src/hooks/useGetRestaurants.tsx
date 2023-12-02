@@ -9,9 +9,7 @@ import {restaurant} from "../data-types/restaurants";
 
 
 export const useGetRestaurants = () => {
-
     const [favRes, setFavRes] = useState<restaurant[]>([]);
-
     const authHeader = useAuthHeader();
 
     const getRestaurants = () => {
@@ -62,7 +60,7 @@ export const useGetRestaurants = () => {
             if (res.ok) {
                 console.log("Successfully posted");
             } else {
-                console.log("Failed to posted");
+                console.log("Failed to post");
                 JSON.stringify(favRes);
             }
         });
