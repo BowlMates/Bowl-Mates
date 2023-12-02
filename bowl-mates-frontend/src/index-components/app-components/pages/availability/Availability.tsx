@@ -8,6 +8,9 @@ import Button from "@mui/material/Button";
 
 // Custom Imports
 import {useIsUserSessionValid} from "../../../../hooks/useIsUserSessionValid";
+import {avail} from "../../../../data-types/avail";
+import useSetAvails from "../../../../hooks/useSetAvails";
+import useGetAvails from "../../../../hooks/useGetAvails";
 
 // Predefined time slots for availability
 const timeSlots = [
@@ -31,23 +34,26 @@ const daysOfWeek = [
 
 function Availability() {
     const isSessionValid = useIsUserSessionValid();
-    useEffect(()=>{
+    const setAvails = useSetAvails();
+    const {availability, setAvailability} = useGetAvails(daysOfWeek.map(() => timeSlots.map(() => false)));
+
+    useEffect(() => {
         // CHECKS IF SESSION IS CURRENTLY VALID BEFORE DRAWING COMPONENT
         isSessionValid();
         // CHECKS IF SESSION IS CURRENTLY VALID BEFORE DRAWING COMPONENT
     });
 
-    // State to track availability for each time slot on each day
-    const [availability, setAvailability] =
-        useState(
-            // Initialize a 7x11 matrix for 7 days and 11 time slots
-            daysOfWeek.map(() => timeSlots.map(() => false))
-        );
+    // // State to track availability for each time slot on each day
+    // const [availability, setAvailability] =
+    //     useState<boolean[][]> (
+    //         // Initialize a 7x11 matrix for 7 days and 11 time slots
+    //         avails
+    //     );
 
     // Function to toggle availability for a specific day and time slot
     const toggleAvailability = (dayIndex: number, timeIndex: number) => {
         // Create a copy of the availability state
-        const updatedAvailability = availability.map((day, i) =>
+        const updatedAvailability : boolean[][] = availability.map((day, i) =>
             dayIndex === i ? [...day] : day
         );
 
@@ -56,6 +62,18 @@ function Availability() {
 
         // Update the state with the new matrix
         setAvailability(updatedAvailability);
+    }
+
+    const onSubmit = () => {
+        let avails = [];
+        for (let i = 0; i < 7; i++) {
+            for (let j = 0; j < 11; j++) {
+                if (availability[i][j]) {
+                    avails.push({ "day" : i, "time" : j });
+                }
+            }
+        }
+        setAvails.setAvails(avails);
     }
 
     return (
@@ -244,7 +262,7 @@ function Availability() {
                     alignItems="flex-end"
                 >
                     {/* Submit button */}
-                    <Button type="submit" color="success" variant="contained" size="large">
+                    <Button type="submit" color="success" variant="contained" size="large" onClick={() => onSubmit()}>
                         submit
                     </Button>
                 </Box>
