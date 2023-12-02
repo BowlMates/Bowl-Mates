@@ -10,6 +10,7 @@ import Button from "@mui/material/Button";
 import {useIsUserSessionValid} from "../../../../hooks/useIsUserSessionValid";
 import {avail} from "../../../../data-types/avail";
 import useSetAvails from "../../../../hooks/useSetAvails";
+import useGetAvails from "../../../../hooks/useGetAvails";
 
 // Predefined time slots for availability
 const timeSlots = [
@@ -34,23 +35,25 @@ const daysOfWeek = [
 function Availability() {
     const isSessionValid = useIsUserSessionValid();
     const setAvails = useSetAvails();
-    useEffect(()=>{
+    const {availability, setAvailability} = useGetAvails(daysOfWeek.map(() => timeSlots.map(() => false)));
+
+    useEffect(() => {
         // CHECKS IF SESSION IS CURRENTLY VALID BEFORE DRAWING COMPONENT
         isSessionValid();
         // CHECKS IF SESSION IS CURRENTLY VALID BEFORE DRAWING COMPONENT
     });
 
-    // State to track availability for each time slot on each day
-    const [availability, setAvailability] =
-        useState(
-            // Initialize a 7x11 matrix for 7 days and 11 time slots
-            daysOfWeek.map(() => timeSlots.map(() => false))
-        );
+    // // State to track availability for each time slot on each day
+    // const [availability, setAvailability] =
+    //     useState<boolean[][]> (
+    //         // Initialize a 7x11 matrix for 7 days and 11 time slots
+    //         avails
+    //     );
 
     // Function to toggle availability for a specific day and time slot
     const toggleAvailability = (dayIndex: number, timeIndex: number) => {
         // Create a copy of the availability state
-        const updatedAvailability = availability.map((day, i) =>
+        const updatedAvailability : boolean[][] = availability.map((day, i) =>
             dayIndex === i ? [...day] : day
         );
 
