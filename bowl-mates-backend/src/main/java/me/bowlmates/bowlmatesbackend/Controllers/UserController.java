@@ -172,6 +172,11 @@ public class UserController {
         return matchingAlgorithm.deny(userId);
     }
 
+    @PostMapping("/unmatch")
+    public void unmatch(@RequestBody Integer userId) {
+        matchingAlgorithm.unmatch(userId);
+    }
+
     // TODO: Profile documentation
     @GetMapping("/profile")
     public ProfileDTO getProfile() throws Exception {
