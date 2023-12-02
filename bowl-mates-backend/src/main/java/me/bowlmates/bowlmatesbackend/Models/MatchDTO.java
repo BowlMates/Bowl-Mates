@@ -19,4 +19,24 @@ public class MatchDTO {
         this.pronouns = pronouns;
         this.matchPhotoURL = matchPhotoURL;
     }
+
+    public int getMatchID() {
+        return this.matchID;
+    }
+
+    public String getMatchFirstName() {
+        return this.matchFirstName;
+    }
+
+    public String getMatchLastName() {
+        return this.matchLastName;
+    }
+
+    public String getPronouns() {
+        return this.pronouns;
+    }
+
+    public String getMatchPhotoURL() {
+        return this.matchPhotoURL;
+    }
 }
