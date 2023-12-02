@@ -210,7 +210,7 @@ public class UserController {
     }
 
     @GetMapping("/matches")
-    public Map<ProfileDTO, Integer> getMatchHashes() {
+    public List<MatchDTO> getMatchHashes() {
         String username = "";
         Authentication auth = SecurityContextHolder
                 .getContext()
@@ -219,14 +219,17 @@ public class UserController {
             username = auth.getName();
         }
         TestUser user = userRepository.findByUsername(username);
-        Map<ProfileDTO, Integer> matchesToHashes = new HashMap<>();
-        // TODO : Change this method
+        List<MatchDTO> matchDTOList = new ArrayList<>();
         for (TestUser match : user.getMatches()) {
             int matchHash = TestMessage.matchHash(user.getId(), match.getId());
-            ProfileDTO matchDTO = match.getProfile().getDTO();
-            matchesToHashes.put(matchDTO, matchHash);
+            TestProfile matchProfile = match.getProfile();
+            MatchDTO matchDTO = new MatchDTO(matchHash,
+                    matchProfile.getFirstName(),
+                    matchProfile.getLastName(),
+                    matchProfile.getPronouns(),
+                    matchProfile.getPhoto());
         }
-        return matchesToHashes;
+        return matchDTOList;
     }
 
     /**
