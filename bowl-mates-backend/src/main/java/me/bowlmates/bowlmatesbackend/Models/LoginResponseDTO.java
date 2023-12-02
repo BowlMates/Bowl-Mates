@@ -7,6 +7,8 @@ public class LoginResponseDTO {
     private String username;
     private String jwt;
     private Integer id;
+    private String firstName;
+    private String lastName;
 
     /**
      * Default constructor
@@ -25,6 +27,8 @@ public class LoginResponseDTO {
         this.username = user.getUsername();
         this.id = user.getId();
         this.jwt = jwt;
+        this.firstName = user.getProfile().getFirstName();
+        this.lastName = user.getProfile().getLastName();
     }
 
     /**
@@ -67,6 +71,22 @@ public class LoginResponseDTO {
      */
     public void setJwt(String jwt) {
         this.jwt = jwt;
+    }
+
+    public String getFirstName() {
+        return this.firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return this.lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
 }

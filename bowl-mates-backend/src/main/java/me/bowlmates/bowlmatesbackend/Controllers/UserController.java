@@ -190,6 +190,16 @@ public class UserController {
         return profile.getDTO();
     }
 
+    @GetMapping("/photo")
+    public String getPhoto() throws Exception {
+        return profileService.getProfile().getPhoto();
+    }
+
+    @PostMapping("/photo/save")
+    public void setPhoto(@RequestBody String photo)  throws Exception {
+        profileService.getProfile().setPhotoPath(photo);
+    }
+
     // TODO: Message documentation
     @PostMapping("/message")
     public List<List<MessageDTO>> getMessages(@RequestBody List<Integer> matchIds) {

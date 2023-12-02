@@ -134,8 +134,8 @@ public class TestUser implements UserDetails {
      *
      * @return the name of the user
      */
-    public String getName() {
-        return this.profile.getName();
+    public String getFirstName() {
+        return this.profile.getFirstName();
     }
 
     /**
@@ -143,8 +143,26 @@ public class TestUser implements UserDetails {
      *
      * @param name the name to be set
      */
-    public void setName(String name) {
-        this.profile.setName(name);
+    public void setFirstName(String name) {
+        this.profile.setFirstName(name);
+    }
+
+    /**
+     * gets the name of the user
+     *
+     * @return the name of the user
+     */
+    public String getLastName() {
+        return this.profile.getLastName();
+    }
+
+    /**
+     * sets the name of the user
+     *
+     * @param name the name to be set
+     */
+    public void setLastName(String name) {
+        this.profile.setLastName(name);
     }
 
     /**
