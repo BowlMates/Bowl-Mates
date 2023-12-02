@@ -17,7 +17,8 @@ const Rectangle = styled(Box)({
 });
 
 interface StateFields {
-    name: [string, React.Dispatch<React.SetStateAction<string>>];
+    firstName: [string, React.Dispatch<React.SetStateAction<string>>],
+    lastName: [string, React.Dispatch<React.SetStateAction<string>>],
     username: [string, React.Dispatch<React.SetStateAction<string>>];
     email: [string, React.Dispatch<React.SetStateAction<string>>];
     password: [string, React.Dispatch<React.SetStateAction<string>>];
@@ -25,7 +26,8 @@ interface StateFields {
 }
 
 function Signup() {
-    const [name, setName] = useState<string>('');
+    const [firstName, setFirstName] = useState<string>('');
+    const [lastName, setLastName] = useState<string>('');
     const [username, setUsername] = useState<string>('');
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
@@ -35,7 +37,8 @@ function Signup() {
     const [usernameValid, setUsernameValid] = useState(true);
 
     const stateFields: StateFields = {
-        name: [name, setName],
+        firstName: [firstName, setFirstName],
+        lastName: [lastName, setLastName],
         username: [username, setUsername],
         email: [email, setEmail],
         password: [password, setPassword],
@@ -71,7 +74,7 @@ function Signup() {
 
         // Perform signup if all validations pass
         if (isValidEmail && isPasswordMatch && usernameValid) {
-            userSignup(name, username, email, password );
+            userSignup(firstName, lastName, username, email, password );
             navigate("/login");
         }
     };

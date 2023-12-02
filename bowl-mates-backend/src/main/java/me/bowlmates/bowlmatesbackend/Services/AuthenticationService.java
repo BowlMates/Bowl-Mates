@@ -41,13 +41,15 @@ public class AuthenticationService {
     /**
      * Registers a new user
      *
-     * @param name a string representing the name of the user
+     * @param firstName a string representing the first name of the user
+     * @param lastName a string represtenting the last name of the user
      * @param username a string representing the username of the user
      * @param password a string representing the password of the user
      * @param email a string representing the email of the user
      * @return a {@link TestUser} that was registered
      */
-    public ProfileDTO registerUser(String name,
+    public ProfileDTO registerUser(String firstName,
+                                   String lastName,
                                    String username,
                                    String password,
                                    String email) {
@@ -58,10 +60,11 @@ public class AuthenticationService {
         authorities.add(userRole);
         TestUser user = new TestUser(0, username, encodedPassword,
                 email, authorities, new HashSet<>(), new HashSet<>(), new HashSet<>(), new HashSet<>(), new byte[0]);
-        TestProfile profile = new TestProfile(user, name);
+        TestProfile profile = new TestProfile(user, firstName, lastName);
         user.setProfile(profile);
         userRepository.save(user);
-        ProfileDTO profileDTO = new ProfileDTO(profile.getName(), profile.getPronouns(), profile.getBio(), profile.getPhotoPath());
+        ProfileDTO profileDTO = new ProfileDTO(profile.getFirstName(), profile.getLastName(), profile.getPronouns(),
+                profile.getBio());
         return profileDTO;
     }
 
