@@ -6,7 +6,8 @@ package me.bowlmates.bowlmatesbackend.Models;
  */
 public class RegistrationDTO {
 
-    private String name;
+    private String firstName;
+    private String lastName;
     private String username;
     private String password;
     private String email;
@@ -21,17 +22,20 @@ public class RegistrationDTO {
     /**
      * Constructor
      *
-     * @param name name field for user
+     * @param firstName name field for user
+     * @param lastName lastname field for the user
      * @param username username field for user
      * @param password password field for user
      * @param email email field for user
      */
-    public RegistrationDTO(String name,
+    public RegistrationDTO(String firstName,
+                           String lastName,
                            String username,
                            String password,
                            String email) {
         super();
-        this.name = name;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.username = username;
         this.password = password;
         this.email = email;
@@ -42,8 +46,8 @@ public class RegistrationDTO {
      *
      * @return name field of this
      */
-    public String getName() {
-        return this.name;
+    public String getFirstName() {
+        return this.firstName;
     }
 
     /**
@@ -51,8 +55,26 @@ public class RegistrationDTO {
      *
      * @param name String to set name field of this to
      */
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstName(String name) {
+        this.firstName = name;
+    }
+
+    /**
+     * Gets name
+     *
+     * @return name field of this
+     */
+    public String getLastName() {
+        return this.lastName;
+    }
+
+    /**
+     * Sets name
+     *
+     * @param name String to set name field of this to
+     */
+    public void setlastName(String name) {
+        this.lastName = name;
     }
 
     /**
@@ -115,7 +137,7 @@ public class RegistrationDTO {
      * @return this formatted as a String with fields labeled
      */
     public String toString() {
-        return "Registration info: name: " + this.name + "username: " +
-                this.username + " password: " + this.password + " email: " + this.email;
+        return "Registration info: first name: " + this.firstName + " last name: " + this.lastName +
+                "username: " + this.username + " password: " + this.password + " email: " + this.email;
     }
 }
