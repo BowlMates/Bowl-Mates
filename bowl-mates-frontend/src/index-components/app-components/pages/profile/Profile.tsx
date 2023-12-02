@@ -4,9 +4,12 @@ import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import Typography from "@mui/material/Typography";
 import TextField from '@mui/material/TextField';
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import UploadImg from "../../UploadImg";
 import UserCard from "../../UserCard";
+import useSaveProfile from "../../../../hooks/useSaveProfile";
+import {userProfileDetails} from "../../../../data-types/userProfile";
+import {useGetProfile} from "../../../../hooks/useGetProfile";
 
 
 //this is just a placeholder, this will hold user data fetched from the server
@@ -21,9 +24,23 @@ const user = {
 
 function Profile () {
 
-    const [displayName, setDisplayName] = useState(user.name);
-    const [pronouns, setPronouns] = useState(user.pronouns);
-    const [bio, setBio] = useState(user.bio);
+    const [firstName, setFirstName] = useState("First Name");
+    const [lastName, setLastName] = useState("Last Name")
+    const [pronouns, setPronouns] = useState("Pronouns");
+    const [bio, setBio] = useState("Bio");
+
+    const {userProfile, getProfile} = useGetProfile();
+    const {saveProfileDetails} = useSaveProfile();
+
+    // Fetch favorite restaurants on component mount
+    useEffect(()=>{
+        getProfile();
+    },[]);
+
+    console.log(userProfile);
+
+
+
     // need to add photo upload functionality
     return (
         /**
@@ -34,62 +51,93 @@ function Profile () {
          */
         <Grid container spacing={3}>
             <Grid item xs={5}>
-                <UserCard/>
+                <UserCard />
             </Grid>
-        <Grid item xs={6}>
-            <Typography variant="h1">
-                give us the details
-            </Typography>
-            <Grid container spacing={2}>
-                <Grid item xs={6}>
-                    <TextField id="filled-basic"
-                               label="display name"
-                               variant="filled"
-                               fullWidth={true}
-                               inputProps={{maxLength: 30}}
-                               value={displayName}
-                               onChange={(event) => {
-                                   setDisplayName(event.target.value);
-                               }}
-                    />
-                </Grid>
-                <Grid item xs={6}>
-                    <TextField id="filled-basic"
-                               label="pronouns"
-                               variant="filled"
-                               fullWidth={true}
-                               inputProps={{maxLength: 30}}
-                               value={pronouns}
-                               onChange={(event) => {
-                                   setPronouns(event.target.value);
-                               }}
-                    />
-                </Grid>
-                <Grid item xs={12}>
-                    <TextField id="filled-multiline-static"
-                               label="bio"
-                               multiline rows={4}
-                               variant="filled"
-                               fullWidth={true}
-                               inputProps={{maxLength: 300}}
-                               value={bio}
-                               onChange={(event) => {
-                                   setBio(event.target.value);
-                               }}
-                    />
-                </Grid>
-                <Grid item xs={12}>
-                    <Button variant="contained">submit info</Button>
-                </Grid>
-                <Grid item xs={6}>
-                    Choose and image file for your profile photo:
-                    <UploadImg />
-                </Grid>
-                <Grid item xs={12}>
-                    <Button variant="contained">submit photo</Button>
+            <Grid item xs={6}>
+                <Typography variant="h1">give us the details</Typography>
+                <Grid container spacing={2}>
+                    <Grid item xs={12}>
+                        <Grid container spacing={2}>
+                            <Grid item xs={4}>
+                                <TextField
+                                    id="filled-basic"
+                                    label="first name"
+                                    variant="filled"
+                                    fullWidth={true}
+                                    inputProps={{ maxLength: 30 }}
+                                    value={firstName}
+                                    onChange={(event) => {
+                                        setFirstName(event.target.value);
+                                    }}
+                                />
+                            </Grid>
+                            <Grid item xs={4}>
+                                <TextField
+                                    id="filled-basic"
+                                    label="last name"
+                                    variant="filled"
+                                    fullWidth={true}
+                                    inputProps={{ maxLength: 30 }}
+                                    value={lastName}
+                                    onChange={(event) => {
+                                        setLastName(event.target.value);
+                                    }}
+                                />
+                            </Grid>
+                            <Grid item xs={4}>
+                                <TextField
+                                    id="filled-basic"
+                                    label="pronouns"
+                                    variant="filled"
+                                    fullWidth={true}
+                                    inputProps={{ maxLength: 30 }}
+                                    value={pronouns}
+                                    onChange={(event) => {
+                                        setPronouns(event.target.value);
+                                    }}
+                                />
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <TextField
+                            id="filled-multiline-static"
+                            label="bio"
+                            multiline
+                            rows={4}
+                            variant="filled"
+                            fullWidth={true}
+                            inputProps={{ maxLength: 300 }}
+                            value={bio}
+                            onChange={(event) => {
+                                setBio(event.target.value);
+                            }}
+                        />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Button
+                            variant="contained"
+                            onClick={() => {
+                                let details: userProfileDetails = {
+                                    firstName: firstName,
+                                    lastName: lastName,
+                                    pronouns: pronouns,
+                                    bio: bio
+                                }
+
+                                saveProfileDetails(details);
+                        }}>
+                            submit info</Button>
+                    </Grid>
+                    <Grid item xs={6}>
+                        Choose an image file for your profile photo:
+                        <UploadImg />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Button variant="contained">submit photo</Button>
+                    </Grid>
                 </Grid>
             </Grid>
-        </Grid>
         </Grid>
     );
 }
