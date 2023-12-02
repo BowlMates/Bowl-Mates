@@ -8,6 +8,8 @@ import Button from "@mui/material/Button";
 
 // Custom Imports
 import {useIsUserSessionValid} from "../../../../hooks/useIsUserSessionValid";
+import {avail} from "../../../../data-types/avail";
+import useSetAvails from "../../../../hooks/useSetAvails";
 
 // Predefined time slots for availability
 const timeSlots = [
@@ -31,6 +33,7 @@ const daysOfWeek = [
 
 function Availability() {
     const isSessionValid = useIsUserSessionValid();
+    const setAvails = useSetAvails();
     useEffect(()=>{
         // CHECKS IF SESSION IS CURRENTLY VALID BEFORE DRAWING COMPONENT
         isSessionValid();
@@ -56,6 +59,18 @@ function Availability() {
 
         // Update the state with the new matrix
         setAvailability(updatedAvailability);
+    }
+
+    const onSubmit = () => {
+        let avails = [];
+        for (let i = 0; i < 7; i++) {
+            for (let j = 0; j < 11; j++) {
+                if (availability[i][j]) {
+                    avails.push({ "day" : i, "time" : j });
+                }
+            }
+        }
+        setAvails.setAvails(avails);
     }
 
     return (
@@ -244,7 +259,7 @@ function Availability() {
                     alignItems="flex-end"
                 >
                     {/* Submit button */}
-                    <Button type="submit" color="success" variant="contained" size="large">
+                    <Button type="submit" color="success" variant="contained" size="large" onClick={() => onSubmit()}>
                         submit
                     </Button>
                 </Box>
