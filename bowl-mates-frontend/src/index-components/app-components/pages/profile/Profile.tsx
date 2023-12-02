@@ -5,7 +5,7 @@ import Button from '@mui/material/Button';
 import Typography from "@mui/material/Typography";
 import TextField from '@mui/material/TextField';
 import React, {useEffect, useState} from "react";
-import UploadImg from "../../UploadImg";
+import UploadImg from "./profile-components/UploadImg";
 import UserCard from "../../UserCard";
 import useSaveProfile from "../../../../hooks/useSaveProfile";
 import {userProfileDetails} from "../../../../data-types/userProfile";
