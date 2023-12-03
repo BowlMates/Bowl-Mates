@@ -6,13 +6,14 @@ import React, {useState} from "react";
 interface DetailsFormProps {
     userDetails: userProfileDetails,
     handleProfileSave: (userProfileDetails: userProfileDetails) => void;
+    handlePictureUpload: (file: string) => void;
 }
 
-const DetailsForm: React.FC<DetailsFormProps> = ({userDetails, handleProfileSave}) => {
-    const [firstName, setFirstName] = useState(userDetails.firstName);
-    const [lastName, setLastName] = useState(userDetails.lastName);
-    const [pronouns, setPronouns] = useState(userDetails.pronouns);
-    const [bio, setBio] = useState(userDetails.bio);
+const DetailsForm: React.FC<DetailsFormProps> = ({userDetails, handleProfileSave, handlePictureUpload}) => {
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [pronouns, setPronouns] = useState('');
+    const [bio, setBio] = useState('');
 
     return (
         <Grid item xs={12} sm={6} md={4}>
@@ -95,10 +96,7 @@ const DetailsForm: React.FC<DetailsFormProps> = ({userDetails, handleProfileSave
                 </Grid>
                 <Grid item xs={12} sm={6}>
                     Choose an image file for your profile photo:
-                    <UploadImg />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                    <Button variant="contained">Submit Photo</Button>
+                    <UploadImg handlePictureUpload={handlePictureUpload}/>
                 </Grid>
             </Grid>
         </Grid>

@@ -68,6 +68,8 @@ function FindRestaurants(userLocation: {lat: number; lng: number}) {
         getRestaurants();
     },[]);
 
+    console.log(favRes)
+
 
     // const {restaurants, placesLoading, placesError} = useNearbyPlaces(userLocation);
     // const {photos, photosLoading, photosError} = useGetPhotos(restaurants);

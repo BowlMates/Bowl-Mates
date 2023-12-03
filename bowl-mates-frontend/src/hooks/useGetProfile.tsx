@@ -31,7 +31,7 @@ export const useGetProfile = () => {
             }
         }).then((body) => {
             if (body == null) {
-                console.log("Unable to get Restaurants");
+                console.log("Unable to get profile");
                 setUserProfile(defaultProfile);
             } else {
                 let temp: userProfileDetails = body;

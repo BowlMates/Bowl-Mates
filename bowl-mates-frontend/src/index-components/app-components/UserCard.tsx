@@ -1,20 +1,22 @@
 import { Card, CardContent, CardMedia } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import {userProfileDetails} from "../../data-types/userProfile";
+import logo from "../../images/BOWLMATES LOGO V2.png";
 import React from "react";
 
 const user = {
     name: "Hedy Lamarr",
     pronouns: "she/her",
     bio: "I am a baddie you cannot stop me",
-    image: "https://i.imgur.com/yXOvdOSs.jpg",
-};
+    image: logo
+}
 
 interface UserCardProps {
     userProfile: userProfileDetails;
+    userImage: string;
 }
 
-const UserCard: React.FC<UserCardProps> = ({userProfile}) => {
+const UserCard: React.FC<UserCardProps> = ({userProfile, userImage}) => {
     return (
         <Card>
 
@@ -22,7 +24,7 @@ const UserCard: React.FC<UserCardProps> = ({userProfile}) => {
                 component="img"
                 height="auto" // Allow the height to adjust automatically based on the content
                 width="100%" // Use 100% of the parent container's width
-                image={user.image}
+                image={userImage === '' ? user.image : userImage}
                 alt="user photo"
             />
             <CardContent>
