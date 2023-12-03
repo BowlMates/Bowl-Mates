@@ -32,7 +32,7 @@ function Profile () {
     const {userProfile, getProfile} = useGetProfile();
     const {saveProfileDetails} = useSaveProfile();
 
-    // Fetch favorite restaurants on component mount
+    // Fetch profile details on component mount
     useEffect(()=>{
         getProfile();
     },[]);
