@@ -192,8 +192,6 @@ public class UserController {
 
     @GetMapping(value = "/photo", produces = "application/json")
     public String getPhoto() throws Exception {
-        System.out.println("User controller -> getPhoto");
-        //System.out.println(profileService.getProfile().getPhoto());
         return profileService.getProfile().getPhoto();
     }
 
@@ -216,10 +214,9 @@ public class UserController {
             dest.getParentFile().mkdirs();
 
             photo.transferTo(dest);
-            System.out.println(filePath);
 
             ProfileDTO userProfile = profileService.getProfile().getDTO();
-            userProfile.setPhoto(filePath);
+            userProfile.setPhoto(photo.getOriginalFilename());
 
             profileService.updateProfile(userProfile);
 

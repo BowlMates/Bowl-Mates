@@ -1,40 +1,38 @@
 import {useAuthHeader} from "react-auth-kit";
 import {user_image_address} from "../api-addresses";
-import logo from '../images/BOWLMATES LOGO V2.png';
 import {useState} from "react";
 
-
-export const useGetImage = () => {
-    const[ userImage, setUserImage] = useState<string>(logo);
+//TODO: Find out why this only works with jpg files and not png
+export const useGetImage = (imageRef: string) => {
+    const[ image, setImage] = useState<string>('');
+    const fullAddress: string = user_image_address + imageRef;
     const authHeader = useAuthHeader();
 
     const getImage = ()=> {
-        fetch(user_image_address, {
-            headers: {
-                "Authorization": authHeader(),
-                "Content-Type": "application/json",
-                "Connection": "keep-alive",
-                "Accept": "*/*",
-            },
-            method: "GET",
-        }).then((res) => {
-            if (res.ok) {
-                return res.text();
-            } else {
-                return null;
-            }
-        }).then((body) => {
-            if (body == null) {
-                console.log("Unable to get image");
-            } else {
-                let temp: string = body;
-                setUserImage(temp);
-            }
-        });
-
+        if(imageRef !== ''){
+            fetch(fullAddress, {
+                headers: {
+                    "Authorization": authHeader(),
+                },
+                method: "GET",
+            }).then((res) => {
+                if (res.ok) {
+                    return res.blob();
+                } else {
+                    return null;
+                }
+            }).then((body) => {
+                if (body == null) {
+                    console.log("Unable to get image");
+                } else {
+                    const imageUrl= URL.createObjectURL(body);
+                    setImage(imageUrl);
+                }
+            });
+        }
     }
 
-    return {userImage, setUserImage, getImage}
+    return {image, setImage, getImage}
 }
 
 

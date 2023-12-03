@@ -1,12 +1,11 @@
 import {useAuthHeader} from "react-auth-kit";
 import {user_image_save_address} from "../api-addresses";
 
-const useSaveImage = () => {
+const useSaveImageRef = () => {
     const authHeader = useAuthHeader();
 
     const saveImage = async (image: File) : Promise<{ success: boolean }> => {
         const token = authHeader();
-        console.log(image)
 
         // Create a FormData object and append the file to it
         const formData = new FormData();
@@ -34,4 +33,4 @@ const useSaveImage = () => {
 }
 
 
-export default useSaveImage;
+export default useSaveImageRef;

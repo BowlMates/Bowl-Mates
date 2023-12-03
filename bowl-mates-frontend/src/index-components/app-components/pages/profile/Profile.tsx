@@ -5,15 +5,17 @@ import useSaveProfile from '../../../../hooks/useSaveProfile';
 import { userProfileDetails } from '../../../../data-types/userProfile';
 import { useGetProfile } from '../../../../hooks/useGetProfile';
 import DetailsForm from "./profile-components/DetailsForm";
-import useSaveImage from "../../../../hooks/useSaveImage";
+import useSaveImageRef from "../../../../hooks/useSaveImageRef";
+import {useGetImageRef} from "../../../../hooks/useGetImageRef";
 import {useGetImage} from "../../../../hooks/useGetImage";
 
 const Profile = () => {
     const { userProfile, getProfile } = useGetProfile();
-    const { userImage, getImage } = useGetImage();
+    const { userImageRef, getImageRef } = useGetImageRef();
+    const { image, getImage } = useGetImage(userImageRef);
 
     const { saveProfileDetails } = useSaveProfile();
-    const { saveImage } = useSaveImage();
+    const { saveImage } = useSaveImageRef();
 
     const handleProfileSave = async (userProfileDetails: userProfileDetails) => {
         let result = await saveProfileDetails(userProfileDetails).then((res) => {return res});
@@ -22,15 +24,7 @@ const Profile = () => {
         }
     }
 
-    // Broke:
-    // const handlePictureUpload = (file: string) => {
-    //     setProfilePicture(file);
-    // }
-
-    // Woke:
     const handlePictureUpload = async (image: File | null) => {
-        console.log("here")
-        console.log(image)
         if(image !== null){
             let result = await saveImage(image).then((res) => {return res});
         }
@@ -43,15 +37,20 @@ const Profile = () => {
 
     // Fetch user image on component mount
     useEffect( () => {
-        getImage();
+        getImageRef();
     }, []);
 
-    //console.log(userProfile);
+    // Fetch user image on component mount
+    useEffect( () => {
+        getImage();
+    }, [userImageRef]);
+
+
 
     return (
         <Grid container spacing={3}>
             <Grid item xs={12} sm={5} md={4}>
-                <UserCard userProfile={userProfile} userImage={userImage} />
+                <UserCard userProfile={userProfile} userImage={image} />
             </Grid>
             <DetailsForm userDetails={userProfile} handleProfileSave={handleProfileSave} handlePictureUpload={handlePictureUpload} />
         </Grid>

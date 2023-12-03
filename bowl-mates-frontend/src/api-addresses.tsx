@@ -43,13 +43,17 @@ const user_profile_address : string = ADDRESS + user_profile;
 const user_profile_save : string = "/user/profile/save";
 const user_profile_save_address : string = ADDRESS + user_profile_save;
 
-// Get user profile photo
-const user_image : string = "/user/photo";
-const user_image_address : string = ADDRESS + user_image;
+// GET user profile photo reference
+const user_image_ref : string = "/user/photo";
+const user_image_ref_address : string = ADDRESS + user_image_ref;
 
 // POST user profile photo
 const user_image_save : string = "/user/photo/save";
 const user_image_save_address : string = ADDRESS + user_image_save;
+
+// GET user profile blob
+const user_image : string = "/uploads/";
+const user_image_address : string = ADDRESS + user_image;
 
 
 export {
@@ -62,6 +66,8 @@ export {
     user_match_show_address,
     user_profile_address,
     user_profile_save_address,
+    user_image_ref_address,
     user_image_address,
-    user_image_save_address
+    user_image_save_address,
+
 };

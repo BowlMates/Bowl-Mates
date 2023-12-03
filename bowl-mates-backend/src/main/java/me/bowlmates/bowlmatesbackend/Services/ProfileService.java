@@ -38,8 +38,7 @@ public class ProfileService {
             throw new NoSuchElementException("User not authenticated");
         }
         TestUser user = userRepo.findByUsername(username);
-        System.out.println("Profile Service -> Get Profile");
-        System.out.println(user.getProfile().getPhoto());
+
         return user.getProfile();
     }
 }
