@@ -75,7 +75,8 @@ public class TestProfile {
         return this.bio;
     }
 
-    public void setPhotoPath(String photo) {
+    public void setPhoto(String photo) {
+        System.out.println(photo);
         this.photo = photo;
     }
 
@@ -84,7 +85,7 @@ public class TestProfile {
     }
 
     public ProfileDTO getDTO() {
-        return new ProfileDTO(firstName, lastName, pronouns, bio);
+        return new ProfileDTO(firstName, lastName, pronouns, bio, photo);
     }
 
     public void updateFromDTO(ProfileDTO profileDTO) {
@@ -92,5 +93,6 @@ public class TestProfile {
         setLastName((profileDTO).getLastName());
         setPronouns(profileDTO.getPronouns());
         setBio(profileDTO.getBio());
+        setPhoto(profileDTO.getPhoto());
     }
 }

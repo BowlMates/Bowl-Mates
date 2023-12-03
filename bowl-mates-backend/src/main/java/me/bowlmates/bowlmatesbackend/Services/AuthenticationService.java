@@ -64,7 +64,7 @@ public class AuthenticationService {
         user.setProfile(profile);
         userRepository.save(user);
         ProfileDTO profileDTO = new ProfileDTO(profile.getFirstName(), profile.getLastName(), profile.getPronouns(),
-                profile.getBio());
+                profile.getBio(), profile.getPhoto());
         return profileDTO;
     }
 

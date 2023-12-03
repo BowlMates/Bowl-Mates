@@ -7,22 +7,22 @@ public class ProfileDTO {
     private String lastName;
     private String pronouns;
     private String bio;
-//    private String photoPath;
+    private String photo;
 
     public ProfileDTO() {
         this.firstName = "";
         this.lastName = "";
         this.pronouns = "";
         this.bio = "";
-//        this.photoPath = "";
+        this.photo = "";
     }
 
-    public ProfileDTO(String firstName, String lastName, String pronouns, String bio) {
+    public ProfileDTO(String firstName, String lastName, String pronouns, String bio, String photo) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.pronouns = pronouns;
         this.bio = bio;
-//        this.photoPath = photoPath;
+        this.photo = "";
     }
 
     public void setFirstName(String name) {
@@ -55,11 +55,11 @@ public class ProfileDTO {
         return this.bio;
     }
 
-//    public void setPhotoPath(String photoPath) {
-//        this.photoPath = photoPath;
-//    }
-//
-//    public String getPhotoPath() {
-//        return this.photoPath;
-//    }
+    public void setPhoto(String photoPath) {
+        this.photo = photoPath;
+    }
+
+    public String getPhoto() {
+        return this.photo;
+    }
 }

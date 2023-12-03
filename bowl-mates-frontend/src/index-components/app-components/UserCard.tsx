@@ -1,39 +1,45 @@
-
-import {Card, CardContent, CardMedia} from "@mui/material";
+import { Card, CardContent, CardMedia } from "@mui/material";
 import Typography from "@mui/material/Typography";
+import {userProfileDetails} from "../../data-types/userProfile";
+import logo from "../../images/BOWLMATES LOGO V2.png";
+import React from "react";
 
-// example user, we would use users from the matches queue to get the data
 const user = {
-    name: 'Hedy Lamarr',
-    pronouns: 'she/her',
-    bio: 'I am a baddie you cannot stop me',
-    image: 'https://i.imgur.com/yXOvdOSs.jpg',
-};
+    name: "Hedy Lamarr",
+    pronouns: "she/her",
+    bio: "I am a baddie you cannot stop me",
+    image: logo
+}
 
+interface UserCardProps {
+    userProfile: userProfileDetails;
+    userImage: string;
+}
 
-const UserCard = () => {
-    // returns a user card containing pic, name, pronouns, and bio from their unique user number
+const UserCard: React.FC<UserCardProps> = ({userProfile, userImage}) => {
     return (
         <Card>
+
             <CardMedia
                 component="img"
-                // height="500"
-                image={user.image}
+                height="auto" // Allow the height to adjust automatically based on the content
+                width="100%" // Use 100% of the parent container's width
+                image={userImage === '' ? user.image : userImage}
                 alt="user photo"
             />
             <CardContent>
-                <Typography gutterBottom variant="h3" component="div">
-                    {user.name}
+                <Typography gutterBottom variant="h5" component="div">
+                    {userProfile.firstName + ' ' + userProfile.lastName}
                 </Typography>
                 <Typography gutterBottom variant="body1" component="div">
-                    {user.pronouns}
+                    {userProfile.pronouns}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                    {user.bio}
+                    {userProfile.bio}
                 </Typography>
             </CardContent>
         </Card>
     );
-}
+};
 
 export default UserCard;
