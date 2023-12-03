@@ -6,12 +6,14 @@ import { userProfileDetails } from '../../../../data-types/userProfile';
 import { useGetProfile } from '../../../../hooks/useGetProfile';
 import DetailsForm from "./profile-components/DetailsForm";
 import useSaveImage from "../../../../hooks/useSaveImage";
+import {useGetImage} from "../../../../hooks/useGetImage";
 
 const Profile = () => {
     const { userProfile, getProfile } = useGetProfile();
+    const { userImage, getImage } = useGetImage();
+
     const { saveProfileDetails } = useSaveProfile();
     const { saveImage } = useSaveImage();
-    const [ profilePicture, setProfilePicture] = useState<string>('')
 
     const handleProfileSave = async (userProfileDetails: userProfileDetails) => {
         let result = await saveProfileDetails(userProfileDetails).then((res) => {return res});
@@ -39,12 +41,17 @@ const Profile = () => {
         getProfile();
     }, []);
 
+    // Fetch user image on component mount
+    useEffect( () => {
+        getImage();
+    }, []);
+
     //console.log(userProfile);
 
     return (
         <Grid container spacing={3}>
             <Grid item xs={12} sm={5} md={4}>
-                <UserCard userProfile={userProfile} userImage={profilePicture} />
+                <UserCard userProfile={userProfile} userImage={userImage} />
             </Grid>
             <DetailsForm userDetails={userProfile} handleProfileSave={handleProfileSave} handlePictureUpload={handlePictureUpload} />
         </Grid>
