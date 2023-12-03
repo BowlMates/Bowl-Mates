@@ -28,13 +28,23 @@ function MapComponent({restaurants, userLocation}: {restaurants: restaurant[], u
                     position={userLocation}
                     title={"Current Location"}
                 />
-                {restaurants.map((restaurant) => (
-                    <MarkerF
-                        key={restaurant.id}
-                        position={{ lat: parseFloat(restaurant.latitude.toString()), lng: parseFloat(restaurant.longitude.toString())}}
-                        title={restaurant.name}
-                    />
-                ))}
+                <div>
+                    {restaurants.length > 0 ? (
+                        restaurants.map((restaurant) => (
+                                <MarkerF
+                                    key={restaurant.id}
+                                    position={{
+                                        lat: parseFloat(restaurant.latitude.toString()),
+                                        lng: parseFloat(restaurant.longitude.toString())
+                                }}
+                                    title={restaurant.name}
+                                />
+                            ))
+                    ) : (
+                        <div> </div>
+                    )}
+                </div>
+
             </GoogleMap>
     ) : <></>;
 }

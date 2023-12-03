@@ -23,8 +23,8 @@ import useSaveRestaurant from "../../../../hooks/useSaveRestaurants";
 // The FindRestaurants component is responsible for calling the getNearbyRestaurants function and then
 // displaying all the data returned by the API to the user
 function FindRestaurants(userLocation: {lat: number; lng: number}) {
-    const {restaurants, placesError} = useNearbyPlaces(userLocation);
-    const {photos, photosError} = useGetPhotos(restaurants);
+    const {restaurants, placesLoading, placesError} = useNearbyPlaces(userLocation);
+    const {photos, photosLoading, photosError} = useGetPhotos(restaurants);
     const {favRes, setFavRes, getRestaurants} = useGetRestaurants();
     const memoizedRestaurants = useMemo(() => restaurants, [restaurants]);
     const memoizedPhotos = useMemo(() => photos, [photos]);
@@ -68,11 +68,6 @@ function FindRestaurants(userLocation: {lat: number; lng: number}) {
         getRestaurants();
     },[]);
 
-    console.log(favRes)
-
-
-    // const {restaurants, placesLoading, placesError} = useNearbyPlaces(userLocation);
-    // const {photos, photosLoading, photosError} = useGetPhotos(restaurants);
 
     if (placesError) {
         return <div>Error: {placesError.message}</div>;
@@ -80,6 +75,10 @@ function FindRestaurants(userLocation: {lat: number; lng: number}) {
 
     if(photosError){
         return <div>Error: {photosError.message}</div>
+    }
+
+    if(placesLoading || photosLoading){
+        return <div>Loading...</div>
     }
 
 
@@ -130,7 +129,7 @@ function FindRestaurants(userLocation: {lat: number; lng: number}) {
                 borderRadius={{ md: '12px' }}
                 marginRight={{ xs: 0, md: 2 }}
                 height="100%">
-                <MapComponent restaurants={restaurants} userLocation={userLocation} />
+                <MapComponent restaurants={favRes} userLocation={userLocation} />
             </Box>
 
             {/* Favorite Restaurants Column */}
