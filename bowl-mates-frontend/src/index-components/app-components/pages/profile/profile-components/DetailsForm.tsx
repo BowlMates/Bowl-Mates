@@ -1,53 +1,51 @@
-import {Button, Grid, TextField, Typography} from "@mui/material";
-import {userProfileDetails} from "../../../../../data-types/userProfile";
+import React, { useState } from "react";
+import { Button, Grid, TextField, Typography } from "@mui/material";
+import { userProfileDetails } from "../../../../../data-types/userProfile";
 import UploadImg from "./UploadImg";
-import React, {useState} from "react";
 
 interface DetailsFormProps {
-    userDetails: userProfileDetails,
+    userDetails: userProfileDetails;
     handleProfileSave: (userProfileDetails: userProfileDetails) => void;
-    handlePictureUpload: (file: string) => void;
+    handlePictureUpload: (image: File | null) => void;
 }
 
-const DetailsForm: React.FC<DetailsFormProps> = ({userDetails, handleProfileSave, handlePictureUpload}) => {
-    const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
-    const [pronouns, setPronouns] = useState('');
-    const [bio, setBio] = useState('');
+const DetailsForm: React.FC<DetailsFormProps> = ({userDetails, handleProfileSave, handlePictureUpload,}) => {
+    const [firstName, setFirstName] = useState(userDetails.firstName || "");
+    const [lastName, setLastName] = useState(userDetails.lastName || "");
+    const [pronouns, setPronouns] = useState(userDetails.pronouns || "");
+    const [bio, setBio] = useState(userDetails.bio || "");
 
     return (
         <Grid item xs={12} sm={6} md={4}>
-            <Typography variant="h3">Give us the details</Typography>
+            <Typography variant="h4" gutterBottom>
+                Personal Details
+            </Typography>
             <Grid container spacing={2}>
                 <Grid item xs={12}>
                     <Grid container spacing={2}>
-                        <Grid item xs={12} sm={4}>
+                        <Grid item xs={12} sm={6}>
                             <TextField
                                 id="filled-basic"
-                                label="First name"
+                                label="First Name"
                                 variant="filled"
                                 fullWidth
                                 inputProps={{ maxLength: 30 }}
                                 value={firstName}
-                                onChange={(event) => {
-                                    setFirstName(event.target.value);
-                                }}
+                                onChange={(event) => setFirstName(event.target.value)}
                             />
                         </Grid>
-                        <Grid item xs={12} sm={4}>
+                        <Grid item xs={12} sm={6}>
                             <TextField
                                 id="filled-basic"
-                                label="Last name"
+                                label="Last Name"
                                 variant="filled"
                                 fullWidth
                                 inputProps={{ maxLength: 30 }}
                                 value={lastName}
-                                onChange={(event) => {
-                                    setLastName(event.target.value);
-                                }}
+                                onChange={(event) => setLastName(event.target.value)}
                             />
                         </Grid>
-                        <Grid item xs={12} sm={4}>
+                        <Grid item xs={12}>
                             <TextField
                                 id="filled-basic"
                                 label="Pronouns"
@@ -55,9 +53,7 @@ const DetailsForm: React.FC<DetailsFormProps> = ({userDetails, handleProfileSave
                                 fullWidth
                                 inputProps={{ maxLength: 30 }}
                                 value={pronouns}
-                                onChange={(event) => {
-                                    setPronouns(event.target.value);
-                                }}
+                                onChange={(event) => setPronouns(event.target.value)}
                             />
                         </Grid>
                     </Grid>
@@ -72,9 +68,7 @@ const DetailsForm: React.FC<DetailsFormProps> = ({userDetails, handleProfileSave
                         fullWidth
                         inputProps={{ maxLength: 300 }}
                         value={bio}
-                        onChange={(event) => {
-                            setBio(event.target.value);
-                        }}
+                        onChange={(event) => setBio(event.target.value)}
                     />
                 </Grid>
                 <Grid item xs={12}>
@@ -82,25 +76,25 @@ const DetailsForm: React.FC<DetailsFormProps> = ({userDetails, handleProfileSave
                         variant="contained"
                         onClick={() => {
                             let details: userProfileDetails = {
-                                firstName: firstName,
-                                lastName: lastName,
-                                pronouns: pronouns,
-                                bio: bio,
+                                firstName,
+                                lastName,
+                                pronouns,
+                                bio,
                             };
 
                             handleProfileSave(details);
                         }}
                     >
-                        Submit Info
+                        Save Details
                     </Button>
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                    Choose an image file for your profile photo:
-                    <UploadImg handlePictureUpload={handlePictureUpload}/>
+                    <Typography variant="subtitle1">Choose a profile photo:</Typography>
+                    <UploadImg handlePictureUpload={handlePictureUpload} />
                 </Grid>
             </Grid>
         </Grid>
     );
-}
+};
 
 export default DetailsForm;

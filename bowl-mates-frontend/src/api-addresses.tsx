@@ -43,9 +43,14 @@ const user_profile_address : string = ADDRESS + user_profile;
 const user_profile_save : string = "/user/profile/save";
 const user_profile_save_address : string = ADDRESS + user_profile_save;
 
+// Get user profile photo
+const user_image : string = "/user/photo/";
+const user_image_address : string = ADDRESS + user_image;
+
 // POST user profile photo
-const user_image_save : string = "/user/profile/save";
+const user_image_save : string = "/user/photo/save";
 const user_image_save_address : string = ADDRESS + user_image_save;
+
 
 export {
     login_address,

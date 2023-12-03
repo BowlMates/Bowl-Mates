@@ -3,18 +3,20 @@ import { Button, Card, CardContent, CardMedia, Typography, IconButton, Grid } fr
 import PhotoCameraIcon from "@mui/icons-material/PhotoCamera";
 
 interface UploadImgProps {
-    handlePictureUpload: (file: string) => void;
+    handlePictureUpload: (image: File | null) => void;
 }
 
 const UploadImg: React.FC<UploadImgProps> = ({ handlePictureUpload }) => {
-    const [file, setFile] = useState<string>('');
+    const [fileReference, setFileReference] = useState<string>('');
+    const [fileData, setFileData] = useState<File | null>(null)
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const selectedFile = e.target.files?.[0];
 
         if (selectedFile) {
             console.log(selectedFile);
-            setFile(URL.createObjectURL(selectedFile));
+            setFileReference(URL.createObjectURL(selectedFile));
+            setFileData(selectedFile);
         }
     };
 
@@ -26,7 +28,7 @@ const UploadImg: React.FC<UploadImgProps> = ({ handlePictureUpload }) => {
                         <CardMedia
                             component="img"
                             alt=""
-                            image={file || ''}
+                            image={fileReference || ''}
                             style={{ width: "200px", height: "200px", borderRadius: "50%" }}
                         />
                         <input
@@ -47,7 +49,7 @@ const UploadImg: React.FC<UploadImgProps> = ({ handlePictureUpload }) => {
                             </IconButton>
                         </label>
                         <Typography variant="h6" color="textSecondary" align="center">
-                            {file ? "File selected" : "No file selected"}
+                            {fileReference ? "File selected" : "No file selected"}
                         </Typography>
                     </CardContent>
                 </Card>
@@ -56,9 +58,9 @@ const UploadImg: React.FC<UploadImgProps> = ({ handlePictureUpload }) => {
                 <Button
                     variant="contained"
                     fullWidth
-                    disabled={!file} // Disable button if no file is selected
+                    disabled={!fileReference} // Disable button if no file is selected
                     onClick={() => {
-                        handlePictureUpload(file); // Pass the file URL to the parent component
+                        handlePictureUpload(fileData); // Pass the file data to the parent component
                     }}
                     style={{ marginTop: "16px" }}
                 >

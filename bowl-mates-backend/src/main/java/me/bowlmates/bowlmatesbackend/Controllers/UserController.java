@@ -8,11 +8,15 @@ import me.bowlmates.bowlmatesbackend.Services.*;
 import me.bowlmates.bowlmatesbackend.Repositories.UserRepo;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.util.*;
 
 /**
@@ -37,6 +41,9 @@ public class UserController {
 
     @Autowired
     private MatchingAlgorithm matchingAlgorithm;
+
+    @Value("${upload.directory}") // Get relative path to uploads directory from application.properties
+    private String uploadDirectory;
 
     /**
      * Landing page for user
@@ -189,8 +196,31 @@ public class UserController {
     }
 
     @PostMapping("/photo/save")
-    public void setPhoto(@RequestBody String photo)  throws Exception {
-        profileService.getProfile().setPhotoPath(photo);
+    public ResponseEntity<String> setPhoto(@RequestParam("image") MultipartFile photo)  throws Exception {
+
+        // Validate file
+        if (photo.isEmpty()) {
+            throw new Exception();
+        }
+
+        // Save the file on the server
+        try {
+            // Construct the full path to the upload directory
+            String fullPath = System.getProperty("user.dir") + File.separator + uploadDirectory;
+            String filePath = fullPath + File.separator + photo.getOriginalFilename();
+            File dest = new File(filePath);
+
+            // Create the directory if it doesn't exist
+            dest.getParentFile().mkdirs();
+
+            photo.transferTo(dest);
+            profileService.getProfile().setPhotoPath(filePath);
+
+            return ResponseEntity.ok("File uploaded successfully!");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return ResponseEntity.status(500).body("Failed to upload the file");
+        }
     }
 
     // TODO: Message documentation

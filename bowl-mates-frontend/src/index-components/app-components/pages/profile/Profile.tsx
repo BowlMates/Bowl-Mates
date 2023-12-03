@@ -5,10 +5,12 @@ import useSaveProfile from '../../../../hooks/useSaveProfile';
 import { userProfileDetails } from '../../../../data-types/userProfile';
 import { useGetProfile } from '../../../../hooks/useGetProfile';
 import DetailsForm from "./profile-components/DetailsForm";
+import useSaveImage from "../../../../hooks/useSaveImage";
 
 const Profile = () => {
     const { userProfile, getProfile } = useGetProfile();
     const { saveProfileDetails } = useSaveProfile();
+    const { saveImage } = useSaveImage();
     const [ profilePicture, setProfilePicture] = useState<string>('')
 
     const handleProfileSave = async (userProfileDetails: userProfileDetails) => {
@@ -18,8 +20,18 @@ const Profile = () => {
         }
     }
 
-    const handlePictureUpload = (file: string) => {
-        setProfilePicture(file);
+    // Broke:
+    // const handlePictureUpload = (file: string) => {
+    //     setProfilePicture(file);
+    // }
+
+    // Woke:
+    const handlePictureUpload = async (image: File | null) => {
+        console.log("here")
+        console.log(image)
+        if(image !== null){
+            let result = await saveImage(image).then((res) => {return res});
+        }
     }
 
     // Fetch profile details on component mount
@@ -27,7 +39,7 @@ const Profile = () => {
         getProfile();
     }, []);
 
-    console.log(userProfile);
+    //console.log(userProfile);
 
     return (
         <Grid container spacing={3}>
