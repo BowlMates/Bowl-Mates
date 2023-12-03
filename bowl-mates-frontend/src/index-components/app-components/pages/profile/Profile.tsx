@@ -1,5 +1,5 @@
-import { Grid, Button, Typography, TextField } from '@mui/material';
-import React, { useEffect, useState } from 'react';
+import { Grid} from '@mui/material';
+import React, { useEffect } from 'react';
 import UserCard from '../../UserCard';
 import useSaveProfile from '../../../../hooks/useSaveProfile';
 import { userProfileDetails } from '../../../../data-types/userProfile';
@@ -27,6 +27,10 @@ const Profile = () => {
     const handlePictureUpload = async (image: File | null) => {
         if(image !== null){
             let result = await saveImage(image).then((res) => {return res});
+            if(result.success){
+                console.log("saved picture, fetching reference")
+                getImageRef();
+            }
         }
     }
 

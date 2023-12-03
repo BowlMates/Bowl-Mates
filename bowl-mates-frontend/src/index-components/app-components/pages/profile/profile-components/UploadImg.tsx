@@ -20,6 +20,11 @@ const UploadImg: React.FC<UploadImgProps> = ({ handlePictureUpload }) => {
         }
     };
 
+    const resetState = () => {
+        setFileReference('');
+        setFileData(null);
+    };
+
     return (
         <Grid container justifyContent="center" spacing={2}>
             <Grid item xs={12} sm={8} md={10}>
@@ -61,6 +66,7 @@ const UploadImg: React.FC<UploadImgProps> = ({ handlePictureUpload }) => {
                     disabled={!fileReference} // Disable button if no file is selected
                     onClick={() => {
                         handlePictureUpload(fileData); // Pass the file data to the parent component
+                        resetState();
                     }}
                     style={{ marginTop: "16px" }}
                 >
