@@ -12,6 +12,20 @@ const user = {
 
 
 const UserCard = () => {
+
+// JASP EDIT COMMENCE
+// 1. Get rid of hardcoded user above
+// 2. Change const UserCard to smth along the lines of:
+// const UserCard = ({ match }) => {
+//      // Use the match prop to display user data
+//      const {name, pronouns, bio, image} = match
+//
+//      return (
+//          all the code contrib by Geoff inside can stay the same
+//      );
+// };
+// END OF JASP EDIT
+
     // returns a user card containing pic, name, pronouns, and bio from their unique user number
     return (
         <Card>
