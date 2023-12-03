@@ -14,16 +14,7 @@ import {useIsUserSessionValid} from "../../../../hooks/useIsUserSessionValid";
 import useGetMatches from "../../../../hooks/useGetMatches";
 import useGetAcceptMatch from "../../../../hooks/useGetAcceptMatch";
 import useGetRejectMatch from "../../../../hooks/useGetRejectMatch";
-// TODO:
-// 1. Manage current match index/queue of matches
-//      - Have a function to fetch matches queue (`fetchMatchesQueue' is placeholder here)
-//      - Have a function to update database when match accepted ('addMatchToDatabase' is placeholder here)
-// 2. Handle swipe actions
-//      - 'handleSwipeLeft' --> removes current match from queue
-//      - 'handleSwipeRight' --> removes from queue, adds to database
-// 3. Displaying user cards
-//      - card component displays info based on current match
-//      - pass current match as prop to this component
+
 
 function Matching () {
     const isSessionValid = useIsUserSessionValid();
@@ -40,16 +31,20 @@ function Matching () {
 
     const handleSwipeLeft = () => {
         const matchId = matchesQueue[currentMatchIndex];
+
         // Reject a user match
         rejectMatch(matchId);
+
         // Advance to next match
         setCurrentMatchIndex(currentMatchIndex + 1);
+
     };
 
     const handleSwipeRight = () => {
         const matchId = matchesQueue[currentMatchIndex];
         // Accept a user match
         approveMatch(matchId);
+
         // Advance to next match
         setCurrentMatchIndex(currentMatchIndex + 1);
     }
@@ -81,12 +76,12 @@ function Matching () {
                 </Grid>
                 <Grid item xs={6}>
                     <Button onClick={handleSwipeLeft} color="error" variant="outlined" fullWidth={true} startIcon={<WestIcon />}>
-                        Swipe left
+                        Reject match
                     </Button>
                 </Grid>
                 <Grid item xs={6}>
                     <Button onClick={handleSwipeRight} color="success" variant="outlined" fullWidth={true} endIcon={<EastIcon />}>
-                        Swipe right
+                        Approve match
                     </Button>
                 </Grid>
             </Grid>

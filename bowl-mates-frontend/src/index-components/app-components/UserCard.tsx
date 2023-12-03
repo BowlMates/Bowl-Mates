@@ -11,12 +11,19 @@ type MatchType = {
 };
 
 interface UserCardProps {
-    match: MatchType;
+    match?: MatchType;
 }
 
 
 const UserCard: React.FC<UserCardProps> = ({match}) => {
-    const { name, pronouns, bio, image } = match;
+    const defaultMatch = {
+        name: 'Default Adam',
+        pronouns: 'adam/adam',
+        bio: 'A reoccurring character',
+        image: 'https://i.ibb.co/TmJw9kS/IMG-3336.jpg'
+    }
+
+    const { name, pronouns, bio, image } = match || defaultMatch;
 
     // returns a user card containing pic, name, pronouns, and bio from their unique user number
     return (
