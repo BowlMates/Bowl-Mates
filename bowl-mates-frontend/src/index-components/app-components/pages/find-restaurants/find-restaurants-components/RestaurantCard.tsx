@@ -12,9 +12,10 @@ import Card from "@mui/material/Card";
 interface RestaurantCardProps {
     restaurant: restaurant;
     isFavorite: boolean;
+    handleRestaurantFavorite: (restaurant: restaurant) => void;
 }
 
-const RestaurantCard: React.FC<RestaurantCardProps> = ({ restaurant, isFavorite }) => {
+const RestaurantCard: React.FC<RestaurantCardProps> = ({ restaurant, isFavorite, handleRestaurantFavorite }) => {
     const { saveRestaurant } = useSaveRestaurant();
 
     return (
@@ -53,7 +54,7 @@ const RestaurantCard: React.FC<RestaurantCardProps> = ({ restaurant, isFavorite 
                 }}
                 onClick={() => {
                     console.log(restaurant.name);
-                    saveRestaurant(restaurant);
+                    handleRestaurantFavorite(restaurant);
                 }}>
                 <FavoriteIcon style={{ color: isFavorite ? red[500] : grey[500] }} />
             </IconButton>

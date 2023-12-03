@@ -5,10 +5,11 @@ import RestaurantCard from "./RestaurantCard";
 
 interface RestaurantListProps {
     restaurants: restaurant[],
-    favRes: restaurant[];
+    favRes: restaurant[],
+    handleRestaurantFavorite: (restaurant: restaurant) => void;
 }
 
-const RestaurantList: React.FC<RestaurantListProps> = ({ restaurants, favRes}) => {
+const RestaurantList: React.FC<RestaurantListProps> = ({ restaurants, favRes, handleRestaurantFavorite}) => {
     let displayRests: restaurant[] = [];
 
     for(let i = 0; i < restaurants.length; i++){
@@ -28,7 +29,7 @@ const RestaurantList: React.FC<RestaurantListProps> = ({ restaurants, favRes}) =
         <Grid container spacing={3}>
             {displayRests.map((restaurant) => (
                 <Grid item xs={12} sm={6} key={restaurant.id}>
-                    <RestaurantCard restaurant={restaurant} isFavorite={false} />
+                    <RestaurantCard restaurant={restaurant} isFavorite={false} handleRestaurantFavorite={handleRestaurantFavorite} />
                 </Grid>
             ))}
         </Grid>
