@@ -16,7 +16,7 @@ const usePostNewMessage = () => {
             headers: headers,
             method: "post",
             body: JSON.stringify({
-                matchID: matchID,
+                matchId: matchID,
                 message: message,
                 // chatterID: -1,
                 // date: -1

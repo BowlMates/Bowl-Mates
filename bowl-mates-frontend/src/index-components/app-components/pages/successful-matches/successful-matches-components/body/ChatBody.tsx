@@ -10,6 +10,7 @@ import TextField from "@mui/material/TextField";
 import SendIcon from '@mui/icons-material/Send';
 import IconButton from "@mui/material/IconButton";
 import usePostNewMessage from "../../../../../../hooks/chat-hooks/usePostNewMessage";
+import {useAuthHeader, useAuthUser} from "react-auth-kit";
 
 const sendBoxSize = "90px";
 
@@ -73,16 +74,16 @@ interface Props {
 
 
 function ChatBody(props : Props){
-
     const [newMessage, setNewMessage] = useState("");
     const {postNewMessage} = usePostNewMessage();
+    const auth = useAuthUser();
 
     return (
         <ChatBodyContainer>
             <ChatBox>
                 {
                     props.messages.map((chatMessage,index)=>{
-                        return <MessageBubble timestamp={chatMessage.date} message={chatMessage.message} isUser={index % 2 === 1}/>
+                        return <MessageBubble timestamp={chatMessage.date} message={chatMessage.message} isUser={auth()?.userID === chatMessage.chatterId}/>
                     })
                 }
             </ChatBox>
