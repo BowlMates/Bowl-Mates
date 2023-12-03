@@ -47,6 +47,18 @@ const user_profile_save_address : string = ADDRESS + user_profile_save;
 const user_image_save : string = "/user/profile/save";
 const user_image_save_address : string = ADDRESS + user_image_save;
 
+// Get Successful Match Data
+const user_successful_matches : string = "/user/matches";
+const user_successful_matches_address : string = ADDRESS + user_successful_matches;
+
+// Gets successful user matches
+const user_successful_match_chats : string = "/user/message";
+const user_successful_match_chats_address : string = ADDRESS + user_successful_match_chats;
+
+// Gets successful user matches
+const user_send_message : string = "/user/message/send";
+const user_send_message_address : string = ADDRESS + user_send_message;
+
 export {
     login_address,
     register_address,
@@ -57,5 +69,8 @@ export {
     user_match_show_address,
     user_profile_address,
     user_profile_save_address,
-    user_image_save_address
+    user_image_save_address,
+    user_successful_matches_address,
+    user_successful_match_chats_address,
+    user_send_message_address
 };

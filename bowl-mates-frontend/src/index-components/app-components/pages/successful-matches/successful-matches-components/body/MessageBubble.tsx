@@ -6,12 +6,19 @@ import {styled} from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 
+//Custom Imports
+import {getDayMonthYear, getClockTime} from "../timestamps";
+
 interface Props {
     message : string,
+    timestamp: number,
     isUser : boolean,
 }
 
 function MessageBubble(props : Props){
+
+    const bubbleDate : Date = new Date(props.timestamp);
+    const bubbleDateString : string = getDayMonthYear(bubbleDate) + " " + getClockTime(bubbleDate);
 
     const BubbleContainer = styled(Box)(() => ({
         maxWidth: "40%",
@@ -30,6 +37,9 @@ function MessageBubble(props : Props){
 
     return (
         <BubbleContainer>
+            <Typography sx={{textAlign: props.isUser ? "right" : "left"}} variant={"subtitle2"}>
+                {bubbleDateString}
+            </Typography>
             <ChatBubble>
                 <Typography>
                     {props.message}

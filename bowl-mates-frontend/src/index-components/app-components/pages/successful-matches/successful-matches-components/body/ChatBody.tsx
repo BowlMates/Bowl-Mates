@@ -9,6 +9,7 @@ import MessageBubble from "./MessageBubble";
 import TextField from "@mui/material/TextField";
 import SendIcon from '@mui/icons-material/Send';
 import IconButton from "@mui/material/IconButton";
+import usePostNewMessage from "../../../../../../hooks/chat-hooks/usePostNewMessage";
 
 const sendBoxSize = "90px";
 
@@ -64,19 +65,24 @@ const ModifiedIconButton = styled(IconButton)(() => ({
 
 
 interface Props {
-    messages : chatMessage[]
+    matchID: number,
+    messages: chatMessage[],
+    fetchMessages: () => void;
 }
+
+
 
 function ChatBody(props : Props){
 
     const [newMessage, setNewMessage] = useState("");
+    const {postNewMessage} = usePostNewMessage();
 
     return (
         <ChatBodyContainer>
             <ChatBox>
                 {
                     props.messages.map((chatMessage,index)=>{
-                        return <MessageBubble message={chatMessage.message} isUser={index % 2 === 1}/>
+                        return <MessageBubble timestamp={chatMessage.date} message={chatMessage.message} isUser={index % 2 === 1}/>
                     })
                 }
             </ChatBox>
@@ -85,7 +91,18 @@ function ChatBody(props : Props){
                           onChange={(event)=>{
                               setNewMessage(event.target.value);
                           }}/>
-                <ModifiedIconButton>
+                <ModifiedIconButton
+                    onClick={async ()=>{
+                        if(newMessage !== "" && props.matchID !== -1){
+                            if(await postNewMessage(props.matchID, newMessage)){
+                                props.fetchMessages();
+                                setNewMessage("");
+                            } else {
+                                console.log("Message Failed to send");
+                            }
+                        }
+                    }}
+                >
                     <SendIcon/>
                 </ModifiedIconButton>
             </SendContainer>
