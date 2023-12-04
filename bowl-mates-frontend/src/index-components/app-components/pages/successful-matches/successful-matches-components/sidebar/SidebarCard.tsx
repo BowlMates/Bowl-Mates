@@ -12,6 +12,7 @@ import {sidebarMeasurements} from "../../SuccessfulMatches";
 
 //Custom Imports
 import {getDayMonthYear, getClockTime} from "../timestamps";
+import {useGetImage} from "../../../../../../hooks/useGetImage";
 
 const MatchBox = styled(Box)(() => ({
     height: "70px",
@@ -103,6 +104,7 @@ function SidebarCard(props: React.PropsWithChildren<Props>) {
     const displayTime = currentDayMonthYear === chatDayMonthYear ? chatClockTime : chatDayMonthYear;
 
     const fullName: string = props.firstName + " " + props.lastName;
+    const {image} = useGetImage(props.imageURL);
 
     return (
         <MatchBox>
@@ -112,7 +114,7 @@ function SidebarCard(props: React.PropsWithChildren<Props>) {
                 onClick={()=>{props.setChatWindow(props.matchID)}}
             >
                 <AvatarContainer>
-                    <Avatar alt={fullName} src={props.imageURL}/>
+                    <Avatar alt={fullName} src={image}/>
                 </AvatarContainer>
                 <MatchBoxTextContainer>
                     <NameDateContainer>

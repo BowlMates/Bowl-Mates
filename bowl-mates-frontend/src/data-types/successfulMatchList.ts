@@ -3,5 +3,5 @@ export interface successfulMatchList {
     matchFirstName : string,
     matchLastName : string,
     pronouns : string,
-    matchPhotoUrl : string
+    matchPhotoURL : string
 }

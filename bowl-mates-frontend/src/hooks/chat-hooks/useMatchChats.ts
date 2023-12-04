@@ -19,7 +19,6 @@ const useMatchChats = () => {
     }
 
     useEffect(()=>{
-        console.log(chatList);
         const sidebarCardData: Map<number, sidebarCardData> = new Map();
         const keyedMessageData: Map<number, chatMessage[]> = new Map();
         conversationIDList.map((item) => {
@@ -27,7 +26,7 @@ const useMatchChats = () => {
                 matchID: item.matchID,
                 firstName: item.matchFirstName,
                 lastName: item.matchLastName,
-                imageURL: item.matchPhotoUrl,
+                imageURL: item.matchPhotoURL,
                 timeInMilliseconds: -1,
                 message: ""
             })
