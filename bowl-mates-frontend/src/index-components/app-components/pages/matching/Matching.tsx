@@ -10,14 +10,37 @@ import EastIcon from "@mui/icons-material/East";
 //Custom Imports
 import UserCard from "../../UserCard";
 import {useIsUserSessionValid} from "../../../../hooks/useIsUserSessionValid";
+import {useGetProfile} from "../../../../hooks/useGetProfile";
+import {useGetImageRef} from "../../../../hooks/useGetImageRef";
+import {useGetImage} from "../../../../hooks/useGetImage";
 
 function Matching () {
     const isSessionValid = useIsUserSessionValid();
+    const { userProfile, getProfile } = useGetProfile();
+    const { userImageRef, getImageRef } = useGetImageRef();
+    const { image, getImage } = useGetImage(userImageRef);
+
+
     useEffect(()=>{
         // CHECKS IF SESSION IS CURRENTLY VALID BEFORE DRAWING COMPONENT
         isSessionValid();
         // CHECKS IF SESSION IS CURRENTLY VALID BEFORE DRAWING COMPONENT
     });
+
+    // Fetch profile details on component mount
+    useEffect( () => {
+        getProfile();
+    }, []);
+
+    // Fetch user image on component mount
+    useEffect( () => {
+        getImageRef();
+    }, []);
+
+    // Fetch user image on component mount
+    useEffect( () => {
+        getImage();
+    }, [userImageRef]);
 
     /**
      * Returns the page where you swipe left and right on various user cards
@@ -27,7 +50,7 @@ function Matching () {
         <Container maxWidth="sm">
             <Grid container spacing={2}>
                 <Grid item xs={12}>
-                    <Box component="section" sx={{ p: 2}}><UserCard /></Box>
+                    <Box component="section" sx={{ p: 2}}><UserCard userProfile={userProfile} userImage={image} /></Box>
                 </Grid>
                 <Grid item xs={6}>
                     <Button color="error" variant="outlined" fullWidth={true} startIcon={<WestIcon />}>

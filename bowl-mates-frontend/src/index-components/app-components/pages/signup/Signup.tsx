@@ -73,7 +73,7 @@ function Signup() {
         setUsernameValid(validUsername);
 
         // Perform signup if all validations pass
-        if (isValidEmail && isPasswordMatch && usernameValid) {
+        if (isValid && passwordsMatch && validUsername) {
             userSignup(firstName, lastName, username, email, password );
             navigate("/login");
         }
