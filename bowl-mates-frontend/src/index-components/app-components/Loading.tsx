@@ -4,7 +4,18 @@ import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 import React from "react";
 
-function Loading() {
+const messages: string[] = [
+    'Searching for some yummy places to eat!',
+    'Fetching your lovely details!',
+    'Finding you new friends to eat with!'
+];
+
+interface LoadingProps {
+    displayMessage: number;
+}
+
+
+const Loading: React.FC<LoadingProps> = ({displayMessage}) => {
     return (
         <Box
             display="flex"
@@ -18,7 +29,7 @@ function Loading() {
 
             {/* Text */}
             <Typography variant="h4" sx={{ color: '#54804D', marginBottom: '20px' }}>
-                Searching for some yummy places to eat!
+                {messages[displayMessage]}
             </Typography>
 
             {/* CircularProgress */}

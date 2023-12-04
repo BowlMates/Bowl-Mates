@@ -19,7 +19,6 @@ import {useIsUserSessionValid} from "../../../../hooks/useIsUserSessionValid";
 import RestaurantList from "./find-restaurants-components/RestaurantList";
 import FavoriteList from "./find-restaurants-components/FavoriteList";
 import useSaveRestaurant from "../../../../hooks/useSaveRestaurants";
-import logo from "../../../../images/BOWLMATES LOGO V2.png"
 import Loading from "../../Loading";
 
 
@@ -81,9 +80,10 @@ function FindRestaurants(userLocation: {lat: number; lng: number}) {
         return <div>Error: {photosError.message}</div>
     }
 
+
     if (placesLoading || photosLoading) {
         return (
-            <Loading />
+            <Loading displayMessage={0}/>
         );
     }
 

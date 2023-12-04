@@ -5,6 +5,7 @@ import {useState} from "react";
 
 export const useGetImageRef = () => {
     const[ userImageRef, setUserImageRef] = useState<string>('');
+    const[ imageRefLoading, setImageRefLoading ] = useState<boolean>(true);
     const authHeader = useAuthHeader();
 
     const getImageRef = ()=> {
@@ -25,14 +26,16 @@ export const useGetImageRef = () => {
         }).then((body) => {
             if (body == null) {
                 console.log("Unable to get image");
+                setImageRefLoading(false);
             } else {
                 setUserImageRef(body);
+                setImageRefLoading(false);
             }
         });
 
     }
 
-    return {userImageRef, setUserImageRef, getImageRef}
+    return {userImageRef, imageRefLoading, setUserImageRef, getImageRef}
 }
 
 

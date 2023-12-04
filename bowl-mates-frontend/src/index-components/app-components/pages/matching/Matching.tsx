@@ -13,12 +13,13 @@ import {useIsUserSessionValid} from "../../../../hooks/useIsUserSessionValid";
 import {useGetProfile} from "../../../../hooks/useGetProfile";
 import {useGetImageRef} from "../../../../hooks/useGetImageRef";
 import {useGetImage} from "../../../../hooks/useGetImage";
+import Loading from "../../Loading";
 
 function Matching () {
     const isSessionValid = useIsUserSessionValid();
-    const { userProfile, getProfile } = useGetProfile();
-    const { userImageRef, getImageRef } = useGetImageRef();
-    const { image, getImage } = useGetImage(userImageRef);
+    const { userProfile, profileLoading, getProfile } = useGetProfile();
+    const { userImageRef, imageRefLoading, getImageRef } = useGetImageRef();
+    const { image, imageLoading, getImage } = useGetImage(userImageRef);
 
 
     useEffect(()=>{
@@ -41,6 +42,15 @@ function Matching () {
     useEffect( () => {
         getImage();
     }, [userImageRef]);
+
+    if(profileLoading || imageRefLoading || imageLoading){
+        console.log("Profile: " + profileLoading)
+        console.log("Reference: " + imageRefLoading)
+        console.log("Image: " + imageLoading)
+        return(
+            <Loading displayMessage={2}/>
+        )
+    }
 
     /**
      * Returns the page where you swipe left and right on various user cards
