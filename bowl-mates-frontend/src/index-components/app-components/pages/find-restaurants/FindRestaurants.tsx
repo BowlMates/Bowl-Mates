@@ -8,15 +8,19 @@ import MapComponent from "./find-restaurants-components/MapComponent";
 import {useGetRestaurants} from "../../../../hooks/useGetRestaurants";
 import {restaurant} from "../../../../data-types/restaurants";
 
+
 // MUI Imports
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
+import CircularProgress from "@mui/material/CircularProgress";
 import useGetPhotos from "../../../../hooks/useGetPhotos";
 
 import {useIsUserSessionValid} from "../../../../hooks/useIsUserSessionValid";
 import RestaurantList from "./find-restaurants-components/RestaurantList";
 import FavoriteList from "./find-restaurants-components/FavoriteList";
 import useSaveRestaurant from "../../../../hooks/useSaveRestaurants";
+import logo from "../../../../images/BOWLMATES LOGO V2.png"
+import Loading from "../../Loading";
 
 
 
@@ -77,10 +81,11 @@ function FindRestaurants(userLocation: {lat: number; lng: number}) {
         return <div>Error: {photosError.message}</div>
     }
 
-    if(placesLoading || photosLoading){
-        return <div>Loading...</div>
+    if (placesLoading || photosLoading) {
+        return (
+            <Loading />
+        );
     }
-
 
     //TODO: Answer the "button" question (i.e. how are we going to implement batch updates
     return (
