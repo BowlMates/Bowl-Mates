@@ -17,7 +17,6 @@ import java.util.Set;
 @Entity
 @Table(name = "restaurants")
 public class TestRestaurant {
-    // TODO Find a way to not have auto generated keys
     @jakarta.persistence.Id
     @Column(unique = true)
     private String id; // Change to String type as that's what is being returned by Google api
@@ -177,26 +176,56 @@ public class TestRestaurant {
         return this.address.equals(tR.getAddress());
     }
 
+    /**
+     * Getter for reference
+     *
+     * @return reference field of this
+     */
     public String getReference() {
         return reference;
     }
 
+    /**
+     * Setter for reference
+     *
+     * @param reference new value of reference
+     */
     public void setReference(String reference) {
         this.reference = reference;
     }
 
+    /**
+     * Getter for latitude
+     *
+     * @return latitude field of this
+     */
     public Float getLatitude() {
         return latitude;
     }
 
+    /**
+     * Setter for latitude
+     *
+     * @param latitude new value of latitude
+     */
     public void setLatitude(Float latitude) {
         this.latitude = latitude;
     }
 
+    /**
+     * Getter for longitude
+     *
+     * @return longitude field of this
+     */
     public Float getLongitude() {
         return longitude;
     }
 
+    /**
+     * Setter for longitude
+     *
+     * @param longitude new value of longitude
+     */
     public void setLongitude(Float longitude) {
         this.longitude = longitude;
     }
