@@ -2,6 +2,7 @@
 import React, {useState} from "react";
 
 // MUI Imports
+import Alert from '@mui/material/Alert';
 import {styled} from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import {chatMessage} from "../../../../../../data-types/chatMessage";
@@ -10,7 +11,7 @@ import TextField from "@mui/material/TextField";
 import SendIcon from '@mui/icons-material/Send';
 import IconButton from "@mui/material/IconButton";
 import usePostNewMessage from "../../../../../../hooks/chat-hooks/usePostNewMessage";
-import {useAuthHeader, useAuthUser} from "react-auth-kit";
+import {useAuthUser} from "react-auth-kit";
 
 const sendBoxSize = "90px";
 
@@ -27,12 +28,9 @@ const ChatBox = styled(Box)(() => ({
     width: "100%",
     flexGrow: 1,
     padding: "20px",
-    overflow: "hidden",
+    paddingRight: "44px",
+    overflow: "auto",
     display: "inline-block",
-    // Uses the hover property of css
-    '&:hover': {
-        overflowY: "auto",
-    },
 }));
 
 const SendContainer = styled(Box)(() => ({
@@ -71,19 +69,33 @@ interface Props {
     fetchMessages: () => void;
 }
 
-
-
 function ChatBody(props : Props){
     const [newMessage, setNewMessage] = useState("");
+    const [issueSendingMessage, setIssueSendingMessage] = useState(false);
+    const [messageThatHadIssue, setMessageThatHadIssue] = useState("");
     const {postNewMessage} = usePostNewMessage();
     const auth = useAuthUser();
 
     return (
         <ChatBodyContainer>
+            {
+                issueSendingMessage ?
+                <Alert severity={"error"} onClose={() => {setIssueSendingMessage(false)}} sx={{position: "absolute", zIndex: 3}}>
+                {"Issue Sending your last message: " + messageThatHadIssue}
+                </Alert> : <></>
+            }
             <ChatBox>
                 {
                     props.messages.map((chatMessage,index)=>{
-                        return <MessageBubble timestamp={chatMessage.date} message={chatMessage.message} isUser={auth()?.userID === chatMessage.chatterId}/>
+                        return (
+                            <MessageBubble
+                                key={chatMessage.date}
+                                timestamp={chatMessage.date}
+                                message={chatMessage.message}
+                                isUser={auth()?.userID === chatMessage.chatterId}
+                                isLastMessage={index === props.messages.length - 1}
+                            />
+                        )
                     })
                 }
             </ChatBox>
@@ -97,8 +109,11 @@ function ChatBody(props : Props){
                         if(newMessage !== "" && props.matchID !== -1){
                             if(await postNewMessage(props.matchID, newMessage)){
                                 props.fetchMessages();
+                                setIssueSendingMessage(false);
                                 setNewMessage("");
                             } else {
+                                setIssueSendingMessage(true);
+                                setMessageThatHadIssue(newMessage);
                                 console.log("Message Failed to send");
                             }
                         }

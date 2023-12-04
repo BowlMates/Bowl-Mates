@@ -8,5 +8,5 @@ export function getClockTime(date: Date) {
     const standardTimeIfNotPastNoon = date.getHours();
     const amPm = isNightCheck ? "PM" : "AM";
     const hours = isNightCheck ? standardTimeIfPastNoon : standardTimeIfNotPastNoon;
-    return hours + ":" + date.getMinutes() + amPm;
+    return hours + ":" + (date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes()) + amPm;
 }

@@ -1,5 +1,5 @@
 // React Imports
-import React from "react";
+import React, {useEffect, useRef} from "react";
 
 // MUI Imports
 import {styled} from "@mui/material/styles";
@@ -13,12 +13,27 @@ interface Props {
     message : string,
     timestamp: number,
     isUser : boolean,
+    isLastMessage: boolean
 }
 
 function MessageBubble(props : Props){
 
+
     const bubbleDate : Date = new Date(props.timestamp);
-    const bubbleDateString : string = getDayMonthYear(bubbleDate) + " " + getClockTime(bubbleDate);
+    const bubbleClockTime : string = getClockTime(bubbleDate);
+    const bubbleDateTime : string = getDayMonthYear(bubbleDate);
+    const messageSentToday : boolean = getDayMonthYear(bubbleDate) === getDayMonthYear(new Date(Date.now()));
+    const bubbleDateString : string = messageSentToday ? bubbleClockTime : bubbleDateTime + " " + bubbleClockTime;
+    const ref = useRef(null);
+
+    const scrollToElement = () => {
+        // @ts-ignore
+        ref.current?.scrollIntoView({ behavior: 'smooth' });
+    };
+
+    useEffect(() => {
+        scrollToElement();
+    }, []);
 
     const BubbleContainer = styled(Box)(() => ({
         maxWidth: "40%",
@@ -36,7 +51,7 @@ function MessageBubble(props : Props){
     }));
 
     return (
-        <BubbleContainer>
+        <BubbleContainer ref={ref}>
             <Typography sx={{textAlign: props.isUser ? "right" : "left"}} variant={"subtitle2"}>
                 {bubbleDateString}
             </Typography>

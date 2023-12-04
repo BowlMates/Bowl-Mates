@@ -117,7 +117,7 @@ function SidebarCard(props: React.PropsWithChildren<Props>) {
                 <MatchBoxTextContainer>
                     <NameDateContainer>
                         <NameText variant={"body1"}>{fullName}</NameText>
-                        <DateText variant={"body2"}>{displayTime}</DateText>
+                        <DateText variant={"body2"}>{props.timeInMilliseconds !== -1 ? displayTime : ""}</DateText>
                     </NameDateContainer>
                     <LastMessageText variant={"body2"}>{props.message}</LastMessageText>
                     <Divider/>
