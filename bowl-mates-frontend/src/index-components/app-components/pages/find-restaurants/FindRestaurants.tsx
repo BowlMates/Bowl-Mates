@@ -8,23 +8,26 @@ import MapComponent from "./find-restaurants-components/MapComponent";
 import {useGetRestaurants} from "../../../../hooks/useGetRestaurants";
 import {restaurant} from "../../../../data-types/restaurants";
 
+
 // MUI Imports
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
+import CircularProgress from "@mui/material/CircularProgress";
 import useGetPhotos from "../../../../hooks/useGetPhotos";
 
 import {useIsUserSessionValid} from "../../../../hooks/useIsUserSessionValid";
 import RestaurantList from "./find-restaurants-components/RestaurantList";
 import FavoriteList from "./find-restaurants-components/FavoriteList";
 import useSaveRestaurant from "../../../../hooks/useSaveRestaurants";
+import Loading from "../../Loading";
 
 
 
 // The FindRestaurants component is responsible for calling the getNearbyRestaurants function and then
 // displaying all the data returned by the API to the user
 function FindRestaurants(userLocation: {lat: number; lng: number}) {
-    const {restaurants, placesError} = useNearbyPlaces(userLocation);
-    const {photos, photosError} = useGetPhotos(restaurants);
+    const {restaurants, placesLoading, placesError} = useNearbyPlaces(userLocation);
+    const {photos, photosLoading, photosError} = useGetPhotos(restaurants);
     const {favRes, setFavRes, getRestaurants} = useGetRestaurants();
     const memoizedRestaurants = useMemo(() => restaurants, [restaurants]);
     const memoizedPhotos = useMemo(() => photos, [photos]);
@@ -68,11 +71,6 @@ function FindRestaurants(userLocation: {lat: number; lng: number}) {
         getRestaurants();
     },[]);
 
-    console.log(favRes)
-
-
-    // const {restaurants, placesLoading, placesError} = useNearbyPlaces(userLocation);
-    // const {photos, photosLoading, photosError} = useGetPhotos(restaurants);
 
     if (placesError) {
         return <div>Error: {placesError.message}</div>;
@@ -82,6 +80,12 @@ function FindRestaurants(userLocation: {lat: number; lng: number}) {
         return <div>Error: {photosError.message}</div>
     }
 
+
+    if (placesLoading || photosLoading) {
+        return (
+            <Loading displayMessage={0}/>
+        );
+    }
 
     //TODO: Answer the "button" question (i.e. how are we going to implement batch updates
     return (
@@ -130,7 +134,7 @@ function FindRestaurants(userLocation: {lat: number; lng: number}) {
                 borderRadius={{ md: '12px' }}
                 marginRight={{ xs: 0, md: 2 }}
                 height="100%">
-                <MapComponent restaurants={restaurants} userLocation={userLocation} />
+                <MapComponent restaurants={favRes} userLocation={userLocation} />
             </Box>
 
             {/* Favorite Restaurants Column */}

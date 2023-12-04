@@ -6,6 +6,7 @@ import {useEffect, useState} from "react";
 export const useGetImage = (imageRef: string) => {
     const[image, setImage] = useState<string>('');
     const [fullAddress] = useState(user_image_address + imageRef);
+    const[imageLoading, setImageLoading] = useState<boolean>(true);
     const authHeader = useAuthHeader();
 
     useEffect(()=>{getImage()},[fullAddress]);
@@ -26,15 +27,19 @@ export const useGetImage = (imageRef: string) => {
             }).then((body) => {
                 if (body == null) {
                     console.log("Unable to get image");
+                    setImageLoading(false);
                 } else {
                     const imageUrl= URL.createObjectURL(body);
                     setImage(imageUrl);
+                    setImageLoading(false);
                 }
             });
+        } else{
+            setImageLoading(false);
         }
     }
 
-    return {image, setImage, getImage}
+    return {image, imageLoading, setImage, getImage}
 }
 
 
