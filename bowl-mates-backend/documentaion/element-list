@@ -1,1 +1,7 @@
 me.bowlmates.bowlmatesbackend
+me.bowlmates.bowlmatesbackend.Configuration
+me.bowlmates.bowlmatesbackend.Controllers
+me.bowlmates.bowlmatesbackend.Models
+me.bowlmates.bowlmatesbackend.Repositories
+me.bowlmates.bowlmatesbackend.Services
+me.bowlmates.bowlmatesbackend.Utils
