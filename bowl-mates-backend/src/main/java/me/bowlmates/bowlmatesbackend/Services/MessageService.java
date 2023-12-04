@@ -12,16 +12,15 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 // TODO: Implement
 @Service
 @Transactional
 public class MessageService {
 
+    @Autowired
+    UserRepo userRepo;
     @Autowired
     MessageRepo messageRepo;
 
@@ -36,10 +35,18 @@ public class MessageService {
     }
 
     public void sendMessage(MessageDTO messageDTO) {
+        String username = "";
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null && auth.isAuthenticated()) {
+            username = auth.getName();
+        } else {
+            throw new NoSuchElementException("User not authenticated");
+        }
+        TestUser user = userRepo.findByUsername(username);
         TestMessage message = new TestMessage();
         message.setMatchId(messageDTO.getMatchId());
         message.setDate(Instant.now().toEpochMilli());
-        message.setChatterId(messageDTO.getChatterId());
+        message.setChatterId(user.getId());
         message.setMessage(messageDTO.getMessage());
         messageRepo.save(message);
     }

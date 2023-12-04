@@ -10,6 +10,10 @@ import React from "react";
 // Sidebar Measurement import from Successful Matches Page
 import {sidebarMeasurements} from "../../SuccessfulMatches";
 
+//Custom Imports
+import {getDayMonthYear, getClockTime} from "../timestamps";
+import {useGetImage} from "../../../../../../hooks/useGetImage";
+
 const MatchBox = styled(Box)(() => ({
     height: "70px",
     width: sidebarMeasurements.chatSidebarWidthMinusSomeValue,
@@ -80,27 +84,14 @@ const LastMessageText = styled(Typography)(() => ({
 
 
 interface Props {
-    conversationID: number,
+    matchID: number,
     firstName: string,
     lastName: string,
     imageURL: string,
     timeInMilliseconds: number,
     message: string,
     selected: boolean,
-    setChatWindow: () => void,
-}
-
-function getDayMonthYear(date: Date) {
-    return date.getDate() + "/" + (date.getMonth() + 1) + "/" + ((date.getFullYear() + "").slice(2,4));
-}
-
-function getClockTime(date: Date) {
-    const isNightCheck = date.getHours() - 12 >= 0;
-    const standardTimeIfPastNoon = date.getHours() - 12 === 0 ? 12 : date.getHours() - 12;
-    const standardTimeIfNotPastNoon = date.getHours();
-    const amPm = isNightCheck ? "PM" : "AM";
-    const hours = isNightCheck ? standardTimeIfPastNoon : standardTimeIfNotPastNoon;
-    return hours + ":" + date.getMinutes() + amPm;
+    setChatWindow: (newSelection : number) => void,
 }
 
 function SidebarCard(props: React.PropsWithChildren<Props>) {
@@ -113,21 +104,22 @@ function SidebarCard(props: React.PropsWithChildren<Props>) {
     const displayTime = currentDayMonthYear === chatDayMonthYear ? chatClockTime : chatDayMonthYear;
 
     const fullName: string = props.firstName + " " + props.lastName;
+    const {image} = useGetImage(props.imageURL);
 
     return (
         <MatchBox>
             <MatchBoxContentContainerWithToggle
-                value={props.conversationID}
+                value={props.matchID}
                 selected={props.selected}
-                onSelect={props.setChatWindow}
+                onClick={()=>{props.setChatWindow(props.matchID)}}
             >
                 <AvatarContainer>
-                    <Avatar alt={fullName} src={props.imageURL}/>
+                    <Avatar alt={fullName} src={image}/>
                 </AvatarContainer>
                 <MatchBoxTextContainer>
                     <NameDateContainer>
                         <NameText variant={"body1"}>{fullName}</NameText>
-                        <DateText variant={"body2"}>{displayTime}</DateText>
+                        <DateText variant={"body2"}>{props.timeInMilliseconds !== -1 ? displayTime : ""}</DateText>
                     </NameDateContainer>
                     <LastMessageText variant={"body2"}>{props.message}</LastMessageText>
                     <Divider/>

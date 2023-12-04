@@ -179,6 +179,11 @@ public class UserController {
         return matchingAlgorithm.deny(userId);
     }
 
+    @PostMapping("/unmatch")
+    public void unmatch(@RequestBody Integer userId) {
+        matchingAlgorithm.unmatch(userId);
+    }
+
     // TODO: Profile documentation
     @GetMapping("/profile")
     public ProfileDTO getProfile() throws Exception {
@@ -243,8 +248,8 @@ public class UserController {
         messageService.sendMessage(messageDTO);
     }
 
-    @GetMapping("/message/matches")
-    public Map<ProfileDTO, Integer> getMatchHashes() {
+    @GetMapping("/matches")
+    public List<MatchDTO> getMatchHashes() {
         String username = "";
         Authentication auth = SecurityContextHolder
                 .getContext()
@@ -253,13 +258,18 @@ public class UserController {
             username = auth.getName();
         }
         TestUser user = userRepository.findByUsername(username);
-        Map<ProfileDTO, Integer> matchesToHashes = new HashMap<>();
+        List<MatchDTO> matchDTOList = new ArrayList<>();
         for (TestUser match : user.getMatches()) {
             int matchHash = TestMessage.matchHash(user.getId(), match.getId());
-            ProfileDTO matchDTO = match.getProfile().getDTO();
-            matchesToHashes.put(matchDTO, matchHash);
+            TestProfile matchProfile = match.getProfile();
+            MatchDTO matchDTO = new MatchDTO(matchHash,
+                    matchProfile.getFirstName(),
+                    matchProfile.getLastName(),
+                    matchProfile.getPronouns(),
+                    matchProfile.getPhoto());
+            matchDTOList.add(matchDTO);
         }
-        return matchesToHashes;
+        return matchDTOList;
     }
 
     /**

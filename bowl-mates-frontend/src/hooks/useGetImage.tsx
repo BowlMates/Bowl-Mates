@@ -1,13 +1,15 @@
 import {useAuthHeader} from "react-auth-kit";
 import {user_image_address} from "../api-addresses";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 
 //TODO: Find out why this only works with jpg files and not png
 export const useGetImage = (imageRef: string) => {
-    const[ image, setImage] = useState<string>('');
+    const[image, setImage] = useState<string>('');
+    const [fullAddress] = useState(user_image_address + imageRef);
     const[imageLoading, setImageLoading] = useState<boolean>(true);
-    const fullAddress: string = user_image_address + imageRef;
     const authHeader = useAuthHeader();
+
+    useEffect(()=>{getImage()},[fullAddress]);
 
     const getImage = ()=> {
         if(imageRef !== ''){
