@@ -12,6 +12,7 @@ const defaultProfile: userProfileDetails = {
 
 export const useGetProfile = () => {
     const[userProfile, setUserProfile] = useState<userProfileDetails>(defaultProfile);
+    const[profileLoading, setProfileLoading] = useState<boolean>(true);
     const authHeader = useAuthHeader();
 
     const getProfile = ()=> {
@@ -33,15 +34,17 @@ export const useGetProfile = () => {
             if (body == null) {
                 console.log("Unable to get profile");
                 setUserProfile(defaultProfile);
+                setProfileLoading(false);
             } else {
                 let temp: userProfileDetails = body;
                 setUserProfile(temp);
+                setProfileLoading(false);
             }
         });
 
     }
 
-    return {userProfile, setUserProfile, getProfile}
+    return {userProfile, profileLoading, setUserProfile, getProfile}
 }
 
 

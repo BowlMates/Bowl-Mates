@@ -32,6 +32,8 @@ public class RestaurantDTO {
         this.name = restaurant.getRestaurant_name();
         this.address = restaurant.getAddress();
         this.cuisine = restaurant.getCuisine();
+        this.latitude = restaurant.getLatitude();
+        this.longitude = restaurant.getLongitude();
         this.rating = restaurant.getRating();
         this.reference = restaurant.getReference();
     }

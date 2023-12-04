@@ -5,6 +5,7 @@ import {useState} from "react";
 //TODO: Find out why this only works with jpg files and not png
 export const useGetImage = (imageRef: string) => {
     const[ image, setImage] = useState<string>('');
+    const[imageLoading, setImageLoading] = useState<boolean>(true);
     const fullAddress: string = user_image_address + imageRef;
     const authHeader = useAuthHeader();
 
@@ -24,15 +25,19 @@ export const useGetImage = (imageRef: string) => {
             }).then((body) => {
                 if (body == null) {
                     console.log("Unable to get image");
+                    setImageLoading(false);
                 } else {
                     const imageUrl= URL.createObjectURL(body);
                     setImage(imageUrl);
+                    setImageLoading(false);
                 }
             });
+        } else{
+            setImageLoading(false);
         }
     }
 
-    return {image, setImage, getImage}
+    return {image, imageLoading, setImage, getImage}
 }
 
 

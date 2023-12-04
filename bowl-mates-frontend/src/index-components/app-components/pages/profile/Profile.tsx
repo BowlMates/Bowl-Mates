@@ -8,11 +8,12 @@ import DetailsForm from "./profile-components/DetailsForm";
 import useSaveImageRef from "../../../../hooks/useSaveImageRef";
 import {useGetImageRef} from "../../../../hooks/useGetImageRef";
 import {useGetImage} from "../../../../hooks/useGetImage";
+import Loading from '../../Loading';
 
 const Profile = () => {
-    const { userProfile, getProfile } = useGetProfile();
-    const { userImageRef, getImageRef } = useGetImageRef();
-    const { image, getImage } = useGetImage(userImageRef);
+    const { userProfile, profileLoading, getProfile } = useGetProfile();
+    const { userImageRef, imageRefLoading, getImageRef } = useGetImageRef();
+    const { image, imageLoading, getImage } = useGetImage(userImageRef);
 
     const { saveProfileDetails } = useSaveProfile();
     const { saveImage } = useSaveImageRef();
@@ -50,6 +51,14 @@ const Profile = () => {
     }, [userImageRef]);
 
 
+    if(profileLoading || imageRefLoading || imageLoading){
+        console.log("Profile: " + profileLoading)
+        console.log("Reference: " + imageRefLoading)
+        console.log("Image: " + imageLoading)
+        return(
+            <Loading displayMessage={1}/>
+        )
+    }
 
     return (
         <Grid container spacing={3}>
