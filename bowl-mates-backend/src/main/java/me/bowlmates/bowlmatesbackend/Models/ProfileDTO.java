@@ -22,7 +22,7 @@ public class ProfileDTO {
         this.lastName = lastName;
         this.pronouns = pronouns;
         this.bio = bio;
-        this.photo = "";
+        this.photo = photo;
     }
 
     public void setFirstName(String name) {
