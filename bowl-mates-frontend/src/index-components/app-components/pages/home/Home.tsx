@@ -13,18 +13,9 @@ import {useAuthUser} from "react-auth-kit";
 
 
 const Home = () => {
+    useIsUserSessionValid();
     const navigate = useNavigate();
     const authUser = useAuthUser();
-    const isSessionValid = useIsUserSessionValid();
-
-    useEffect(() => {
-        // CHECKS IF SESSION IS CURRENTLY VALID BEFORE DRAWING COMPONENT
-        isSessionValid();
-
-        // When component mounts:
-        // Fetch username
-        // Fetch top five matches
-    }, [isSessionValid]);
 
     const navigateTo = (path: To) => {
         navigate(path);

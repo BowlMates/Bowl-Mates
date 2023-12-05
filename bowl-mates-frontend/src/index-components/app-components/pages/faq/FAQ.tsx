@@ -1,4 +1,3 @@
-import React, { useEffect } from "react";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Accordion from "@mui/material/Accordion";
@@ -9,13 +8,7 @@ import Link from "@mui/material/Link";
 import { useIsUserSessionValid } from "../../../../hooks/useIsUserSessionValid";
 
 function FAQ() {
-    const isSessionValid = useIsUserSessionValid();
-
-    useEffect(() => {
-        // CHECKS IF SESSION IS CURRENTLY VALID BEFORE DRAWING COMPONENT
-        isSessionValid();
-        // CHECKS IF SESSION IS CURRENTLY VALID BEFORE DRAWING COMPONENT
-    });
+    useIsUserSessionValid();
 
     const faqData = [
         {
