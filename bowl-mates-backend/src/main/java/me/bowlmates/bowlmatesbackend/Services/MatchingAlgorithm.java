@@ -76,10 +76,15 @@ public class MatchingAlgorithm {
         }
         if (!matches.isEmpty()) {
             PriorityQueue<QueueNode> queue = new PriorityQueue<>();
+            int count = 0;
             for (Integer key : matches.keySet()) {
                 Integer value = matches.get(key);
                 QueueNode matchRating = new QueueNode(key, value);
                 queue.add(matchRating);
+                count++;
+                if (count >= 30) {
+                    break;
+                }
             }
             try {
                 ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
@@ -145,7 +150,6 @@ public class MatchingAlgorithm {
         TestUser user = userRepository.findByUsername(username);
         TestUser approved = userRepository.findById(userId).get();
         Set<TestUser> othersApprovals = approved.getApprovals();
-        System.out.println(othersApprovals.toString());
         if (othersApprovals.contains(user)) {
             othersApprovals.remove(user);
             Set<TestUser> currMatches = user.getMatches();
@@ -205,15 +209,20 @@ public class MatchingAlgorithm {
             PriorityQueue<QueueNode> deserializedQueue = (PriorityQueue<QueueNode>) objectInputStream.readObject();
             objectInputStream.close();
             deserializedQueue.remove();
-            try {
-                ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-                ObjectOutputStream objectOutputStream = new ObjectOutputStream(byteArrayOutputStream);
-                objectOutputStream.writeObject(deserializedQueue);
-                objectOutputStream.close();
-                byte[] serializedQueue = byteArrayOutputStream.toByteArray();
+            if (deserializedQueue.isEmpty()) {
+                byte[] serializedQueue = new byte[0];
                 user.setSerializedQueue(serializedQueue);
-            } catch (IOException e) {
-                e.printStackTrace();
+            }  else {
+                try {
+                    ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                    ObjectOutputStream objectOutputStream = new ObjectOutputStream(byteArrayOutputStream);
+                    objectOutputStream.writeObject(deserializedQueue);
+                    objectOutputStream.close();
+                    byte[] serializedQueue = byteArrayOutputStream.toByteArray();
+                    user.setSerializedQueue(serializedQueue);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();

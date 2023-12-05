@@ -5,3 +5,11 @@ export interface userProfileDetails {
     pronouns: string,
     bio: string,
 }
+
+export interface matchProfileDetails {
+    firstName: string,
+    lastName: string,
+    pronouns: string,
+    bio: string,
+    photo: string
+}
