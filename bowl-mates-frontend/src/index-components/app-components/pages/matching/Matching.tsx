@@ -63,19 +63,23 @@ function Matching () {
         const matchId = matchesQueue[currentMatchIndex];
 
         // Reject a user match
-        rejectMatch(matchId);
-
-        // Advance to next match
-        setCurrentMatchIndex(currentMatchIndex + 1);
+        if(!isLoadingReject){
+            rejectMatch(matchId).then(()=>{
+                // Advance to next match
+                setCurrentMatchIndex(currentMatchIndex + 1);
+            });
+        }
     };
 
     const handleSwipeRight = () => {
         const matchId = matchesQueue[currentMatchIndex];
         // Accept a user match
-        approveMatch(matchId);
-
-        // Advance to next match
-        setCurrentMatchIndex(currentMatchIndex + 1);
+        if(!isLoadingApprove) {
+            approveMatch(matchId).then(() => {
+                // Advance to next match
+                setCurrentMatchIndex(currentMatchIndex + 1);
+            });
+        }
     }
 
     // Fetch current match from the queue

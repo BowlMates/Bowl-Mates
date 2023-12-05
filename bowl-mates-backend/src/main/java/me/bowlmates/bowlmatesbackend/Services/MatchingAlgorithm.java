@@ -209,20 +209,15 @@ public class MatchingAlgorithm {
             PriorityQueue<QueueNode> deserializedQueue = (PriorityQueue<QueueNode>) objectInputStream.readObject();
             objectInputStream.close();
             deserializedQueue.remove();
-            if (deserializedQueue.isEmpty()) {
-                byte[] serializedQueue = new byte[0];
+            try {
+                ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                ObjectOutputStream objectOutputStream = new ObjectOutputStream(byteArrayOutputStream);
+                objectOutputStream.writeObject(deserializedQueue);
+                objectOutputStream.close();
+                byte[] serializedQueue = byteArrayOutputStream.toByteArray();
                 user.setSerializedQueue(serializedQueue);
-            }  else {
-                try {
-                    ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-                    ObjectOutputStream objectOutputStream = new ObjectOutputStream(byteArrayOutputStream);
-                    objectOutputStream.writeObject(deserializedQueue);
-                    objectOutputStream.close();
-                    byte[] serializedQueue = byteArrayOutputStream.toByteArray();
-                    user.setSerializedQueue(serializedQueue);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
