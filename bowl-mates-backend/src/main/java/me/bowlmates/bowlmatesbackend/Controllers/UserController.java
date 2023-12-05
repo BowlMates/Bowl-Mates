@@ -220,6 +220,20 @@ public class UserController {
     }
 
     /**
+     * Gets another user's profile based on their user id
+     *
+     * @param userId the user id of the other user
+     * @return the user's Profile
+     * @throws Exception
+     */
+    @PostMapping("/profile/other")
+    public ProfileDTO getOtherProfile(@RequestBody Integer userId) throws Exception {
+        TestUser other = userRepository.findById(userId).get();
+        TestProfile profile = other.getProfile();
+        return profile.getDTO();
+    }
+
+    /**
      * Provides frontend mapping to profile photo
      *
      * @return String with mapping to profile photo
