@@ -211,14 +211,6 @@ public class UserController {
         profileService.updateProfile(profileDTO);
     }
 
-    // TODO: Document
-    @PostMapping("/profile/other")
-    public ProfileDTO getOtherProfile(@RequestBody Integer userId) throws Exception {
-        TestUser other = userRepository.findById(userId).get();
-        TestProfile profile = other.getProfile();
-        return profile.getDTO();
-    }
-
     /**
      * Gets another user's profile based on their user id
      *
