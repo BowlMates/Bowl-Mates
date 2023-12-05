@@ -27,6 +27,9 @@ public class MessageService {
     public List<MessageDTO> getMessages(int matchId) {
         Set<TestMessage> messages = messageRepo.findByMatchId(matchId);
         List<MessageDTO> messageList = new ArrayList<>();
+        if (messages.isEmpty()) {
+            return messageList;
+        }
         for (TestMessage message : messages) {
             messageList.add(message.toMessageDTO());
         }

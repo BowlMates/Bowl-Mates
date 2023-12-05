@@ -9,13 +9,7 @@ export const useGetImage = (imageRef: string) => {
     const[imageLoading, setImageLoading] = useState<boolean>(true);
     const authHeader = useAuthHeader();
 
-    useEffect(()=>{getImage()},[fullAddress]);
-
-    const setAddress = (imageRef : string) =>{
-        setFullAddress(user_image_address + imageRef);
-    }
-
-    const getImage = ()=> {
+    const getImage = () => {
         if(imageRef !== ''){
             fetch(fullAddress, {
                 headers: {
@@ -42,6 +36,17 @@ export const useGetImage = (imageRef: string) => {
             setImageLoading(false);
         }
     }
+
+    useEffect(()=>{
+        getImage();
+        console.log(fullAddress);
+    },[fullAddress]);
+
+    const setAddress = (imageRef : string) =>{
+        setFullAddress(user_image_address + imageRef);
+    }
+
+
 
     return {image, imageLoading, setAddress}
 }

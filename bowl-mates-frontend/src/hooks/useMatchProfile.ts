@@ -5,23 +5,18 @@ import {useEffect, useState} from "react";
 import {useAuthHeader} from "react-auth-kit";
 import {user_profile_other_address} from "../api-addresses";
 import {matchProfileDetails} from "../data-types/userProfile";
-import {stringify} from "querystring";
 
-const useMathProfile = () => {
+
+const useMatchProfile = () => {
     const authHeader = useAuthHeader();
     const [matchID, setMatchID] = useState(-1);
     const [profile, setProfile] = useState<matchProfileDetails>({firstName : "", lastName: "", bio: "", pronouns: "", photo: ""});
 
     useEffect(()=>{
-        if(matchID !== -1){
+        if(matchID !== -1 && matchID !== undefined){
             fetchMatchProfile();
         }
-        console.log(matchID);
     },[matchID])
-
-    useEffect(()=>{
-        console.log(profile);
-    },[profile]);
 
     const fetchMatchProfile = () => {
         const headers = {
@@ -43,7 +38,9 @@ const useMathProfile = () => {
             if (body == null) {
                 console.log("failed to retrieve match list");
             } else {
+                console.log("setting fetched profile")
                 setProfile(body);
+                console.log(body.photo);
             }
         });
     }
@@ -51,4 +48,4 @@ const useMathProfile = () => {
     return {profile, setMatchID};
 }
 
-export default useMathProfile;
+export default useMatchProfile;

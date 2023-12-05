@@ -14,8 +14,10 @@ import {useIsUserSessionValid} from "../../../../hooks/useIsUserSessionValid";
 import useGetMatches from "../../../../hooks/useGetMatches";
 import useGetAcceptMatch from "../../../../hooks/useGetAcceptMatch";
 import useGetRejectMatch from "../../../../hooks/useGetRejectMatch";
-import useMathProfile from "../../../../hooks/useMatchProfile";
+import useMatchProfile from "../../../../hooks/useMatchProfile";
 import Loading from "../../Loading";
+import {useGetImage} from "../../../../hooks/useGetImage";
+import Typography from "@mui/material/Typography";
 
 function Matching () {
     const isSessionValid = useIsUserSessionValid();
@@ -25,26 +27,34 @@ function Matching () {
     const { rejectMatch, isLoading: isLoadingReject } = useGetRejectMatch();
     const [currentMatchIndex, setCurrentMatchIndex] = useState(0);
     const [currentMatch, setCurrentMatch] = useState(-1);
-    const {profile, setMatchID} = useMathProfile();
+    const {profile, setMatchID} = useMatchProfile();
+    const {image, setAddress} = useGetImage(profile.photo);
 
     useEffect(()=>{
         // CHECKS IF SESSION IS CURRENTLY VALID BEFORE DRAWING COMPONENT
         isSessionValid();
-    }, [isSessionValid]);
+    },[]);
 
     useEffect(()=>{
         setMatchID(currentMatch);
     },[currentMatch]);
 
+    // useEffect(()=>{
+    //     setCurrentMatch(matchesQueue[currentMatchIndex]);
+    // }, [currentMatchIndex])
+
     useEffect(()=>{
         if(matchesQueue.length !== 0) {
-            setCurrentMatch(matchesQueue[currentMatchIndex]);
+            console.log("resetting matching queue");
+            setCurrentMatch(
+                matchesQueue[currentMatchIndex] >= matchesQueue.length ? -1 : matchesQueue[currentMatchIndex]
+            );
         }
-    }, [matchesQueue])
+    }, [currentMatchIndex]);
 
     useEffect(()=>{
-
-    }, [matchesQueue])
+        setAddress(profile.photo);
+    }, [profile]);
 
     const handleSwipeLeft = () => {
         const matchId = matchesQueue[currentMatchIndex];
@@ -68,7 +78,7 @@ function Matching () {
     // Fetch current match from the queue
     //
 
-    // Check if there are no more matches
+    // // Check if there are no more matches
     // if (isLoadingMatches || isLoadingApprove || isLoadingReject) {
     //     // Maybe replace this with a cuter loading component
     //     return <div>Loading... </div>
@@ -84,23 +94,32 @@ function Matching () {
      */
     return (
         <Container maxWidth="sm">
-            <Grid container spacing={2}>
-                <Grid item xs={12}>
-                    <Box component="section" sx={{ p: 2}}>
-                        <MatchCard match={profile}/>
-                    </Box>
-                </Grid>
-                <Grid item xs={6}>
-                    <Button onClick={handleSwipeLeft} color="error" variant="outlined" fullWidth={true} startIcon={<WestIcon />}>
-                        Reject match
-                    </Button>
-                </Grid>
-                <Grid item xs={6}>
-                    <Button onClick={handleSwipeRight} color="success" variant="outlined" fullWidth={true} endIcon={<EastIcon />}>
-                        Approve match
-                    </Button>
-                </Grid>
-            </Grid>
+            {
+                currentMatch === -1 ?
+                    <Typography variant={"h1"} sx={{textAlign: "center"}}>
+                        You currently have no matches to go through
+                    </Typography>
+                    :
+                    <Grid container spacing={2}>
+                        <Grid item xs={12}>
+                            <Box component="section" sx={{p: 2}}>
+                                <MatchCard match={profile} photo={image}/>
+                            </Box>
+                        </Grid>
+                        <Grid item xs={6}>
+                            <Button onClick={()=>{handleSwipeLeft()}} color="error" variant="outlined" fullWidth={true}
+                                    startIcon={<WestIcon/>}>
+                                Reject match
+                            </Button>
+                        </Grid>
+                        <Grid item xs={6}>
+                            <Button onClick={()=>{handleSwipeRight()}} color="success" variant="outlined" fullWidth={true}
+                                    endIcon={<EastIcon/>}>
+                                Approve match
+                            </Button>
+                        </Grid>
+                    </Grid>
+            }
         </Container>
 
     )
