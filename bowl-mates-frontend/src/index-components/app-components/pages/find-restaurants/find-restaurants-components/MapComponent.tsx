@@ -19,9 +19,6 @@ function MapComponent({restaurants, userLocation}: {restaurants: restaurant[], u
         borderRadius: '8px',
         boxShadow: `0 0 10px ${appTheme.palette.secondary.main}20`, // Use secondary color for box shadow
     };
-    const markerStyle = {
-        color: appTheme.palette.primary.main, // Use primary color for marker
-    };
     const infoWindowStyle = {
         background: appTheme.palette.primary.main, // Use secondary color for info window background
         color: '#000', // Set text color to white for better contrast
@@ -49,6 +46,7 @@ function MapComponent({restaurants, userLocation}: {restaurants: restaurant[], u
     return isLoaded ? (
             <GoogleMap mapContainerStyle={mapContainerStyle} center={userLocation} zoom={13} onUnmount={onUnmount}>
                 <CustomMarker
+                    user={true}
                     position={userLocation}
                     title={"Current Location"}
                     themeColor={appTheme.palette.primary.main}
@@ -59,6 +57,7 @@ function MapComponent({restaurants, userLocation}: {restaurants: restaurant[], u
                         restaurants.map((restaurant) => (
                                 <CustomMarker
                                     key={restaurant.id}
+                                    user={false}
                                     position={{
                                         lat: parseFloat(restaurant.latitude.toString()),
                                         lng: parseFloat(restaurant.longitude.toString())
