@@ -5,6 +5,12 @@ import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import javax.sql.rowset.serial.SerialBlob;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.sql.Blob;
+import java.sql.SQLException;
 import java.util.*;
 
 /**
@@ -57,7 +63,7 @@ public class TestUser implements UserDetails {
     private TestProfile profile;
 
     @Lob
-    private byte[] serializedQueue;
+    private Blob serializedQueue;
 
     /**
      * a default constructor to make a user with no details
@@ -72,7 +78,12 @@ public class TestUser implements UserDetails {
         approvals = new HashSet<>();
         rejects = new HashSet<>();
         // is there a better way to initialize this array?
-        serializedQueue = new byte[0];
+        try {
+            serializedQueue= new SerialBlob(new byte[0]);
+        } catch (SQLException e) {
+            // Handle SQLException
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -108,7 +119,13 @@ public class TestUser implements UserDetails {
         this.matches = matches;
         this.approvals = approvals;
         this.rejects = rejects;
-        this.serializedQueue = queue;
+        try {
+            this.serializedQueue = new SerialBlob(queue);
+
+        } catch (SQLException e) {
+            // Handle SQLException
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -316,7 +333,26 @@ public class TestUser implements UserDetails {
      * @return the serialized form of the matching queue
      */
     public byte[] getSerializedQueue() {
-        return serializedQueue;
+        byte[] byteArray = new byte[0];
+        try (InputStream inputStream = serializedQueue.getBinaryStream()) {
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            byte[] buffer = new byte[4096]; // You can adjust the buffer size as needed
+
+            int bytesRead;
+            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                outputStream.write(buffer, 0, bytesRead);
+            }
+
+            // Convert the data to a byte array
+            byteArray = outputStream.toByteArray();
+
+            // 'byteArray' now contains the data from the Blob in byte array format
+        } catch (SQLException | IOException e) {
+            // Handle exceptions
+            e.printStackTrace();
+        }
+        return byteArray;
+//        return serializedQueue;
     }
 
     /**
@@ -325,7 +361,16 @@ public class TestUser implements UserDetails {
      * @param serializedQueue a serialized form of the queue to be set
      */
     public void setSerializedQueue(byte[] serializedQueue) {
-        this.serializedQueue = serializedQueue;
+        try {
+            if (serializedQueue != null) {
+                this.serializedQueue = new SerialBlob(serializedQueue);
+            } else {
+                this.serializedQueue = null; // or set it to whatever default you need
+            }
+        } catch (SQLException e) {
+            // Handle SQLException
+            e.printStackTrace();
+        }
     }
 
     // TODO: Document profile methods
