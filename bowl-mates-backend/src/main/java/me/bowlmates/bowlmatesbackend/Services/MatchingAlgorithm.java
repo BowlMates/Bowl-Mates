@@ -76,10 +76,15 @@ public class MatchingAlgorithm {
         }
         if (!matches.isEmpty()) {
             PriorityQueue<QueueNode> queue = new PriorityQueue<>();
+            int count = 0;
             for (Integer key : matches.keySet()) {
                 Integer value = matches.get(key);
                 QueueNode matchRating = new QueueNode(key, value);
                 queue.add(matchRating);
+                count++;
+                if (count >= 30) {
+                    break;
+                }
             }
             try {
                 ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
