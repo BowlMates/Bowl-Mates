@@ -212,10 +212,11 @@ public class UserController {
     }
 
     /**
-     * Provides frontend mapping to profile photo
+     * Gets another user's profile based on their user id
      *
-     * @return String with mapping to profile photo
-     * @throws Exception when user fails to authenticate
+     * @param userId the user id of the other user
+     * @return the user's Profile
+     * @throws Exception
      */
     @PostMapping("/profile/other")
     public ProfileDTO getOtherProfile(@RequestBody Integer userId) throws Exception {
@@ -224,6 +225,13 @@ public class UserController {
         return profile.getDTO();
     }
 
+
+    /**
+     * Provides frontend mapping to profile photo
+     *
+     * @return String with mapping to profile photo
+     * @throws Exception when user fails to authenticate
+     */
     @GetMapping(value = "/photo", produces = "application/json")
     public String getPhoto() throws Exception {
         return profileService.getProfile().getPhoto();
@@ -278,9 +286,14 @@ public class UserController {
     public List<List<MessageDTO>> getMessages(@RequestBody List<Integer> matchIds) {
         List<List<MessageDTO>> messages = new ArrayList<>();
         for (int matchId : matchIds) {
-            messages.add(messageService.getMessages(matchId));
+            List<MessageDTO> messageDTOS = messageService.getMessages(matchId);
+            if (!messageDTOS.isEmpty()) {
+                messages.add(messageDTOS);
+            }
         }
-        messages.sort(Comparator.comparing(l -> l.get(0).getDate()));
+        if(!messages.isEmpty()){
+            messages.sort(Comparator.comparing(l -> l.get(0).getDate()));
+        }
         return messages;
     }
 

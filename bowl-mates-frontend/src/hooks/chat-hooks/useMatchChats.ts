@@ -22,6 +22,7 @@ const useMatchChats = () => {
         const sidebarCardData: Map<number, sidebarCardData> = new Map();
         const keyedMessageData: Map<number, chatMessage[]> = new Map();
         conversationIDList.map((item) => {
+            console.log(item.matchID);
             sidebarCardData.set(item.matchID, {
                 matchID: item.matchID,
                 firstName: item.matchFirstName,
@@ -34,15 +35,18 @@ const useMatchChats = () => {
         });
 
         chatList.map((item) => {
-            if(sidebarCardData.has(item[0].matchId)){
-                let tempCardData : sidebarCardData = sidebarCardData.get(item[0].matchId)!;
-                tempCardData!.message = item[item.length - 1].message;
-                tempCardData!.timeInMilliseconds = item[item.length - 1].date;
-                sidebarCardData.set(item[0].matchId, tempCardData);
-                keyedMessageData.set(item[0].matchId, item);
+            if(item.length !== 0) {
+                if (sidebarCardData.has(item[0].matchId)) {
+                    let tempCardData: sidebarCardData = sidebarCardData.get(item[0].matchId)!;
+                    tempCardData!.message = item[item.length - 1].message;
+                    tempCardData!.timeInMilliseconds = item[item.length - 1].date;
+                    sidebarCardData.set(item[0].matchId, tempCardData);
+                    keyedMessageData.set(item[0].matchId, item);
+                }
             }
             return 0;
         });
+
 
         // @ts-ignore
         setSidebarData(new Map([...sidebarCardData].sort()));

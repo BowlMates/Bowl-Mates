@@ -33,15 +33,9 @@ const daysOfWeek = [
 ]
 
 function Availability() {
-    const isSessionValid = useIsUserSessionValid();
+    useIsUserSessionValid();
     const setAvails = useSetAvails();
     const {availability, setAvailability} = useGetAvails(daysOfWeek.map(() => timeSlots.map(() => false)));
-
-    useEffect(() => {
-        // CHECKS IF SESSION IS CURRENTLY VALID BEFORE DRAWING COMPONENT
-        isSessionValid();
-        // CHECKS IF SESSION IS CURRENTLY VALID BEFORE DRAWING COMPONENT
-    });
 
     // // State to track availability for each time slot on each day
     // const [availability, setAvailability] =

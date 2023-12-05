@@ -7,18 +7,11 @@ import {matchProfileDetails} from "../../data-types/userProfile";
 
 interface UserCardProps {
     match: matchProfileDetails;
+    photo: string
 }
 
 
-const MatchCard: React.FC<UserCardProps> = ({match}) => {
-
-    const { userImageRef, imageRefLoading, getImageRef } = useGetImageRef();
-    const { image: refImage, setAddress } = useGetImage(userImageRef);
-
-    // Fetch user image on component mount
-    useEffect( () => {
-        setAddress(userImageRef);
-    }, [userImageRef]);
+const MatchCard: React.FC<UserCardProps> = ({match, photo}) => {
 
     const defaultMatch = {
         firstName: 'Adam',
@@ -33,7 +26,7 @@ const MatchCard: React.FC<UserCardProps> = ({match}) => {
         <Card>
             <CardMedia
                 component="img"
-                image={refImage}
+                image={photo}
                 alt="user photo"
             />
             <CardContent>

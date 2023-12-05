@@ -1,5 +1,3 @@
-
-
 // React Imports
 import React, {useEffect, useMemo} from "react";
 
@@ -26,6 +24,7 @@ import Loading from "../../Loading";
 // The FindRestaurants component is responsible for calling the getNearbyRestaurants function and then
 // displaying all the data returned by the API to the user
 function FindRestaurants(userLocation: {lat: number; lng: number}) {
+    useIsUserSessionValid();
     const {restaurants, placesLoading, placesError} = useNearbyPlaces(userLocation);
     const {photos, photosLoading, photosError} = useGetPhotos(restaurants);
     const {favRes, setFavRes, getRestaurants} = useGetRestaurants();
@@ -57,14 +56,6 @@ function FindRestaurants(userLocation: {lat: number; lng: number}) {
 
         restaurantWithPhotos.push(splicedRest);
     }
-
-    const isSessionValid = useIsUserSessionValid();
-
-    useEffect(()=>{
-        // CHECKS IF SESSION IS CURRENTLY VALID BEFORE DRAWING COMPONENT
-        isSessionValid();
-        // CHECKS IF SESSION IS CURRENTLY VALID BEFORE DRAWING COMPONENT
-    });
 
     // Fetch favorite restaurants on component mount
     useEffect(()=>{

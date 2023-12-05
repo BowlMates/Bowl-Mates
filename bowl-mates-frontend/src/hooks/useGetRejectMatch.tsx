@@ -32,7 +32,7 @@ const useGetRejectMatch = () => {
             .finally(() => {
                 setIsLoading(false);
             });
-    }, [authHeader]);
+    }, []);
 
     return { rejectMatch, isLoading, error };
 };

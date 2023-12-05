@@ -32,7 +32,7 @@ const useGetApproveMatch = () => {
             .finally(() => {
                 setIsLoading(false);
             });
-    }, [authHeader]);
+    }, []);
 
     return { approveMatch, isLoading, error };
 };
