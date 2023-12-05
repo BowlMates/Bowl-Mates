@@ -7,7 +7,8 @@ import React from "react";
 const messages: string[] = [
     'Searching for some yummy places to eat!',
     'Fetching your lovely details!',
-    'Finding you new friends to eat with!'
+    'Finding you new friends to eat with!',
+    'Successfully registered! Redirecting...'
 ];
 
 interface LoadingProps {
