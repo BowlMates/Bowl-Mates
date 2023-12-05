@@ -22,15 +22,18 @@ const useGetRejectMatch = () => {
             .then(res => {
                 if (!res.ok) {
                     console.log('Error approving match');
+                    setIsLoading(false)
                     return false;
                 }
+                setIsLoading(false)
                 return true;
             })
             .catch(error => {
                 setError(error);
+                setIsLoading(false)
                 console.error('Error approving match:', error);
                 return false;
-            });
+            }).finally(()=>{setIsLoading(false)});
     }
 
     return { rejectMatch, isLoading, error };
