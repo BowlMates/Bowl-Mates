@@ -30,7 +30,7 @@ function MapComponent({restaurants, userLocation}: {restaurants: restaurant[], u
         id: 'google-map-script',
         googleMapsApiKey: "AIzaSyDXlQY2uFzDvS7HRowdgflkRqWtmKqYaGw"
     })
-
+    console.log(restaurants);
     const [selectedMarker, setSelectedMarker] = React.useState<restaurant | null>(null);
 
     const handleMarkerClick = (restaurant: restaurant) => {

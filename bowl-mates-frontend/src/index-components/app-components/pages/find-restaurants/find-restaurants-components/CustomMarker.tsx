@@ -32,4 +32,4 @@ const CustomMarker: React.FC<CustomMarkerProps> = ({ user, position, title, onCl
     />
 );
 
-export default CustomMarker;
+export default React.memo(CustomMarker);

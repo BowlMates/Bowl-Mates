@@ -13,10 +13,15 @@ const UploadImg: React.FC<UploadImgProps> = ({ handlePictureUpload }) => {
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const selectedFile = e.target.files?.[0];
 
-        if (selectedFile) {
+        if (selectedFile && isFileTypeAllowed(selectedFile)) {
             setFileReference(URL.createObjectURL(selectedFile));
             setFileData(selectedFile);
         }
+    };
+
+    const isFileTypeAllowed = (file: File) => {
+        const allowedTypes = ['image/gif', 'image/jpeg', 'image/png'];
+        return allowedTypes.includes(file.type);
     };
 
     const resetState = () => {
@@ -53,7 +58,7 @@ const UploadImg: React.FC<UploadImgProps> = ({ handlePictureUpload }) => {
                             </IconButton>
                         </label>
                         <Typography variant="h6" color="textSecondary" align="center">
-                            {fileReference ? "File selected" : "No file selected"}
+                            {fileReference ? "Selected image: " + fileData?.name : "Select a jpg, png, or gif file"}
                         </Typography>
                     </CardContent>
                 </Card>
