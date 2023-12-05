@@ -179,34 +179,56 @@ public class UserController {
         return matchingAlgorithm.deny(userId);
     }
 
+    /**
+     * Used when a user wants a match removed from their matches
+     *
+     * @param userId id of user to unmatch
+     */
     @PostMapping("/unmatch")
     public void unmatch(@RequestBody Integer userId) {
         matchingAlgorithm.unmatch(userId);
     }
 
-    // TODO: Profile documentation
+    /**
+     * Provides frontend with user profile info
+     *
+     * @return Profile Data Transfer Object
+     * @throws Exception When unable to authenticate user
+     */
     @GetMapping("/profile")
     public ProfileDTO getProfile() throws Exception {
         return profileService.getProfile().getDTO();
     }
 
+    /**
+     * Updates user profile info from frontend
+     *
+     * @param profileDTO Data Transfer Object with profile info
+     * @throws Exception when user fails to authenticate
+     */
     @PostMapping("/profile/save")
     public void setProfile(@RequestBody ProfileDTO profileDTO) throws Exception {
         profileService.updateProfile(profileDTO);
     }
 
-    @PostMapping("/profile/other")
-    public ProfileDTO getOtherProfile(@RequestBody Integer userId) throws Exception {
-        TestUser other = userRepository.findById(userId).get();
-        TestProfile profile = other.getProfile();
-        return profile.getDTO();
-    }
-
+    /**
+     * Provides frontend mapping to profile photo
+     *
+     * @return String with mapping to profile photo
+     * @throws Exception when user fails to authenticate
+     */
     @GetMapping(value = "/photo", produces = "application/json")
     public String getPhoto() throws Exception {
         return profileService.getProfile().getPhoto();
     }
 
+    /**
+     * Updates user profile photo from frontend
+     *
+     * @param photo image file to set profile pic to
+     * @return Status message
+     * @throws Exception when user fails to authenticate
+     */
     @PostMapping("/photo/save")
     public ResponseEntity<String> setPhoto(@RequestParam("image") MultipartFile photo)  throws Exception {
 
@@ -239,27 +261,37 @@ public class UserController {
         }
     }
 
-    // TODO: Message documentation
+    /**
+     * Provides the frontend with a users conversations
+     *
+     * @param matchIds List of matchIds for user's matches
+     * @return List of conversations, which are lists of messages
+     */
     @PostMapping("/message")
     public List<List<MessageDTO>> getMessages(@RequestBody List<Integer> matchIds) {
         List<List<MessageDTO>> messages = new ArrayList<>();
         for (int matchId : matchIds) {
-            List<MessageDTO> messageDTOS = messageService.getMessages(matchId);
-            if (!messageDTOS.isEmpty()) {
-                messages.add(messageDTOS);
-            }
+            messages.add(messageService.getMessages(matchId));
         }
-        if(!messages.isEmpty()){
-            messages.sort(Comparator.comparing(l -> l.get(0).getDate()));
-        }
+        messages.sort(Comparator.comparing(l -> l.get(0).getDate()));
         return messages;
     }
-    
+
+    /**
+     * Records sent message from frontend
+     *
+     * @param messageDTO Data Transfer Object of message to be sent
+     */
     @PostMapping("/message/send")
     public void sendMessage(@RequestBody MessageDTO messageDTO) {
         messageService.sendMessage(messageDTO);
     }
 
+    /**
+     * Provides frontend with profile info of matches and matchIds
+     *
+     * @return a list of Match Data Transfer Objects containing matchId and profile info
+     */
     @GetMapping("/matches")
     public List<MatchDTO> getMatchHashes() {
         String username = "";
@@ -296,9 +328,9 @@ public class UserController {
         return response;
     }
 
+    // TODO: Remove
     @PostMapping(value = "/image/save")
     public Boolean setImage(@RequestBody String body) {
-        // TODO: implement
         return true;
     }
 

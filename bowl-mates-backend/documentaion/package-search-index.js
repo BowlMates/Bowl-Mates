@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"me.bowlmates.bowlmatesbackend"}];updateSearchResults();
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"me.bowlmates.bowlmatesbackend"},{"l":"me.bowlmates.bowlmatesbackend.Configuration"},{"l":"me.bowlmates.bowlmatesbackend.Controllers"},{"l":"me.bowlmates.bowlmatesbackend.Models"},{"l":"me.bowlmates.bowlmatesbackend.Repositories"},{"l":"me.bowlmates.bowlmatesbackend.Services"},{"l":"me.bowlmates.bowlmatesbackend.Utils"}];updateSearchResults();

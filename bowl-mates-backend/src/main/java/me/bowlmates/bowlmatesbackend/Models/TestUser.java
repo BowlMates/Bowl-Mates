@@ -373,11 +373,20 @@ public class TestUser implements UserDetails {
         }
     }
 
-    // TODO: Document profile methods
+    /**
+     * Setter for profile
+     *
+     * @param profile updated value of profile
+     */
     public void setProfile(TestProfile profile) {
         this.profile = profile;
     }
 
+    /**
+     * Getter for profile
+     *
+     * @return profile field of this
+     */
     public TestProfile getProfile() {return this.profile;}
 
     @Override

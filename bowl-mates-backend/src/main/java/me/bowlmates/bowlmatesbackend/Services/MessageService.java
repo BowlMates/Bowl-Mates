@@ -14,7 +14,9 @@ import org.springframework.stereotype.Service;
 import java.time.Instant;
 import java.util.*;
 
-// TODO: Implement
+/**
+ * Service used to handle messaging
+ */
 @Service
 @Transactional
 public class MessageService {
@@ -24,6 +26,12 @@ public class MessageService {
     @Autowired
     MessageRepo messageRepo;
 
+    /**
+     * Gets all messages in a specific conversation
+     *
+     * @param matchId identifier for a pair of matched users
+     * @return Conversation as a list of messages
+     */
     public List<MessageDTO> getMessages(int matchId) {
         Set<TestMessage> messages = messageRepo.findByMatchId(matchId);
         List<MessageDTO> messageList = new ArrayList<>();
@@ -37,6 +45,11 @@ public class MessageService {
         return messageList;
     }
 
+    /**
+     * Updates conversation with new message
+     *
+     * @param messageDTO Data Transfer Object with message data to add to database
+     */
     public void sendMessage(MessageDTO messageDTO) {
         String username = "";
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
