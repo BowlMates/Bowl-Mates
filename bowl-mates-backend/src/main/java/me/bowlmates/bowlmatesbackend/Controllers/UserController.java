@@ -211,6 +211,14 @@ public class UserController {
         profileService.updateProfile(profileDTO);
     }
 
+    // TODO: Document
+    @PostMapping("/profile/other")
+    public ProfileDTO getOtherProfile(@RequestBody Integer userId) throws Exception {
+        TestUser other = userRepository.findById(userId).get();
+        TestProfile profile = other.getProfile();
+        return profile.getDTO();
+    }
+
     /**
      * Provides frontend mapping to profile photo
      *
@@ -271,9 +279,14 @@ public class UserController {
     public List<List<MessageDTO>> getMessages(@RequestBody List<Integer> matchIds) {
         List<List<MessageDTO>> messages = new ArrayList<>();
         for (int matchId : matchIds) {
-            messages.add(messageService.getMessages(matchId));
+            List<MessageDTO> messageDTOS = messageService.getMessages(matchId);
+            if (!messageDTOS.isEmpty()) {
+                messages.add(messageDTOS);
+            }
         }
-        messages.sort(Comparator.comparing(l -> l.get(0).getDate()));
+        if(!messages.isEmpty()){
+            messages.sort(Comparator.comparing(l -> l.get(0).getDate()));
+        }
         return messages;
     }
 
