@@ -18,17 +18,19 @@ import useMatchProfile from "../../../../hooks/useMatchProfile";
 import Loading from "../../Loading";
 import {useGetImage} from "../../../../hooks/useGetImage";
 import Typography from "@mui/material/Typography";
+import useRunMatchingAlgorithm from "../../../../hooks/useRunMatchingAlgorithm";
 
 function Matching () {
     const isSessionValid = useIsUserSessionValid();
     // state for managing queue of matches and current index
-    const { matchesQueue, isLoading: isLoadingMatches } = useGetMatches();
+    const { matchesQueue, fetchMatches, isLoading: isLoadingMatches } = useGetMatches();
     const { approveMatch, isLoading: isLoadingApprove } = useGetAcceptMatch();
     const { rejectMatch, isLoading: isLoadingReject } = useGetRejectMatch();
     const [currentMatchIndex, setCurrentMatchIndex] = useState(0);
     const [currentMatch, setCurrentMatch] = useState(-1);
     const {profile, setMatchID} = useMatchProfile();
     const {image, setAddress} = useGetImage(profile.photo);
+    const {loadingMatches, runMatchAlgorithm} = useRunMatchingAlgorithm();
 
     useEffect(()=>{
         // CHECKS IF SESSION IS CURRENTLY VALID BEFORE DRAWING COMPONENT
@@ -49,8 +51,18 @@ function Matching () {
     }, [currentMatchIndex, matchesQueue]);
 
     useEffect(()=>{
+        if(matchesQueue.length > 0){
+            setCurrentMatchIndex(0);
+        }
+    }, [matchesQueue]);
+
+    useEffect(()=>{
         setAddress(profile.photo);
     }, [profile]);
+
+    useEffect(()=>{
+        fetchMatches();
+    }, [loadingMatches])
 
     const handleSwipeLeft = () => {
         const matchId = matchesQueue[currentMatchIndex];
@@ -92,9 +104,16 @@ function Matching () {
         <Container maxWidth="sm">
             {
                 currentMatch === -1 ?
-                    <Typography variant={"h1"} sx={{textAlign: "center"}}>
-                        You currently have no matches to go through
-                    </Typography>
+                    <Box display={"flex"} flexDirection={"column"}>
+                        <Typography variant={"h1"} sx={{textAlign: "center"}}>
+                            You currently have no matches to go through
+                        </Typography>
+                        <Button sx={{backgroundColor: "green"}} onClick={runMatchAlgorithm}>Click to find matches!</Button>
+                        {
+                            loadingMatches ? <Typography>Loading</Typography> : <></>
+                        }
+                    </Box>
+
                     :
                     <Grid container spacing={2}>
                         <Grid item xs={12}>

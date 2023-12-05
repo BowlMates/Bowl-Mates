@@ -23,7 +23,7 @@ const useMatchProfile = () => {
             "Authorization": authHeader(),
             "Content-Type" : "application/json",
         }
-
+        console.log(matchID);
         fetch(user_profile_other_address, {
             headers: headers,
             method: "post",

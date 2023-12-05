@@ -79,6 +79,10 @@ const user_image_address : string = ADDRESS + user_image;
 const user_profile_other : string = "/user/profile/other";
 const user_profile_other_address : string = ADDRESS + user_profile_other;
 
+// Run matching algorithm
+const user_run_matching_algorithm : string = "/user/match";
+const user_run_matching_algorithm_address : string = ADDRESS + user_run_matching_algorithm;
+
 export {
     login_address,
     register_address,
@@ -95,5 +99,6 @@ export {
     user_image_ref_address,
     user_image_address,
     user_image_save_address,
-    user_profile_other_address
+    user_profile_other_address,
+    user_run_matching_algorithm_address
 };

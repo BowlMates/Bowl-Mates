@@ -35,12 +35,14 @@ const useMatchChats = () => {
         });
 
         chatList.map((item) => {
-            if (sidebarCardData.has(item[0].matchId)) {
-                let tempCardData: sidebarCardData = sidebarCardData.get(item[0].matchId)!;
-                tempCardData!.message = item[item.length - 1].message;
-                tempCardData!.timeInMilliseconds = item[item.length - 1].date;
-                sidebarCardData.set(item[0].matchId, tempCardData);
-                keyedMessageData.set(item[0].matchId, item);
+            if(item.length !== 0) {
+                if (sidebarCardData.has(item[0].matchId)) {
+                    let tempCardData: sidebarCardData = sidebarCardData.get(item[0].matchId)!;
+                    tempCardData!.message = item[item.length - 1].message;
+                    tempCardData!.timeInMilliseconds = item[item.length - 1].date;
+                    sidebarCardData.set(item[0].matchId, tempCardData);
+                    keyedMessageData.set(item[0].matchId, item);
+                }
             }
             return 0;
         });
