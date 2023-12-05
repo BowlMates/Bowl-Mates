@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
-import { useAuthHeader } from 'react-auth-kit';
-import { user_match_show_address } from '../api-addresses';
+import {useState, useEffect} from 'react';
+import {useAuthHeader} from 'react-auth-kit';
+import {user_match_show_address} from '../api-addresses';
 
 const useGetMatches = () => {
     const [matchesQueue, setMatchesQueue] = useState([]);
@@ -9,6 +9,10 @@ const useGetMatches = () => {
     const authHeader = useAuthHeader();
 
     useEffect(() => {
+        console.log(matchesQueue);
+    }, [matchesQueue])
+
+    const fetchMatches = () => {
         fetch(user_match_show_address, {
             headers: {
                 "Authorization": authHeader(),
@@ -17,14 +21,13 @@ const useGetMatches = () => {
                 "Accept": "*/*",
             },
             method: "GET",
+        }).then(res => {
+            if (res.ok) {
+                return res.json();
+            } else {
+                throw new Error('Error fetching matches');
+            }
         })
-            .then(res => {
-                if (res.ok) {
-                    return res.json();
-                } else {
-                    throw new Error('Error fetching matches');
-                }
-            })
             .then(data => {
                 setMatchesQueue(data);
             })
@@ -35,9 +38,13 @@ const useGetMatches = () => {
             .finally(() => {
                 setIsLoading(false);
             });
-    }, [authHeader]);
+    }
 
-    return { matchesQueue, isLoading, error };
+    useEffect(() => {
+        fetchMatches()
+    }, []);
+
+    return {matchesQueue, isLoading, error, fetchMatches};
 };
 
 export default useGetMatches;

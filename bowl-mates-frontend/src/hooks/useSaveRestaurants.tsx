@@ -6,10 +6,10 @@ import {user_prefs_save_address} from "../api-addresses";
 const useSaveRestaurant = () => {
     const authHeader = useAuthHeader();
 
-    const saveRestaurant = (restaurant: restaurant)=> {
+    const saveRestaurant = async (restaurant: restaurant) : Promise<{ success: boolean }> => {
         const token = authHeader();
 
-        fetch(user_prefs_save_address, {
+        return await fetch(user_prefs_save_address, {
             headers: {
                 "Authorization" : token,
                 "Content-Type": "application/json",
@@ -19,9 +19,11 @@ const useSaveRestaurant = () => {
         }).then((res) => {
             if (res.ok) {
                 console.log("Successfully posted");
+                return {success: true};
             } else {
-                console.log(res)
+                console.log(res);
                 console.log("Failed to post");
+                return {success: false};
             }
         });
     }

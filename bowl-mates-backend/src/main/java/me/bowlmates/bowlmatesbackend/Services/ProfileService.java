@@ -14,7 +14,9 @@ import org.springframework.stereotype.Service;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
-// TODO: Implement Profile Service
+/**
+ * Service used to access user profile info
+ */
 @Service
 @Transactional
 public class ProfileService {
@@ -24,11 +26,23 @@ public class ProfileService {
     @Autowired
     ProfileRepo profileRepo;
 
+    /**
+     * Updates user profile fields to DTO fields
+     *
+     * @param profileDTO Data Transfer Object with new profile info
+     * @throws Exception in case of user auth errors
+     */
     public void updateProfile(ProfileDTO profileDTO) throws Exception {
         TestProfile profile = this.getProfile();
         profile.updateFromDTO(profileDTO);
     }
 
+    /**
+     * Gets profile of user
+     *
+     * @return user profile object linked to database
+     * @throws Exception in case of user auth errors
+     */
     public TestProfile getProfile() throws Exception {
         String username = "";
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -38,6 +52,7 @@ public class ProfileService {
             throw new NoSuchElementException("User not authenticated");
         }
         TestUser user = userRepo.findByUsername(username);
+
         return user.getProfile();
     }
 }

@@ -8,9 +8,6 @@ import Header from "./app-components/Header";
 import BodyContainer from "./app-components/BodyContainer";
 import {useToggle} from "../hooks/useToggle";
 
-//Google API imports
-import {LoadScript} from "@react-google-maps/api";
-
 // Route Imports
 import Home from "./app-components/pages/home/Home";
 import Availability from "./app-components/pages/availability/Availability";
@@ -25,7 +22,7 @@ import {useTheme} from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import FindRestaurants from "./app-components/pages/find-restaurants/FindRestaurants";
 import useUserLocation from "../hooks/useUserLocation";
-import {useEffect, useState} from "react";
+import { useState} from "react";
 
 // Constant for UW location data in case useUserLocation fails to retrieve user location data
 const uwCoords = {
@@ -35,7 +32,6 @@ const uwCoords = {
 
 function App() {
     const {state : drawerOpen, toggle : toggleDrawerOpen} = useToggle(false);
-    const [googleMapsLoaded, setGoogleMapsLoaded] = useState(false);
     const theme = useTheme();
 
     // This logic is here because the user location data needs to be collected before use navigates to restaurants finder
@@ -69,15 +65,6 @@ function App() {
                 }}>
                     <Box sx={{width : "100%", height : "64px"}}/>
                     <BodyContainer className={"BodyContainer"}>
-                        {/* Domain Restricted Routing set in the on Google's API website */}
-                        {/*<div>*/}
-                        {/*    {googleMapsLoaded && (*/}
-                        {/*        <LoadScript*/}
-                        {/*            googleMapsApiKey={"AIzaSyDXlQY2uFzDvS7HRowdgflkRqWtmKqYaGw"}*/}
-                        {/*        >*/}
-                        {/*        </LoadScript>*/}
-                        {/*    )}*/}
-                        {/*</div>*/}
                         <Routes>
                             <Route path={"/"} element={<Home />}/>
                             <Route path={"/find-restaurants"} element={<FindRestaurants   lat={userLocation.lat} lng={userLocation.lng}/>}/>

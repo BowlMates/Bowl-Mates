@@ -8,11 +8,15 @@ import me.bowlmates.bowlmatesbackend.Services.*;
 import me.bowlmates.bowlmatesbackend.Repositories.UserRepo;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.util.*;
 
 /**
@@ -37,6 +41,9 @@ public class UserController {
 
     @Autowired
     private MatchingAlgorithm matchingAlgorithm;
+
+    @Value("${upload.directory}") // Get relative path to uploads directory from application.properties
+    private String uploadDirectory;
 
     /**
      * Landing page for user
@@ -172,52 +179,140 @@ public class UserController {
         return matchingAlgorithm.deny(userId);
     }
 
-    // TODO: Profile documentation
+    /**
+     * Used when a user wants a match removed from their matches
+     *
+     * @param userId id of user to unmatch
+     */
+    @PostMapping("/unmatch")
+    public void unmatch(@RequestBody Integer userId) {
+        matchingAlgorithm.unmatch(userId);
+    }
+
+    /**
+     * Provides frontend with user profile info
+     *
+     * @return Profile Data Transfer Object
+     * @throws Exception When unable to authenticate user
+     */
     @GetMapping("/profile")
     public ProfileDTO getProfile() throws Exception {
         return profileService.getProfile().getDTO();
     }
 
+    /**
+     * Updates user profile info from frontend
+     *
+     * @param profileDTO Data Transfer Object with profile info
+     * @throws Exception when user fails to authenticate
+     */
     @PostMapping("/profile/save")
     public void setProfile(@RequestBody ProfileDTO profileDTO) throws Exception {
         profileService.updateProfile(profileDTO);
     }
 
-    @GetMapping("/profile/other")
+    /**
+     * Gets another user's profile based on their user id
+     *
+     * @param userId the user id of the other user
+     * @return the user's Profile
+     * @throws Exception
+     */
+    @PostMapping("/profile/other")
     public ProfileDTO getOtherProfile(@RequestBody Integer userId) throws Exception {
         TestUser other = userRepository.findById(userId).get();
         TestProfile profile = other.getProfile();
         return profile.getDTO();
     }
 
-    @GetMapping("/photo")
+    /**
+     * Provides frontend mapping to profile photo
+     *
+     * @return String with mapping to profile photo
+     * @throws Exception when user fails to authenticate
+     */
+    @GetMapping(value = "/photo", produces = "application/json")
     public String getPhoto() throws Exception {
         return profileService.getProfile().getPhoto();
     }
 
+    /**
+     * Updates user profile photo from frontend
+     *
+     * @param photo image file to set profile pic to
+     * @return Status message
+     * @throws Exception when user fails to authenticate
+     */
     @PostMapping("/photo/save")
-    public void setPhoto(@RequestBody String photo)  throws Exception {
-        profileService.getProfile().setPhotoPath(photo);
+    public ResponseEntity<String> setPhoto(@RequestParam("image") MultipartFile photo)  throws Exception {
+
+        // Validate file
+        if (photo.isEmpty()) {
+            throw new Exception();
+        }
+
+        // Save the file on the server
+        try {
+            // Construct the full path to the upload directory
+            String fullPath = System.getProperty("user.dir") + File.separator + uploadDirectory;
+            String filePath = fullPath + File.separator + photo.getOriginalFilename();
+            File dest = new File(filePath);
+
+            // Create the directory if it doesn't exist
+            dest.getParentFile().mkdirs();
+
+            photo.transferTo(dest);
+
+            ProfileDTO userProfile = profileService.getProfile().getDTO();
+            userProfile.setPhoto(photo.getOriginalFilename());
+
+            profileService.updateProfile(userProfile);
+
+            return ResponseEntity.ok("File uploaded successfully!");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return ResponseEntity.status(500).body("Failed to upload the file");
+        }
     }
 
-    // TODO: Message documentation
+    /**
+     * Provides the frontend with a users conversations
+     *
+     * @param matchIds List of matchIds for user's matches
+     * @return List of conversations, which are lists of messages
+     */
     @PostMapping("/message")
     public List<List<MessageDTO>> getMessages(@RequestBody List<Integer> matchIds) {
         List<List<MessageDTO>> messages = new ArrayList<>();
         for (int matchId : matchIds) {
-            messages.add(messageService.getMessages(matchId));
+            List<MessageDTO> messageDTOS = messageService.getMessages(matchId);
+            if (!messageDTOS.isEmpty()) {
+                messages.add(messageDTOS);
+            }
         }
-        messages.sort(Comparator.comparing(l -> l.get(0).getDate()));
+        if(!messages.isEmpty()){
+            messages.sort(Comparator.comparing(l -> l.get(0).getDate()));
+        }
         return messages;
     }
-    
+
+    /**
+     * Records sent message from frontend
+     *
+     * @param messageDTO Data Transfer Object of message to be sent
+     */
     @PostMapping("/message/send")
     public void sendMessage(@RequestBody MessageDTO messageDTO) {
         messageService.sendMessage(messageDTO);
     }
 
-    @GetMapping("/message/matches")
-    public Map<ProfileDTO, Integer> getMatchHashes() {
+    /**
+     * Provides frontend with profile info of matches and matchIds
+     *
+     * @return a list of Match Data Transfer Objects containing matchId and profile info
+     */
+    @GetMapping("/matches")
+    public List<MatchDTO> getMatchHashes() {
         String username = "";
         Authentication auth = SecurityContextHolder
                 .getContext()
@@ -226,13 +321,18 @@ public class UserController {
             username = auth.getName();
         }
         TestUser user = userRepository.findByUsername(username);
-        Map<ProfileDTO, Integer> matchesToHashes = new HashMap<>();
+        List<MatchDTO> matchDTOList = new ArrayList<>();
         for (TestUser match : user.getMatches()) {
             int matchHash = TestMessage.matchHash(user.getId(), match.getId());
-            ProfileDTO matchDTO = match.getProfile().getDTO();
-            matchesToHashes.put(matchDTO, matchHash);
+            TestProfile matchProfile = match.getProfile();
+            MatchDTO matchDTO = new MatchDTO(matchHash,
+                    matchProfile.getFirstName(),
+                    matchProfile.getLastName(),
+                    matchProfile.getPronouns(),
+                    matchProfile.getPhoto());
+            matchDTOList.add(matchDTO);
         }
-        return matchesToHashes;
+        return matchDTOList;
     }
 
     /**
@@ -247,9 +347,9 @@ public class UserController {
         return response;
     }
 
+    // TODO: Remove
     @PostMapping(value = "/image/save")
     public Boolean setImage(@RequestBody String body) {
-        // TODO: implement
         return true;
     }
 
