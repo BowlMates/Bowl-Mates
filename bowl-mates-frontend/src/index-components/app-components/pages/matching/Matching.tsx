@@ -33,11 +33,6 @@ function Matching () {
     const {loadingMatches, runMatchAlgorithm} = useRunMatchingAlgorithm();
 
     useEffect(()=>{
-        // CHECKS IF SESSION IS CURRENTLY VALID BEFORE DRAWING COMPONENT
-        isSessionValid();
-    },[]);
-
-    useEffect(()=>{
         setMatchID(currentMatch);
     },[currentMatch]);
 

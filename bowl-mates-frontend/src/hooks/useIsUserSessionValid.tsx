@@ -1,5 +1,6 @@
 import {useAuthUser, useSignOut} from "react-auth-kit";
 import {useNavigate} from "react-router-dom";
+import {useInterval} from "./useSetInterval";
 
 export const useIsUserSessionValid = () => {
     const auth = useAuthUser();
@@ -14,5 +15,6 @@ export const useIsUserSessionValid = () => {
             signOut();
         }
     }
-    return checkValidity;
+
+    useInterval(checkValidity, 2000);
 }

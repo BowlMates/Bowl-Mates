@@ -77,7 +77,7 @@ function Header(props: Props) {
                         alt={"BowlMates Logo"}
                         src={Logo}
                         onClick={() => {
-                            navigate("/")
+                            navigate("/app");
                         }}
                     />
                 </Box>
