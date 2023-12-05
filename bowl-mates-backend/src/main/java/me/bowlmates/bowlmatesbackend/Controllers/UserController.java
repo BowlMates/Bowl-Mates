@@ -217,6 +217,13 @@ public class UserController {
      * @return String with mapping to profile photo
      * @throws Exception when user fails to authenticate
      */
+    @PostMapping("/profile/other")
+    public ProfileDTO getOtherProfile(@RequestBody Integer userId) throws Exception {
+        TestUser other = userRepository.findById(userId).get();
+        TestProfile profile = other.getProfile();
+        return profile.getDTO();
+    }
+
     @GetMapping(value = "/photo", produces = "application/json")
     public String getPhoto() throws Exception {
         return profileService.getProfile().getPhoto();

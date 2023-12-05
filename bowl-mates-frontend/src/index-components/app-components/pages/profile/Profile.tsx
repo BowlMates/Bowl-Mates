@@ -1,6 +1,5 @@
 import { Grid} from '@mui/material';
 import React, { useEffect } from 'react';
-import UserCard from '../../UserCard';
 import useSaveProfile from '../../../../hooks/useSaveProfile';
 import { userProfileDetails } from '../../../../data-types/userProfile';
 import { useGetProfile } from '../../../../hooks/useGetProfile';
@@ -9,11 +8,12 @@ import useSaveImageRef from "../../../../hooks/useSaveImageRef";
 import {useGetImageRef} from "../../../../hooks/useGetImageRef";
 import {useGetImage} from "../../../../hooks/useGetImage";
 import Loading from '../../Loading';
+import UserCard from "./profile-components/UserCard";
 
 const Profile = () => {
     const { userProfile, profileLoading, getProfile } = useGetProfile();
     const { userImageRef, imageRefLoading, getImageRef } = useGetImageRef();
-    const { image, imageLoading, getImage } = useGetImage(userImageRef);
+    const { image, imageLoading, setAddress } = useGetImage(userImageRef);
 
     const { saveProfileDetails } = useSaveProfile();
     const { saveImage } = useSaveImageRef();
@@ -43,12 +43,11 @@ const Profile = () => {
     // Fetch user image on component mount
     useEffect( () => {
         getImageRef();
-    }, []);
+    }, [userProfile]);
 
-    // Fetch user image on component mount
-    useEffect( () => {
-        getImage();
-    }, [userImageRef]);
+    useEffect(()=>{
+        setAddress(userImageRef);
+    },[userImageRef]);
 
 
     if(profileLoading || imageRefLoading || imageLoading){

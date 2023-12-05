@@ -5,13 +5,17 @@ import {useEffect, useState} from "react";
 //TODO: Find out why this only works with jpg files and not png
 export const useGetImage = (imageRef: string) => {
     const[image, setImage] = useState<string>('');
-    const [fullAddress] = useState(user_image_address + imageRef);
+    const [fullAddress, setFullAddress] = useState(user_image_address + imageRef);
     const[imageLoading, setImageLoading] = useState<boolean>(true);
     const authHeader = useAuthHeader();
 
     console.log(fullAddress)
 
     useEffect(()=>{getImage()},[fullAddress]);
+
+    const setAddress = (imageRef : string) =>{
+        setFullAddress(user_image_address + imageRef);
+    }
 
     const getImage = ()=> {
         if(imageRef !== ''){
@@ -41,7 +45,7 @@ export const useGetImage = (imageRef: string) => {
         }
     }
 
-    return {image, imageLoading, setImage, getImage}
+    return {image, imageLoading, setAddress}
 }
 
 

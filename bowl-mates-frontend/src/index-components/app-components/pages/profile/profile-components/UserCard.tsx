@@ -1,8 +1,9 @@
 import { Card, CardContent, CardMedia } from "@mui/material";
 import Typography from "@mui/material/Typography";
-import {userProfileDetails} from "../../data-types/userProfile";
-import logo from "../../images/BOWLMATES LOGO V2.png";
+import logo from "../../../../../images/BOWLMATES LOGO V2.png";
 import React from "react";
+import {userProfileDetails} from "../../../../../data-types/userProfile";
+
 
 const user = {
     name: "Hedy Lamarr",

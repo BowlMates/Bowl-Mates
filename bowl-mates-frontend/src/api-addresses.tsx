@@ -35,6 +35,14 @@ const user_avail_save_address : string = ADDRESS + user_avail_save;
 const user_match_show : string = "/user/match/show";
 const user_match_show_address : string = ADDRESS + user_match_show;
 
+// POST user approve matches
+const user_match_approve : string = "/user/match/approve";
+export const user_match_approve_address : string = ADDRESS + user_match_approve;
+
+// POST user reject matches
+const user_match_reject : string = "/user/match/reject";
+export const user_match_reject_address : string = ADDRESS + user_match_reject;
+
 // GET user profile information w/ photo url
 const user_profile : string = "/user/profile";
 const user_profile_address : string = ADDRESS + user_profile;
@@ -67,6 +75,9 @@ const user_send_message_address : string = ADDRESS + user_send_message;
 const user_image : string = "/uploads/";
 const user_image_address : string = ADDRESS + user_image;
 
+// Get user profile of someone else
+const user_profile_other : string = "/user/profile/other";
+const user_profile_other_address : string = ADDRESS + user_profile_other;
 
 export {
     login_address,
@@ -84,4 +95,5 @@ export {
     user_image_ref_address,
     user_image_address,
     user_image_save_address,
+    user_profile_other_address
 };
