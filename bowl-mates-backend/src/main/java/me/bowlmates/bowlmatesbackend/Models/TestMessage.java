@@ -2,6 +2,8 @@ package me.bowlmates.bowlmatesbackend.Models;
 
 import jakarta.persistence.*;
 
+import java.util.Objects;
+
 //TODO: Documentation
 @Entity
 @Table(name = "table_message")
@@ -64,7 +66,9 @@ public class TestMessage {
 
     public static int matchHash(int id1, int id2) {
         // Whatever this is, it needs to be the same, regardless of order
-        return id1 * id2 - id1 - id2;
+        int first = Math.max(id1, id2);
+        int second = Math.min(id1, id2);
+        return Objects.hash(first, second);
     }
 
     @Override

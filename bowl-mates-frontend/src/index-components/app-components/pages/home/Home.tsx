@@ -4,7 +4,7 @@ import Typography from "@mui/material/Typography";
 // Custom Imports
 import {useIsUserSessionValid} from "../../../../hooks/useIsUserSessionValid";
 import {useEffect} from "react";
-// import our UserCard heeeereeeeee
+// import our MatchCard heeeereeeeee
 
 function Home () {
     const isSessionValid = useIsUserSessionValid();
@@ -46,9 +46,9 @@ function Home () {
     // PLACEHOLDER FUNCTION
     // Function to render user cards for each match
     // const renderMatches = () => {
-    //      // Map each match to a UserCard component
+    //      // Map each match to a MatchCard component
     //      return matches.map(match => (
-    //          <UserCard key={match.id} match={match} />
+    //          <MatchCard key={match.id} match={match} />
     //      ));
     // };
 

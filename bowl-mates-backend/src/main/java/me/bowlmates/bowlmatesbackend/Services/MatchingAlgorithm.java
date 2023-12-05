@@ -147,6 +147,7 @@ public class MatchingAlgorithm {
         Set<TestUser> othersApprovals = approved.getApprovals();
         System.out.println(othersApprovals.toString());
         if (othersApprovals.contains(user)) {
+            othersApprovals.remove(user);
             Set<TestUser> currMatches = user.getMatches();
             Set<TestUser> approvedsMatches = approved.getMatches();
             currMatches.add(approved);
@@ -217,6 +218,21 @@ public class MatchingAlgorithm {
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+    public void unmatch(Integer userId) {
+        String username = "";
+        List<Integer> list = new ArrayList<>();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null && auth.isAuthenticated()) {
+            username = auth.getName();
+        } else {
+            return;
+        }
+        TestUser user = userRepository.findByUsername(username);
+        TestUser denied = userRepository.findById(userId).get();
+        user.getMatches().remove(denied);
+        denied.getMatches().remove(user);
     }
 
 

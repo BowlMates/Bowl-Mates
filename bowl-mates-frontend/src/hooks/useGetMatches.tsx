@@ -8,6 +8,10 @@ const useGetMatches = () => {
     const [error, setError] = useState(null);
     const authHeader = useAuthHeader();
 
+    useEffect(()=>{
+        console.log(matchesQueue);
+    }, [matchesQueue])
+
     useEffect(() => {
         fetch(user_match_show_address, {
             headers: {
@@ -35,7 +39,7 @@ const useGetMatches = () => {
             .finally(() => {
                 setIsLoading(false);
             });
-    }, [authHeader]);
+    }, []);
 
     return { matchesQueue, isLoading, error };
 };

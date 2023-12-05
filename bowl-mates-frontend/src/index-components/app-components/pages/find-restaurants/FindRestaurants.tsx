@@ -8,25 +8,38 @@ import MapComponent from "./find-restaurants-components/MapComponent";
 import {useGetRestaurants} from "../../../../hooks/useGetRestaurants";
 import {restaurant} from "../../../../data-types/restaurants";
 
+
 // MUI Imports
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
+import CircularProgress from "@mui/material/CircularProgress";
 import useGetPhotos from "../../../../hooks/useGetPhotos";
 
 import {useIsUserSessionValid} from "../../../../hooks/useIsUserSessionValid";
 import RestaurantList from "./find-restaurants-components/RestaurantList";
 import FavoriteList from "./find-restaurants-components/FavoriteList";
+import useSaveRestaurant from "../../../../hooks/useSaveRestaurants";
+import Loading from "../../Loading";
 
 
 
 // The FindRestaurants component is responsible for calling the getNearbyRestaurants function and then
 // displaying all the data returned by the API to the user
 function FindRestaurants(userLocation: {lat: number; lng: number}) {
-    const {restaurants, placesError} = useNearbyPlaces(userLocation);
-    const {photos, photosError} = useGetPhotos(restaurants);
-    const {favRes, getRestaurants} = useGetRestaurants();
+    const {restaurants, placesLoading, placesError} = useNearbyPlaces(userLocation);
+    const {photos, photosLoading, photosError} = useGetPhotos(restaurants);
+    const {favRes, setFavRes, getRestaurants} = useGetRestaurants();
     const memoizedRestaurants = useMemo(() => restaurants, [restaurants]);
     const memoizedPhotos = useMemo(() => photos, [photos]);
+    const { saveRestaurant } = useSaveRestaurant();
+
+
+    const handleRestaurantFavorite = async (restaurant: restaurant) => {
+        let result = await saveRestaurant(restaurant).then((res) => {return res});
+        if(result.success){
+            getRestaurants();
+        }
+    }
 
     let restaurantWithPhotos: restaurant[] = [];
 
@@ -56,9 +69,8 @@ function FindRestaurants(userLocation: {lat: number; lng: number}) {
     // Fetch favorite restaurants on component mount
     useEffect(()=>{
         getRestaurants();
-    },[favRes]);
-    // const {restaurants, placesLoading, placesError} = useNearbyPlaces(userLocation);
-    // const {photos, photosLoading, photosError} = useGetPhotos(restaurants);
+    },[]);
+
 
     if (placesError) {
         return <div>Error: {placesError.message}</div>;
@@ -68,6 +80,12 @@ function FindRestaurants(userLocation: {lat: number; lng: number}) {
         return <div>Error: {photosError.message}</div>
     }
 
+
+    if (placesLoading || photosLoading) {
+        return (
+            <Loading displayMessage={0}/>
+        );
+    }
 
     //TODO: Answer the "button" question (i.e. how are we going to implement batch updates
     return (
@@ -101,7 +119,11 @@ function FindRestaurants(userLocation: {lat: number; lng: number}) {
                         overflowY: "auto"
                     }
                 }}>
-                    <RestaurantList restaurants={restaurantWithPhotos} favRes={favRes}/>
+                    <RestaurantList
+                        restaurants={restaurantWithPhotos}
+                        favRes={favRes}
+                        handleRestaurantFavorite={handleRestaurantFavorite}
+                    />
                 </Box>
             </Box>
 
@@ -112,7 +134,7 @@ function FindRestaurants(userLocation: {lat: number; lng: number}) {
                 borderRadius={{ md: '12px' }}
                 marginRight={{ xs: 0, md: 2 }}
                 height="100%">
-                <MapComponent restaurants={restaurants} userLocation={userLocation} />
+                <MapComponent restaurants={favRes} userLocation={userLocation} />
             </Box>
 
             {/* Favorite Restaurants Column */}
@@ -135,7 +157,7 @@ function FindRestaurants(userLocation: {lat: number; lng: number}) {
                         overflowY: "auto"
                     }
                 }}>
-                    <FavoriteList favRestaurants={favRes} />
+                    <FavoriteList favRestaurants={favRes} handleRestaurantFavorite={handleRestaurantFavorite}/>
                 </Box>
                 {/*<Button variant="contained" onClick={saveFavorites} sx={{ m: 2, mt: 'auto', color: '#54804D' }}>*/}
                 {/*    Save Favorites*/}

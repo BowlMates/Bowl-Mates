@@ -9,12 +9,13 @@ import WestIcon from "@mui/icons-material/West";
 import EastIcon from "@mui/icons-material/East";
 
 //Custom Imports
-import UserCard from "../../UserCard";
+import MatchCard from "../../MatchCard";
 import {useIsUserSessionValid} from "../../../../hooks/useIsUserSessionValid";
 import useGetMatches from "../../../../hooks/useGetMatches";
 import useGetAcceptMatch from "../../../../hooks/useGetAcceptMatch";
 import useGetRejectMatch from "../../../../hooks/useGetRejectMatch";
-
+import useMathProfile from "../../../../hooks/useMatchProfile";
+import Loading from "../../Loading";
 
 function Matching () {
     const isSessionValid = useIsUserSessionValid();
@@ -22,12 +23,28 @@ function Matching () {
     const { matchesQueue, isLoading: isLoadingMatches } = useGetMatches();
     const { approveMatch, isLoading: isLoadingApprove } = useGetAcceptMatch();
     const { rejectMatch, isLoading: isLoadingReject } = useGetRejectMatch();
-
     const [currentMatchIndex, setCurrentMatchIndex] = useState(0);
+    const [currentMatch, setCurrentMatch] = useState(-1);
+    const {profile, setMatchID} = useMathProfile();
 
-    useEffect(() => {
+    useEffect(()=>{
+        // CHECKS IF SESSION IS CURRENTLY VALID BEFORE DRAWING COMPONENT
         isSessionValid();
     }, [isSessionValid]);
+
+    useEffect(()=>{
+        setMatchID(currentMatch);
+    },[currentMatch]);
+
+    useEffect(()=>{
+        if(matchesQueue.length !== 0) {
+            setCurrentMatch(matchesQueue[currentMatchIndex]);
+        }
+    }, [matchesQueue])
+
+    useEffect(()=>{
+
+    }, [matchesQueue])
 
     const handleSwipeLeft = () => {
         const matchId = matchesQueue[currentMatchIndex];
@@ -37,7 +54,6 @@ function Matching () {
 
         // Advance to next match
         setCurrentMatchIndex(currentMatchIndex + 1);
-
     };
 
     const handleSwipeRight = () => {
@@ -50,17 +66,17 @@ function Matching () {
     }
 
     // Fetch current match from the queue
-    const currentMatch = matchesQueue[currentMatchIndex];
+    //
 
     // Check if there are no more matches
-    if (isLoadingMatches || isLoadingApprove || isLoadingReject) {
-        // Maybe replace this with a cuter loading component
-        return <div>Loading... </div>
-    }
-
-    if (!currentMatch) {
-        return <div>No more matches... For now!</div>
-    }
+    // if (isLoadingMatches || isLoadingApprove || isLoadingReject) {
+    //     // Maybe replace this with a cuter loading component
+    //     return <div>Loading... </div>
+    // }
+    //
+    // if (!currentMatch) {
+    //     return <div>No more matches... For now!</div>
+    // }
 
     /**
      * Returns the page where you swipe left and right on various user cards
@@ -71,7 +87,7 @@ function Matching () {
             <Grid container spacing={2}>
                 <Grid item xs={12}>
                     <Box component="section" sx={{ p: 2}}>
-                        <UserCard match={currentMatch}/>
+                        <MatchCard match={profile}/>
                     </Box>
                 </Grid>
                 <Grid item xs={6}>

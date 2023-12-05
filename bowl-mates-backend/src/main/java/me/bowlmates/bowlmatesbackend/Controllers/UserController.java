@@ -8,11 +8,15 @@ import me.bowlmates.bowlmatesbackend.Services.*;
 import me.bowlmates.bowlmatesbackend.Repositories.UserRepo;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.util.*;
 
 /**
@@ -37,6 +41,9 @@ public class UserController {
 
     @Autowired
     private MatchingAlgorithm matchingAlgorithm;
+
+    @Value("${upload.directory}") // Get relative path to uploads directory from application.properties
+    private String uploadDirectory;
 
     /**
      * Landing page for user
@@ -172,6 +179,11 @@ public class UserController {
         return matchingAlgorithm.deny(userId);
     }
 
+    @PostMapping("/unmatch")
+    public void unmatch(@RequestBody Integer userId) {
+        matchingAlgorithm.unmatch(userId);
+    }
+
     // TODO: Profile documentation
     @GetMapping("/profile")
     public ProfileDTO getProfile() throws Exception {
@@ -183,21 +195,48 @@ public class UserController {
         profileService.updateProfile(profileDTO);
     }
 
-    @GetMapping("/profile/other")
+    @PostMapping("/profile/other")
     public ProfileDTO getOtherProfile(@RequestBody Integer userId) throws Exception {
         TestUser other = userRepository.findById(userId).get();
         TestProfile profile = other.getProfile();
         return profile.getDTO();
     }
 
-    @GetMapping("/photo")
+    @GetMapping(value = "/photo", produces = "application/json")
     public String getPhoto() throws Exception {
         return profileService.getProfile().getPhoto();
     }
 
     @PostMapping("/photo/save")
-    public void setPhoto(@RequestBody String photo)  throws Exception {
-        profileService.getProfile().setPhotoPath(photo);
+    public ResponseEntity<String> setPhoto(@RequestParam("image") MultipartFile photo)  throws Exception {
+
+        // Validate file
+        if (photo.isEmpty()) {
+            throw new Exception();
+        }
+
+        // Save the file on the server
+        try {
+            // Construct the full path to the upload directory
+            String fullPath = System.getProperty("user.dir") + File.separator + uploadDirectory;
+            String filePath = fullPath + File.separator + photo.getOriginalFilename();
+            File dest = new File(filePath);
+
+            // Create the directory if it doesn't exist
+            dest.getParentFile().mkdirs();
+
+            photo.transferTo(dest);
+
+            ProfileDTO userProfile = profileService.getProfile().getDTO();
+            userProfile.setPhoto(photo.getOriginalFilename());
+
+            profileService.updateProfile(userProfile);
+
+            return ResponseEntity.ok("File uploaded successfully!");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return ResponseEntity.status(500).body("Failed to upload the file");
+        }
     }
 
     // TODO: Message documentation
@@ -216,8 +255,8 @@ public class UserController {
         messageService.sendMessage(messageDTO);
     }
 
-    @GetMapping("/message/matches")
-    public Map<ProfileDTO, Integer> getMatchHashes() {
+    @GetMapping("/matches")
+    public List<MatchDTO> getMatchHashes() {
         String username = "";
         Authentication auth = SecurityContextHolder
                 .getContext()
@@ -226,13 +265,18 @@ public class UserController {
             username = auth.getName();
         }
         TestUser user = userRepository.findByUsername(username);
-        Map<ProfileDTO, Integer> matchesToHashes = new HashMap<>();
+        List<MatchDTO> matchDTOList = new ArrayList<>();
         for (TestUser match : user.getMatches()) {
             int matchHash = TestMessage.matchHash(user.getId(), match.getId());
-            ProfileDTO matchDTO = match.getProfile().getDTO();
-            matchesToHashes.put(matchDTO, matchHash);
+            TestProfile matchProfile = match.getProfile();
+            MatchDTO matchDTO = new MatchDTO(matchHash,
+                    matchProfile.getFirstName(),
+                    matchProfile.getLastName(),
+                    matchProfile.getPronouns(),
+                    matchProfile.getPhoto());
+            matchDTOList.add(matchDTO);
         }
-        return matchesToHashes;
+        return matchDTOList;
     }
 
     /**
