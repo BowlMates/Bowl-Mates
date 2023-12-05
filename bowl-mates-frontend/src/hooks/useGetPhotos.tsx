@@ -42,11 +42,8 @@ const useGetPhotos = (restaurants: restaurant[]): useGetPhotosResult => {
             }
         }
         if(prevRestaurants.current !== restaurants){
-            console.log("Get photos api call executes...")
             fetchPhotos();
             prevRestaurants.current = restaurants;
-        } else{
-            console.log("Get photos api call skipped...")
         }
     }, [restaurants]);
 

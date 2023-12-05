@@ -9,8 +9,6 @@ export const useGetImage = (imageRef: string) => {
     const[imageLoading, setImageLoading] = useState<boolean>(true);
     const authHeader = useAuthHeader();
 
-    console.log(fullAddress)
-
     useEffect(()=>{getImage()},[fullAddress]);
 
     const setAddress = (imageRef : string) =>{

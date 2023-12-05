@@ -14,7 +14,6 @@ const UploadImg: React.FC<UploadImgProps> = ({ handlePictureUpload }) => {
         const selectedFile = e.target.files?.[0];
 
         if (selectedFile) {
-            console.log(selectedFile);
             setFileReference(URL.createObjectURL(selectedFile));
             setFileData(selectedFile);
         }
@@ -29,12 +28,12 @@ const UploadImg: React.FC<UploadImgProps> = ({ handlePictureUpload }) => {
         <Grid container justifyContent="center" spacing={2}>
             <Grid item xs={12} sm={8} md={10}>
                 <Card>
-                    <CardContent style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+                    <CardContent style={{ display: "flex", flexDirection: "column", alignItems: "center", margin: 2 }}>
                         <CardMedia
                             component="img"
                             alt=""
                             image={fileReference || ''}
-                            style={{ width: "200px", height: "200px", borderRadius: "50%" }}
+                            style={{ width: "200px", height: "200px", borderRadius: "2%", margin: 2 }}
                         />
                         <input
                             type="file"
@@ -65,10 +64,10 @@ const UploadImg: React.FC<UploadImgProps> = ({ handlePictureUpload }) => {
                     fullWidth
                     disabled={!fileReference} // Disable button if no file is selected
                     onClick={() => {
-                        handlePictureUpload(fileData); // Pass the file data to the parent component
+                        handlePictureUpload(fileData);
                         resetState();
                     }}
-                    style={{ marginTop: "16px" }}
+                    style={{ margin: 2}}
                 >
                     Submit Photo
                 </Button>

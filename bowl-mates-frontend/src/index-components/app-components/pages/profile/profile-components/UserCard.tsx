@@ -5,12 +5,7 @@ import React from "react";
 import {userProfileDetails} from "../../../../../data-types/userProfile";
 
 
-const user = {
-    name: "Hedy Lamarr",
-    pronouns: "she/her",
-    bio: "I am a baddie you cannot stop me",
-    image: logo
-}
+const defaultImage = logo;
 
 interface UserCardProps {
     userProfile: userProfileDetails;
@@ -19,16 +14,28 @@ interface UserCardProps {
 
 const UserCard: React.FC<UserCardProps> = ({userProfile, userImage}) => {
     return (
-        <Card>
-
+        <Card
+            sx={{
+                padding: 2,
+                display: 'flex',
+                flexDirection: 'column',
+                height: '95%', // Set a fixed height for the Card
+                border: '1px solid black',
+                borderRadius: 4,
+                boxShadow: '0px 8px 16px rgba(0, 0, 0, 0.2)',
+        }}>
             <CardMedia
                 component="img"
-                height="auto" // Allow the height to adjust automatically based on the content
-                width="100%" // Use 100% of the parent container's width
-                image={userImage === '' ? user.image : userImage}
+                height="70%" // Set a fixed height for the image
+                width="100%"
+                image={userImage === '' ? defaultImage : userImage}
                 alt="user photo"
             />
-            <CardContent>
+            <CardContent
+                sx={{
+                    marginTop: 'auto', // Push the content to the bottom
+                }}
+            >
                 <Typography gutterBottom variant="h5" component="div">
                     {userProfile.firstName + ' ' + userProfile.lastName}
                 </Typography>
