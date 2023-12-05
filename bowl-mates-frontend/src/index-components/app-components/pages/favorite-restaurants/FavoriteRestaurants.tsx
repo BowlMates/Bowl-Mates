@@ -13,9 +13,11 @@ import IconButton from "@mui/material/IconButton";
 import {useGetRestaurants} from "../../../../hooks/useGetRestaurants";
 import React, {useEffect, useState} from "react";
 import useSaveRestaurant from "../../../../hooks/useSaveRestaurants";
+import {useIsUserSessionValid} from "../../../../hooks/useIsUserSessionValid";
 
 
 function FavoriteRestaurants () {
+    useIsUserSessionValid();
 
     // Custom hooks for managing restaurant data and favorites
     const {favRes, setFavRes, postRestaurants, getRestaurants} = useGetRestaurants();

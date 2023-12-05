@@ -9,8 +9,10 @@ import {useGetImageRef} from "../../../../hooks/useGetImageRef";
 import {useGetImage} from "../../../../hooks/useGetImage";
 import Loading from '../../Loading';
 import UserCard from "./profile-components/UserCard";
+import {useIsUserSessionValid} from "../../../../hooks/useIsUserSessionValid";
 
 const Profile = () => {
+    useIsUserSessionValid();
     const { userProfile, profileLoading, getProfile } = useGetProfile();
     const { userImageRef, imageRefLoading, getImageRef } = useGetImageRef();
     const { image, imageLoading, setAddress } = useGetImage(userImageRef);

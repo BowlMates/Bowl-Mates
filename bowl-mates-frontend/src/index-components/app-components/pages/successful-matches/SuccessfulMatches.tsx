@@ -32,12 +32,7 @@ export const sidebarMeasurements : sidebarMeasurementType = {
 }
 
 function SuccessfulMatches() {
-    const isSessionValid = useIsUserSessionValid();
-    useEffect(()=>{
-        // CHECKS IF SESSION IS CURRENTLY VALID BEFORE DRAWING COMPONENT
-        isSessionValid();
-        // CHECKS IF SESSION IS CURRENTLY VALID BEFORE DRAWING COMPONENT
-    });
+    useIsUserSessionValid();
 
     const {sidebarData, keyedChatData, fetchUserChats} = useMatchChats();
     const [selectedMatch, setSelectedMatch] = useState(-1);
