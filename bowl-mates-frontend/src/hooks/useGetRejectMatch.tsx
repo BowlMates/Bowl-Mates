@@ -7,9 +7,9 @@ const useGetRejectMatch = () => {
     const [error, setError] = useState(null);
     const authHeader = useAuthHeader();
 
-    const rejectMatch = useCallback((userId: any) => {
+    const rejectMatch = async (userId: any) : Promise<boolean> => {
         setIsLoading(true);
-        fetch(user_match_reject_address, {
+        return fetch(user_match_reject_address, {
             headers: {
                 "Authorization": authHeader(),
                 "Content-Type": "application/json",
@@ -21,18 +21,17 @@ const useGetRejectMatch = () => {
         })
             .then(res => {
                 if (!res.ok) {
-                    throw new Error('Error rejecting match');
+                    console.log('Error approving match');
+                    return false;
                 }
-                return res.json();
+                return true;
             })
             .catch(error => {
                 setError(error);
-                console.error('Error rejecting match:', error);
-            })
-            .finally(() => {
-                setIsLoading(false);
+                console.error('Error approving match:', error);
+                return false;
             });
-    }, []);
+    }
 
     return { rejectMatch, isLoading, error };
 };
