@@ -206,11 +206,15 @@ function Availability() {
                 >
                     {daysOfWeek.map((day, index) => (
                         <Box
+                            display="flex"
+                            justifyContent="center"
                             key={index}
                             mx={1}
                             bgcolor="#54804D"
                             p={1}
                             borderRadius={1}
+                            sx={{ width: 1/10 }}
+
                         >
                             <Typography variant="body1" color="white">
                                 {day}
