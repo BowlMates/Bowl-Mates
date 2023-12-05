@@ -39,18 +39,14 @@ function Matching () {
         setMatchID(currentMatch);
     },[currentMatch]);
 
-    // useEffect(()=>{
-    //     setCurrentMatch(matchesQueue[currentMatchIndex]);
-    // }, [currentMatchIndex])
-
     useEffect(()=>{
-        if(matchesQueue.length !== 0) {
-            console.log("resetting matching queue");
-            setCurrentMatch(
-                matchesQueue[currentMatchIndex] >= matchesQueue.length ? -1 : matchesQueue[currentMatchIndex]
-            );
+        console.log("resetting matching queue");
+        if (currentMatchIndex >= matchesQueue.length) {
+            setCurrentMatch(-1);
+        } else {
+            setCurrentMatch(matchesQueue[currentMatchIndex]);
         }
-    }, [currentMatchIndex]);
+    }, [currentMatchIndex, matchesQueue]);
 
     useEffect(()=>{
         setAddress(profile.photo);

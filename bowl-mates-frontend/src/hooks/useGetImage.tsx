@@ -33,6 +33,7 @@ export const useGetImage = (imageRef: string) => {
                 }
             });
         } else{
+            setImage("");
             setImageLoading(false);
         }
     }
