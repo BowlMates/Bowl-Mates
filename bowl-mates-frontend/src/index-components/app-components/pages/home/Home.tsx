@@ -1,74 +1,74 @@
+import React from 'react';
+import {To, useNavigate} from 'react-router-dom';
+import photo from '../../../../images/map-2.png';
+
 // MUI Imports
 import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
 
 // Custom Imports
 import {useIsUserSessionValid} from "../../../../hooks/useIsUserSessionValid";
 import {useEffect} from "react";
-// import our UserCard heeeereeeeee
+import {useAuthUser} from "react-auth-kit";
 
-function Home () {
+
+const Home = () => {
+    const navigate = useNavigate();
+    const authUser = useAuthUser();
     const isSessionValid = useIsUserSessionValid();
 
-    // Need:
-    // state for storing username of logged in user
-    // state for storing list of user's approved matches
-    //      idea: display users top 5 most recent matches
-    //          make an api endpoint that fetches them
-    // MORE IDEAS FOR WHAT Y'ALL WANT ON THE HOME PAGE
-
-    useEffect(()=>{
+    useEffect(() => {
         // CHECKS IF SESSION IS CURRENTLY VALID BEFORE DRAWING COMPONENT
         isSessionValid();
 
         // When component mounts:
         // Fetch username
         // Fetch top five matches
-    });
+    }, [isSessionValid]);
 
-    // PLACEHOLDER FUNCTION
-    // Function to fetch username from database if we don't already have
-    // const fetchUserName = async () => {
-    //      // Replace with actual API call to fetch username
-    //      const response = await fetch('/api/matches/username');
-    //      const data = await response.json();
-    //      setMatches(data.username);
-    // }
-
-    // PLACEHOLDER FUNCTION
-    // Function to fetch top five matches
-    // const fetchMatches = async () => {
-    //      // Replace with non-fictitous API call to fetch matches
-    //      const response = await fetch('/api/matches/top5');
-    //      const data = await response.json();
-    //      setMatches(data.matches);
-    // }
-
-    // PLACEHOLDER FUNCTION
-    // Function to render user cards for each match
-    // const renderMatches = () => {
-    //      // Map each match to a UserCard component
-    //      return matches.map(match => (
-    //          <UserCard key={match.id} match={match} />
-    //      ));
-    // };
+    const navigateTo = (path: To) => {
+        navigate(path);
+    };
 
     return (
         <>
-            <Typography variant={"h1"}>
-                Welcome home, son!
-            </Typography>
-            <img alt={"Adam watching yo, he is."} src={"https://i.ibb.co/TmJw9kS/IMG-3336.jpg"} style={{height : "100%", width : "100%"}}/>
-        </>
 
-        // JASP EDIT FOR ABOVE, TO BECOME BELOW:
-        // <>
-        //     <Typography variant="h1">
-        //         Welcome back, {username}!
-        //     </Typography>
-        //     <div style={{marginTop: '20px'}}>
-        //         {renderMatches()}
-        //     </div>
-        // </>
+            <Typography variant="h1" style={{ textAlign: 'center', color: 'black'}}>
+                Welcome back, {authUser()!.firstName}!
+            </Typography>
+            {/*change to https://bowlmates.me/app/ later on*/}
+            <div style={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                gap: '10px',
+                justifyContent: 'space-around'
+            }}>
+            <Button onClick={() => navigateTo("find-restaurants")} variant="contained" style={{ backgroundColor: '#54804D', color: 'white' }}>
+                    Find places to eat
+                </Button>
+
+                <Button onClick={() => navigateTo("matching")} variant="contained" style={{ backgroundColor: '#54804D', color: 'white' }}>
+                    Find people to eat with
+                </Button>
+
+                <Button onClick={() => navigateTo("successful-matches")} variant="contained" style={{ backgroundColor: '#54804D', color: 'white' }}>
+                    Chat with your matches
+                </Button>
+
+                <Button onClick={() => navigateTo("availability")} variant="contained" style={{ backgroundColor: '#54804D', color: 'white' }}>
+                    Update your availability
+                </Button>
+
+                <Button onClick={() => navigateTo("settings")} variant="contained" style={{ backgroundColor: '#54804D', color: 'white' }}>
+                    Edit your profile
+                </Button>
+            </div>
+
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                <img src={photo} alt="BowlMates banner" style={{ marginTop: '-100px' }} />
+            </div>
+
+        </>
     )
 }
 
