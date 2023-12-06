@@ -137,6 +137,11 @@ function Signup() {
                                 color: '#54804D',
                                 borderColor: (field === "email" && !isValidEmail) || (field === "confirmPassword" && !isPasswordMatch) ? 'red' : 'initial',
                             }}
+                            onKeyDown={(event)=>{
+                                if(event.key === "Enter"){
+                                    handleSubmit()
+                                }
+                            }}
                         />
                     </Rectangle>
                 ))}
