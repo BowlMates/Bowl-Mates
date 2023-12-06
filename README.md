@@ -1,5 +1,15 @@
-# Bowl-Mates  
-## Beta v1.0.1
+# Bowl-Mates
+#### Early Access v2.0.0
+BowlMates is a unique dining app that specializes in connecting people for dining experiences based on restaurant preferences and availability. Utilizing a full-stack approach with React, MySQL, and Node.js, the app seeks to offer a user-friendly experience while facilitating meaningful social connections through shared meals in your area.
+
+## Features
+ * Accept/reject matches
+ * Save your favorite restaurants
+ * Set your dining availability in two-hour increments
+ * Matching algorithm by having the same favorite restaurants + availability
+ * Chat with your matches
+ * User authentication
+ * Intuitive, user-friendly interface to ensure ease of use for both novice and experienced users
 
 ## Outside Resources
 * ### Bowlmates User Manual
