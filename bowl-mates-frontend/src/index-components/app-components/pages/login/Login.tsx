@@ -50,7 +50,11 @@ function Login() {
                 }}
             >{password}</TextField>
             <Button
-                sx={{"height": "6vh", width: "20vw", backgroundColor: theme.palette.secondary.main}}
+                sx={{"height": "6vh", width: "20vw", backgroundColor: theme.palette.secondary.main,
+                    '&:hover': {
+                        backgroundColor:'#FDF5F5',
+                        color:'#54804D'
+                    }}}
                 onClick={async () => {
                     let result: { success: boolean, message: string } = await userLogin(username, password).then((res) => {
                         return res
