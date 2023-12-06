@@ -26,7 +26,12 @@
 
 ## How to Run the System:
 * ### Production version is currently running at bowlmates.me
-* ### To Run in your branch:
+* ### How to run locally - HIGHLY RECOMMENDED: DOCKER
+  * Install Docker Desktop
+  * Navigate to the root of the repository (docker-compose.yaml should be at the same level in this directory)
+  * Run "docker compose up" in the terminal
+  * Navigate to localhost:3000 to access the website
+* ### How to run locally - WHEN ACTIVELY DEVELOPING: To Run in your branch:
   * Backend: ./run-backend.sh 
         OR bowl-mates-backend -> src -> main -> java -> me.bowlmates.bowlmatesbackend -> BowlMatesBackendApplication
   * Frontend: ./run-frontend.sh  
