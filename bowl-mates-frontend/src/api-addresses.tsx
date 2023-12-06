@@ -1,6 +1,6 @@
 // This will ideally change with the value of an environment variable
 // CHANGE TO FALSE IF GOING INTO PRODUCTION
-const LOCAL : boolean = true;
+const LOCAL : boolean = false;
 // CHANGE TO FALSE IF GOING INTO PRODUCTION
 
 const LOCAL_ADD: string =  "http://localhost:8080";
