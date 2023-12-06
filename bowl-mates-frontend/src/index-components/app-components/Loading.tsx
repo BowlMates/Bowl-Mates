@@ -8,7 +8,8 @@ const messages: string[] = [
     'Searching for some yummy places to eat!',
     'Fetching your lovely details!',
     'Finding you new friends to eat with!',
-    'Successfully registered! Redirecting...'
+    'Successfully registered! Redirecting...',
+    'Getting ready to provide you with a delightful chatting experience'
 ];
 
 interface LoadingProps {
