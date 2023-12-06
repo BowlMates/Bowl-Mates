@@ -12,7 +12,7 @@ export const useUserLogin = () => {
         {success : false, message : "Incorrect Login Information"},
     ];
 
-    const jwtExpiration : number = 30; // In minutes
+    const jwtExpiration : number = 90; // In minutes
 
     const headers = {
         "Content-Type" : "application/json",

@@ -23,6 +23,19 @@ function Login() {
 
     const {userLogin} = useUserLogin();
     const navigate = useNavigate();
+
+    const handleSubmission = async () => {
+        let result: { success: boolean, message: string } = await userLogin(username, password).then((res) => {
+        return res
+        });
+        if (result.success) {
+            console.log(result.message);
+            navigate("/app");
+        } else {
+            console.log(result.message);
+        }
+    }
+
     return (
         <Box display={"flex"} sx={{flexDirection: "column", alignItems: "center", justifyContent: "center"}}>
             <GreenText variant={"h1"}>
@@ -39,6 +52,11 @@ function Login() {
                 onChange={(event) => {
                     setUsername(event.target.value);
                 }}
+                onKeyDown={async (event)=>{
+                    if(event.key === "Enter"){
+                        await handleSubmission();
+                    }
+                }}
             >{username}</TextField>
             <TextField
                 sx={{backgroundColor: "white", width: "20vw", marginBottom: "1vh", marginTop: "2vh"}}
@@ -47,6 +65,11 @@ function Login() {
                 variant="standard"
                 onChange={(event) => {
                     setPassword(event.target.value);
+                }}
+                onKeyDown={async (event)=>{
+                    if(event.key === "Enter"){
+                        await handleSubmission();
+                    }
                 }}
             >{password}</TextField>
             <Button

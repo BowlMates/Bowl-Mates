@@ -11,6 +11,7 @@ import {useIsUserSessionValid} from "../../../../hooks/useIsUserSessionValid";
 import {avail} from "../../../../data-types/avail";
 import useSetAvails from "../../../../hooks/useSetAvails";
 import useGetAvails from "../../../../hooks/useGetAvails";
+import Alert from "@mui/material/Alert";
 
 // Predefined time slots for availability
 const timeSlots = [
@@ -34,15 +35,11 @@ const daysOfWeek = [
 
 function Availability() {
     useIsUserSessionValid();
-    const setAvails = useSetAvails();
+    const {setAvails, currentlyPosting} = useSetAvails();
     const {availability, setAvailability} = useGetAvails(daysOfWeek.map(() => timeSlots.map(() => false)));
 
-    // // State to track availability for each time slot on each day
-    // const [availability, setAvailability] =
-    //     useState<boolean[][]> (
-    //         // Initialize a 7x11 matrix for 7 days and 11 time slots
-    //         avails
-    //     );
+    const [showPostingFeedback, setShowPostingFeedback] = useState<boolean>(false);
+    const [goodPost, setGoodPost] = useState<boolean>(true);
 
     // Function to toggle availability for a specific day and time slot
     const toggleAvailability = (dayIndex: number, timeIndex: number) => {
@@ -67,7 +64,16 @@ function Availability() {
                 }
             }
         }
-        setAvails.setAvails(avails);
+
+        setAvails(avails).then((res)=>{
+            if(res){
+                setGoodPost(true);
+            } else {
+                setGoodPost(false);
+            }
+
+            setShowPostingFeedback(true);
+        });
     }
 
     return (
@@ -76,6 +82,12 @@ function Availability() {
             height="100vh"
             p={1}
         >
+            {
+                showPostingFeedback ?
+                    <Alert severity={goodPost ? "success" : "error"} onClose={() => {setShowPostingFeedback(false)}} sx={{position: "absolute", zIndex: 3}}>
+                        {goodPost ? "Successfully set availability!" : "There was an issue setting availability"}
+                    </Alert> : <></>
+            }
             {/* Box for left-aligned text elements */}
             <Box
                 width="300px"
@@ -260,8 +272,8 @@ function Availability() {
                     alignItems="flex-end"
                 >
                     {/* Submit button */}
-                    <Button type="submit" color="success" variant="contained" size="large" onClick={() => onSubmit()}>
-                        submit
+                    <Button disabled={currentlyPosting} type="submit" color="success" variant="contained" size="large" onClick={() => onSubmit()}>
+                        {currentlyPosting ? "submitting..." : "submit"}
                     </Button>
                 </Box>
 
