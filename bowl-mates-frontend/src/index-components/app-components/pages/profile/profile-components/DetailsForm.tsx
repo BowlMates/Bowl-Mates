@@ -16,7 +16,8 @@ const DetailsForm: React.FC<DetailsFormProps> = ({userDetails, handleProfileSave
     const [bio, setBio] = useState(userDetails.bio || "");
 
     return (
-        <Grid item xs={12} sm={6} md={4}>
+
+        <Grid item xs={12} sm={6} md={8}>
             <Typography variant="h4" gutterBottom>
                 Personal Details
             </Typography>
@@ -89,11 +90,11 @@ const DetailsForm: React.FC<DetailsFormProps> = ({userDetails, handleProfileSave
                     </Button>
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                    <Typography variant="subtitle1">Choose a profile photo:</Typography>
                     <UploadImg handlePictureUpload={handlePictureUpload} />
                 </Grid>
             </Grid>
         </Grid>
+
     );
 };
 

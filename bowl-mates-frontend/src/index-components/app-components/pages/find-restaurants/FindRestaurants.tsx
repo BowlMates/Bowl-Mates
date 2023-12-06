@@ -78,7 +78,6 @@ function FindRestaurants(userLocation: {lat: number; lng: number}) {
         );
     }
 
-    //TODO: Answer the "button" question (i.e. how are we going to implement batch updates
     return (
         <Box
             display="flex"
@@ -92,8 +91,6 @@ function FindRestaurants(userLocation: {lat: number; lng: number}) {
             <Box
                 flex={{ xs: 1, md: 1 }}
                 marginRight={{ md: 2 }}
-                border={{ md: '3px solid #000000' }}
-                borderRadius={{ md: '12px' }}
                 maxHeight="100%"
                 display="flex"
                 flexDirection="column">
@@ -121,8 +118,6 @@ function FindRestaurants(userLocation: {lat: number; lng: number}) {
             {/* Map Column */}
             <Box
                 flex={{ xs: 1, md: 1 }}
-                border={{ md: '3px solid #000000' }}
-                borderRadius={{ md: '12px' }}
                 marginRight={{ xs: 0, md: 2 }}
                 height="100%">
                 <MapComponent restaurants={favRes} userLocation={userLocation} />
@@ -130,8 +125,6 @@ function FindRestaurants(userLocation: {lat: number; lng: number}) {
 
             {/* Favorite Restaurants Column */}
             <Box flex={{ xs: 1, md: 1 }}
-                 border={{ md: '3px solid #000000' }}
-                 borderRadius={{ md: '12px' }}
                  maxHeight="100%"
                  display="flex"
                  flexDirection="column">
@@ -150,9 +143,6 @@ function FindRestaurants(userLocation: {lat: number; lng: number}) {
                 }}>
                     <FavoriteList favRestaurants={favRes} handleRestaurantFavorite={handleRestaurantFavorite}/>
                 </Box>
-                {/*<Button variant="contained" onClick={saveFavorites} sx={{ m: 2, mt: 'auto', color: '#54804D' }}>*/}
-                {/*    Save Favorites*/}
-                {/*</Button>*/}
             </Box>
         </Box>
     );

@@ -1,4 +1,4 @@
-import logo from "../../images/BOWLMATES LOGO V2.png";
+import logo from "../../images/mascots.png";
 import Typography from "@mui/material/Typography";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
@@ -7,7 +7,8 @@ import React from "react";
 const messages: string[] = [
     'Searching for some yummy places to eat!',
     'Fetching your lovely details!',
-    'Finding you new friends to eat with!'
+    'Finding you new friends to eat with!',
+    'Successfully registered! Redirecting...'
 ];
 
 interface LoadingProps {
@@ -25,7 +26,7 @@ const Loading: React.FC<LoadingProps> = ({displayMessage}) => {
             height="100vh"
         >
             {/* Logo */}
-            <img src={logo} alt="Bowlmates Logo" style={{ width: '200px', marginBottom: '20px' }} />
+            <img src={logo} alt="Bowlmates Logo" style={{ width: '600px', marginBottom: '20px' }} />
 
             {/* Text */}
             <Typography variant="h4" sx={{ color: '#54804D', marginBottom: '20px' }}>

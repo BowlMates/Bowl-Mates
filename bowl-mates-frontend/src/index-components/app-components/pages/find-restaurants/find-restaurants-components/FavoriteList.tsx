@@ -10,8 +10,6 @@ interface FavoriteListProps {
 }
 
 const FavoriteList: React.FC<FavoriteListProps> = ({favRestaurants, handleRestaurantFavorite}) => {
-    console.log(favRestaurants);
-
     return(
         <Grid container spacing={3}>
         {favRestaurants.map((restaurant) => (

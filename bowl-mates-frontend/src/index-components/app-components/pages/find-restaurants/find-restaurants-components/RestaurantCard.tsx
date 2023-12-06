@@ -27,6 +27,9 @@ const RestaurantCard: React.FC<RestaurantCardProps> = ({ restaurant, isFavorite,
             color: '#FDF5F5',
             justifyContent: 'space-between', // Align content space-between
             alignItems: 'center', // Center the content vertically
+            border: '1px solid black', // Black border with a width of 3px
+            borderRadius: 4, // Rounded edges with a radius of 12px
+            boxShadow: '0px 8px 16px rgba(0, 0, 0, 0.2)', // Drop shadow with 4px vertical offset, 8px blur, and 0.1 alpha
         }}>
             <CardContent>
                 <img
@@ -53,7 +56,6 @@ const RestaurantCard: React.FC<RestaurantCardProps> = ({ restaurant, isFavorite,
                     marginTop: 'auto', // Align the icon to the bottom of the Card
                 }}
                 onClick={() => {
-                    console.log(restaurant.name);
                     handleRestaurantFavorite(restaurant);
                 }}>
                 <FavoriteIcon style={{ color: isFavorite ? red[500] : grey[500] }} />

@@ -13,11 +13,15 @@ const UploadImg: React.FC<UploadImgProps> = ({ handlePictureUpload }) => {
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const selectedFile = e.target.files?.[0];
 
-        if (selectedFile) {
-            console.log(selectedFile);
+        if (selectedFile && isFileTypeAllowed(selectedFile)) {
             setFileReference(URL.createObjectURL(selectedFile));
             setFileData(selectedFile);
         }
+    };
+
+    const isFileTypeAllowed = (file: File) => {
+        const allowedTypes = ['image/gif', 'image/jpeg', 'image/png'];
+        return allowedTypes.includes(file.type);
     };
 
     const resetState = () => {
@@ -29,12 +33,12 @@ const UploadImg: React.FC<UploadImgProps> = ({ handlePictureUpload }) => {
         <Grid container justifyContent="center" spacing={2}>
             <Grid item xs={12} sm={8} md={10}>
                 <Card>
-                    <CardContent style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+                    <CardContent style={{ display: "flex", flexDirection: "column", alignItems: "center", margin: 2 }}>
                         <CardMedia
                             component="img"
                             alt=""
                             image={fileReference || ''}
-                            style={{ width: "200px", height: "200px", borderRadius: "50%" }}
+                            style={{ width: "200px", height: "200px", borderRadius: "2%", margin: 2 }}
                         />
                         <input
                             type="file"
@@ -54,7 +58,7 @@ const UploadImg: React.FC<UploadImgProps> = ({ handlePictureUpload }) => {
                             </IconButton>
                         </label>
                         <Typography variant="h6" color="textSecondary" align="center">
-                            {fileReference ? "File selected" : "No file selected"}
+                            {fileReference ? "Selected image: " + fileData?.name : "Select a jpg, png, or gif file"}
                         </Typography>
                     </CardContent>
                 </Card>
@@ -65,10 +69,10 @@ const UploadImg: React.FC<UploadImgProps> = ({ handlePictureUpload }) => {
                     fullWidth
                     disabled={!fileReference} // Disable button if no file is selected
                     onClick={() => {
-                        handlePictureUpload(fileData); // Pass the file data to the parent component
+                        handlePictureUpload(fileData);
                         resetState();
                     }}
-                    style={{ marginTop: "16px" }}
+                    style={{ margin: 2}}
                 >
                     Submit Photo
                 </Button>

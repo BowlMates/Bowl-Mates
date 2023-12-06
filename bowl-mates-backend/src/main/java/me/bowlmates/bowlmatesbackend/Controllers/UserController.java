@@ -208,6 +208,15 @@ public class UserController {
      */
     @PostMapping("/profile/save")
     public void setProfile(@RequestBody ProfileDTO profileDTO) throws Exception {
+        String username = "";
+        List<Integer> list = new ArrayList<>();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null && auth.isAuthenticated()) {
+            username = auth.getName();
+        }
+        TestUser user = userRepository.findByUsername(username);
+        TestProfile profile = user.getProfile();
+        profileDTO.setPhoto(profile.getPhoto());
         profileService.updateProfile(profileDTO);
     }
 
@@ -224,6 +233,7 @@ public class UserController {
         TestProfile profile = other.getProfile();
         return profile.getDTO();
     }
+
 
     /**
      * Provides frontend mapping to profile photo
