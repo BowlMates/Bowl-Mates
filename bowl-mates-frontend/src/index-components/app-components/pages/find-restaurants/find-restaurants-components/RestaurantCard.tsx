@@ -7,6 +7,7 @@ import IconButton from "@mui/material/IconButton";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import {grey, red} from "@mui/material/colors";
 import Card from "@mui/material/Card";
+import Rating from "@mui/material/Rating";
 
 
 interface RestaurantCardProps {
@@ -49,6 +50,7 @@ const RestaurantCard: React.FC<RestaurantCardProps> = ({ restaurant, isFavorite,
                 <Typography variant="body2" color="text.secondary">
                     Rating: {restaurant.rating}
                 </Typography>
+                <Rating name="rating" value={restaurant.rating} precision={0.1} size="small" readOnly/>
                 {/* Add more restaurant details as needed */}
             </CardContent>
             <IconButton
