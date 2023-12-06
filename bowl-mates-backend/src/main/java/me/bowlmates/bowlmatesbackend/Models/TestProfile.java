@@ -169,5 +169,6 @@ public class TestProfile {
         setLastName((profileDTO).getLastName());
         setPronouns(profileDTO.getPronouns());
         setBio(profileDTO.getBio());
+        setPhoto(profileDTO.getPhoto());
     }
 }

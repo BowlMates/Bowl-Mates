@@ -6,13 +6,14 @@ import SuccessfulMatchesSidebar from "./successful-matches-components/sidebar/Su
 import ChatBody from "./successful-matches-components/body/ChatBody";
 import SidebarCard from "./successful-matches-components/sidebar/SidebarCard";
 import {useIsUserSessionValid} from "../../../../hooks/useIsUserSessionValid";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import MessageBubble from "./successful-matches-components/body/MessageBubble";
 
 // Data Imports
 import dummyData from "../../../../frontend-api-specs/match-chat-initial/fromBackend-match-chat-initial.json"
 import useMatchChats from "../../../../hooks/chat-hooks/useMatchChats";
 import EmptyChatBody from "./successful-matches-components/body/EmptyChatBody";
+import Loading from "../../Loading";
 
 //Changing this num changes the width of the sidebar and the various widths pertaining to the sidebar
 const chatSidebarWidthNum : number = 320;
@@ -32,15 +33,19 @@ export const sidebarMeasurements : sidebarMeasurementType = {
 }
 
 function SuccessfulMatches() {
-    const isSessionValid = useIsUserSessionValid();
-    useEffect(()=>{
-        // CHECKS IF SESSION IS CURRENTLY VALID BEFORE DRAWING COMPONENT
-        isSessionValid();
-        // CHECKS IF SESSION IS CURRENTLY VALID BEFORE DRAWING COMPONENT
-    });
+    useIsUserSessionValid();
 
     const {sidebarData, keyedChatData, fetchUserChats} = useMatchChats();
     const [selectedMatch, setSelectedMatch] = useState(-1);
+    const [isLoading, setIsLoading] = useState(true);
+
+    setTimeout(() => {
+        setIsLoading(false);
+    }, 8000);
+
+    if (isLoading){
+        return (<Loading displayMessage={4}/>);
+    }
     return (
         <SuccessfulMatchesContainer>
             <SuccessfulMatchesSidebar>

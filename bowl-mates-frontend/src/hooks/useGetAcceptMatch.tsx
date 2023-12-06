@@ -1,15 +1,15 @@
-import { useState, useCallback } from 'react';
-import { useAuthHeader } from 'react-auth-kit';
-import { user_match_approve_address } from '../api-addresses';
+import {useState, useCallback} from 'react';
+import {useAuthHeader} from 'react-auth-kit';
+import {user_match_approve_address} from '../api-addresses';
 
 const useGetApproveMatch = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
     const authHeader = useAuthHeader();
 
-    const approveMatch = useCallback((userId: any) => {
+    const approveMatch = async (userId: any) : Promise<boolean> => {
         setIsLoading(true);
-        fetch(user_match_approve_address, {
+        return fetch(user_match_approve_address, {
             headers: {
                 "Authorization": authHeader(),
                 "Content-Type": "application/json",
@@ -21,20 +21,22 @@ const useGetApproveMatch = () => {
         })
             .then(res => {
                 if (!res.ok) {
-                    throw new Error('Error approving match');
+                    console.log('Error approving match');
+                    setIsLoading(false)
+                    return false;
                 }
-                return res.json();
+                setIsLoading(false)
+                return true;
             })
             .catch(error => {
                 setError(error);
+                setIsLoading(false)
                 console.error('Error approving match:', error);
-            })
-            .finally(() => {
-                setIsLoading(false);
-            });
-    }, []);
+                return false;
+            }).finally(()=>{setIsLoading(false)});
+    };
 
-    return { approveMatch, isLoading, error };
+    return {approveMatch, isLoading, error};
 };
 
 export default useGetApproveMatch;

@@ -21,7 +21,7 @@ import Typography from "@mui/material/Typography";
 import useRunMatchingAlgorithm from "../../../../hooks/useRunMatchingAlgorithm";
 
 function Matching () {
-    const isSessionValid = useIsUserSessionValid();
+    useIsUserSessionValid();
     // state for managing queue of matches and current index
     const { matchesQueue, fetchMatches, isLoading: isLoadingMatches } = useGetMatches();
     const { approveMatch, isLoading: isLoadingApprove } = useGetAcceptMatch();
@@ -31,11 +31,7 @@ function Matching () {
     const {profile, setMatchID} = useMatchProfile();
     const {image, setAddress} = useGetImage(profile.photo);
     const {loadingMatches, runMatchAlgorithm} = useRunMatchingAlgorithm();
-
-    useEffect(()=>{
-        // CHECKS IF SESSION IS CURRENTLY VALID BEFORE DRAWING COMPONENT
-        isSessionValid();
-    },[]);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(()=>{
         setMatchID(currentMatch);
@@ -62,39 +58,39 @@ function Matching () {
 
     useEffect(()=>{
         fetchMatches();
-    }, [loadingMatches])
+    }, [loadingMatches]);
 
     const handleSwipeLeft = () => {
         const matchId = matchesQueue[currentMatchIndex];
 
         // Reject a user match
-        rejectMatch(matchId);
-
-        // Advance to next match
-        setCurrentMatchIndex(currentMatchIndex + 1);
+        if(!isLoadingReject){
+            rejectMatch(matchId).then(()=>{
+                // Advance to next match
+                setCurrentMatchIndex(currentMatchIndex + 1);
+            });
+        }
     };
 
     const handleSwipeRight = () => {
         const matchId = matchesQueue[currentMatchIndex];
         // Accept a user match
-        approveMatch(matchId);
-
-        // Advance to next match
-        setCurrentMatchIndex(currentMatchIndex + 1);
+        if(!isLoadingApprove) {
+            approveMatch(matchId).then(() => {
+                // Advance to next match
+                setCurrentMatchIndex(currentMatchIndex + 1);
+            });
+        }
     }
 
-    // Fetch current match from the queue
-    //
+    setTimeout(() => {
+        setIsLoading(false);
+    }, 4000);
 
-    // // Check if there are no more matches
-    // if (isLoadingMatches || isLoadingApprove || isLoadingReject) {
-    //     // Maybe replace this with a cuter loading component
-    //     return <div>Loading... </div>
-    // }
-    //
-    // if (!currentMatch) {
-    //     return <div>No more matches... For now!</div>
-    // }
+
+    if (isLoading){
+        return (<Loading displayMessage={2}/>);
+    }
 
     /**
      * Returns the page where you swipe left and right on various user cards

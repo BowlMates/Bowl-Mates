@@ -1,4 +1,3 @@
-import React, { useEffect } from "react";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Accordion from "@mui/material/Accordion";
@@ -6,16 +5,13 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Link from "@mui/material/Link";
+import carly from "../../../../images/carly the cauliflower.png";
+import brock from "../../../../images/brock the broccoli.png";
+import Grid from "@mui/material/Grid";
 import { useIsUserSessionValid } from "../../../../hooks/useIsUserSessionValid";
 
 function FAQ() {
-    const isSessionValid = useIsUserSessionValid();
-
-    useEffect(() => {
-        // CHECKS IF SESSION IS CURRENTLY VALID BEFORE DRAWING COMPONENT
-        isSessionValid();
-        // CHECKS IF SESSION IS CURRENTLY VALID BEFORE DRAWING COMPONENT
-    });
+    useIsUserSessionValid();
 
     const faqData = [
         {
@@ -51,30 +47,41 @@ function FAQ() {
     };
 
     return (
-        <Container maxWidth="sm">
-            <Typography variant="h1">FAQ</Typography>
-            {faqData.map((faq, index) => (
-                <Accordion key={index}>
-                    <AccordionSummary
-                        expandIcon={<ExpandMoreIcon />}
-                        aria-controls={`panel${index + 1}-content`}
-                        id={`panel${index + 1}-header`}
-                    >
-                        <Typography>{faq.question}</Typography>
-                    </AccordionSummary>
-                    <AccordionDetails>
-                        <Typography>
-                            {faq.answer}
-                            {faq.link && (
-                                <Link href={faq.link} sx={linkStyles}>
-                                    {faq.linkText || "Link"}
-                                </Link>
-                            )}
-                        </Typography>
-                    </AccordionDetails>
-                </Accordion>
-            ))}
-        </Container>
+
+        <Grid container spacing={2}>
+            <Grid item xs={3}>
+                <img src={carly} alt="carly" width="300px"/>
+            </Grid>
+            <Grid item xs={6}>
+                    <Container maxWidth="sm">
+                        <Typography variant="h1">FAQ</Typography>
+                        {faqData.map((faq, index) => (
+                            <Accordion key={index}>
+                                <AccordionSummary
+                                    expandIcon={<ExpandMoreIcon />}
+                                    aria-controls={`panel${index + 1}-content`}
+                                    id={`panel${index + 1}-header`}
+                                >
+                                    <Typography>{faq.question}</Typography>
+                                </AccordionSummary>
+                                <AccordionDetails>
+                                    <Typography>
+                                        {faq.answer}
+                                        {faq.link && (
+                                            <Link href={faq.link} sx={linkStyles}>
+                                                {faq.linkText || "Link"}
+                                            </Link>
+                                        )}
+                                    </Typography>
+                                </AccordionDetails>
+                            </Accordion>
+                        ))}
+                    </Container>
+            </Grid>
+            <Grid item xs={3}>
+                <img src={brock} alt="brock" width="300px"/>
+            </Grid>
+        </Grid>
     );
 }
 

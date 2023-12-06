@@ -1,5 +1,3 @@
-
-
 // React Imports
 import React, {useEffect, useMemo} from "react";
 
@@ -26,6 +24,7 @@ import Loading from "../../Loading";
 // The FindRestaurants component is responsible for calling the getNearbyRestaurants function and then
 // displaying all the data returned by the API to the user
 function FindRestaurants(userLocation: {lat: number; lng: number}) {
+    useIsUserSessionValid();
     const {restaurants, placesLoading, placesError} = useNearbyPlaces(userLocation);
     const {photos, photosLoading, photosError} = useGetPhotos(restaurants);
     const {favRes, setFavRes, getRestaurants} = useGetRestaurants();
@@ -58,14 +57,6 @@ function FindRestaurants(userLocation: {lat: number; lng: number}) {
         restaurantWithPhotos.push(splicedRest);
     }
 
-    const isSessionValid = useIsUserSessionValid();
-
-    useEffect(()=>{
-        // CHECKS IF SESSION IS CURRENTLY VALID BEFORE DRAWING COMPONENT
-        isSessionValid();
-        // CHECKS IF SESSION IS CURRENTLY VALID BEFORE DRAWING COMPONENT
-    });
-
     // Fetch favorite restaurants on component mount
     useEffect(()=>{
         getRestaurants();
@@ -87,7 +78,6 @@ function FindRestaurants(userLocation: {lat: number; lng: number}) {
         );
     }
 
-    //TODO: Answer the "button" question (i.e. how are we going to implement batch updates
     return (
         <Box
             display="flex"
@@ -101,8 +91,6 @@ function FindRestaurants(userLocation: {lat: number; lng: number}) {
             <Box
                 flex={{ xs: 1, md: 1 }}
                 marginRight={{ md: 2 }}
-                border={{ md: '3px solid #000000' }}
-                borderRadius={{ md: '12px' }}
                 maxHeight="100%"
                 display="flex"
                 flexDirection="column">
@@ -130,8 +118,6 @@ function FindRestaurants(userLocation: {lat: number; lng: number}) {
             {/* Map Column */}
             <Box
                 flex={{ xs: 1, md: 1 }}
-                border={{ md: '3px solid #000000' }}
-                borderRadius={{ md: '12px' }}
                 marginRight={{ xs: 0, md: 2 }}
                 height="100%">
                 <MapComponent restaurants={favRes} userLocation={userLocation} />
@@ -139,8 +125,6 @@ function FindRestaurants(userLocation: {lat: number; lng: number}) {
 
             {/* Favorite Restaurants Column */}
             <Box flex={{ xs: 1, md: 1 }}
-                 border={{ md: '3px solid #000000' }}
-                 borderRadius={{ md: '12px' }}
                  maxHeight="100%"
                  display="flex"
                  flexDirection="column">
@@ -159,9 +143,6 @@ function FindRestaurants(userLocation: {lat: number; lng: number}) {
                 }}>
                     <FavoriteList favRestaurants={favRes} handleRestaurantFavorite={handleRestaurantFavorite}/>
                 </Box>
-                {/*<Button variant="contained" onClick={saveFavorites} sx={{ m: 2, mt: 'auto', color: '#54804D' }}>*/}
-                {/*    Save Favorites*/}
-                {/*</Button>*/}
             </Box>
         </Box>
     );

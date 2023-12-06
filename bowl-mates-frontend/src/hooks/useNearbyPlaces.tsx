@@ -77,7 +77,6 @@ const useNearbyPlaces = (userLocation: {lat: number, lng: number}): UseNearbyPla
             }
         }
 
-        console.log("Get restaurants data api call executes...")
         fetchData();
 
     }, [userLocation.lat, userLocation.lng]);

@@ -3,7 +3,8 @@ import { styled } from "@mui/system";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import useUserSignup from "../../../../hooks/useUserSignup";
-import {redirect, useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import Loading from "../../Loading";
 
 const Rectangle = styled(Box)({
     width: '120%',
@@ -35,6 +36,7 @@ function Signup() {
     const [isValidEmail, setIsValidEmail] = useState(true);
     const [isPasswordMatch, setIsPasswordMatch] = useState(true);
     const [usernameValid, setUsernameValid] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
 
     const stateFields: StateFields = {
         firstName: [firstName, setFirstName],
@@ -74,10 +76,27 @@ function Signup() {
 
         // Perform signup if all validations pass
         if (isValid && passwordsMatch && validUsername) {
-            userSignup(firstName, lastName, username, email, password );
-            navigate("/login");
+            setIsLoading(true); // Set loading to true upon successful validation
+            try {
+                userSignup(firstName, lastName, username, email, password);
+                // Simulate a loading state for 2 seconds
+                setTimeout(() => {
+                    setIsLoading(false);
+                    navigate("/login");
+                }, 2000);
+            } catch (error) {
+                // Handle any errors during signup
+                setIsLoading(false);
+                console.error("Error during signup:", error);
+            }
         }
     };
+
+    if(isLoading){
+        return(
+            <Loading displayMessage={3} />
+        )
+    }
 
     return (
         <Box display="flex" flexDirection="row" justifyContent="space-around" alignItems="center" height="75vh">

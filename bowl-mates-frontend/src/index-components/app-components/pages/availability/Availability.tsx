@@ -33,15 +33,9 @@ const daysOfWeek = [
 ]
 
 function Availability() {
-    const isSessionValid = useIsUserSessionValid();
+    useIsUserSessionValid();
     const setAvails = useSetAvails();
     const {availability, setAvailability} = useGetAvails(daysOfWeek.map(() => timeSlots.map(() => false)));
-
-    useEffect(() => {
-        // CHECKS IF SESSION IS CURRENTLY VALID BEFORE DRAWING COMPONENT
-        isSessionValid();
-        // CHECKS IF SESSION IS CURRENTLY VALID BEFORE DRAWING COMPONENT
-    });
 
     // // State to track availability for each time slot on each day
     // const [availability, setAvailability] =
@@ -206,11 +200,15 @@ function Availability() {
                 >
                     {daysOfWeek.map((day, index) => (
                         <Box
+                            display="flex"
+                            justifyContent="center"
                             key={index}
                             mx={1}
                             bgcolor="#54804D"
                             p={1}
                             borderRadius={1}
+                            sx={{ width: 1/10 }}
+
                         >
                             <Typography variant="body1" color="white">
                                 {day}

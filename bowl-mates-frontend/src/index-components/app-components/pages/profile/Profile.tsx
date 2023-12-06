@@ -9,8 +9,10 @@ import {useGetImageRef} from "../../../../hooks/useGetImageRef";
 import {useGetImage} from "../../../../hooks/useGetImage";
 import Loading from '../../Loading';
 import UserCard from "./profile-components/UserCard";
+import {useIsUserSessionValid} from "../../../../hooks/useIsUserSessionValid";
 
 const Profile = () => {
+    useIsUserSessionValid();
     const { userProfile, profileLoading, getProfile } = useGetProfile();
     const { userImageRef, imageRefLoading, getImageRef } = useGetImageRef();
     const { image, imageLoading, setAddress } = useGetImage(userImageRef);
@@ -51,9 +53,6 @@ const Profile = () => {
 
 
     if(profileLoading || imageRefLoading || imageLoading){
-        console.log("Profile: " + profileLoading)
-        console.log("Reference: " + imageRefLoading)
-        console.log("Image: " + imageLoading)
         return(
             <Loading displayMessage={1}/>
         )
@@ -64,9 +63,12 @@ const Profile = () => {
             <Grid item xs={12} sm={5} md={4}>
                 <UserCard userProfile={userProfile} userImage={image} />
             </Grid>
-            <DetailsForm userDetails={userProfile} handleProfileSave={handleProfileSave} handlePictureUpload={handlePictureUpload} />
+            <Grid item xs={12} sm={7} md={8}>
+                <DetailsForm userDetails={userProfile} handleProfileSave={handleProfileSave} handlePictureUpload={handlePictureUpload} />
+            </Grid>
         </Grid>
     );
+
 };
 
 export default Profile;
