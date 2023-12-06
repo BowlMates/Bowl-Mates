@@ -62,7 +62,6 @@ const ModifiedIconButton = styled(IconButton)(() => ({
     padding: "15px",
 }));
 
-
 interface Props {
     matchID: number,
     messages: chatMessage[],
@@ -75,6 +74,20 @@ function ChatBody(props : Props){
     const [messageThatHadIssue, setMessageThatHadIssue] = useState("");
     const {postNewMessage} = usePostNewMessage();
     const auth = useAuthUser();
+
+    const sendMessage = async () => {
+        if(newMessage !== "" && props.matchID !== -1){
+            if(await postNewMessage(props.matchID, newMessage)){
+                props.fetchMessages();
+                setIssueSendingMessage(false);
+                setNewMessage("");
+            } else {
+                setIssueSendingMessage(true);
+                setMessageThatHadIssue(newMessage);
+                console.log("Message Failed to send");
+            }
+        }
+    }
 
     return (
         <ChatBodyContainer>
@@ -103,20 +116,16 @@ function ChatBody(props : Props){
                 <SendForm value={newMessage}
                           onChange={(event)=>{
                               setNewMessage(event.target.value);
-                          }}/>
+                          }}
+                          onKeyDown={async (event)=>{
+                              if(event.key === "Enter") {
+                                  await sendMessage();
+                              }
+                          }}
+                />
                 <ModifiedIconButton
                     onClick={async ()=>{
-                        if(newMessage !== "" && props.matchID !== -1){
-                            if(await postNewMessage(props.matchID, newMessage)){
-                                props.fetchMessages();
-                                setIssueSendingMessage(false);
-                                setNewMessage("");
-                            } else {
-                                setIssueSendingMessage(true);
-                                setMessageThatHadIssue(newMessage);
-                                console.log("Message Failed to send");
-                            }
-                        }
+                        await sendMessage();
                     }}
                 >
                     <SendIcon/>
