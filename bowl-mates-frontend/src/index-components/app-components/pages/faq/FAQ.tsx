@@ -1,91 +1,88 @@
-// MUI Imports
-import {styled, useTheme} from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
-import Container from  "@mui/material/Container";
-import Accordion from '@mui/material/Accordion';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import Box from '@mui/material/Box';
+import Container from "@mui/material/Container";
+import Accordion from "@mui/material/Accordion";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import Link from "@mui/material/Link";
+import carly from "../../../../images/carly the cauliflower.png";
+import brock from "../../../../images/brock the broccoli.png";
+import Grid from "@mui/material/Grid";
+import { useIsUserSessionValid } from "../../../../hooks/useIsUserSessionValid";
 
+function FAQ() {
+    useIsUserSessionValid();
 
-//Pre-Styling
-//----------------------------------------------------------------------------
-// You can pre-style components using the styled method/function
-// Place the component type you want styled as an argument (in this case - Box)
-// and then style the inside as if it were in-line styling or styling in a css
-// file
-const ExampleStyledComponent = styled(Box)(({ theme }) => ({
-    flexGrow: 1,
-    marginTop: "64px",
-    p: 3, //padding
-    backgroundColor: theme.palette.primary.main,
-    height: "calc(100% - 64px)",
-    width: "auto"
-}));
+    const faqData = [
+        {
+            question: "What is Bowlmates?",
+            answer: "It is a way to meet new people by matching based on availability and favorite restaurants."
+        },
+        {
+            question: "Do you have a user manual?",
+            answer: "Yes, it is linked here: ",
+            link: "https://docs.google.com/document/d/1XaWdXT156YKWg6wizoMOhZdTV7eUF3p0ckaLsWxtqPk/edit?usp=sharing",
+            linkText: "User Manual"
+        },
+        {
+            question: "How can I report bugs?",
+            answer: "Here is a link to report bugs: ",
+            link: "https://docs.google.com/document/d/1XaWdXT156YKWg6wizoMOhZdTV7eUF3p0ckaLsWxtqPk/edit?usp=sharing",
+            linkText: "Bug Report Form"
+        },
+        {
+            question: "Who is the BowlMates team?",
+            answer: "Jasper Balinas, Cade Dillon,  Tim Dillon, " +
+                "Dan Johnson, Stephen Cushman, and Geoffrey Aldrich"
+        }
+        // Add more question-answer pairs as needed
+    ];
 
-function FAQ () {
-
-    //Notes about some MUI component types you will probably use the most
-    //----------------------------------------------------------------------------
-    //Note: Box is a better div (pls don't use divs)
-    //Note: Typography is a better version of html text tags (h1, p, etc...).
-    //      you can set the type of typography using variant={"h1"} within the tag
-    //Note: There is usually an MUI replacement for everything so try to stick with
-    //      this family of components since they will be most cohesive together
-    //      while also allowing us to change theming easier and possibly implement
-    //      dark theme functionality
+    const linkStyles = {
+        color: "blue", // Set the color to blue
+        textDecoration: "none", // Remove underline (optional)
+        '&:hover': {
+            textDecoration: "underline", // Add underline on hover (optional)
+        }
+    };
 
     return (
-        <Container maxWidth={"sm"}>
-            <Typography variant={"h1"}>
-                FAQ
-            </Typography>
-                <Accordion>
-                    <AccordionSummary
-                        expandIcon={<ExpandMoreIcon />}
-                        aria-controls="panel1a-content"
-                        id="panel1a-header"
-                    >
-                        <Typography>What is Bowlmates?</Typography>
-                    </AccordionSummary>
-                    <AccordionDetails>
-                        <Typography>
-                            It is Geoffgeoff's favorite new app on the block hehe
-                        </Typography>
-                    </AccordionDetails>
-                </Accordion>
-                <Accordion>
-                    <AccordionSummary
-                        expandIcon={<ExpandMoreIcon />}
-                        aria-controls="panel2a-content"
-                        id="panel2a-header"
-                    >
-                        <Typography>Why is Geoffgeoff so hot?</Typography>
-                    </AccordionSummary>
-                    <AccordionDetails>
-                        <Typography>
-                            Some things are just laws of nature that you can't really question.
-                        </Typography>
-                    </AccordionDetails>
-                </Accordion>
-            <Accordion>
-                <AccordionSummary
-                    expandIcon={<ExpandMoreIcon />}
-                    aria-controls="panel2a-content"
-                    id="panel2a-header"
-                >
-                    <Typography>Who is the Bowlmates team?</Typography>
-                </AccordionSummary>
-                <AccordionDetails>
-                    <Typography>
-                        Geoffgeoff, Jasper Balinas, Cade and Tim Dillon,
-                        Dan Johnson, and Stephen Cushbear
-                    </Typography>
-                </AccordionDetails>
-            </Accordion>
-        </Container>
-    )
+
+        <Grid container spacing={2}>
+            <Grid item xs={3}>
+                <img src={carly} alt="carly" width="300px"/>
+            </Grid>
+            <Grid item xs={6}>
+                    <Container maxWidth="sm">
+                        <Typography variant="h1">FAQ</Typography>
+                        {faqData.map((faq, index) => (
+                            <Accordion key={index}>
+                                <AccordionSummary
+                                    expandIcon={<ExpandMoreIcon />}
+                                    aria-controls={`panel${index + 1}-content`}
+                                    id={`panel${index + 1}-header`}
+                                >
+                                    <Typography>{faq.question}</Typography>
+                                </AccordionSummary>
+                                <AccordionDetails>
+                                    <Typography>
+                                        {faq.answer}
+                                        {faq.link && (
+                                            <Link href={faq.link} sx={linkStyles}>
+                                                {faq.linkText || "Link"}
+                                            </Link>
+                                        )}
+                                    </Typography>
+                                </AccordionDetails>
+                            </Accordion>
+                        ))}
+                    </Container>
+            </Grid>
+            <Grid item xs={3}>
+                <img src={brock} alt="brock" width="300px"/>
+            </Grid>
+        </Grid>
+    );
 }
 
-export default FAQ
+export default FAQ;

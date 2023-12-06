@@ -10,24 +10,45 @@ import {useToggle} from "../hooks/useToggle";
 
 // Route Imports
 import Home from "./app-components/pages/home/Home";
-import FavoriteRestaurants from "./app-components/pages/favorite-restaurants/FavoriteRestaurants";
 import Availability from "./app-components/pages/availability/Availability";
 import Matching from "./app-components/pages/matching/Matching";
 import SuccessfulMatches from "./app-components/pages/successful-matches/SuccessfulMatches";
 import FAQ from "./app-components/pages/faq/FAQ";
-import Settings from "./app-components/pages/settings/Settings";
+import Profile from "./app-components/pages/profile/Profile";
 
 // MUI Imports
 import Box from "@mui/material/Box";
 import {useTheme} from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
+import FindRestaurants from "./app-components/pages/find-restaurants/FindRestaurants";
+import useUserLocation from "../hooks/useUserLocation";
+import { useState} from "react";
 
+// Constant for UW location data in case useUserLocation fails to retrieve user location data
+const uwCoords = {
+    lat: 47.6550,
+    lng: -122.3080,
+};
 
 function App() {
-
     const {state : drawerOpen, toggle : toggleDrawerOpen} = useToggle(false);
+    const theme = useTheme();
 
-    const theme = useTheme()
+    // This logic is here because the user location data needs to be collected before use navigates to restaurants finder
+    // Call the useUserLocation hook to get user location data if possible
+    const locationResult = useUserLocation()
+    let userLocation: { lat: number, lng: number }
+
+    //If the locationResult returned is null, set userLocation to UW default - if not set it to the returned coords
+    if(locationResult.location === null){
+        userLocation = uwCoords;
+    }
+    else{
+        userLocation = {
+            lat: locationResult.location.latitude,
+            lng: locationResult.location.longitude
+        }
+    }
 
     return (
         <>
@@ -46,11 +67,11 @@ function App() {
                     <BodyContainer className={"BodyContainer"}>
                         <Routes>
                             <Route path={"/"} element={<Home />}/>
-                            <Route path={"/favorite-restaurants"} element={<FavoriteRestaurants />}/>
+                            <Route path={"/find-restaurants"} element={<FindRestaurants   lat={userLocation.lat} lng={userLocation.lng}/>}/>
                             <Route path={"/availability"} element={<Availability />}/>
                             <Route path={"/matching"} element={<Matching />}/>
                             <Route path={"/successful-matches"} element={<SuccessfulMatches />}/>
-                            <Route path={"/settings"} element={<Settings />}/>
+                            <Route path={"/settings"} element={<Profile />}/>
                             <Route path={"/faq"} element={<FAQ />}/>
                         </Routes>
                     </BodyContainer>

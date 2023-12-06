@@ -1,6 +1,7 @@
 // React Auth Kit Imports
 
 import { useSignIn } from "react-auth-kit";
+import {login_address} from "../api-addresses";
 
 export const useUserLogin = () => {
 
@@ -9,20 +10,19 @@ export const useUserLogin = () => {
     const loginReturns : {success : boolean, message : string}[] = [
         {success : true, message : "Login Successful"},
         {success : false, message : "Incorrect Login Information"},
-    ]
+    ];
+
+    const jwtExpiration : number = 30; // In minutes
 
     const headers = {
         "Content-Type" : "application/json",
     }
 
-    let productionLink : string = "https://backend.bowlmates.me/auth/login";
-    //let testingLink : string = "http://localhost:8080/auth/login";
-
     const userLogin = async (username : string, password : string) : Promise<{ success: boolean, message: string }> => {
 
         let returnVal = loginReturns[1];
 
-        return await fetch(productionLink, {
+        return await fetch(login_address, {
             headers: headers,
             method: "post",
             body: JSON.stringify({
@@ -40,13 +40,25 @@ export const useUserLogin = () => {
                 console.log("Login failed");
                 return returnVal;
             }
+            const token = body.jwt;
+            const userID = body.id;
+            const username = body.username;
+            const firstName = body.firstName;
+            const lastName = body.lastName;
             if (signIn({
-                token: body.jwt,
-                expiresIn: 3600,
+                token: token,
+                expiresIn: jwtExpiration,
                 tokenType: "Bearer",
-                authState: {name: username},
+                // Converts minute value into millisecond and -1 to ensure
+                // we expire before a user tries to swap to a new window and make a bad call
+                authState: {
+                    userID: userID,
+                    username: username,
+                    firstName: firstName,
+                    lastName: lastName,
+                    jwtExpiration : (Date.now() + (jwtExpiration - 1) * 100000).toString(),
+                },
             })) {
-                console.log(body.jwt);
                 returnVal = loginReturns[0];
             }
             return returnVal;

@@ -1,27 +1,18 @@
+// React Imports
+import React, {useEffect, useState} from "react";
+
 // MUI Imports
-import {styled, useTheme} from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import React, {useState} from "react";
 import Button from "@mui/material/Button";
 
+// Custom Imports
+import {useIsUserSessionValid} from "../../../../hooks/useIsUserSessionValid";
+import {avail} from "../../../../data-types/avail";
+import useSetAvails from "../../../../hooks/useSetAvails";
+import useGetAvails from "../../../../hooks/useGetAvails";
 
-
-//Pre-Styling
-//----------------------------------------------------------------------------
-// You can pre-style components using the styled method/function
-// Place the component type you want styled as an argument (in this case - Box)
-// and then style the inside as if it were in-line styling or styling in a css
-// file
-// const ExampleStyledComponent = styled(Box)(({theme}) => ({
-//     flexGrow: 1,
-//     marginTop: "64px",
-//     p: 3, //padding
-//     backgroundColor: theme.palette.primary.main,
-//     height: "calc(100% - 64px)",
-//     width: "auto"
-// }));
-
+// Predefined time slots for availability
 const timeSlots = [
     '10am - 12pm',
     '11am - 1pm',
@@ -36,33 +27,47 @@ const timeSlots = [
     '8pm - 10pm'
 ]
 
+// Predefined days of the week
 const daysOfWeek = [
     'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'
 ]
 
 function Availability() {
+    useIsUserSessionValid();
+    const setAvails = useSetAvails();
+    const {availability, setAvailability} = useGetAvails(daysOfWeek.map(() => timeSlots.map(() => false)));
 
-    // Initialize a matrix for availability
-    const [availability, setAvailability] =
-        useState(
-            //Array(7).fill(Array(11).fill(false)));
-            daysOfWeek.map(() => timeSlots.map(() => false))
-        );
+    // // State to track availability for each time slot on each day
+    // const [availability, setAvailability] =
+    //     useState<boolean[][]> (
+    //         // Initialize a 7x11 matrix for 7 days and 11 time slots
+    //         avails
+    //     );
 
+    // Function to toggle availability for a specific day and time slot
     const toggleAvailability = (dayIndex: number, timeIndex: number) => {
-        // create a copy of the availability matrix
-        const updatedAvailability = availability.map((day, i) =>
+        // Create a copy of the availability state
+        const updatedAvailability : boolean[][] = availability.map((day, i) =>
             dayIndex === i ? [...day] : day
         );
 
-        // (dayIndex: number, timeIndex: number) => {
-        // const updatedAvailability = [...availability];
-        // // const updatedAvailability: boolean[][] = [...availability];
-
-        // Toggle the specific time slot
+        // Toggle the specific time slot's availability
         updatedAvailability[dayIndex][timeIndex] = !updatedAvailability[dayIndex][timeIndex];
+
         // Update the state with the new matrix
         setAvailability(updatedAvailability);
+    }
+
+    const onSubmit = () => {
+        let avails = [];
+        for (let i = 0; i < 7; i++) {
+            for (let j = 0; j < 11; j++) {
+                if (availability[i][j]) {
+                    avails.push({ "day" : i, "time" : j });
+                }
+            }
+        }
+        setAvails.setAvails(avails);
     }
 
     return (
@@ -71,7 +76,7 @@ function Availability() {
             height="100vh"
             p={1}
         >
-            {/*TEXT BOX, ALL FLUSH LEFT*/}
+            {/* Box for left-aligned text elements */}
             <Box
                 width="300px"
                 mr={2}
@@ -81,7 +86,7 @@ function Availability() {
                 // position="relative"
                 // height="100vh"
             >
-
+                {/* Typography for 'when are you' */}
                 <Box paddingTop="20vh">
 
                     <Typography variant="h2"
@@ -97,6 +102,7 @@ function Availability() {
                         when are you
                     </Typography></Box>
 
+                {/* Typography for 'free?' */}
                 <Box>
                     <Typography variant="h2"
                                 style={
@@ -111,6 +117,7 @@ function Availability() {
                         free?
                     </Typography></Box>
 
+                {/* Instructions for day/time slot selection */}
                 <Box
                     display="flex"
                     flexDirection="column"
@@ -141,6 +148,7 @@ function Availability() {
                     </Typography>
                 </Box>
 
+                {/* Additional note on 2hr time planning */}
                 <Box
                     display="flex"
                     flexDirection="column"
@@ -179,11 +187,12 @@ function Availability() {
                 </Box>
             </Box>
 
-            {/*DAYS OF WEEK RECTANGLES*/}
+            {/* Box for displaying day of the week */}
             <Box
                 flexGrow={1}
                 overflow="auto"
             >
+                {/* Days of the week headers */}
                 <Box
                     display="flex"
                     justifyContent="center"
@@ -191,11 +200,15 @@ function Availability() {
                 >
                     {daysOfWeek.map((day, index) => (
                         <Box
+                            display="flex"
+                            justifyContent="center"
                             key={index}
                             mx={1}
                             bgcolor="#54804D"
                             p={1}
                             borderRadius={1}
+                            sx={{ width: 1/10 }}
+
                         >
                             <Typography variant="body1" color="white">
                                 {day}
@@ -204,14 +217,13 @@ function Availability() {
                     ))}
                 </Box>
 
-                {/*GRID BOX FOR AVAILABILITY*/}
-
+                {/* Grid for selecting availability*/}
                 <Box
                     display="flex"
                     justifyContent="center"
-                    //mt={2}
                 >
                     {availability.map((dayAvailability, dayIndex) => (
+                        // COLUMNS FOR EACH DAY
                         <Box
                             key={dayIndex}
                             display="flex"
@@ -219,6 +231,7 @@ function Availability() {
                             mx={1}
                         >
                             {dayAvailability.map((isAvailable, timeIndex) => (
+                                // TIME SELECTION BOXES
                                 <Box
                                     key={timeIndex}
                                     bgcolor={isAvailable ? '#4CAF50' : '#CCCCCC'}
@@ -239,10 +252,22 @@ function Availability() {
                     ))}
                 </Box>
 
+                <Box
+                    m={4}
+                    //margin
+                    display="flex"
+                    justifyContent="flex-end"
+                    alignItems="flex-end"
+                >
+                    {/* Submit button */}
+                    <Button type="submit" color="success" variant="contained" size="large" onClick={() => onSubmit()}>
+                        submit
+                    </Button>
+                </Box>
+
             </Box>
-            <Button type="submit" color="success" variant="contained">
-                submit
-            </Button>
+
+
         </Box>
 
 

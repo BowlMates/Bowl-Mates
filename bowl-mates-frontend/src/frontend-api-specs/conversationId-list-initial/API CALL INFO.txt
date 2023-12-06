@@ -1,0 +1,15 @@
+//////////////////////////////////////////////////////////////////
+
+TYPE: GET
+BODY: empty
+
+Responses:
+401 (Not authorized) - empty body
+4XX (Unsuccessful) - empty Body
+200 (Success) - fromBackend-conversationId-list-initial.json
+
+Explanation: Returns a list of conversationIds of the current
+             user and relevant information pertaining to their
+             current conversations with matches.
+
+//////////////////////////////////////////////////////////////////

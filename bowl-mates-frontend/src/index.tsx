@@ -7,13 +7,13 @@ import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import './index.css'
 import App from './index-components/App'
 
-
 // React Auth Kit imports
 import {AuthProvider, RequireAuth} from "react-auth-kit";
 import Landing from "./index-components/app-components/pages/landing/Landing";
 import Login from "./index-components/app-components/pages/login/Login";
 import Signup from "./index-components/app-components/pages/signup/Signup";
 import {createTheme, ThemeProvider} from "@mui/material/styles";
+import FrontendTest from "./tests/FrontendTest";
 
 // This is where we create the theme passed to the rest of the application pages
 // By encapsulating the application with the ThemeProvider and useTheme hook,
@@ -29,12 +29,11 @@ let appTheme = createTheme({
             main: "#54804D"
         }
     },
-
 });
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
-)
+);
 root.render(
   <React.StrictMode>
       <AuthProvider authType = {'cookie'}
@@ -42,6 +41,7 @@ root.render(
                     cookieDomain={window.location.hostname}
                     cookieSecure={window.location.protocol === "https:"}>
           <BrowserRouter>
+              {/*<FrontendTest />*/}
               <ThemeProvider theme={appTheme}>
                   <Routes>
                       <Route path={"/"} element={<Landing />}/>

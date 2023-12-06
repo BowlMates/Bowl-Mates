@@ -1,39 +1,65 @@
+import React from 'react';
+import {To, useNavigate} from 'react-router-dom';
+import photo from '../../../../images/map-2.png';
+
 // MUI Imports
-import {styled, useTheme} from "@mui/material/styles";
-import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
 
-//Pre-Styling
-//----------------------------------------------------------------------------
-// You can pre-style components using the styled method/function
-// Place the component type you want styled as an argument (in this case - Box)
-// and then style the inside as if it were in-line styling or styling in a css
-// file
-const ExampleStyledComponent = styled(Box)(({ theme }) => ({
-    flexGrow: 1,
-    marginTop: "64px",
-    p: 3, //padding
-    backgroundColor: theme.palette.primary.main,
-    height: "calc(100% - 64px)",
-    width: "auto"
-}));
+// Custom Imports
+import {useIsUserSessionValid} from "../../../../hooks/useIsUserSessionValid";
+import {useEffect} from "react";
+import {useAuthUser} from "react-auth-kit";
 
-function Home () {
 
-    //Notes about some MUI component types you will probably use the most
-    //----------------------------------------------------------------------------
-    //Note: Box is a better div (pls don't use divs)
-    //Note: Typography is a better version of html text tags (h1, p, etc...).
-    //      you can set the type of typography using variant={"h1"} within the tag
-    //Note: There is usually an MUI replacement for everything so try to stick with
-    //      this family of components since they will be most cohesive together
-    //      while also allowing us to change theming easier and possibly implement
-    //      dark theme functionality
+const Home = () => {
+    useIsUserSessionValid();
+    const navigate = useNavigate();
+    const authUser = useAuthUser();
+
+    const navigateTo = (path: To) => {
+        navigate(path);
+    };
 
     return (
-        <Typography variant={"h1"}>
-            This is the home page!
-        </Typography>
+        <>
+
+            <Typography variant="h1" style={{ textAlign: 'center', color: 'black'}}>
+                Welcome back, {authUser()!.firstName}!
+            </Typography>
+            {/*change to https://bowlmates.me/app/ later on*/}
+            <div style={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                gap: '10px',
+                justifyContent: 'space-around'
+            }}>
+            <Button onClick={() => navigateTo("find-restaurants")} variant="contained" style={{ backgroundColor: '#54804D', color: 'white' }}>
+                    Find places to eat
+                </Button>
+
+                <Button onClick={() => navigateTo("matching")} variant="contained" style={{ backgroundColor: '#54804D', color: 'white' }}>
+                    Find people to eat with
+                </Button>
+
+                <Button onClick={() => navigateTo("successful-matches")} variant="contained" style={{ backgroundColor: '#54804D', color: 'white' }}>
+                    Chat with your matches
+                </Button>
+
+                <Button onClick={() => navigateTo("availability")} variant="contained" style={{ backgroundColor: '#54804D', color: 'white' }}>
+                    Update your availability
+                </Button>
+
+                <Button onClick={() => navigateTo("settings")} variant="contained" style={{ backgroundColor: '#54804D', color: 'white' }}>
+                    Edit your profile
+                </Button>
+            </div>
+
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                <img src={photo} alt="BowlMates banner" style={{ marginTop: '-100px' }} />
+            </div>
+
+        </>
     )
 }
 

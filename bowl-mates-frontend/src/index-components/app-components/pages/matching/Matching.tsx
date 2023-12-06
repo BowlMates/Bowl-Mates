@@ -1,57 +1,136 @@
+import React, {useEffect, useState} from "react";
+
 // MUI Imports
-import {styled, useTheme} from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid"
 import Button from "@mui/material/Button";
-import React from "react";
 import WestIcon from "@mui/icons-material/West";
 import EastIcon from "@mui/icons-material/East";
 
-//Pre-Styling
-//----------------------------------------------------------------------------
-// You can pre-style components using the styled method/function
-// Place the component type you want styled as an argument (in this case - Box)
-// and then style the inside as if it were in-line styling or styling in a css
-// file
-const ExampleStyledComponent = styled(Box)(({ theme }) => ({
-    flexGrow: 1,
-    marginTop: "64px",
-    p: 3, //padding
-    backgroundColor: theme.palette.primary.main,
-    height: "calc(100% - 64px)",
-    width: "auto"
-}));
+//Custom Imports
+import MatchCard from "../../MatchCard";
+import {useIsUserSessionValid} from "../../../../hooks/useIsUserSessionValid";
+import useGetMatches from "../../../../hooks/useGetMatches";
+import useGetAcceptMatch from "../../../../hooks/useGetAcceptMatch";
+import useGetRejectMatch from "../../../../hooks/useGetRejectMatch";
+import useMatchProfile from "../../../../hooks/useMatchProfile";
+import Loading from "../../Loading";
+import {useGetImage} from "../../../../hooks/useGetImage";
+import Typography from "@mui/material/Typography";
+import useRunMatchingAlgorithm from "../../../../hooks/useRunMatchingAlgorithm";
 
 function Matching () {
+    useIsUserSessionValid();
+    // state for managing queue of matches and current index
+    const { matchesQueue, fetchMatches, isLoading: isLoadingMatches } = useGetMatches();
+    const { approveMatch, isLoading: isLoadingApprove } = useGetAcceptMatch();
+    const { rejectMatch, isLoading: isLoadingReject } = useGetRejectMatch();
+    const [currentMatchIndex, setCurrentMatchIndex] = useState(0);
+    const [currentMatch, setCurrentMatch] = useState(-1);
+    const {profile, setMatchID} = useMatchProfile();
+    const {image, setAddress} = useGetImage(profile.photo);
+    const {loadingMatches, runMatchAlgorithm} = useRunMatchingAlgorithm();
+    const [isLoading, setIsLoading] = useState(true);
 
-    //Notes about some MUI component types you will probably use the most
-    //----------------------------------------------------------------------------
-    //Note: Box is a better div (pls don't use divs)
-    //Note: Typography is a better version of html text tags (h1, p, etc...).
-    //      you can set the type of typography using variant={"h1"} within the tag
-    //Note: There is usually an MUI replacement for everything so try to stick with
-    //      this family of components since they will be most cohesive together
-    //      while also allowing us to change theming easier and possibly implement
-    //      dark theme functionality
+    useEffect(()=>{
+        setMatchID(currentMatch);
+    },[currentMatch]);
 
+    useEffect(()=>{
+        console.log("resetting matching queue");
+        if (currentMatchIndex >= matchesQueue.length) {
+            setCurrentMatch(-1);
+        } else {
+            setCurrentMatch(matchesQueue[currentMatchIndex]);
+        }
+    }, [currentMatchIndex, matchesQueue]);
+
+    useEffect(()=>{
+        if(matchesQueue.length > 0){
+            setCurrentMatchIndex(0);
+        }
+    }, [matchesQueue]);
+
+    useEffect(()=>{
+        setAddress(profile.photo);
+    }, [profile]);
+
+    useEffect(()=>{
+        fetchMatches();
+    }, [loadingMatches]);
+
+    const handleSwipeLeft = () => {
+        const matchId = matchesQueue[currentMatchIndex];
+
+        // Reject a user match
+        if(!isLoadingReject){
+            rejectMatch(matchId).then(()=>{
+                // Advance to next match
+                setCurrentMatchIndex(currentMatchIndex + 1);
+            });
+        }
+    };
+
+    const handleSwipeRight = () => {
+        const matchId = matchesQueue[currentMatchIndex];
+        // Accept a user match
+        if(!isLoadingApprove) {
+            approveMatch(matchId).then(() => {
+                // Advance to next match
+                setCurrentMatchIndex(currentMatchIndex + 1);
+            });
+        }
+    }
+
+    setTimeout(() => {
+        setIsLoading(false);
+    }, 4000);
+
+
+    if (isLoading){
+        return (<Loading displayMessage={2}/>);
+    }
+
+    /**
+     * Returns the page where you swipe left and right on various user cards
+     * will update matches list and potential matches queue as the user interacts
+     */
     return (
         <Container maxWidth="sm">
-            <Grid container spacing={2}>
-                <Grid item xs={12}>
-                    <Box component="section" sx={{ p: 2, border: '1px dashed grey' }}>user card</Box>
-                </Grid>
-                <Grid item xs={6}>
-                    <Button color="error" variant="outlined" fullWidth={true} startIcon={<WestIcon />}>
-                        new card
-                    </Button>
-                </Grid>
-                <Grid item xs={6}>
-                    <Button color="success" variant="outlined" fullWidth={true} endIcon={<EastIcon />}>
-                        set date
-                    </Button>
-                </Grid>
-            </Grid>
+            {
+                currentMatch === -1 ?
+                    <Box display={"flex"} flexDirection={"column"}>
+                        <Typography variant={"h1"} sx={{textAlign: "center"}}>
+                            You currently have no matches to go through
+                        </Typography>
+                        <Button sx={{backgroundColor: "green"}} onClick={runMatchAlgorithm}>Click to find matches!</Button>
+                        {
+                            loadingMatches ? <Typography>Loading</Typography> : <></>
+                        }
+                    </Box>
+
+                    :
+                    <Grid container spacing={2}>
+                        <Grid item xs={12}>
+                            <Box component="section" sx={{p: 2}}>
+                                <MatchCard match={profile} photo={image}/>
+                            </Box>
+                        </Grid>
+                        <Grid item xs={6}>
+                            <Button onClick={()=>{handleSwipeLeft()}} color="error" variant="outlined" fullWidth={true}
+                                    startIcon={<WestIcon/>}>
+                                Reject match
+                            </Button>
+                        </Grid>
+                        <Grid item xs={6}>
+                            <Button onClick={()=>{handleSwipeRight()}} color="success" variant="outlined" fullWidth={true}
+                                    endIcon={<EastIcon/>}>
+                                Approve match
+                            </Button>
+                        </Grid>
+                    </Grid>
+            }
         </Container>
 
     )

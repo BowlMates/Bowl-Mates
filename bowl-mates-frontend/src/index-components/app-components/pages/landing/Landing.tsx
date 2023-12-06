@@ -7,26 +7,20 @@ import {useNavigate} from "react-router-dom";
 import bm from "../../../../images/BOWLMATES-LOGO.png";
 
 function Landing() {
-
-    //Notes about some MUI component types you will probably use the most
-    //----------------------------------------------------------------------------
-    //Note: Box is a better div (pls don't use divs)
-    //Note: Typography is a better version of html text tags (h1, p, etc...).
-    //      you can set the type of typography using variant={"h1"} within the tag
-    //Note: There is usually an MUI replacement for everything so try to stick with
-    //      this family of components since they will be most cohesive together
-    //      while also allowing us to change theming easier and possibly implement
-    //      dark theme functionality
-
+    // Hook for navigation
     const navigate = useNavigate();
-    const logo = ""; // put path to our logo here
+
+    // Handler for navigating to the login page.
     const handleLogin = () => {
-        navigate("/login") // replace with our login route
-    };
-    const handleSignUp = () => {
-        navigate('sign-up') // replace with our signup route
+        navigate("/login")
     };
 
+    // Handler for navigating to the sign-up page.
+    const handleSignUp = () => {
+        navigate('sign-up')
+    };
+
+    // Main return statement for the Landing component
     return (
         <Box
             display="flex"
@@ -56,8 +50,6 @@ function Landing() {
                 variant="contained"
                 onClick={handleLogin}
                 sx={{
-                    //size stuff
-                    //borderRadius:50,
                     padding: '10px 20px',
                     fontSize: '2rem',
                     minWidth: '150px',

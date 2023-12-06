@@ -1,31 +1,20 @@
 // React Imports
 import {useState} from "react";
 
-// Custom Imports
-import {restaurant} from "../data-types/restaurants";
-
 // React Auth Kit Imports
 import {useAuthHeader} from 'react-auth-kit'
+import {user_prefs_address, user_prefs_save_address} from "../api-addresses";
+import {restaurant} from "../data-types/restaurants";
 
 
 
 export const useGetRestaurants = () => {
-
-    const [favRes, setFavRes] = useState([]);
-
+    const [favRes, setFavRes] = useState<restaurant[]>([]);
     const authHeader = useAuthHeader();
-
-    let getFavRestaurantsProductionLink : string = "https://backend.bowlmates.me/user/displaypref";
-    //let getFavRestaurantsTestingLink : string = "http://localhost:8080/user/displaypref";
-
-    let postFavRestaurantsProductionLink : string = "https://backend.bowlmates.me/user/pref";
-    //let postFavRestaurantsTestingLink : string = "http://localhost:8080/user/pref";
-
-
 
     const getRestaurants = () => {
 
-        fetch(getFavRestaurantsProductionLink, {
+        fetch(user_prefs_address, {
             headers: {
                 "Authorization": authHeader(),
                 "Content-Type": "application/json",
@@ -44,7 +33,15 @@ export const useGetRestaurants = () => {
                 console.log("Unable to get Restaurants");
                 setFavRes([]);
             } else {
-                setFavRes(body);
+                let temp: restaurant[] = body;
+                temp.sort((a,b) => {
+                    // Primary sort by 'name'
+                    const nameComparison = a.name.localeCompare(b.name);
+
+                    // Secondary sort by 'rating' if 'name' is the same
+                    return nameComparison !== 0 ? nameComparison : b.rating - a.rating;
+            })
+                setFavRes(temp);
             }
         });
 
@@ -52,7 +49,7 @@ export const useGetRestaurants = () => {
 
     const postRestaurants = () => {
 
-        fetch(postFavRestaurantsProductionLink, {
+        fetch(user_prefs_save_address, {
             headers: {
                 "Authorization" : authHeader(),
                 "Content-Type": "application/json",
@@ -63,7 +60,7 @@ export const useGetRestaurants = () => {
             if (res.ok) {
                 console.log("Successfully posted");
             } else {
-                console.log("Failed to posted");
+                console.log("Failed to post");
                 JSON.stringify(favRes);
             }
         });

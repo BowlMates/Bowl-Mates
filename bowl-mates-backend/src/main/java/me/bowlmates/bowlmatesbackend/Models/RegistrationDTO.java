@@ -1,60 +1,143 @@
 package me.bowlmates.bowlmatesbackend.Models;
 
+
+/**
+ * Used to receive user info from frontend registration
+ */
 public class RegistrationDTO {
 
-    private String name;
+    private String firstName;
+    private String lastName;
     private String username;
     private String password;
     private String email;
 
-
-
-    public RegistrationDTO(){
+    /**
+     * Default constructor
+     */
+    public RegistrationDTO() {
         super();
     }
 
-    public RegistrationDTO(String name, String username, String password, String email){
+    /**
+     * Constructor
+     *
+     * @param firstName name field for user
+     * @param lastName lastname field for the user
+     * @param username username field for user
+     * @param password password field for user
+     * @param email email field for user
+     */
+    public RegistrationDTO(String firstName,
+                           String lastName,
+                           String username,
+                           String password,
+                           String email) {
         super();
-        this.name = name;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.username = username;
         this.password = password;
         this.email = email;
     }
 
-    public String getName() {
-        return this.name;
+    /**
+     * Gets name
+     *
+     * @return name field of this
+     */
+    public String getFirstName() {
+        return this.firstName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    /**
+     * Sets name
+     *
+     * @param name String to set name field of this to
+     */
+    public void setFirstName(String name) {
+        this.firstName = name;
     }
 
-    public String getUsername(){
+    /**
+     * Gets name
+     *
+     * @return name field of this
+     */
+    public String getLastName() {
+        return this.lastName;
+    }
+
+    /**
+     * Sets name
+     *
+     * @param name String to set name field of this to
+     */
+    public void setlastName(String name) {
+        this.lastName = name;
+    }
+
+    /**
+     * Gets username
+     *
+     * @return username field of this
+     */
+    public String getUsername() {
         return this.username;
     }
 
-    public void setUsername(String username){
+    /**
+     * Sets username
+     *
+     * @param username String to set username field of this to
+     */
+    public void setUsername(String username) {
         this.username = username;
     }
 
-    public String getPassword(){
+    /**
+     * Gets password
+     *
+     * @return password field of this
+     */
+    public String getPassword() {
         return this.password;
     }
 
-    public void setPassword(String password){
+    /**
+     * Sets password
+     *
+     * @param password String to set password field of this to
+     */
+    public void setPassword(String password) {
         this.password = password;
     }
 
+    /**
+     * Gets email
+     *
+     * @return password field of this
+     */
     public String getEmail() {
         return this.email;
     }
 
+    /**
+     * Sets email
+     *
+     * @param email String to set email field of this to
+     */
     public void setEmail(String email) {
         this.email = email;
     }
 
-    public String toString(){
-        return "Registration info: name: " + this.name + "username: " +
-                this.username + " password: " + this.password + " email: " + this.email;
+    /**
+     * Represents fields of this as string
+     *
+     * @return this formatted as a String with fields labeled
+     */
+    public String toString() {
+        return "Registration info: first name: " + this.firstName + " last name: " + this.lastName +
+                "username: " + this.username + " password: " + this.password + " email: " + this.email;
     }
 }
