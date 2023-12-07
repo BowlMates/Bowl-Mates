@@ -20,12 +20,12 @@ import {useGetImage} from "../../../../hooks/useGetImage";
 import Typography from "@mui/material/Typography";
 import useRunMatchingAlgorithm from "../../../../hooks/useRunMatchingAlgorithm";
 
-function Matching () {
+function Matching() {
     useIsUserSessionValid();
     // state for managing queue of matches and current index
-    const { matchesQueue, fetchMatches, isLoading: isLoadingMatches } = useGetMatches();
-    const { approveMatch, isLoading: isLoadingApprove } = useGetAcceptMatch();
-    const { rejectMatch, isLoading: isLoadingReject } = useGetRejectMatch();
+    const {matchesQueue, fetchMatches, isLoading: isLoadingMatches} = useGetMatches();
+    const {approveMatch, isLoading: isLoadingApprove} = useGetAcceptMatch();
+    const {rejectMatch, isLoading: isLoadingReject} = useGetRejectMatch();
     const [currentMatchIndex, setCurrentMatchIndex] = useState(0);
     const [currentMatch, setCurrentMatch] = useState(-1);
     const {profile, setMatchID} = useMatchProfile();
@@ -33,11 +33,11 @@ function Matching () {
     const {loadingMatches, runMatchAlgorithm} = useRunMatchingAlgorithm();
     const [isLoading, setIsLoading] = useState(true);
 
-    useEffect(()=>{
+    useEffect(() => {
         setMatchID(currentMatch);
-    },[currentMatch]);
+    }, [currentMatch]);
 
-    useEffect(()=>{
+    useEffect(() => {
         console.log("resetting matching queue");
         if (currentMatchIndex >= matchesQueue.length) {
             setCurrentMatch(-1);
@@ -46,17 +46,17 @@ function Matching () {
         }
     }, [currentMatchIndex, matchesQueue]);
 
-    useEffect(()=>{
-        if(matchesQueue.length > 0){
+    useEffect(() => {
+        if (matchesQueue.length > 0) {
             setCurrentMatchIndex(0);
         }
     }, [matchesQueue]);
 
-    useEffect(()=>{
+    useEffect(() => {
         setAddress(profile.photo);
     }, [profile]);
 
-    useEffect(()=>{
+    useEffect(() => {
         fetchMatches();
     }, [loadingMatches]);
 
@@ -64,8 +64,8 @@ function Matching () {
         const matchId = matchesQueue[currentMatchIndex];
 
         // Reject a user match
-        if(!isLoadingReject){
-            rejectMatch(matchId).then(()=>{
+        if (!isLoadingReject) {
+            rejectMatch(matchId).then(() => {
                 // Advance to next match
                 setCurrentMatchIndex(currentMatchIndex + 1);
             });
@@ -75,7 +75,7 @@ function Matching () {
     const handleSwipeRight = () => {
         const matchId = matchesQueue[currentMatchIndex];
         // Accept a user match
-        if(!isLoadingApprove) {
+        if (!isLoadingApprove) {
             approveMatch(matchId).then(() => {
                 // Advance to next match
                 setCurrentMatchIndex(currentMatchIndex + 1);
@@ -88,7 +88,7 @@ function Matching () {
     }, 4000);
 
 
-    if (isLoading){
+    if (isLoading) {
         return (<Loading displayMessage={2}/>);
     }
 
@@ -101,12 +101,23 @@ function Matching () {
             {
                 currentMatch === -1 ?
                     <Box display={"flex"} flexDirection={"column"}>
-                        <Typography variant={"h1"} sx={{textAlign: "center"}}>
+                        <Typography variant={"h2"} sx={{textAlign: "center", paddingTop: "vh"}}>
                             You currently have no matches to go through
                         </Typography>
-                        <Button sx={{backgroundColor: "green"}} onClick={runMatchAlgorithm}>Click to find matches!</Button>
+                        <Button
+                            sx={{
+                                backgroundColor: "green",
+                                textAlign: "center",
+                                marginTop: "4vh",
+                                '&:hover': {
+                                    backgroundColor: '#FDF5F5',
+                                    color: '#54804D'
+                                }
+                            }}
+                            onClick={runMatchAlgorithm}>Click to find matches!</Button>
                         {
-                            loadingMatches ? <Typography>Loading</Typography> : <></>
+                            loadingMatches ?
+                                <Typography sx={{textAlign: "center", paddingTop: "1vh"}}>Loading...</Typography> : <></>
                         }
                     </Box>
                     :
@@ -117,13 +128,17 @@ function Matching () {
                             </Box>
                         </Grid>
                         <Grid item xs={6}>
-                            <Button onClick={()=>{handleSwipeLeft()}} color="error" variant="outlined" fullWidth={true}
+                            <Button onClick={() => {
+                                handleSwipeLeft()
+                            }} color="error" variant="outlined" fullWidth={true}
                                     startIcon={<WestIcon/>}>
                                 Reject match
                             </Button>
                         </Grid>
                         <Grid item xs={6}>
-                            <Button onClick={()=>{handleSwipeRight()}} color="success" variant="outlined" fullWidth={true}
+                            <Button onClick={() => {
+                                handleSwipeRight()
+                            }} color="success" variant="outlined" fullWidth={true}
                                     endIcon={<EastIcon/>}>
                                 Approve match
                             </Button>

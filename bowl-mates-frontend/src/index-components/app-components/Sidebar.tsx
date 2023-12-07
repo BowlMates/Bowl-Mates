@@ -94,7 +94,7 @@ function Sidebar(props: Props) {
             }
         },
         {
-            name: "Successful Matches", icon: <ChatBubbleOutlineIcon/>, route: () => {
+            name: "Chatting", icon: <ChatBubbleOutlineIcon/>, route: () => {
                 navigate("/app/successful-matches")
             }
         },
