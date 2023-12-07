@@ -79,7 +79,7 @@ function Availability() {
     return (
         <Box
             display="flex"
-            height="100vh"
+            height="100%"
             p={1}
         >
             {

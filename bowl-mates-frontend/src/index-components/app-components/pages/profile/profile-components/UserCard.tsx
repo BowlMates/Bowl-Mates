@@ -19,7 +19,7 @@ const UserCard: React.FC<UserCardProps> = ({userProfile, userImage}) => {
                 padding: 2,
                 display: 'flex',
                 flexDirection: 'column',
-                height: '90%', // Set a fixed height for the Card
+                height: '80%', // Set a fixed height for the Card
                 border: '1px solid black',
                 borderRadius: 4,
                 boxShadow: '0px 8px 16px rgba(0, 0, 0, 0.2)',

@@ -10,6 +10,7 @@ import {useGetImage} from "../../../../hooks/useGetImage";
 import Loading from '../../Loading';
 import UserCard from "./profile-components/UserCard";
 import {useIsUserSessionValid} from "../../../../hooks/useIsUserSessionValid";
+import Box from "@mui/material/Box";
 
 const Profile = () => {
     useIsUserSessionValid();
@@ -59,14 +60,14 @@ const Profile = () => {
     }
 
     return (
-        <Grid container spacing={3}>
-            <Grid item xs={12} sm={5} md={4}>
+        <Box display={"flex"} height={"100%"} width={"100%"}>
+            <Box padding={"20px"}>
                 <UserCard userProfile={userProfile} userImage={image} />
-            </Grid>
-            <Grid item xs={12} sm={7} md={8}>
+            </Box>
+            <Box>
                 <DetailsForm userDetails={userProfile} handleProfileSave={handleProfileSave} handlePictureUpload={handlePictureUpload} />
-            </Grid>
-        </Grid>
+            </Box>
+        </Box>
     );
 
 };

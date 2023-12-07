@@ -109,7 +109,6 @@ function Matching () {
                             loadingMatches ? <Typography>Loading</Typography> : <></>
                         }
                     </Box>
-
                     :
                     <Grid container spacing={2}>
                         <Grid item xs={12}>

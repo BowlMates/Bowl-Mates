@@ -30,7 +30,7 @@ const UploadImg: React.FC<UploadImgProps> = ({ handlePictureUpload }) => {
     };
 
     return (
-        <Grid container justifyContent="center" spacing={2}>
+        <Grid container justifyContent="center" spacing={2} width={"100%"} height={"100%"}>
             <Grid item xs={12} sm={8} md={10}>
                 <Card>
                     <CardContent style={{ display: "flex", flexDirection: "column", alignItems: "center", margin: 2 }}>
@@ -38,7 +38,7 @@ const UploadImg: React.FC<UploadImgProps> = ({ handlePictureUpload }) => {
                             component="img"
                             alt=""
                             image={fileReference || ''}
-                            style={{ width: "200px", height: "200px", borderRadius: "2%", margin: 2 }}
+                            style={{ width: "100px", height: "100px", borderRadius: "2%", margin: 2 }}
                         />
                         <input
                             type="file"
@@ -52,7 +52,6 @@ const UploadImg: React.FC<UploadImgProps> = ({ handlePictureUpload }) => {
                                 color="primary"
                                 aria-label="upload picture"
                                 component="span"
-                                style={{ marginTop: "16px" }}
                             >
                                 <PhotoCameraIcon fontSize="large" />
                             </IconButton>

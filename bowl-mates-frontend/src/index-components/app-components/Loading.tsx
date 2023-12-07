@@ -24,18 +24,18 @@ const Loading: React.FC<LoadingProps> = ({displayMessage}) => {
             flexDirection="column"
             alignItems="center"
             justifyContent="center"
-            height="100vh"
+            height="auto"
         >
             {/* Logo */}
-            <img src={logo} alt="Bowlmates Logo" style={{ width: '600px', marginBottom: '20px' }} />
+            <img src={logo} alt="Bowlmates Logo" style={{ width: '30vw', paddingBottom: '20px' }} />
 
             {/* Text */}
-            <Typography variant="h4" sx={{ color: '#54804D', marginBottom: '20px' }}>
+            <Typography variant="h4" sx={{ color: '#54804D', paddingBottom: '20px' }}>
                 {messages[displayMessage]}
             </Typography>
 
             {/* CircularProgress */}
-            <CircularProgress sx={{ color: '#54804D', width: '200px', height: '200px' }} />
+            <CircularProgress sx={{ color: '#54804D', width: '5vw', height: '5vw' }} />
         </Box>
     )
 }

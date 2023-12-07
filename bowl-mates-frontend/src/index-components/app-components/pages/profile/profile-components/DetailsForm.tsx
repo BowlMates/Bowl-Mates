@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Button, Grid, TextField, Typography } from "@mui/material";
 import { userProfileDetails } from "../../../../../data-types/userProfile";
 import UploadImg from "./UploadImg";
+import Box from "@mui/material/Box";
 
 interface DetailsFormProps {
     userDetails: userProfileDetails;
@@ -17,12 +18,13 @@ const DetailsForm: React.FC<DetailsFormProps> = ({userDetails, handleProfileSave
 
     return (
 
-        <Grid item xs={12} sm={6} md={8}>
-            <Typography variant="h4" gutterBottom>
+        <Box display={"flex"} flexDirection={"column"}>
+            <Typography variant="h4">
                 Personal Details
             </Typography>
-            <Grid container spacing={2}>
-                <Grid item xs={12}>
+            <Box display={"flex"}>
+            <Grid spacing={2}>
+                <Box paddingTop={"10px"}>
                     <Grid container spacing={2}>
                         <Grid item xs={12} sm={6}>
                             <TextField
@@ -58,8 +60,8 @@ const DetailsForm: React.FC<DetailsFormProps> = ({userDetails, handleProfileSave
                             />
                         </Grid>
                     </Grid>
-                </Grid>
-                <Grid item xs={12}>
+                </Box>
+                <Grid item xs={12} paddingTop={"20px"} paddingBottom={"20px"}>
                     <TextField
                         id="filled-multiline-static"
                         label="Bio"
@@ -72,28 +74,27 @@ const DetailsForm: React.FC<DetailsFormProps> = ({userDetails, handleProfileSave
                         onChange={(event) => setBio(event.target.value)}
                     />
                 </Grid>
-                <Grid item xs={12}>
-                    <Button
-                        variant="contained"
-                        onClick={() => {
-                            let details: userProfileDetails = {
-                                firstName,
-                                lastName,
-                                pronouns,
-                                bio,
-                            };
+                <Button
+                    variant="contained"
+                    onClick={() => {
+                        let details: userProfileDetails = {
+                            firstName,
+                            lastName,
+                            pronouns,
+                            bio,
+                        };
 
-                            handleProfileSave(details);
-                        }}
-                    >
-                        Save Details
-                    </Button>
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                    <UploadImg handlePictureUpload={handlePictureUpload} />
-                </Grid>
+                        handleProfileSave(details);
+                    }}
+                >
+                    Save Details
+                </Button>
             </Grid>
-        </Grid>
+                <Box paddingTop={"1vh"}>
+                    <UploadImg handlePictureUpload={handlePictureUpload} />
+                </Box>
+            </Box>
+        </Box>
 
     );
 };

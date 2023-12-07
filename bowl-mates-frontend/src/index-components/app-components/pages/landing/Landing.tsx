@@ -27,8 +27,8 @@ function Landing() {
             flexDirection="column"
             alignItems="center"
             justifyContent="center"
-            height="100vh"
-            p={3}
+            width={"100%"}
+            height={"100%"}
             bgcolor="#FFD9DF"
             color="text.primary"
         >

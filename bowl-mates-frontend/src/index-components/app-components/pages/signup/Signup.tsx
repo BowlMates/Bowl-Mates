@@ -7,14 +7,13 @@ import { useNavigate } from "react-router-dom";
 import Loading from "../../Loading";
 
 const Rectangle = styled(Box)({
-    width: '120%',
-    height: '100px',
     marginBottom: '10px',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: '4px',
     cursor: 'pointer',
+    padding: "10px",
 });
 
 interface StateFields {
@@ -99,14 +98,14 @@ function Signup() {
     }
 
     return (
-        <Box display="flex" flexDirection="row" justifyContent="space-around" alignItems="center" height="75vh">
+        <Box height={"100%"} width={"100%"} display="flex" flexDirection="row" justifyContent="space-around" alignItems="center">
             <Typography
                 variant="h1"
                 style={{
                     fontFamily: 'Inter, sans-serif',
                     fontWeight: 300,
-                    fontSize: '20vw',
-                    paddingTop: '10vh',
+                    fontSize: '15vw',
+                    paddingTop: '5vh',
                 }}
                 align="left"
                 color="000000"
@@ -115,7 +114,7 @@ function Signup() {
                 up
             </Typography>
 
-            <Box display="flex" flexDirection="column" alignItems="center" marginLeft="50px" marginTop="175px">
+            <Box display="flex" flexDirection="column" alignItems="center">
                 {Object.entries(stateFields).map(([field, [value, setter]]) => (
                     <Rectangle bgcolor="#FDF5F5" key={field}>
                         <input
@@ -127,10 +126,10 @@ function Signup() {
                             onFocus={(e) => handleInputFocus(e, setter, field)}
                             placeholder={field}
                             style={{
-                                width: '100%',
+                                width: '80%',
                                 border: 'none',
                                 outline: 'none',
-                                fontSize: '40px',
+                                fontSize: '30px',
                                 fontFamily: 'Inter, sans-serif',
                                 textAlign: 'center',
                                 backgroundColor: '#FDF5F5',
@@ -150,7 +149,7 @@ function Signup() {
                 {!isValidEmail && <p style={{ color: 'red', marginTop: '10px' }}>Please enter a valid email address.</p>}
                 {!isPasswordMatch && <p style={{ color: 'red', marginTop: '10px' }}>Passwords do not match.</p>}
 
-                <Rectangle bgcolor="#54804D" onClick={handleSubmit}>
+                <Rectangle width={"80%"} bgcolor={"#54804D"} onClick={handleSubmit}>
                     <Typography
                         variant="body1"
                         style={{

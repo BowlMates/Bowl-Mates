@@ -23,6 +23,7 @@ import EventAvailableIcon from '@mui/icons-material/EventAvailable';
 import Diversity3Icon from '@mui/icons-material/Diversity3';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import InfoIcon from '@mui/icons-material/Info';
+import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 
 const openedMixin = (theme: Theme): CSSObject => ({
     width: DRAWER_WIDTH,
@@ -93,7 +94,7 @@ function Sidebar(props: Props) {
             }
         },
         {
-            name: "Successful Matches", icon: <CheckCircleIcon/>, route: () => {
+            name: "Successful Matches", icon: <ChatBubbleOutlineIcon/>, route: () => {
                 navigate("/app/successful-matches")
             }
         },
