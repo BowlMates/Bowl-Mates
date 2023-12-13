@@ -1,8 +1,8 @@
 package me.bowlmates.bowlmatesbackend.Controllers;
 
-import me.bowlmates.bowlmatesbackend.Models.LoginResponseDTO;
-import me.bowlmates.bowlmatesbackend.Models.ProfileDTO;
-import me.bowlmates.bowlmatesbackend.Models.RegistrationDTO;
+import me.bowlmates.bowlmatesbackend.DataTransferObjects.LoginResponseDTO;
+import me.bowlmates.bowlmatesbackend.DataTransferObjects.ProfileDTO;
+import me.bowlmates.bowlmatesbackend.DataTransferObjects.RegistrationDTO;
 import me.bowlmates.bowlmatesbackend.Services.AuthenticationService;
 
 import org.springframework.beans.factory.annotation.Autowired;
