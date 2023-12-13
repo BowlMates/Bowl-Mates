@@ -4,6 +4,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
+import me.bowlmates.bowlmatesbackend.DataTransferObjects.RestaurantDTO;
 
 import java.util.Collections;
 import java.util.Set;

@@ -1,6 +1,7 @@
 package me.bowlmates.bowlmatesbackend.Models;
 
 import jakarta.persistence.*;
+import me.bowlmates.bowlmatesbackend.DataTransferObjects.ProfileDTO;
 
 /**
  * A model representing a user profile

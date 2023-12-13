@@ -2,7 +2,7 @@ package me.bowlmates.bowlmatesbackend.Services;
 
 import jakarta.transaction.Transactional;
 import me.bowlmates.bowlmatesbackend.Models.Message;
-import me.bowlmates.bowlmatesbackend.Models.MessageDTO;
+import me.bowlmates.bowlmatesbackend.DataTransferObjects.MessageDTO;
 import me.bowlmates.bowlmatesbackend.Models.User;
 import me.bowlmates.bowlmatesbackend.Repositories.MessageRepo;
 import me.bowlmates.bowlmatesbackend.Repositories.UserRepo;

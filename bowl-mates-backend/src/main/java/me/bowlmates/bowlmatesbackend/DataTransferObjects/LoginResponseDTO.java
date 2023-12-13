@@ -1,4 +1,6 @@
-package me.bowlmates.bowlmatesbackend.Models;
+package me.bowlmates.bowlmatesbackend.DataTransferObjects;
+
+import me.bowlmates.bowlmatesbackend.Models.User;
 
 /**
  * Used for passing login response to frontend

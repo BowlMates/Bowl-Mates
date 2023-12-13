@@ -1,4 +1,4 @@
-package me.bowlmates.bowlmatesbackend.Models;
+package me.bowlmates.bowlmatesbackend.DataTransferObjects;
 
 /**
  * Used for passing availability info frontend <-> backend

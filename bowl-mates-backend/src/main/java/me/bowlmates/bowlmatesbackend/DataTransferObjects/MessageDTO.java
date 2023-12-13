@@ -1,4 +1,4 @@
-package me.bowlmates.bowlmatesbackend.Models;
+package me.bowlmates.bowlmatesbackend.DataTransferObjects;
 
 public class MessageDTO {
 

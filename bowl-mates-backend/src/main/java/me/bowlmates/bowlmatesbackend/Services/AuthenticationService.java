@@ -3,6 +3,8 @@ package me.bowlmates.bowlmatesbackend.Services;
 import java.util.HashSet;
 import java.util.Set;
 
+import me.bowlmates.bowlmatesbackend.DataTransferObjects.LoginResponseDTO;
+import me.bowlmates.bowlmatesbackend.DataTransferObjects.ProfileDTO;
 import me.bowlmates.bowlmatesbackend.Models.*;
 import me.bowlmates.bowlmatesbackend.Repositories.RoleRepo;
 import me.bowlmates.bowlmatesbackend.Repositories.UserRepo;

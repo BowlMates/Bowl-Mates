@@ -2,7 +2,7 @@ package me.bowlmates.bowlmatesbackend.Services;
 
 import jakarta.transaction.Transactional;
 import me.bowlmates.bowlmatesbackend.Models.Profile;
-import me.bowlmates.bowlmatesbackend.Models.ProfileDTO;
+import me.bowlmates.bowlmatesbackend.DataTransferObjects.ProfileDTO;
 import me.bowlmates.bowlmatesbackend.Models.User;
 import me.bowlmates.bowlmatesbackend.Repositories.ProfileRepo;
 import me.bowlmates.bowlmatesbackend.Repositories.UserRepo;

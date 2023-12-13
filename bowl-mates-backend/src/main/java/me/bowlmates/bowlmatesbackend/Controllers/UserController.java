@@ -1,5 +1,6 @@
 package me.bowlmates.bowlmatesbackend.Controllers;
 
+import me.bowlmates.bowlmatesbackend.DataTransferObjects.*;
 import me.bowlmates.bowlmatesbackend.Models.*;
 import me.bowlmates.bowlmatesbackend.Repositories.RestRepo;
 import me.bowlmates.bowlmatesbackend.Services.*;

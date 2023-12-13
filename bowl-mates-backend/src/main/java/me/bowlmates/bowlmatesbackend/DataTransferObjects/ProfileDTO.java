@@ -1,4 +1,4 @@
-package me.bowlmates.bowlmatesbackend.Models;
+package me.bowlmates.bowlmatesbackend.DataTransferObjects;
 
 /**
  * Data Transfer Object for user profile information

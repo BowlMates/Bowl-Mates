@@ -1,6 +1,8 @@
 package me.bowlmates.bowlmatesbackend;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import me.bowlmates.bowlmatesbackend.DataTransferObjects.AvailabilityDTO;
+import me.bowlmates.bowlmatesbackend.DataTransferObjects.RestaurantDTO;
 import me.bowlmates.bowlmatesbackend.Models.*;
 import me.bowlmates.bowlmatesbackend.Repositories.RoleRepo;
 import me.bowlmates.bowlmatesbackend.Repositories.UserRepo;

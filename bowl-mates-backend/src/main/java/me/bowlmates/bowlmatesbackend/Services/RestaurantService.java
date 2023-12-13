@@ -3,7 +3,7 @@ package me.bowlmates.bowlmatesbackend.Services;
 import jakarta.transaction.Transactional;
 
 import me.bowlmates.bowlmatesbackend.Models.Restaurant;
-import me.bowlmates.bowlmatesbackend.Models.RestaurantDTO;
+import me.bowlmates.bowlmatesbackend.DataTransferObjects.RestaurantDTO;
 import me.bowlmates.bowlmatesbackend.Models.User;
 import me.bowlmates.bowlmatesbackend.Repositories.RestRepo;
 import me.bowlmates.bowlmatesbackend.Repositories.UserRepo;
