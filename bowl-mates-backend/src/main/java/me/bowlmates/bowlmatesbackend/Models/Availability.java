@@ -13,7 +13,7 @@ import java.util.Set;
  * Object to interface server with restaurant info in database
  */
 @Entity
-@Table(name = "test_availability")
+@Table(name = "availability")
 public class Availability {
     @jakarta.persistence.Id
     @Column(unique = true)

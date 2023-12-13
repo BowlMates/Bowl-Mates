@@ -17,7 +17,7 @@ import java.util.*;
  * A model representing a user in the application
  */
 @Entity // This tells Hibernate to make a table out of this class
-@Table(name = "test_user")
+@Table(name = "user")
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)

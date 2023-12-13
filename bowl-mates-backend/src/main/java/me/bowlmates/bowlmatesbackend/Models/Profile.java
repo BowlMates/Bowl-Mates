@@ -7,7 +7,7 @@ import me.bowlmates.bowlmatesbackend.DataTransferObjects.ProfileDTO;
  * A model representing a user profile
  */
 @Entity
-@Table(name = "test_profile")
+@Table(name = "profile")
 public class Profile {
 
     @Id
