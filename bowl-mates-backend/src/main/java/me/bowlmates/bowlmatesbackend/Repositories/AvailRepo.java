@@ -1,13 +1,13 @@
 package me.bowlmates.bowlmatesbackend.Repositories;
 
-import me.bowlmates.bowlmatesbackend.Models.TestAvailability;
+import me.bowlmates.bowlmatesbackend.Models.Availability;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
  * An interface to access Availability data from a database
  */
-public interface AvailRepo extends JpaRepository<TestAvailability, Integer> {
+public interface AvailRepo extends JpaRepository<Availability, Integer> {
 
     /**
      * finds an availability in a database based on its hash
@@ -15,5 +15,5 @@ public interface AvailRepo extends JpaRepository<TestAvailability, Integer> {
      * @param hash the hash to be queried
      * @return the information of the queried availability
      */
-    TestAvailability findByHash(Integer hash);
+    Availability findByHash(Integer hash);
 }

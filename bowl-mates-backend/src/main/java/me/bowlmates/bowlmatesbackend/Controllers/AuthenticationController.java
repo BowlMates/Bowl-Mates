@@ -3,7 +3,6 @@ package me.bowlmates.bowlmatesbackend.Controllers;
 import me.bowlmates.bowlmatesbackend.Models.LoginResponseDTO;
 import me.bowlmates.bowlmatesbackend.Models.ProfileDTO;
 import me.bowlmates.bowlmatesbackend.Models.RegistrationDTO;
-import me.bowlmates.bowlmatesbackend.Models.TestUser;
 import me.bowlmates.bowlmatesbackend.Services.AuthenticationService;
 
 import org.springframework.beans.factory.annotation.Autowired;

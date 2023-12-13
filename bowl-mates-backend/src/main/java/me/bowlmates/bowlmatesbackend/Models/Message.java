@@ -9,7 +9,7 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = "table_message")
-public class TestMessage {
+public class Message {
     @jakarta.persistence.Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     @Column(unique = true)
@@ -137,7 +137,7 @@ public class TestMessage {
 
     @Override
     public boolean equals(Object o) {
-        if (!(o instanceof TestMessage tm)) {
+        if (!(o instanceof Message tm)) {
             return false;
         }
         return this.id.equals(tm.id);

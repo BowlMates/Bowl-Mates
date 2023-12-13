@@ -1,6 +1,6 @@
 package me.bowlmates.bowlmatesbackend;
 
-import me.bowlmates.bowlmatesbackend.Models.TestUser;
+import me.bowlmates.bowlmatesbackend.Models.User;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -9,13 +9,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class TestUserJUnitTest {
+public class UserJUnitTest {
 
-    TestUser u1;
+    User u1;
     
     @BeforeAll
     private void setUp() {
-        u1 = new TestUser();
+        u1 = new User();
     }
 
     // Getter and Setter function tests

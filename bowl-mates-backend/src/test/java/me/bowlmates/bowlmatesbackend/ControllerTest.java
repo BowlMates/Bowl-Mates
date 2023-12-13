@@ -2,7 +2,6 @@ package me.bowlmates.bowlmatesbackend;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import me.bowlmates.bowlmatesbackend.Models.*;
-import me.bowlmates.bowlmatesbackend.Repositories.RestRepo;
 import me.bowlmates.bowlmatesbackend.Repositories.RoleRepo;
 import me.bowlmates.bowlmatesbackend.Repositories.UserRepo;
 import org.json.JSONArray;
@@ -46,8 +45,8 @@ public class ControllerTest {
 //    @Autowired
 //    RestRepo restRepo;
 
-    private TestUser testUser0;
-    private TestUser testUser1;
+    private User user0;
+    private User user1;
 
     private List<AvailabilityDTO> avails;
 
@@ -55,18 +54,18 @@ public class ControllerTest {
 
     @BeforeAll
     public void setup() throws Exception {
-        testUser0 = makeTestUser(0);
-        testUser1 = makeTestUser(1);
+        user0 = makeTestUser(0);
+        user1 = makeTestUser(1);
         avails = new ArrayList<>();
         avails.add(new AvailabilityDTO(0, 0));
         //setRest();
     }
 
-    TestUser makeTestUser(int num) {
+    User makeTestUser(int num) {
         Role userRole = roleRepo.findByAuthority("USER").get();
         Set<Role> authorities = new HashSet<>();
         authorities.add(userRole);
-        TestUser testUser = new TestUser(0,
+        User user = new User(0,
                 "testUser" + num,
                 "pass",
                 "testuser" + num + "@mail.com",
@@ -76,9 +75,9 @@ public class ControllerTest {
                 new HashSet<>(),
                 new HashSet<>(),
                 new byte[0]);
-        TestProfile profile = new TestProfile(testUser, "test", "user");
-        testUser.setProfile(profile);
-        return testUser;
+        Profile profile = new Profile(user, "test", "user");
+        user.setProfile(profile);
+        return user;
     }
 
 //    void setRest() {

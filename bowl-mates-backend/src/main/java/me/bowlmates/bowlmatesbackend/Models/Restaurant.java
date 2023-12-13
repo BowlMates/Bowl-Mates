@@ -2,11 +2,8 @@ package me.bowlmates.bowlmatesbackend.Models;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
-import org.hibernate.annotations.UuidGenerator;
 
 import java.util.Collections;
 import java.util.Set;
@@ -16,7 +13,7 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "restaurants")
-public class TestRestaurant {
+public class Restaurant {
     @jakarta.persistence.Id
     @Column(unique = true)
     private String id; // Change to String type as that's what is being returned by Google api
@@ -37,14 +34,14 @@ public class TestRestaurant {
 
 
     @ManyToMany(mappedBy = "favoriteRestaurants")
-    private Set<TestUser> users;
+    private Set<User> users;
 
-    public TestRestaurant() {
+    public Restaurant() {
         super();
     }
 
     // Constructor to take objects returned to front end and convert them into objects for use in back end
-    public TestRestaurant(RestaurantDTO restaurantDTO) {
+    public Restaurant(RestaurantDTO restaurantDTO) {
         this.id = restaurantDTO.getId();
         this.name = restaurantDTO.getName();
         this.address = restaurantDTO.getAddress();
@@ -150,7 +147,7 @@ public class TestRestaurant {
      *
      * @return Set of these users
      */
-    public Set<TestUser> getUsers() {
+    public Set<User> getUsers() {
         return Collections.unmodifiableSet(users);
     }
 
@@ -159,7 +156,7 @@ public class TestRestaurant {
      *
      * @param users Set to assign users field to
      */
-    public void setUsers(Set<TestUser> users) {
+    public void setUsers(Set<User> users) {
         this.users = users;
     }
 
@@ -170,7 +167,7 @@ public class TestRestaurant {
 
     @Override
     public boolean equals(Object o) {
-        if (!(o instanceof TestRestaurant tR)) {
+        if (!(o instanceof Restaurant tR)) {
             return false;
         }
         return this.address.equals(tR.getAddress());

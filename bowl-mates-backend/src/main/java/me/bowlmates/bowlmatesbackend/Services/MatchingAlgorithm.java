@@ -2,9 +2,9 @@ package me.bowlmates.bowlmatesbackend.Services;
 
 import jakarta.transaction.Transactional;
 import me.bowlmates.bowlmatesbackend.Models.QueueNode;
-import me.bowlmates.bowlmatesbackend.Models.TestAvailability;
-import me.bowlmates.bowlmatesbackend.Models.TestRestaurant;
-import me.bowlmates.bowlmatesbackend.Models.TestUser;
+import me.bowlmates.bowlmatesbackend.Models.Availability;
+import me.bowlmates.bowlmatesbackend.Models.Restaurant;
+import me.bowlmates.bowlmatesbackend.Models.User;
 import me.bowlmates.bowlmatesbackend.Repositories.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -33,26 +33,26 @@ public class MatchingAlgorithm {
         } else {
             return false;
         }
-        TestUser user = userRepository.findByUsername(username);
+        User user = userRepository.findByUsername(username);
         Map<Integer, Integer> matches = new HashMap<>();
-        Set<TestAvailability> avails = user.getAvailability();
-        List<TestUser> allUsers = userRepository.findAll();
-        Set<TestUser> approvals = user.getApprovals();
-        for (TestUser prevApprove : approvals) {
+        Set<Availability> avails = user.getAvailability();
+        List<User> allUsers = userRepository.findAll();
+        Set<User> approvals = user.getApprovals();
+        for (User prevApprove : approvals) {
             allUsers.remove(prevApprove);
         }
-        Set<TestUser> rejects = user.getRejects();
-        for (TestUser prevRej : rejects) {
+        Set<User> rejects = user.getRejects();
+        for (User prevRej : rejects) {
             allUsers.remove(prevRej);
         }
-        Set<TestUser> oldMatches = user.getMatches();
-        for (TestUser match : oldMatches) {
+        Set<User> oldMatches = user.getMatches();
+        for (User match : oldMatches) {
             allUsers.remove(match);
         }
-        for (TestUser other : allUsers) {
+        for (User other : allUsers) {
             if (other.getId() != user.getId()) {
-                Set<TestAvailability> otherAvails = other.getAvailability();
-                for (TestAvailability avail : avails) {
+                Set<Availability> otherAvails = other.getAvailability();
+                for (Availability avail : avails) {
                     if (otherAvails.contains(avail)) {
                         if (!matches.containsKey(other.getId())) {
                             matches.put(other.getId(), 5);
@@ -65,9 +65,9 @@ public class MatchingAlgorithm {
             }
         }
         for (Integer otherUserId : matches.keySet()) {
-            TestUser otherUser = userRepository.findById(otherUserId).get();
-            Set<TestRestaurant> otherRestaurants = otherUser.getFavoriteRestaurants();
-            for (TestRestaurant ourRest : user.getFavoriteRestaurants()) {
+            User otherUser = userRepository.findById(otherUserId).get();
+            Set<Restaurant> otherRestaurants = otherUser.getFavoriteRestaurants();
+            for (Restaurant ourRest : user.getFavoriteRestaurants()) {
                 if (otherRestaurants.contains(ourRest)) {
                     Integer value = matches.get(otherUserId);
                     matches.replace(otherUserId, value += 5);
@@ -114,7 +114,7 @@ public class MatchingAlgorithm {
         } else {
             return list;
         }
-        TestUser user = userRepository.findByUsername(username);
+        User user = userRepository.findByUsername(username);
         byte[] queue = user.getSerializedQueue();
         try {
             ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(queue);
@@ -147,19 +147,19 @@ public class MatchingAlgorithm {
         } else {
             return list;
         }
-        TestUser user = userRepository.findByUsername(username);
-        TestUser approved = userRepository.findById(userId).get();
-        Set<TestUser> othersApprovals = approved.getApprovals();
+        User user = userRepository.findByUsername(username);
+        User approved = userRepository.findById(userId).get();
+        Set<User> othersApprovals = approved.getApprovals();
         if (othersApprovals.contains(user)) {
             othersApprovals.remove(user);
-            Set<TestUser> currMatches = user.getMatches();
-            Set<TestUser> approvedsMatches = approved.getMatches();
+            Set<User> currMatches = user.getMatches();
+            Set<User> approvedsMatches = approved.getMatches();
             currMatches.add(approved);
             approvedsMatches.add(user);
             user.setMatches(currMatches);
             approved.setMatches(approvedsMatches);
         } else {
-            Set<TestUser> updatedApprovals = user.getApprovals();
+            Set<User> updatedApprovals = user.getApprovals();
             updatedApprovals.add(approved);
             user.setApprovals(updatedApprovals);
         }
@@ -182,9 +182,9 @@ public class MatchingAlgorithm {
         } else {
             return list;
         }
-        TestUser user = userRepository.findByUsername(username);
-        TestUser denied = userRepository.findById(userId).get();
-        Set<TestUser> updatedDenials = user.getRejects();
+        User user = userRepository.findByUsername(username);
+        User denied = userRepository.findById(userId).get();
+        Set<User> updatedDenials = user.getRejects();
         updatedDenials.add(denied);
         user.setRejects(updatedDenials);
         next();
@@ -201,7 +201,7 @@ public class MatchingAlgorithm {
         if (auth != null && auth.isAuthenticated()) {
             username = auth.getName();
         }
-        TestUser user = userRepository.findByUsername(username);
+        User user = userRepository.findByUsername(username);
         byte[] queue = user.getSerializedQueue();
         try {
             ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(queue);
@@ -233,8 +233,8 @@ public class MatchingAlgorithm {
         } else {
             return;
         }
-        TestUser user = userRepository.findByUsername(username);
-        TestUser denied = userRepository.findById(userId).get();
+        User user = userRepository.findByUsername(username);
+        User denied = userRepository.findById(userId).get();
         user.getMatches().remove(denied);
         denied.getMatches().remove(user);
     }

@@ -1,9 +1,9 @@
 package me.bowlmates.bowlmatesbackend.Services;
 
 import jakarta.transaction.Transactional;
+import me.bowlmates.bowlmatesbackend.Models.Message;
 import me.bowlmates.bowlmatesbackend.Models.MessageDTO;
-import me.bowlmates.bowlmatesbackend.Models.TestMessage;
-import me.bowlmates.bowlmatesbackend.Models.TestUser;
+import me.bowlmates.bowlmatesbackend.Models.User;
 import me.bowlmates.bowlmatesbackend.Repositories.MessageRepo;
 import me.bowlmates.bowlmatesbackend.Repositories.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,12 +33,12 @@ public class MessageService {
      * @return Conversation as a list of messages
      */
     public List<MessageDTO> getMessages(int matchId) {
-        Set<TestMessage> messages = messageRepo.findByMatchId(matchId);
+        Set<Message> messages = messageRepo.findByMatchId(matchId);
         List<MessageDTO> messageList = new ArrayList<>();
         if (messages.isEmpty()) {
             return messageList;
         }
-        for (TestMessage message : messages) {
+        for (Message message : messages) {
             messageList.add(message.toMessageDTO());
         }
         messageList.sort(Comparator.comparing((MessageDTO::getDate)));
@@ -58,8 +58,8 @@ public class MessageService {
         } else {
             throw new NoSuchElementException("User not authenticated");
         }
-        TestUser user = userRepo.findByUsername(username);
-        TestMessage message = new TestMessage();
+        User user = userRepo.findByUsername(username);
+        Message message = new Message();
         message.setMatchId(messageDTO.getMatchId());
         message.setDate(Instant.now().toEpochMilli());
         message.setChatterId(user.getId());

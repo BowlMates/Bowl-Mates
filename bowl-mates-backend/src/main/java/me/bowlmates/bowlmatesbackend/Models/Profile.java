@@ -7,7 +7,7 @@ import jakarta.persistence.*;
  */
 @Entity
 @Table(name = "test_profile")
-public class TestProfile {
+public class Profile {
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
@@ -16,7 +16,7 @@ public class TestProfile {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    private TestUser user;
+    private User user;
 
     @Column
     private String firstName;
@@ -32,7 +32,7 @@ public class TestProfile {
     /**
      * No args constructor
      */
-    public TestProfile() {
+    public Profile() {
         super();
     }
 
@@ -43,7 +43,7 @@ public class TestProfile {
      * @param firstName User first name
      * @param lastName User last name
      */
-    public TestProfile(TestUser user, String firstName, String lastName) {
+    public Profile(User user, String firstName, String lastName) {
         this.user = user;
         this.firstName = firstName;
         this.lastName = lastName;

@@ -2,9 +2,9 @@ package me.bowlmates.bowlmatesbackend.Services;
 
 import jakarta.transaction.Transactional;
 
+import me.bowlmates.bowlmatesbackend.Models.Availability;
 import me.bowlmates.bowlmatesbackend.Models.AvailabilityDTO;
-import me.bowlmates.bowlmatesbackend.Models.TestAvailability;
-import me.bowlmates.bowlmatesbackend.Models.TestUser;
+import me.bowlmates.bowlmatesbackend.Models.User;
 import me.bowlmates.bowlmatesbackend.Repositories.AvailRepo;
 import me.bowlmates.bowlmatesbackend.Repositories.UserRepo;
 
@@ -42,14 +42,14 @@ public class AvailabilityService {
         } else {
             return;
         }
-        TestUser user = userRepository.findByUsername(username);
-        Set<TestAvailability> updatedAvails = new HashSet<>();
+        User user = userRepository.findByUsername(username);
+        Set<Availability> updatedAvails = new HashSet<>();
         for (AvailabilityDTO avail : avails) {
-            int hash = TestAvailability.calculateHash(avail.getDay(), avail.getTime(), 11);
-            TestAvailability updated = availRepository.findByHash(hash);
+            int hash = Availability.calculateHash(avail.getDay(), avail.getTime(), 11);
+            Availability updated = availRepository.findByHash(hash);
             System.out.println(hash);
             if (updated == null) {
-                updated = new TestAvailability(avail.getDay(), avail.getTime());
+                updated = new Availability(avail.getDay(), avail.getTime());
                 availRepository.save(updated);
             }
             updated.addUser(user);

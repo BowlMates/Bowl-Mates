@@ -23,7 +23,7 @@ public class LoginResponseDTO {
      * @param user TestUser to grab username from
      * @param jwt generated json web token
      */
-    public LoginResponseDTO(TestUser user, String jwt) {
+    public LoginResponseDTO(User user, String jwt) {
         this.username = user.getUsername();
         this.id = user.getId();
         this.jwt = jwt;

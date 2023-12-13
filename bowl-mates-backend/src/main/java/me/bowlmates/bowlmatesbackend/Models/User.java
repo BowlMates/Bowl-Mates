@@ -18,7 +18,7 @@ import java.util.*;
  */
 @Entity // This tells Hibernate to make a table out of this class
 @Table(name = "test_user")
-public class TestUser implements UserDetails {
+public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(unique = true)
@@ -41,26 +41,26 @@ public class TestUser implements UserDetails {
 
     @ManyToMany
     @JoinTable(name = "user_availability")
-    private Set<TestAvailability> availability;
+    private Set<Availability> availability;
 
     @ManyToMany
     @JoinTable(name = "user_favorite_restaurants")
-    private Set<TestRestaurant> favoriteRestaurants;
+    private Set<Restaurant> favoriteRestaurants;
 
     @ManyToMany
     @JoinTable(name = "matches")
-    private Set<TestUser> matches;
+    private Set<User> matches;
 
     @ManyToMany
     @JoinTable(name = "approvals")
-    private Set<TestUser> approvals;
+    private Set<User> approvals;
 
     @ManyToMany
     @JoinTable(name = "rejects")
-    private Set<TestUser> rejects;
+    private Set<User> rejects;
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private TestProfile profile;
+    private Profile profile;
 
     @Lob
     private Blob serializedQueue;
@@ -68,12 +68,12 @@ public class TestUser implements UserDetails {
     /**
      * a default constructor to make a user with no details
      */
-    public TestUser() {
+    public User() {
         super();
         authorities = new HashSet<>();
         favoriteRestaurants = new HashSet<>();
         availability = new HashSet<>();
-        profile = new TestProfile();
+        profile = new Profile();
         matches = new HashSet<>();
         approvals = new HashSet<>();
         rejects = new HashSet<>();
@@ -97,16 +97,16 @@ public class TestUser implements UserDetails {
      * @param rests the restaurants the user prefers
      * @param queue the matching queue of the user
      */
-    public TestUser(Integer userId,
-                    String username,
-                    String password,
-                    String email,
-                    Set<Role> authorities,
-                    Set<TestRestaurant> rests,
-                    Set<TestUser> matches,
-                    Set<TestUser> approvals,
-                    Set<TestUser> rejects,
-                    byte[] queue) {
+    public User(Integer userId,
+                String username,
+                String password,
+                String email,
+                Set<Role> authorities,
+                Set<Restaurant> rests,
+                Set<User> matches,
+                Set<User> approvals,
+                Set<User> rejects,
+                byte[] queue) {
         super();
         this.id = userId;
         this.username = username;
@@ -114,7 +114,7 @@ public class TestUser implements UserDetails {
         this.email = email;
         this.authorities = authorities;
         this.favoriteRestaurants = rests;
-        this.profile = new TestProfile();
+        this.profile = new Profile();
         this.availability = new HashSet<>();
         this.matches = matches;
         this.approvals = approvals;
@@ -233,7 +233,7 @@ public class TestUser implements UserDetails {
      *
      * @return a set of restaurants
      */
-    public Set<TestRestaurant> getFavoriteRestaurants() {
+    public Set<Restaurant> getFavoriteRestaurants() {
         return Collections.unmodifiableSet(this.favoriteRestaurants);
     }
 
@@ -242,7 +242,7 @@ public class TestUser implements UserDetails {
      *
      * @param favoriteRestaurants a set of restaurants the user prefers
      */
-    public void setFavoriteRestaurants(Set<TestRestaurant> favoriteRestaurants) {
+    public void setFavoriteRestaurants(Set<Restaurant> favoriteRestaurants) {
         this.favoriteRestaurants = favoriteRestaurants;
     }
 
@@ -251,7 +251,7 @@ public class TestUser implements UserDetails {
      *
      * @return the matches of the user
      */
-    public Set<TestUser> getMatches() {
+    public Set<User> getMatches() {
         return this.matches;
     }
 
@@ -260,7 +260,7 @@ public class TestUser implements UserDetails {
      *
      * @param matches the matches to be set
      */
-    public void setMatches(Set<TestUser> matches) {
+    public void setMatches(Set<User> matches) {
         this.matches = matches;
     }
 
@@ -269,7 +269,7 @@ public class TestUser implements UserDetails {
      *
      * @return the approvals of the user
      */
-    public Set<TestUser> getApprovals() {
+    public Set<User> getApprovals() {
         return this.approvals;
     }
 
@@ -278,7 +278,7 @@ public class TestUser implements UserDetails {
      *
      * @param approvals the approvals to be set
      */
-    public void setApprovals(Set<TestUser> approvals) {
+    public void setApprovals(Set<User> approvals) {
         this.approvals = approvals;
     }
 
@@ -287,7 +287,7 @@ public class TestUser implements UserDetails {
      *
      * @return the rejects of the user
      */
-    public Set<TestUser> getRejects() {
+    public Set<User> getRejects() {
         return this.rejects;
     }
 
@@ -296,7 +296,7 @@ public class TestUser implements UserDetails {
      *
      * @param rejects the rejects to be set
      */
-    public void setRejects(Set<TestUser> rejects) {
+    public void setRejects(Set<User> rejects) {
         this.rejects = rejects;
     }
 
@@ -314,7 +314,7 @@ public class TestUser implements UserDetails {
      *
      * @return a set of the user's availability
      */
-    public Set<TestAvailability> getAvailability() {
+    public Set<Availability> getAvailability() {
         return Collections.unmodifiableSet(availability);
     }
 
@@ -323,7 +323,7 @@ public class TestUser implements UserDetails {
      *
      * @param availability the availabilities to be set
      */
-    public void setAvailability(Set<TestAvailability> availability) {
+    public void setAvailability(Set<Availability> availability) {
         this.availability = availability;
     }
 
@@ -378,7 +378,7 @@ public class TestUser implements UserDetails {
      *
      * @param profile updated value of profile
      */
-    public void setProfile(TestProfile profile) {
+    public void setProfile(Profile profile) {
         this.profile = profile;
     }
 
@@ -387,7 +387,7 @@ public class TestUser implements UserDetails {
      *
      * @return profile field of this
      */
-    public TestProfile getProfile() {return this.profile;}
+    public Profile getProfile() {return this.profile;}
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -421,7 +421,7 @@ public class TestUser implements UserDetails {
 
     @Override
     public boolean equals(Object o) {
-        if (!(o instanceof TestUser tU)) {
+        if (!(o instanceof User tU)) {
             return false;
         }
         return this.email.equals(tU.email);

@@ -1,8 +1,6 @@
 package me.bowlmates.bowlmatesbackend.Controllers;
 
-import jakarta.persistence.criteria.CriteriaBuilder;
 import me.bowlmates.bowlmatesbackend.Models.*;
-import me.bowlmates.bowlmatesbackend.Repositories.AvailRepo;
 import me.bowlmates.bowlmatesbackend.Repositories.RestRepo;
 import me.bowlmates.bowlmatesbackend.Services.*;
 import me.bowlmates.bowlmatesbackend.Repositories.UserRepo;
@@ -81,10 +79,10 @@ public class UserController {
         if(auth != null && auth.isAuthenticated()){
             username = auth.getName();
         }
-        TestUser user = userRepository.findByUsername(username);
+        User user = userRepository.findByUsername(username);
         Set<RestaurantDTO> names = new HashSet<>();
-        Set<TestRestaurant> rests = user.getFavoriteRestaurants();
-        for (TestRestaurant rest : rests) {
+        Set<Restaurant> rests = user.getFavoriteRestaurants();
+        for (Restaurant rest : rests) {
             names.add(new RestaurantDTO(rest));
         }
         return names;
@@ -97,9 +95,9 @@ public class UserController {
      */
     @GetMapping(value = "/rests", produces = "application/json")
     public Set<RestaurantDTO> getAllRestaurants() {
-        List<TestRestaurant> allRests = restaurantRepository.findAll();
+        List<Restaurant> allRests = restaurantRepository.findAll();
         Set<RestaurantDTO> setRests = new HashSet<>();
-        for(TestRestaurant restaurant : allRests){
+        for(Restaurant restaurant : allRests){
             setRests.add(new RestaurantDTO(restaurant));
         }
         return setRests;
@@ -119,10 +117,10 @@ public class UserController {
         if (auth != null && auth.isAuthenticated()) {
             username = auth.getName();
         }
-        TestUser user = userRepository.findByUsername(username);
-        Set<TestAvailability> availabilities = user.getAvailability();
+        User user = userRepository.findByUsername(username);
+        Set<Availability> availabilities = user.getAvailability();
         List<AvailabilityDTO> aDTO = new ArrayList<>();
-        for (TestAvailability avail : availabilities) {
+        for (Availability avail : availabilities) {
             aDTO.add(new AvailabilityDTO(avail.getDay(), avail.getHour()));
         }
         return aDTO;
@@ -214,8 +212,8 @@ public class UserController {
         if (auth != null && auth.isAuthenticated()) {
             username = auth.getName();
         }
-        TestUser user = userRepository.findByUsername(username);
-        TestProfile profile = user.getProfile();
+        User user = userRepository.findByUsername(username);
+        Profile profile = user.getProfile();
         profileDTO.setPhoto(profile.getPhoto());
         profileService.updateProfile(profileDTO);
     }
@@ -229,8 +227,8 @@ public class UserController {
      */
     @PostMapping("/profile/other")
     public ProfileDTO getOtherProfile(@RequestBody Integer userId) throws Exception {
-        TestUser other = userRepository.findById(userId).get();
-        TestProfile profile = other.getProfile();
+        User other = userRepository.findById(userId).get();
+        Profile profile = other.getProfile();
         return profile.getDTO();
     }
 
@@ -330,11 +328,11 @@ public class UserController {
         if (auth != null && auth.isAuthenticated()) {
             username = auth.getName();
         }
-        TestUser user = userRepository.findByUsername(username);
+        User user = userRepository.findByUsername(username);
         List<MatchDTO> matchDTOList = new ArrayList<>();
-        for (TestUser match : user.getMatches()) {
-            int matchHash = TestMessage.matchHash(user.getId(), match.getId());
-            TestProfile matchProfile = match.getProfile();
+        for (User match : user.getMatches()) {
+            int matchHash = Message.matchHash(user.getId(), match.getId());
+            Profile matchProfile = match.getProfile();
             MatchDTO matchDTO = new MatchDTO(matchHash,
                     matchProfile.getFirstName(),
                     matchProfile.getLastName(),

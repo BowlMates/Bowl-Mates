@@ -1,9 +1,9 @@
 package me.bowlmates.bowlmatesbackend.Services;
 
 import jakarta.transaction.Transactional;
+import me.bowlmates.bowlmatesbackend.Models.Profile;
 import me.bowlmates.bowlmatesbackend.Models.ProfileDTO;
-import me.bowlmates.bowlmatesbackend.Models.TestProfile;
-import me.bowlmates.bowlmatesbackend.Models.TestUser;
+import me.bowlmates.bowlmatesbackend.Models.User;
 import me.bowlmates.bowlmatesbackend.Repositories.ProfileRepo;
 import me.bowlmates.bowlmatesbackend.Repositories.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +12,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.NoSuchElementException;
-import java.util.Optional;
 
 /**
  * Service used to access user profile info
@@ -33,7 +32,7 @@ public class ProfileService {
      * @throws Exception in case of user auth errors
      */
     public void updateProfile(ProfileDTO profileDTO) throws Exception {
-        TestProfile profile = this.getProfile();
+        Profile profile = this.getProfile();
         profile.updateFromDTO(profileDTO);
     }
 
@@ -43,7 +42,7 @@ public class ProfileService {
      * @return user profile object linked to database
      * @throws Exception in case of user auth errors
      */
-    public TestProfile getProfile() throws Exception {
+    public Profile getProfile() throws Exception {
         String username = "";
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth != null && auth.isAuthenticated()) {
@@ -51,7 +50,7 @@ public class ProfileService {
         } else {
             throw new NoSuchElementException("User not authenticated");
         }
-        TestUser user = userRepo.findByUsername(username);
+        User user = userRepo.findByUsername(username);
 
         return user.getProfile();
     }

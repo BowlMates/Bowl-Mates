@@ -46,7 +46,7 @@ public class AuthenticationService {
      * @param username a string representing the username of the user
      * @param password a string representing the password of the user
      * @param email a string representing the email of the user
-     * @return a {@link TestUser} that was registered
+     * @return a {@link User} that was registered
      */
     public ProfileDTO registerUser(String firstName,
                                    String lastName,
@@ -58,9 +58,9 @@ public class AuthenticationService {
         Role userRole = roleRepository.findByAuthority("USER").get();
         Set<Role> authorities = new HashSet<>();
         authorities.add(userRole);
-        TestUser user = new TestUser(0, username, encodedPassword,
+        User user = new User(0, username, encodedPassword,
                 email, authorities, new HashSet<>(), new HashSet<>(), new HashSet<>(), new HashSet<>(), new byte[0]);
-        TestProfile profile = new TestProfile(user, firstName, lastName);
+        Profile profile = new Profile(user, firstName, lastName);
         user.setProfile(profile);
         userRepository.save(user);
         ProfileDTO profileDTO = new ProfileDTO(profile.getFirstName(), profile.getLastName(), profile.getPronouns(),

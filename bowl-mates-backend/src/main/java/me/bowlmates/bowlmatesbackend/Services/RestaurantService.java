@@ -2,9 +2,9 @@ package me.bowlmates.bowlmatesbackend.Services;
 
 import jakarta.transaction.Transactional;
 
+import me.bowlmates.bowlmatesbackend.Models.Restaurant;
 import me.bowlmates.bowlmatesbackend.Models.RestaurantDTO;
-import me.bowlmates.bowlmatesbackend.Models.TestRestaurant;
-import me.bowlmates.bowlmatesbackend.Models.TestUser;
+import me.bowlmates.bowlmatesbackend.Models.User;
 import me.bowlmates.bowlmatesbackend.Repositories.RestRepo;
 import me.bowlmates.bowlmatesbackend.Repositories.UserRepo;
 
@@ -14,7 +14,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -44,16 +43,16 @@ public class RestaurantService {
             return;
         }
 
-        TestUser user = userRepository.findByUsername(username);
+        User user = userRepository.findByUsername(username);
 
-        Set<TestRestaurant> newFavs = new HashSet<>();
-        Set<TestRestaurant> oldFavs = user.getFavoriteRestaurants();
+        Set<Restaurant> newFavs = new HashSet<>();
+        Set<Restaurant> oldFavs = user.getFavoriteRestaurants();
 
-        for (TestRestaurant rest: oldFavs) {
+        for (Restaurant rest: oldFavs) {
             newFavs.add(rest);
         }
 
-        TestRestaurant restUpdate = new TestRestaurant(restDTO);
+        Restaurant restUpdate = new Restaurant(restDTO);
 
         if(newFavs.contains(restUpdate)){
             newFavs.remove(restUpdate);

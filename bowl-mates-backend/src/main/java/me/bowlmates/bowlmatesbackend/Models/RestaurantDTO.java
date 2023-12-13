@@ -26,7 +26,7 @@ public class RestaurantDTO {
      *
      * @param restaurant TestRestaurant object to define fields of this
      */
-    public RestaurantDTO(TestRestaurant restaurant) {
+    public RestaurantDTO(Restaurant restaurant) {
         super();
         this.id = restaurant.getId();
         this.name = restaurant.getRestaurant_name();

@@ -2,8 +2,6 @@ package me.bowlmates.bowlmatesbackend.Models;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
@@ -16,13 +14,13 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "test_availability")
-public class TestAvailability {
+public class Availability {
     @jakarta.persistence.Id
     @Column(unique = true)
     private Integer hash;
 
     @ManyToMany(mappedBy = "availability")
-    private Set<TestUser> users;
+    private Set<User> users;
 
     @Column
     private Integer hour;
@@ -33,7 +31,7 @@ public class TestAvailability {
     /**
      * Default constructor
      */
-    public TestAvailability() {
+    public Availability() {
         this.day = 0;
         this.hour = 0;
         this.hash = 0;
@@ -41,7 +39,7 @@ public class TestAvailability {
 
     }
 
-    public TestAvailability(int day, int hour) {
+    public Availability(int day, int hour) {
         this.day = day;
         this.hour = hour;
         this.hash = calculateHash(day, hour, 11);
@@ -105,7 +103,7 @@ public class TestAvailability {
      *
      * @param user User being tied to this
      */
-    public void addUser(TestUser user) {
+    public void addUser(User user) {
         users.add(user);
     }
 
@@ -131,7 +129,7 @@ public class TestAvailability {
 
     @Override
     public boolean equals(Object o) {
-        if (!(o instanceof TestAvailability tA)) {
+        if (!(o instanceof Availability tA)) {
             return false;
         }
         return Objects.equals(this.day, tA.day) && Objects.equals(this.hour, tA.hour);

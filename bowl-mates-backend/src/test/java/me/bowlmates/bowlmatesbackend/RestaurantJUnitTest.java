@@ -1,7 +1,7 @@
 package me.bowlmates.bowlmatesbackend;
 
-import me.bowlmates.bowlmatesbackend.Models.TestRestaurant;
-import me.bowlmates.bowlmatesbackend.Models.TestUser;
+import me.bowlmates.bowlmatesbackend.Models.Restaurant;
+import me.bowlmates.bowlmatesbackend.Models.User;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -14,13 +14,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class TestRestaurantJUnitTest {
+public class RestaurantJUnitTest {
 
-    TestRestaurant r1;
+    Restaurant r1;
 
     @BeforeAll
     private void setUp() {
-        r1 = new TestRestaurant();
+        r1 = new Restaurant();
     }
 
     // Sorry Steven I broke some of your tests
@@ -67,11 +67,11 @@ public class TestRestaurantJUnitTest {
 
     @Test
     public void TestRestaurantUserFunctions() {
-        TestUser u1 = new TestUser();
+        User u1 = new User();
         u1.setEmail("u1@mail.com");
-        TestUser u2 = new TestUser();
+        User u2 = new User();
         u2.setEmail("u2@mail.com");
-        Set<TestUser> userSet = new HashSet<>();
+        Set<User> userSet = new HashSet<>();
         userSet.add(u1);
         r1.setUsers(userSet);
         assertTrue(r1.getUsers().contains(u1));
